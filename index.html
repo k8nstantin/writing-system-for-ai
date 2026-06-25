@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Universal Writing System for the Age of AI</title>
+<meta name="description" content="Soon AI writes the code and humans stay in the loop — steering, deciding, verifying. So what carries the meaning in between, human to machine and machine to machine? A universal writing system for meaning: one meaning, one form.">
+<meta property="og:title" content="A Universal Writing System for the Age of AI">
+<meta property="og:description" content="One meaning, one form. The writing system the age of agents is missing — and why it kills hallucination, RAG drift, and the agent ‘broken phone.’">
+<meta property="og:type" content="article">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230e1116'/%3E%3Ctext x='50' y='72' font-size='62' text-anchor='middle' fill='%238aa6d4'%3E%E2%97%89%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;0,800;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#2c4a78; --teal:#0792a8; --red:#d23f1a; --amber:#bd7a06; --green:#118a5a;
+  --gold:#b8901f; --purple:#7a59c0;
+  --ink:#181a1f; --muted:#5d626c; --line:#e7e4dc; --paper:#faf8f3; --paperwarm:#fff7df;
+  --dark:#0e1116; --dark2:#161b24; --darkline:#2b3340; --darktext:#c8cdd6;
+  --glyph:#edefea; --handle:#93aedc; --accent:#e89a89;
+  --serif:'Spectral',Georgia,'Times New Roman',serif;
+  --sans:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+  font-size:19px;line-height:1.72;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:50;
+  background:linear-gradient(90deg,var(--blue),var(--teal),var(--green),var(--gold),var(--purple))}
+.wrap{max-width:760px;margin:0 auto;padding:0 26px}
+a{color:var(--blue);text-decoration:none;border-bottom:1px solid #c9d3e6}
+a:hover{border-color:var(--blue)}
+strong{font-weight:700}
+em{font-style:italic}
+code{font-family:var(--mono);font-size:.85em;background:#eee9dd;padding:.08em .35em;border-radius:4px}
+
+/* ---------- HERO ---------- */
+.hero{background:radial-gradient(120% 120% at 50% -10%,#1b2333 0%,var(--dark) 60%);
+  color:#fff;padding:clamp(70px,13vh,140px) 0 64px;position:relative;overflow:hidden;border-bottom:1px solid #000}
+.hero .glyphfield{position:absolute;inset:0;opacity:.06;font-family:var(--mono);color:#8aa6d4;
+  font-size:30px;line-height:2.1;letter-spacing:.5em;word-spacing:.4em;pointer-events:none;user-select:none}
+.hero .wrap{position:relative}
+.eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--teal);margin:0 0 18px}
+.hero h1{font-family:var(--serif);font-weight:800;font-size:clamp(40px,7.4vw,76px);line-height:1.02;
+  letter-spacing:-.015em;margin:0 0 26px}
+.hero h1 .age{color:#9fc0f2}
+.hero .sub{font-size:clamp(18px,2.2vw,22px);color:#c6ccd6;max-width:620px;margin:0 0 40px}
+.hero .sub b{color:#fff}
+.epigraph{border-left:3px solid var(--gold);background:linear-gradient(90deg,rgba(184,144,31,.16),rgba(184,144,31,.03));
+  padding:22px 26px;border-radius:0 10px 10px 0;max-width:640px}
+.epigraph p{font-family:var(--serif);font-style:italic;font-size:19px;line-height:1.6;color:#f1e6c8;margin:0}
+.epigraph .by{display:block;font-style:normal;font-family:var(--mono);font-size:13px;letter-spacing:.05em;
+  color:var(--gold);margin-top:14px;text-align:right}
+.scrollcue{margin-top:46px;font-family:var(--mono);font-size:12px;letter-spacing:.2em;color:#6f7787;text-transform:uppercase}
+.scrollcue::after{content:"↓";display:block;font-size:20px;margin-top:8px;animation:bob 1.8s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
+.glyphline{font-family:var(--mono);font-size:clamp(18px,3.2vw,28px);color:#bcd2f5;text-align:center;
+  letter-spacing:.03em;line-height:1.5;margin:8px 0 20px;padding:24px 18px;border:1px solid #2b3340;border-radius:12px;
+  background:rgba(140,170,220,.06);text-shadow:0 0 24px rgba(140,170,220,.5);overflow-x:auto}
+.hero .ask{font-family:var(--serif);font-size:clamp(22px,3vw,29px);color:#fff;font-weight:600;margin:0}
+.hero .ask b{color:#9fc0f2}
+.gallery{margin:6px 0 20px;display:grid;gap:11px}
+.gl-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 16px;padding:13px 16px;border:1px solid #2b3340;
+  border-radius:10px;background:rgba(140,170,220,.05)}
+.gl-g{font-family:var(--mono);font-size:clamp(13px,2vw,17px);color:#bcd2f5;background:none;padding:0;
+  text-shadow:0 0 16px rgba(140,170,220,.4);overflow-x:auto;max-width:100%}
+.gl-m{font-family:var(--serif);font-style:italic;color:#cfd6e2;font-size:16px}
+.gl-m::before{content:"→ ";color:#6f7787;font-style:normal}
+/* intro band */
+.intro{background:linear-gradient(180deg,#0e1116,#11151c);color:#d6dae2;border-bottom:1px solid #000}
+.intro .reveal-line{font-size:20px;line-height:1.6;max-width:680px;margin:0 auto 12px;text-align:center}
+.intro .reveal-line em{color:#fff} .intro .reveal-line strong{color:#9fe3bf}
+.intro .leadin{text-align:center;color:#8b93a1;font-size:15px;font-family:var(--mono);letter-spacing:.02em;margin:0 0 26px}
+.quotes{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:0 0 28px}
+@media(max-width:680px){.quotes{grid-template-columns:1fr}}
+.epi{border-left:3px solid;padding:20px 22px;border-radius:0 10px 10px 0;margin:0}
+.epi.then{border-color:var(--gold);background:linear-gradient(90deg,rgba(184,144,31,.14),rgba(184,144,31,.02))}
+.epi.now{border-color:#6f9be0;background:linear-gradient(90deg,rgba(111,155,224,.14),rgba(111,155,224,.02))}
+.epi blockquote{font-family:var(--serif);font-style:italic;font-size:16.5px;line-height:1.55;margin:0;color:#eef1f5}
+.epi figcaption{font-family:var(--mono);font-size:12px;letter-spacing:.03em;margin-top:12px}
+.epi.then figcaption{color:var(--gold)} .epi.now figcaption{color:#9fc0f2}
+.intro .continuation{font-size:20px;line-height:1.62;max-width:680px;margin:0 auto;text-align:center}
+.intro .continuation strong{color:#fff}
+
+/* ---------- SECTIONS ---------- */
+section{padding:60px 0}
+section.alt{background:var(--paperwarm);border-top:1px solid #efe7c9;border-bottom:1px solid #efe7c9}
+.lead-eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;
+  display:flex;align-items:center;gap:10px;margin:0 0 14px;font-weight:500}
+.lead-eyebrow::before{content:"";width:26px;height:3px;border-radius:2px;background:currentColor}
+h2{font-family:var(--serif);font-weight:800;font-size:clamp(27px,4vw,38px);line-height:1.12;
+  letter-spacing:-.01em;margin:0 0 22px;color:var(--ink)}
+p{margin:0 0 20px}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* color hooks */
+[data-c=blue]{--c:var(--blue)} [data-c=teal]{--c:var(--teal)} [data-c=red]{--c:var(--red)}
+[data-c=amber]{--c:var(--amber)} [data-c=green]{--c:var(--green)} [data-c=gold]{--c:var(--gold)}
+[data-c=purple]{--c:var(--purple)}
+.lead-eyebrow{color:var(--c)}
+h2 .tick{color:var(--c)}
+
+/* broken list with metrics */
+ul.broke{list-style:none;padding:0;margin:0 0 22px}
+ul.broke li{position:relative;padding:14px 0 14px 30px;border-bottom:1px solid var(--line)}
+ul.broke li::before{content:"";position:absolute;left:0;top:22px;width:9px;height:9px;border-radius:50%;
+  background:var(--red);box-shadow:0 0 0 4px rgba(210,63,26,.13)}
+.metric{font-family:var(--mono);font-weight:700;color:var(--red);white-space:nowrap}
+
+.punch{font-family:var(--serif);font-weight:800;font-size:clamp(26px,4.6vw,40px);line-height:1.1;
+  letter-spacing:-.01em;margin:30px 0 6px;text-align:center}
+.punch.red{color:var(--red)} .punch.green{color:var(--green)} .punch.blue{color:var(--blue)} .punch.gold{color:var(--gold)}
+
+/* identity card */
+.identity{background:#fff;border:1px solid var(--line);border-left:4px solid var(--green);
+  border-radius:12px;padding:26px 28px;box-shadow:0 10px 34px -22px rgba(0,0,0,.4);margin:6px 0 26px}
+.identity .traits{display:grid;gap:14px;margin:0}
+.identity .trait{display:flex;gap:14px;align-items:baseline}
+.identity .trait b{font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--green);min-width:96px;flex:none}
+.identity .closing{margin:18px 0 0;font-family:var(--serif);font-style:italic;font-size:20px;color:var(--ink)}
+
+/* benefit (mapping) table */
+.benefit{margin:8px 0 6px;border-radius:14px;overflow:hidden;border:1px solid var(--line);
+  box-shadow:0 16px 44px -28px rgba(0,0,0,.45)}
+.benefit .head{display:grid;grid-template-columns:1fr 1.35fr;font-family:var(--mono);font-size:12px;
+  letter-spacing:.12em;text-transform:uppercase;font-weight:700}
+.benefit .head .l{background:#ffe2da;color:#a8330f;padding:13px 18px}
+.benefit .head .r{background:#cdf3df;color:#0a6a45;padding:13px 18px}
+.benefit .row{display:grid;grid-template-columns:1fr 1.35fr;border-top:1px solid var(--line)}
+.benefit .crack{background:#fff4f1;color:#8f2d11;font-weight:600;padding:16px 18px}
+.benefit .fix{background:#f1fcf6;color:#16412f;padding:16px 18px;font-size:16px;line-height:1.55}
+.benefit .fix code{background:#dff3e8}
+
+/* dark plate (specimen + diagrams) */
+.plate{background:var(--dark2);color:var(--darktext);border:1px solid var(--darkline);
+  border-radius:14px;padding:26px 24px;margin:8px 0 22px;box-shadow:0 18px 50px -30px #000}
+.plate .ptitle{font-family:var(--mono);font-size:12px;letter-spacing:.22em;color:var(--handle);text-transform:uppercase;margin:0 0 6px}
+.plate .pnote{color:#8b93a1;font-size:15px;margin:0 0 20px}
+.plate h3{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--handle);
+  margin:24px 0 10px;font-weight:500}
+table.gl{width:100%;border-collapse:collapse;font-size:16px}
+table.gl td{padding:9px 10px;border-bottom:1px solid #232b37;vertical-align:middle}
+table.gl tr:hover td{background:#1b2330}
+table.gl .g{font-family:var(--mono);font-size:23px;color:var(--glyph);width:54px;text-align:center;
+  transition:text-shadow .25s,color .25s}
+table.gl tr:hover .g{color:#fff;text-shadow:0 0 16px rgba(140,170,220,.8)}
+table.gl .h{font-family:var(--mono);color:var(--handle);width:90px}
+table.gl .m{color:#b9c0cb}
+.mark{color:var(--accent)}
+pre.code{background:#0b0e13;border:1px solid var(--darkline);border-radius:10px;padding:18px 18px;
+  overflow-x:auto;margin:14px 0;font-family:var(--mono);font-size:14.5px;line-height:1.7;color:#cdd4df}
+pre.code .k{color:#8aa6d4} pre.code .a{color:var(--accent)} pre.code .g{color:#7fcf9f}
+.readback{display:grid;gap:10px;margin:6px 0 0}
+.readback div{font-size:15.5px;color:#c2c9d4}
+.readback b{color:var(--handle);font-family:var(--mono);font-size:12px;letter-spacing:.1em}
+
+/* live drift demo */
+.drift{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:6px 0 18px}
+.drift .col{background:#0b0e13;border:1px solid var(--darkline);border-radius:12px;padding:18px}
+.drift .lab{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin:0 0 12px}
+.drift .eng .lab{color:var(--red)} .drift .can .lab{color:var(--green)}
+.drift .hop{font-size:15px;line-height:1.5;margin:0 0 10px;opacity:.32;transition:opacity .5s}
+.drift .hop.on{opacity:1}
+.drift .eng .hop b{color:#ff8a6b;font-family:var(--mono);font-size:12px}
+.drift .can .hop{font-family:var(--mono);font-size:13px;color:#9fe3bf}
+.drift .verdict{font-family:var(--mono);font-size:13px;margin-top:8px}
+.drift .eng .verdict{color:#ff8a6b} .drift .can .verdict{color:#7fcf9f}
+@media(max-width:620px){.drift,.benefit .head,.benefit .row{grid-template-columns:1fr}
+  .benefit .head .l,.benefit .head .r{display:none}}
+
+/* ladder */
+.ladder{list-style:none;padding:0;margin:0 0 22px;counter-reset:r}
+.ladder li{position:relative;padding:10px 0 10px 46px;font-size:17px}
+.ladder li::before{counter-increment:r;content:counter(r);position:absolute;left:0;top:8px;width:30px;height:30px;
+  border-radius:8px;background:var(--c,var(--teal));color:#fff;font-family:var(--mono);font-weight:700;
+  font-size:14px;display:grid;place-items:center}
+.ladder li.gap{color:var(--red)} .ladder li.gap::before{background:var(--red)}
+
+/* sources */
+.sources{font-size:15px;color:var(--muted);line-height:1.6}
+.sources ol{padding-left:22px}
+.sources li{margin:0 0 9px}
+footer{background:var(--dark);color:#8b93a1;text-align:center;padding:46px 20px;font-size:14px;font-family:var(--mono)}
+footer .big{font-family:var(--serif);font-style:italic;font-size:20px;color:#dfe4ec;margin-bottom:12px}
+.kbd{font-family:var(--mono);font-size:.85em}
+</style>
+</head>
+<body>
+<div class="progress" id="prog"></div>
+
+<header class="hero">
+  <div class="glyphfield" aria-hidden="true">◉ ◎ ○ □ ◇ ▷ ≡ ∀ ∃ ⋙ ⊢ ✲ ⟿ ⊳ ⟪ ▶ ⇡ ⊨ ⊇ ¬ ∵ ◉ ◎ ○ □ ◇ ▷ ≡ ∀ ∃ ⋙ ⊢ ✲ ⟿ ⊳ ⟪ ▶ ⇡ ⊨ ⊇ ¬ ∵ ◉ ◎ ○ □ ◇ ▷ ≡ ∀ ∃ ⋙ ⊢ ✲ ⟿ ⊳ ⟪ ▶ ⇡ ⊨ ⊇ ¬ ∵</div>
+  <div class="wrap">
+    <p class="eyebrow">A proposal · the age of agents</p>
+    <h1>A Universal Writing System<br>for the <span class="age">Age&nbsp;of&nbsp;AI</span></h1>
+    <div class="glyphline">[ ⊳&nbsp; agt:◉&nbsp; pat:◎ ]</div>
+    <p class="ask"><b>Do you know what this means?</b></p>
+    <div class="glyphline">[ ⟿&nbsp; agt:◉&nbsp; rec:◎&nbsp; res:[ ⊢&nbsp; agt:◎&nbsp; pat:▷ ] ]</div>
+    <p class="hero-engage">No one on Earth speaks this — and yet you can already almost read it.</p>
+    <p class="scrollcue">read on</p>
+  </div>
+</header>
+
+<section class="intro">
+  <div class="wrap reveal">
+    <p class="reveal-line">Each of those meanings has exactly one spelling. Write the last one again tomorrow, or hand it to a stranger — or to a machine — and everyone produces the same marks; it reads back out into any language. And when the system doesn’t know something, it writes <code>⟨?⟩</code> — a hole — instead of guessing. <strong>It means meaning can be written down exactly, the way numbers can.</strong></p>
+    <p class="leadin">A philosopher in 1685 and the man running Microsoft in 2025 reached for exactly this — three hundred and forty years apart:</p>
+    <div class="quotes">
+      <figure class="epi then">
+        <blockquote>The only way to rectify our reasonings is to make them as tangible as those of the mathematicians, so that we can find our error at a glance; and when there are disputes among persons, we can simply say: let us calculate, without further ado, to see who is right.</blockquote>
+        <figcaption>— G. W. Leibniz, 1685</figcaption>
+      </figure>
+      <figure class="epi now">
+        <blockquote>There’s a new inbox that’s going to get created — my millions of agents that I’m working with will have to invoke exceptions to me, notifications to me, ask for instructions.</blockquote>
+        <figcaption>— Satya Nadella, Microsoft, 2025</figcaption>
+      </figure>
+    </div>
+    <p class="continuation">It means we are missing an <em>invention.</em> Not a better prompt, not a bigger model — something on the order of the alphabet or the number line, and we have run the entire AI revolution without it. Once you see the gap it leaves, you can’t un-see it. So before any argument, sit with the question itself: <strong>what would a writing system for <em>meaning</em> — built not for a people, but for machines and people to share — even be?</strong></p>
+  </div>
+</section>
+
+<section data-c="blue">
+  <div class="wrap reveal">
+    <p class="lead-eyebrow">The stakes</p>
+    <h2>A million agents — and no shared way to write down meaning</h2>
+    <p>Satya Nadella has begun describing a workday where each person oversees not one model but <strong>millions of agents</strong> — a “new inbox” of agents delegating, summarizing, and acting on one another’s words.<sup><a href="#s17">17</a></sup> Picture the traffic: millions of hand-offs per person, every one a chance to lose what you meant. We are about to scale our communication with machines a millionfold — and the channel we are scaling is the leakiest one we have: natural language, built for humans who share a world the machine has never seen.</p>
+    <p>Every age that mattered first learned to write down the one thing it could not afford to lose. The alphabet captured <strong>speech</strong>; numerals captured <strong>quantity</strong>; staff notation captured <strong>music</strong> — and each one opened an age. The age of agents runs on something we still cannot write down exactly: <strong>meaning.</strong> What we want. What we decided. What was meant.</p>
+  </div>
+</section>
+
+<section data-c="teal" class="alt">
+  <div class="wrap reveal">
+    <p class="lead-eyebrow">Why now</p>
+    <h2>We are one rung from needing it</h2>
+    <ol class="ladder">
+      <li><strong>Language</strong> — to tell each other what we <em>mean.</em></li>
+      <li><strong>Programming languages</strong> — to tell a machine what to <em>do.</em></li>
+      <li><strong>AI</strong> — which we taught to write the programming languages for us, while we went back to plain words to tell it what we wanted.</li>
+      <li class="gap"><strong>AI does the building; the human stays in the loop</strong> — directing, deciding, correcting, signing off, not rubber-stamping — and between that human and the machine, and between one machine and the next, <strong>nothing carries the meaning.</strong></li>
+    </ol>
+    <p>To stay <em>genuinely</em> in the loop — to steer and catch the errors instead of rubber-stamping — a human has to grasp exactly what the machine means. But words are too loose; they were made for people who already share a world. Code is too low; it says what to <em>do,</em> never what was <em>meant.</em> Nothing sits in between. <strong>The collaboration of the age has no notation.</strong></p>
+  </div>
+</section>
+
+<section data-c="red">
+  <div class="wrap reveal">
+    <p class="lead-eyebrow">The damage, measured</p>
+    <h2>What is actually broken</h2>
+    <p>This is not speculative. Every seam where meaning crosses into or between machines is already <em>measurably</em> failing:</p>
+    <ul class="broke">
+      <li><strong>They make things up.</strong> On hard questions where humans score <span class="metric">94%</span>, the best models were truthful only <span class="metric">~58%</span> of the time — and the larger the model, the worse it got.<sup><a href="#s6">6</a></sup> The cause is structural: training and evaluation reward a confident guess over “I don’t know.”<sup><a href="#s7">7</a></sup></li>
+      <li><strong>Retrieval finds “close,” not “correct.”</strong> RAG crushes your meaning into one vector and fetches its nearest neighbors — approximate by construction, trading accuracy for speed<sup><a href="#s9">9</a></sup> — and even when the right passage is retrieved, models miss it when it lands mid-context.<sup><a href="#s8">8</a></sup></li>
+      <li><strong>Agents drift, and the errors compound.</strong> A study of seven multi-agent frameworks across 200+ tasks cataloged <span class="metric">14 distinct failure modes</span>, a whole category of them “inter-agent misalignment” — meaning mangled in the hand-off.<sup><a href="#s10">10</a></sup></li>
+      <li><strong>Prompts are brittle.</strong> Reword or reformat the same request and accuracy can swing by <span class="metric">76 points</span><sup><a href="#s11">11</a></sup>; the same prompt isn’t even reproducible run to run.</li>
+      <li><strong>It is all bloated.</strong> Natural-language prompts compress <span class="metric">2–20×</span> with little loss<sup><a href="#s12">12</a></sup> — a direct measure of how much dead weight we pay to move a thought.</li>
+      <li><strong>You cannot even grade it.</strong> Word-overlap scores don’t track meaning<sup><a href="#s13">13</a></sup>; the fallback — an LLM judge — brings its own position, verbosity, and self-preference biases.<sup><a href="#s13">13</a></sup></li>
+    </ul>
+    <p>Every one of these is the same wound: meaning poured into a medium that cannot hold it, then carried between systems that share no ground. Multiply it by a million agents and it stops being a bug list.</p>
+    <p class="punch red">It is a wall.</p>
+  </div>
+</section>
+
+<section data-c="amber" class="alt">
+  <div class="wrap reveal">
+    <p class="lead-eyebrow">The workaround</p>
+    <h2>You can already watch it fail</h2>
+    <p>The evidence is in your repos. Developers now commit <strong>prompts</strong> to git — paragraphs of English, versioned and diffed and traded like source code — because nothing better belongs in between. And every attempt to firm it up repeats the same mistake: wrap the prompt in XML, in JSON, in a “structured” template. That is only <em>structure</em> — boxes around the same ambiguous words. A schema is not a writing system. What’s missing is a notation whose <strong>structure is logic itself,</strong> where the shape of what you write <em>is</em> the meaning.</p>
+  </div>
+</section>
+
+<section data-c="green">
+  <div class="wrap reveal">
+    <p class="lead-eyebrow">The fix</p>
+    <h2>A writing system for meaning</h2>
+    <p>So stop patching words and write the meaning down directly — in one universal notation shared by everyone at the table, human and machine alike. One rule carries the whole thing: <strong>one meaning, one form.</strong> Each symbol means exactly one thing; each thought has exactly one spelling. Re-write it and you have written the same thing — nothing to paraphrase, nothing to blur. Mathematicians call an operation that changes nothing a <strong>fixed point:</strong> <code>T(x) = x</code>. Pass meaning through one mind or a million, human or machine, and it arrives identical.</p>
+    <div class="identity reveal">
+      <div class="traits">
+        <div class="trait"><b>Silent</b><span>no one need ever speak it aloud.</span></div>
+        <div class="trait"><b>Pure</b><span>no accent, no idiom, no feeling, no bias, no gender, no ethnicity; only the thought, stripped to the bone.</span></div>
+        <div class="trait"><b>Universal</b><span>the same in every country and inside every model.</span></div>
+        <div class="trait"><b>Exact</b><span>one idea, one form, forever.</span></div>
+      </div>
+      <p class="closing">A writing system of pure meaning, for the age we and the machines will write together.</p>
+    </div>
+    <p>You would never write it by hand. You keep your English; the model compiles it down into the notation and renders it back — the one record in the middle that both sides read, verify, and trust. There is no magic in the economics, and that is the point: pinning a meaning costs a fixed number of bits. Natural language hides them in shared context the machine does not have, so the machine guesses. <strong>This is the only design that makes the writer pay those bits once, in the open — instead of making a million readers guess.</strong></p>
+  </div>
+</section>
+
+<section data-c="green" class="alt">
+  <div class="wrap reveal">
+    <p class="lead-eyebrow">The benefit to AI</p>
+    <h2>How it closes <span class="tick">every</span> gap</h2>
+    <p>Give every party one form, and each crack above loses its cause:</p>
+    <div class="benefit">
+      <div class="head"><div class="l">The crack</div><div class="r">What one canonical form does</div></div>
+      <div class="row"><div class="crack">They make things up.</div><div class="fix">A model emits <em>only</em> well-formed, explicit claims, and the engine checks each against ground truth before it ships. The objective flips from “sound right” to <strong>“be right.”</strong></div></div>
+      <div class="row"><div class="crack">Retrieval finds “close,” not “correct.”</div><div class="fix">Look-up keys on exact canonical meaning — one meaning, one graph — an exact match instead of nearest-vector-and-hope; the unit retrieved is a discrete meaning, not prose that can hide in the middle.</div></div>
+      <div class="row"><div class="crack">Agents drift; errors compound.</div><div class="fix">Every hand-off carries the <em>identical</em> form. <code>T(x) = x</code>, so nothing mutates between hops, and invariance is checkable at each seam — inter-agent misalignment has nowhere to enter.</div></div>
+      <div class="row"><div class="crack">Prompts are brittle.</div><div class="fix">One meaning normalizes to one form <em>before</em> the model acts — a stable, hashable, reproducible artifact, immune to wording and formatting.</div></div>
+      <div class="row"><div class="crack">It is all bloated.</div><div class="fix">Meaning at its densest: no filler, no function words. The redundancy that compresses natural language 2–20× is simply not there to pay for.</div></div>
+      <div class="row"><div class="crack">You cannot even grade it.</div><div class="fix">Semantically equal answers collapse to the <em>same</em> form — an exact target to check against, and the clean training signal a model needs to be pulled toward being right rather than merely agreeable.</div></div>
+    </div>
+    <p>Notice what happened to the translation layer everyone was paying for. It did not get more accurate.</p>
+    <p class="punch green">It disappeared.</p>
+  </div>
+</section>
+
+<section data-c="purple">
+  <div class="wrap reveal">
+    <p class="lead-eyebrow">See it in motion</p>
+    <h2>The same instruction, ten agents deep</h2>
+    <p>An instruction re-summarized at every hop frays; the same instruction <em>re-emitted</em> in canonical form is the identity — <code>T(x)=x</code> — so it arrives untouched. Watch:</p>
+    <div class="drift" id="drift">
+      <div class="col eng">
+        <p class="lab">English — re-summarized</p>
+        <p class="hop" data-h="0">A: “Deactivate accounts inactive since last spring, except admins.”</p>
+        <p class="hop" data-h="1">B: “Disable old unused accounts; skip admins.”</p>
+        <p class="hop" data-h="2">C: “Clean up stale accounts.” <b>✗ admins lost ✗ date lost</b></p>
+        <p class="verdict">meaning frays at every hop</p>
+      </div>
+      <div class="col can">
+        <p class="lab">The notation — re-emitted</p>
+        <p class="hop" data-h="0">A: [ SET-STATE … ∧ role≠ADMIN … since @2026-03-20 ]</p>
+        <p class="hop" data-h="1">B: [ SET-STATE … identical … ]</p>
+        <p class="hop" data-h="2">C: [ SET-STATE … identical … ]</p>
+        <p class="verdict">✓ T(x) = x — nothing lost</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-c="gold" class="alt">
+  <div class="wrap reveal">
+    <p class="lead-eyebrow">It was found, not invented</p>
+    <h2>Someone drew this 350 years ago — the engine was the only thing missing</h2>
+    <p>None of this is invented; ideas like it are <em>found.</em> In the 1670s Gottfried Leibniz — who co-discovered calculus — drew exactly this, in two parts. A <em>characteristica universalis:</em> symbols that stand for concepts, not sounds. And a <em>calculus ratiocinator:</em> an engine to compute and check over those symbols. Get the pairing right, because it is the entire point — the symbols <strong>hold</strong> the meaning; the engine <strong>reasons</strong> over it. Settle a dispute, he said, not by arguing but by calculating — <em>calculemus.</em><sup><a href="#s1">1</a></sup></p>
+    <p class="punch gold">The dream was never the bottleneck — the engine was.</p>
+    <p>For three hundred and fifty years it sat in a drawer. The engine now exists, and it is the thing you already use every day: <strong>a large language model is the calculus ratiocinator</strong> — the bidirectional translator that compiles your fuzzy English into the form and renders it back to be checked. The characteristica is the canonical form; the model is the calculus. Together they make meaning <strong>computable and checkable</strong> — the only way anything, human or machine, has ever earned trust.</p>
+    <p>And the pieces are real, not wished-for. Linguists spent fifty years finding the ~65 <strong>semantic primes</strong> every language already shares<sup><a href="#s2">2</a></sup>; <strong>Abstract Meaning Representation</strong> already proves one meaning can map to one graph<sup><a href="#s3">3</a></sup>; <strong>UNL</strong> and the controlled languages built the language-neutral scaffolding.<sup><a href="#s4">4</a>,<a href="#s5">5</a></sup> The need is screaming, too: the frontier labs are already letting models reason and talk in private codes of their own — continuous latent thought<sup><a href="#s14">14</a></sup>, byte-patch internals<sup><a href="#s15">15</a></sup>, agents trading raw hidden vectors for a 24× speed-up.<sup><a href="#s16">16</a></sup> The instinct is right; the form is backwards. <strong>A writing system you can read beats a cipher you can’t.</strong> Revived ideas come back wearing the substrate’s clothes — Leibniz’s characters return not as ink, but as the notation the machines pass between themselves.</p>
+  </div>
+</section>
+
+<section data-c="purple">
+  <div class="wrap reveal">
+    <p class="lead-eyebrow">Specimen · Plate I</p>
+    <h2>Here is the notation</h2>
+    <p>About <strong>sixty-five symbols</strong> for the handful of meanings every language already shares — the atoms — plus a grammar of who-did-what-to-whom and the logic signs from math. Sixty-five primes, the way a hundred elements give you all of chemistry: coverage comes from a small generative basis, not an infinite dictionary. You could learn them in an afternoon.</p>
+    <div class="plate">
+      <p class="ptitle">Specimen · Plate I</p>
+      <p class="pnote">A basis of meaning-primitives — ~24 of an estimated ~65. Everything else is built from these.</p>
+      <h3>Substantives</h3>
+      <table class="gl"><tbody>
+        <tr><td class="g">◉</td><td class="h">me</td><td class="m">I / me</td></tr>
+        <tr><td class="g">◎</td><td class="h">yu</td><td class="m">you</td></tr>
+        <tr><td class="g">○</td><td class="h">qen</td><td class="m">someone / person</td></tr>
+        <tr><td class="g">□</td><td class="h">ren</td><td class="m">something / thing</td></tr>
+        <tr><td class="g">◇</td><td class="h">kind</td><td class="m">kind / type</td></tr>
+      </tbody></table>
+      <h3>Quantity &amp; determiners</h3>
+      <table class="gl"><tbody>
+        <tr><td class="g">▷</td><td class="h">dei</td><td class="m">this</td></tr>
+        <tr><td class="g">≡</td><td class="h">sam</td><td class="m">the same</td></tr>
+        <tr><td class="g">∀</td><td class="h">al</td><td class="m">all / every</td></tr>
+        <tr><td class="g">∃</td><td class="h">som</td><td class="m">some / there-is</td></tr>
+        <tr><td class="g">⋙</td><td class="h">mor</td><td class="m">much / many</td></tr>
+      </tbody></table>
+      <h3>Mental &amp; speech predicates</h3>
+      <table class="gl"><tbody>
+        <tr><td class="g">⊢</td><td class="h">noe</td><td class="m">know</td></tr>
+        <tr><td class="g">✲</td><td class="h">tnk</td><td class="m">think</td></tr>
+        <tr><td class="g">⟿</td><td class="h">wnt</td><td class="m">want</td></tr>
+        <tr><td class="g">⊳</td><td class="h">see</td><td class="m">see</td></tr>
+        <tr><td class="g">⟪</td><td class="h">sai</td><td class="m">say</td></tr>
+      </tbody></table>
+      <h3>Action, event, being</h3>
+      <table class="gl"><tbody>
+        <tr><td class="g">▶</td><td class="h">do</td><td class="m">do</td></tr>
+        <tr><td class="g">⇡</td><td class="h">hap</td><td class="m">happen</td></tr>
+        <tr><td class="g">=</td><td class="h">is</td><td class="m">be (X is Y)</td></tr>
+        <tr><td class="g">⊨</td><td class="h">ex</td><td class="m">exist / there is</td></tr>
+        <tr><td class="g">⊇</td><td class="h">hav</td><td class="m">have</td></tr>
+      </tbody></table>
+      <h3>Evaluators &amp; logic</h3>
+      <table class="gl"><tbody>
+        <tr><td class="g">+</td><td class="h">gud</td><td class="m">good</td></tr>
+        <tr><td class="g">−</td><td class="h">bad</td><td class="m">bad</td></tr>
+        <tr><td class="g">¬</td><td class="h">not</td><td class="m">not</td></tr>
+        <tr><td class="g">∵</td><td class="h">bik</td><td class="m">because</td></tr>
+      </tbody></table>
+      <h3>The grammar — roles, references, marks</h3>
+      <table class="gl"><tbody>
+        <tr><td class="h" style="width:auto">[ P : r a ]</td><td class="m">predicate P, with role r filled by argument a</td></tr>
+        <tr><td class="h" style="width:auto">agt / pat / rec / res</td><td class="m">agent / patient / recipient / result</td></tr>
+        <tr><td class="h" style="width:auto">tim / loc / man / cau</td><td class="m">time / place / manner / cause</td></tr>
+        <tr><td class="h" style="width:auto">⟦T⟧°</td><td class="m">a newly introduced entity of type T</td></tr>
+        <tr><td class="h" style="width:auto">⟦T⟧↺</td><td class="m">reference to an already-known entity — this retires “the”</td></tr>
+        <tr><td class="h" style="width:auto">∀ ∃ ¬ ∧ ∨ ⇒</td><td class="m">logical operators, borrowed from mathematics</td></tr>
+        <tr><td class="h" style="width:auto">≔</td><td class="m">explication — define a non-prime from primes</td></tr>
+        <tr><td class="h" style="width:auto"><span class="mark">⟨?⟩</span></td><td class="m">a hole — information missing, must be asked</td></tr>
+        <tr><td class="h" style="width:auto"><span class="mark">⟨≈ v⟩</span></td><td class="m">an assumption v the engine supplied — confirm before acting</td></tr>
+      </tbody></table>
+      <p style="color:#c8cdd6;margin:24px 0 8px">The sentence that lost its admins, written once and for all:</p>
+      <pre class="code">[ <span class="k">SET-STATE</span>
+    pat:  ⟦Account⟧° ∀  where (
+            ¬ [ <span class="k">LOGIN</span>  tim: since @2026-03-20  <span class="a">⟨≈ "last spring" ⟩</span> ]
+            ∧  role ≠ ADMIN
+          )
+    res:  state = INACTIVE
+    loc:  <span class="a">⟨≈ ∀ ⟦Tenant⟧ ⟩</span>            ← assumption, surfaced
+]</pre>
+      <div class="readback">
+        <div><b>EN</b> &nbsp;“Set every account with no login since 2026-03-20 whose role isn’t ADMIN to inactive, across all tenants.”</div>
+        <div><b>ES</b> &nbsp;“Poner todas las cuentas sin inicio de sesión desde 2026-03-20 cuyo rol no sea ADMIN en inactivo, en todos los inquilinos.”</div>
+      </div>
+      <p style="color:#8b93a1;font-size:14.5px;margin:18px 0 0">The two <span class="mark">marked</span> values are the only things the engine had to assume — the date behind “last spring,” and “all tenants.” Neither is silently guessed; both are surfaced for confirmation. And notice: no <span class="mark">the,</span> no <span class="mark">a</span> — which account you mean lives in ° (new) vs ↺ (already known).</p>
+    </div>
+  </div>
+</section>
+
+<section data-c="blue">
+  <div class="wrap reveal">
+    <p class="lead-eyebrow">Why it happens</p>
+    <h2>Why it wins</h2>
+    <p>Nothing about it asks the world to wait. No one changes how they talk — the work lives in the model, the one part of the stack that gets smarter on its own every month. Two agents that share the notation stop leaking <em>today,</em> and every new one that learns it makes the whole network worth more — the flywheel that carried the alphabet, the numeral, and Unicode from a handful of users to everyone. With <strong>millions of agents</strong> arriving<sup><a href="#s17">17</a></sup>, that flywheel is the steepest in the history of computing. Every age agrees, eventually, on how to write down its core act. The core act of this age is <strong>passing meaning between minds</strong> — and it has none.</p>
+    <p class="punch blue">This is that notation.</p>
+  </div>
+</section>
+
+<section data-c="blue" class="alt">
+  <div class="wrap reveal" style="text-align:center">
+    <p class="lead-eyebrow" style="justify-content:center">The first clean page</p>
+    <p style="font-size:21px">Every age wrote down what it refused to lose: speech, number, music. This age — the first we share with minds of our own making, soon a million of them to a person — will write down <strong>meaning.</strong> The sketch is three hundred and fifty years old; the engine is two. For the first time, both exist at once, and the machines are already at the table, already building, already waiting for a page they can read.</p>
+    <p class="punch blue" style="margin-top:18px">This is the writing system for the age of AI.</p>
+  </div>
+</section>
+
+<section class="sources" id="sources">
+  <div class="wrap reveal">
+    <p class="lead-eyebrow" data-c="blue" style="color:#5d626c">Sources</p>
+    <ol>
+      <li id="s1">G. W. Leibniz. <em>Characteristica universalis</em> &amp; <em>calculus ratiocinator</em>; “calculemus,” in Gerhardt (ed.), <em>Die philosophischen Schriften</em>, vol. VII, p. 200; <em>The Art of Discovery</em> (1685).</li>
+      <li id="s2">C. Goddard &amp; A. Wierzbicka. <em>Natural Semantic Metalanguage</em> — ~65 universal semantic primes (<em>Meaning and Universal Grammar</em>, 2002; <em>Words and Meanings</em>, OUP 2014).</li>
+      <li id="s3">L. Banarescu et al. <em>Abstract Meaning Representation for Sembanking.</em> ACL LAW VII (2013).</li>
+      <li id="s4">H. Uchida, M. Zhu, T. Della Senta. <em>The Universal Networking Language (UNL) Specification.</em> UNU/IAS (1996– ).</li>
+      <li id="s5">N. E. Fuchs et al. <em>Attempto Controlled English</em> (1996; Reasoning Web 2008); T. Kuhn, <em>A Survey of Controlled Natural Languages</em>, <em>Computational Linguistics</em> 40(1) (2014).</li>
+      <li id="s6">S. Lin, J. Hilton, O. Evans. <em>TruthfulQA.</em> <a href="https://arxiv.org/abs/2109.07958">arXiv:2109.07958</a> (2021) — best model 58% truthful vs 94% human.</li>
+      <li id="s7">A. Kalai, O. Nachum, S. Vempala, E. Zhang. <em>Why Language Models Hallucinate.</em> <a href="https://arxiv.org/abs/2509.04664">arXiv:2509.04664</a> (2025).</li>
+      <li id="s8">N. Liu et al. <em>Lost in the Middle.</em> <a href="https://arxiv.org/abs/2307.03172">arXiv:2307.03172</a> (2023; TACL 2024).</li>
+      <li id="s9">O. Khattab &amp; M. Zaharia. <em>ColBERT</em> (<a href="https://arxiv.org/abs/2004.12832">arXiv:2004.12832</a>, 2020); M. Aumüller et al. <em>ANN-Benchmarks</em> (<a href="https://arxiv.org/abs/1807.05614">arXiv:1807.05614</a>).</li>
+      <li id="s10">M. Cemri et al. <em>Why Do Multi-Agent LLM Systems Fail?</em> (MAST). <a href="https://arxiv.org/abs/2503.13657">arXiv:2503.13657</a> (2025) — 14 failure modes.</li>
+      <li id="s11">M. Sclar et al. <em>Quantifying LMs’ Sensitivity to Prompt Formatting.</em> <a href="https://arxiv.org/abs/2310.11324">arXiv:2310.11324</a> (2023) — up to 76-point swings.</li>
+      <li id="s12">H. Jiang et al. <em>LLMLingua.</em> <a href="https://arxiv.org/abs/2310.05736">arXiv:2310.05736</a> (2023) — 2–20× compression.</li>
+      <li id="s13">E. Reiter. <em>A Structured Review of the Validity of BLEU.</em> <em>Computational Linguistics</em> 44(3) (2018); L. Zheng et al. <em>Judging LLM-as-a-Judge (MT-Bench).</em> <a href="https://arxiv.org/abs/2306.05685">arXiv:2306.05685</a> (2023).</li>
+      <li id="s14">S. Hao et al. (Meta FAIR). <em>Coconut: Reasoning in a Continuous Latent Space.</em> <a href="https://arxiv.org/abs/2412.06769">arXiv:2412.06769</a> (2024).</li>
+      <li id="s15">A. Pagnoni et al. (Meta FAIR). <em>Byte Latent Transformer.</em> <a href="https://arxiv.org/abs/2412.09871">arXiv:2412.09871</a> (2024).</li>
+      <li id="s16">X. Du et al. <em>Enabling Agents to Communicate Entirely in Latent Space (Interlat).</em> <a href="https://arxiv.org/abs/2511.09149">arXiv:2511.09149</a> (2025).</li>
+      <li id="s17">S. Nadella, interview with Dwarkesh Patel (2025) — each person directing “millions of agents.”</li>
+      <li id="s18"><em>O’Connor v. Oakhurst Dairy</em>, 851 F.3d 69 (1st Cir. 2017); <em>Rogers v. Bell Aliant</em> (CRTC 2006) — the comma cases.</li>
+    </ol>
+  </div>
+</section>
+
+<footer>
+  <div class="big">Calculemus.</div>
+  A sketch toward a standard. · One meaning, one form.
+</footer>
+
+<script>
+// scroll progress
+var prog=document.getElementById('prog');
+addEventListener('scroll',function(){
+  var h=document.documentElement,sc=h.scrollTop,mx=h.scrollHeight-h.clientHeight;
+  prog.style.width=(mx>0?(sc/mx*100):0)+'%';
+},{passive:true});
+
+// reveal on scroll
+var io=new IntersectionObserver(function(es){
+  es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+
+// live "broken phone" drift demo — steps the English hops on a loop while canonical stays lit
+(function(){
+  var box=document.getElementById('drift'); if(!box) return;
+  var hops=box.querySelectorAll('.eng .hop'), can=box.querySelectorAll('.can .hop');
+  can.forEach(function(c){c.classList.add('on');});
+  var i=0, timer=null;
+  function step(){ hops.forEach(function(h,k){h.classList.toggle('on',k<=i);}); i=(i+1)%(hops.length+1); }
+  var dio=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting && !timer){ i=0; step(); timer=setInterval(step,1500); }
+      else if(!e.isIntersecting && timer){ clearInterval(timer); timer=null; }
+    });
+  },{threshold:.4});
+  dio.observe(box);
+})();
+</script>
+</body>
+</html>
