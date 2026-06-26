@@ -202,6 +202,92 @@ for cat in categories:
     html_body += '</div>\n'
 
 html_end = """
+  <hr style="margin-top: 60px; border: 1px solid #eee; margin-bottom: 40px;">
+  <h2>Visual Layout Test: Romans 8:38-39</h2>
+  <p class="subtitle" style="margin-bottom: 20px; font-style: italic;">"For I am convinced that neither death nor life... will be able to separate us from the love of God that is in Christ Jesus our Lord."</p>
+
+  <style>
+    .syntax-new { display: flex; flex-direction: column; gap: 10px; font-size: 18px; font-family: monospace; padding-bottom: 40px; }
+    .statement { display: flex; align-items: flex-start; gap: 12px; }
+    .prime-icon { width: 28px; height: 28px; flex-shrink: 0; }
+    .args-block { display: flex; flex-direction: column; gap: 6px; border-left: 2px solid #e0e0e0; padding-left: 12px; margin-top: 4px; }
+    .arg-line { display: flex; align-items: flex-start; gap: 8px; }
+    .role-label { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; width: 40px; text-align: right; margin-top: 4px; }
+    .nested-block { background: #f0f4f8; border-radius: 6px; padding: 10px 15px; border: 1px solid #d9e2ec; }
+    .list-items { font-size: 14px; font-family: sans-serif; color: #555; background: #fff; padding: 4px 8px; border: 1px solid #ccc; border-radius: 4px; margin-top: 2px; }
+  </style>
+
+  <div class="syntax-new">
+    <div class="statement">
+      <!-- noe prime -->
+      <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linejoin="round"><polygon points="12,2 22,12 12,22 2,12" fill="#333"/></svg>
+      <div class="args-block">
+        <div class="arg-line">
+          <span class="role-label">agt</span>
+          <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="4" fill="#333" /></svg> <!-- me -->
+        </div>
+        <div class="arg-line">
+          <span class="role-label">man</span>
+          <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><rect x="4" y="4" width="16" height="16" fill="#333" /></svg> <!-- tru -->
+        </div>
+        <div class="arg-line">
+          <span class="role-label">pat</span>
+          <div class="statement nested-block">
+            <!-- not prime -->
+            <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><circle cx="12" cy="12" r="10" /><line x1="5" y1="5" x2="19" y2="19" /></svg>
+            <div class="args-block" style="border-left-color: #b0bec5;">
+              <div class="arg-line">
+                <span class="role-label">res</span>
+                <div class="statement nested-block" style="background: #fff;">
+                  <!-- bik (cause) -->
+                  <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" /></svg>
+                  <div class="args-block" style="border-left-color: #cfd8dc;">
+                    <div class="arg-line">
+                      <span class="role-label">agt</span>
+                      <div class="list-items">DEATH ∨ LIFE ∨ ANGELS ∨ DEMONS ∨ NOW ∨ LATER ∨ HEIGHT ∨ DEPTH ∨ ∀ OTHERS</div>
+                    </div>
+                    <div class="arg-line">
+                      <span class="role-label">res</span>
+                      <div class="statement nested-block" style="background: #f9f9f9;">
+                        <!-- not prime -->
+                        <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><circle cx="12" cy="12" r="10" /><line x1="5" y1="5" x2="19" y2="19" /></svg>
+                        <div class="args-block">
+                          <div class="arg-line">
+                            <span class="role-label">res</span>
+                            <div class="statement nested-block" style="background: #eef2f5;">
+                              <!-- fel (feel) -->
+                              <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linejoin="round"><polygon points="12,2 22,12 12,22 2,12" /><path d="M 8 12 Q 10 8 12 12 T 16 12" /></svg>
+                              <div class="args-block">
+                                <div class="arg-line">
+                                  <span class="role-label">exp</span>
+                                  <span style="font-weight:bold; font-size: 16px; margin-top:2px;">GOD</span>
+                                </div>
+                                <div class="arg-line">
+                                  <span class="role-label">pat</span>
+                                  <span style="font-weight:bold; font-size: 16px; margin-top:2px;">us</span>
+                                </div>
+                                <div class="arg-line">
+                                  <span class="role-label">man</span>
+                                  <span style="display:flex; align-items:center; gap:4px;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><polygon points="12,2 4,20 20,20" fill="#333" /></svg> <!-- vry -->
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polyline points="8,14 12,9 16,14" /></svg> <!-- gud -->
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 </body>
 </html>
