@@ -168,7 +168,9 @@ categories = [
             {"handle": "blw", "desc": "below", "svg": '<line x1="2" y1="6" x2="22" y2="6" /><polyline points="8,14 12,20 16,14" /><line x1="12" y1="20" x2="12" y2="10" />'},
             {"handle": "far", "desc": "far", "svg": '<line x1="4" y1="4" x2="4" y2="20" /><line x1="20" y1="4" x2="20" y2="20" /><path d="M 6 12 Q 12 18 18 12" stroke-dasharray="2,2" />'},
             {"handle": "near", "desc": "near", "svg": '<line x1="10" y1="4" x2="10" y2="20" /><line x1="14" y1="4" x2="14" y2="20" />'},
-            {"handle": "side", "desc": "side", "svg": '<line x1="12" y1="2" x2="12" y2="22" /><rect x="16" y="8" width="6" height="8" fill="#333" />'},
+            {"handle": "side", "desc": "side", "svg": '<line x1="12" y1="2" x2="12" y2="22" /><rect x="4" y="8" width="5" height="8" fill="#333" /><rect x="15" y="8" width="5" height="8" fill="#333" />'},
+            {"handle": "lft", "desc": "left", "svg": '<line x1="12" y1="2" x2="12" y2="22" /><rect x="4" y="8" width="6" height="8" fill="#333" />'},
+            {"handle": "rgt", "desc": "right", "svg": '<line x1="12" y1="2" x2="12" y2="22" /><rect x="14" y="8" width="6" height="8" fill="#333" />'},
             {"handle": "in", "desc": "inside", "svg": '<rect x="4" y="4" width="16" height="16" /><rect x="9" y="9" width="6" height="6" fill="#333" />'},
             {"handle": "tch", "desc": "touch", "svg": '<rect x="4" y="6" width="8" height="12" /><rect x="12" y="6" width="8" height="12" />'},
         ]
