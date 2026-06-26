@@ -181,7 +181,7 @@ categories = [
             {"handle": "kind", "desc": "kind", "svg": '<circle cx="12" cy="12" r="10" /><path d="M 12 12 L 12 2 A 10 10 0 0 1 21.5 15 Z" fill="#333" />'},
             {"handle": "part", "desc": "part", "svg": '<path d="M 12 12 L 12 2 A 10 10 0 0 1 21.5 15 Z" fill="#333" />'},
             {"handle": "dei", "desc": "this", "svg": '<line x1="12" y1="4" x2="12" y2="20" /><polyline points="6,14 12,20 18,14" />'},
-            {"handle": "bik", "desc": "because", "svg": '<circle cx="12" cy="6" r="2.5" fill="#333"/><circle cx="6" cy="16" r="2.5" fill="#333"/><circle cx="18" cy="16" r="2.5" fill="#333"/>'},
+            {"handle": "bik", "desc": "because", "svg": '<line x1="20" y1="12" x2="8" y2="12" /><polyline points="13,7 7,12 13,17" /><line x1="4" y1="4" x2="4" y2="20" stroke-width="3" />'},
         ]
     }
 ]
