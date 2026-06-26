@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Characteristica Reborn - SVG Prototypes</title>
+<title>Characteristica Reborn - Full Glyph Set</title>
 <style>
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -18,17 +18,22 @@
     padding: 40px;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    max-width: 800px;
+    max-width: 900px;
     width: 100%;
   }
-  h1, h2 {
-    color: #111;
+  h1 { color: #111; margin-bottom: 5px; }
+  p.subtitle { color: #666; margin-bottom: 40px; }
+  h2 {
+    color: #333;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 8px;
+    margin-top: 40px;
   }
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
     gap: 20px;
-    margin-bottom: 40px;
+    margin-top: 20px;
   }
   .glyph-card {
     display: flex;
@@ -38,6 +43,12 @@
     border: 1px solid #e0e0e0;
     border-radius: 6px;
     background: #fafafa;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .glyph-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    border-color: #ccc;
   }
   .glyph-card svg {
     width: 48px;
@@ -46,13 +57,15 @@
   }
   .label {
     font-family: monospace;
-    font-size: 14px;
-    color: #555;
+    font-size: 15px;
+    font-weight: bold;
+    color: #222;
   }
   .meaning {
     font-size: 12px;
-    color: #888;
+    color: #666;
     margin-top: 4px;
+    text-align: center;
   }
 </style>
 </head>
@@ -60,99 +73,395 @@
 
 <div class="container">
   <h1>Characteristica Visual Grammar</h1>
-  <p>A unified SVG typology for NSM Primes. Consistent line weight (`stroke-width="2"`), bounded in `24x24` grids.</p>
+  <p class="subtitle">The complete dictionary of ~65 Natural Semantic Metalanguage (NSM) primes, mapped to a unified visual typology. All glyphs share a consistent visual language, bound to a 24x24 grid with uniform stroke weight.</p>
+<h2>Entities (Substantives) — Base: Circle</h2>
+<div class="grid">
 
-  <h2>Entities (Substantives) — Base: Circle</h2>
-  <div class="grid">
-    <div class="glyph-card">
-      <svg viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="10" />
-        <circle cx="12" cy="12" r="4" fill="black" />
-      </svg>
-      <div class="label">me</div>
-      <div class="meaning">solid core (self)</div>
-    </div>
-    <div class="glyph-card">
-      <svg viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="10" />
-        <circle cx="12" cy="12" r="4" />
-      </svg>
-      <div class="label">yu</div>
-      <div class="meaning">open core (other)</div>
-    </div>
-    <div class="glyph-card">
-      <svg viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="10" />
-      </svg>
-      <div class="label">qen</div>
-      <div class="meaning">someone (empty)</div>
-    </div>
-    <div class="glyph-card">
-      <svg viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="10" />
-        <line x1="6" y1="12" x2="18" y2="12" />
-      </svg>
-      <div class="label">ren</div>
-      <div class="meaning">something (rigid)</div>
-    </div>
-  </div>
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="4" fill="#333" /></svg>
+          <div class="label">me</div>
+          <div class="meaning">I / self</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="4" /></svg>
+          <div class="label">yu</div>
+          <div class="meaning">you / other</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /></svg>
+          <div class="label">qen</div>
+          <div class="meaning">someone</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><line x1="6" y1="12" x2="18" y2="12" /></svg>
+          <div class="label">ren</div>
+          <div class="meaning">something</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="7" r="1.5" fill="#333"/><circle cx="8" cy="14" r="1.5" fill="#333"/><circle cx="16" cy="14" r="1.5" fill="#333"/></svg>
+          <div class="label">ppl</div>
+          <div class="meaning">people</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><line x1="12" y1="2" x2="12" y2="22" /></svg>
+          <div class="label">bod</div>
+          <div class="meaning">body</div>
+        </div>
+        </div>
+<h2>Actions (Events) — Base: Triangle</h2>
+<div class="grid">
 
-  <h2>Actions (Events) — Base: Triangle/Directional</h2>
-  <div class="grid">
-    <div class="glyph-card">
-      <svg viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polygon points="4,20 12,4 20,20" />
-      </svg>
-      <div class="label">do</div>
-      <div class="meaning">active base</div>
-    </div>
-    <div class="glyph-card">
-      <svg viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polygon points="4,4 20,4 12,20" />
-      </svg>
-      <div class="label">hap</div>
-      <div class="meaning">passive/falling</div>
-    </div>
-    <div class="glyph-card">
-      <svg viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="4" y1="12" x2="20" y2="12" />
-        <polyline points="14,6 20,12 14,18" />
-        <line x1="8" y1="12" x2="12" y2="12" stroke-dasharray="2,2" />
-      </svg>
-      <div class="label">mov</div>
-      <div class="meaning">directional shift</div>
-    </div>
-  </div>
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="6,20 18,12 6,4" /></svg>
+          <div class="label">do</div>
+          <div class="meaning">do / active</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="4,6 20,6 12,18" /></svg>
+          <div class="label">hap</div>
+          <div class="meaning">happen</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="20" y2="12" /><polyline points="14,6 20,12 14,18" /><line x1="6" y1="12" x2="10" y2="12" stroke="#fff" stroke-width="4"/></svg>
+          <div class="label">mov</div>
+          <div class="meaning">move</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,4 4,20 20,20" /><circle cx="12" cy="14" r="2" fill="#333"/></svg>
+          <div class="label">liv</div>
+          <div class="meaning">live</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="4" x2="12" y2="18" /><line x1="6" y1="18" x2="18" y2="18" /></svg>
+          <div class="label">die</div>
+          <div class="meaning">die</div>
+        </div>
+        </div>
+<h2>Mental Predicates — Base: Diamond</h2>
+<div class="grid">
 
-  <h2>Mental Predicates — Base: Diamond</h2>
-  <div class="grid">
-    <div class="glyph-card">
-      <svg viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polygon points="12,2 22,12 12,22 2,12" />
-        <circle cx="12" cy="12" r="2" fill="black" />
-      </svg>
-      <div class="label">tnk</div>
-      <div class="meaning">think (focus)</div>
-    </div>
-    <div class="glyph-card">
-      <svg viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polygon points="12,2 22,12 12,22 2,12" fill="black"/>
-      </svg>
-      <div class="label">noe</div>
-      <div class="meaning">know (solid/fixed)</div>
-    </div>
-    <div class="glyph-card">
-      <svg viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polygon points="12,2 22,12 12,22 2,12" />
-        <line x1="12" y1="12" x2="24" y2="12" />
-        <polyline points="20,8 24,12 20,16" />
-      </svg>
-      <div class="label">wnt</div>
-      <div class="meaning">want (outward)</div>
-    </div>
-  </div>
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,2 22,12 12,22 2,12" /><circle cx="12" cy="12" r="2" fill="#333" /></svg>
+          <div class="label">tnk</div>
+          <div class="meaning">think</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,2 22,12 12,22 2,12" fill="#333"/></svg>
+          <div class="label">noe</div>
+          <div class="meaning">know</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,2 22,12 12,22 2,12" /><line x1="12" y1="12" x2="24" y2="12" /><polyline points="20,8 24,12 20,16" /></svg>
+          <div class="label">wnt</div>
+          <div class="meaning">want</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,2 22,12 12,22 2,12" /><path d="M 8 12 Q 10 8 12 12 T 16 12" /></svg>
+          <div class="label">fel</div>
+          <div class="meaning">feel</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,2 22,12 12,22 2,12" /><path d="M 7 12 Q 12 7 17 12 Q 12 17 7 12" /></svg>
+          <div class="label">see</div>
+          <div class="meaning">see</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,2 22,12 12,22 2,12" /><path d="M 12 8 A 4 4 0 0 1 12 16 M 9 10 A 2 2 0 0 1 9 14" /></svg>
+          <div class="label">her</div>
+          <div class="meaning">hear</div>
+        </div>
+        </div>
+<h2>Communication</h2>
+<div class="grid">
+
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M 4 12 L 12 4 A 10 10 0 0 1 12 20 Z" /></svg>
+          <div class="label">sai</div>
+          <div class="meaning">say</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="8" x2="20" y2="8" /><line x1="4" y1="12" x2="16" y2="12" /><line x1="4" y1="16" x2="20" y2="16" /></svg>
+          <div class="label">wrd</div>
+          <div class="meaning">words</div>
+        </div>
+        </div>
+<h2>Descriptors — Base: Square</h2>
+<div class="grid">
+
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" /><line x1="12" y1="8" x2="12" y2="16" /><line x1="8" y1="12" x2="16" y2="12" /></svg>
+          <div class="label">gud</div>
+          <div class="meaning">good</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" /><line x1="8" y1="12" x2="16" y2="12" /></svg>
+          <div class="label">bad</div>
+          <div class="meaning">bad</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" stroke-width="4" /></svg>
+          <div class="label">big</div>
+          <div class="meaning">big</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="10" width="4" height="4" fill="#333" /></svg>
+          <div class="label">sml</div>
+          <div class="meaning">small</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" fill="#333" /></svg>
+          <div class="label">tru</div>
+          <div class="meaning">true</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="12" height="12" /><rect x="8" y="8" width="12" height="12" /></svg>
+          <div class="label">lik</div>
+          <div class="meaning">like / as</div>
+        </div>
+        </div>
+<h2>Quantifiers</h2>
+<div class="grid">
+
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2" fill="#333" /></svg>
+          <div class="label">one</div>
+          <div class="meaning">one</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="12" r="2" fill="#333" /><circle cx="16" cy="12" r="2" fill="#333" /></svg>
+          <div class="label">two</div>
+          <div class="meaning">two</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="1.5" fill="#333" /><circle cx="7" cy="15" r="1.5" fill="#333" /><circle cx="17" cy="15" r="1.5" fill="#333" /></svg>
+          <div class="label">few</div>
+          <div class="meaning">few</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" stroke-dasharray="4,4" /></svg>
+          <div class="label">som</div>
+          <div class="meaning">some</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="1.5" fill="#333" /><circle cx="12" cy="6" r="1.5" fill="#333" /><circle cx="18" cy="6" r="1.5" fill="#333" /><circle cx="6" cy="12" r="1.5" fill="#333" /><circle cx="12" cy="12" r="1.5" fill="#333" /><circle cx="18" cy="12" r="1.5" fill="#333" /><circle cx="6" cy="18" r="1.5" fill="#333" /><circle cx="12" cy="18" r="1.5" fill="#333" /><circle cx="18" cy="18" r="1.5" fill="#333" /></svg>
+          <div class="label">mor</div>
+          <div class="meaning">much / many</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" fill="#333" /></svg>
+          <div class="label">al</div>
+          <div class="meaning">all</div>
+        </div>
+        </div>
+<h2>Time — Base: Horizontal Line</h2>
+<div class="grid">
+
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="22" y2="12" /><line x1="12" y1="8" x2="12" y2="16" /></svg>
+          <div class="label">tim</div>
+          <div class="meaning">when / time</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="22" y2="12" /><line x1="12" y1="6" x2="12" y2="18" stroke-width="4" /></svg>
+          <div class="label">now</div>
+          <div class="meaning">now</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="22" y2="12" /><line x1="12" y1="8" x2="12" y2="16" /><polyline points="10,12 6,12" /><polyline points="8,10 6,12 8,14" /></svg>
+          <div class="label">bef</div>
+          <div class="meaning">before</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="22" y2="12" /><line x1="12" y1="8" x2="12" y2="16" /><polyline points="14,12 18,12" /><polyline points="16,10 18,12 16,14" /></svg>
+          <div class="label">aft</div>
+          <div class="meaning">after</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="20" y2="12" /><polyline points="6,9 2,12 6,15" /><polyline points="18,9 22,12 18,15" /></svg>
+          <div class="label">lng</div>
+          <div class="meaning">a long time</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="6" x2="12" y2="18" stroke-width="4" /></svg>
+          <div class="label">mom</div>
+          <div class="meaning">moment</div>
+        </div>
+        </div>
+<h2>Space — Base: Axes</h2>
+<div class="grid">
+
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="20" x2="22" y2="20" /><circle cx="12" cy="12" r="3" fill="#333"/><line x1="12" y1="15" x2="12" y2="20" /></svg>
+          <div class="label">loc</div>
+          <div class="meaning">where / place</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="6" /><circle cx="12" cy="12" r="2" fill="#333" /></svg>
+          <div class="label">here</div>
+          <div class="meaning">here</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="16" x2="20" y2="16" /><circle cx="12" cy="8" r="3" fill="#333" /></svg>
+          <div class="label">abv</div>
+          <div class="meaning">above</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="8" x2="20" y2="8" /><circle cx="12" cy="16" r="3" fill="#333" /></svg>
+          <div class="label">blw</div>
+          <div class="meaning">below</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="4" x2="4" y2="20" /><line x1="20" y1="4" x2="20" y2="20" /></svg>
+          <div class="label">far</div>
+          <div class="meaning">far</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="10" y1="4" x2="10" y2="20" /><line x1="14" y1="4" x2="14" y2="20" /></svg>
+          <div class="label">near</div>
+          <div class="meaning">near</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="10" y1="2" x2="10" y2="22" /><circle cx="18" cy="12" r="3" fill="#333" /></svg>
+          <div class="label">side</div>
+          <div class="meaning">side</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" /><circle cx="12" cy="12" r="3" fill="#333" /></svg>
+          <div class="label">in</div>
+          <div class="meaning">inside</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="12" r="6" /><circle cx="20" cy="12" r="6" /></svg>
+          <div class="label">tch</div>
+          <div class="meaning">touch</div>
+        </div>
+        </div>
+<h2>Logical, Existence & Core</h2>
+<div class="grid">
+
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><line x1="5" y1="5" x2="19" y2="19" /></svg>
+          <div class="label">not</div>
+          <div class="meaning">not</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M 6 12 Q 9 6 12 12 T 18 12" /></svg>
+          <div class="label">may</div>
+          <div class="meaning">maybe</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M 12 4 A 6 6 0 0 1 18 10 V 20 M 12 4 A 6 6 0 0 0 6 10 V 12 M 6 16 V 20" /></svg>
+          <div class="label">can</div>
+          <div class="meaning">can</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M 12 20 V 12 L 6 4 M 12 12 L 18 4" /></svg>
+          <div class="label">if</div>
+          <div class="meaning">if</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,2 4,20 20,20" fill="#333" /></svg>
+          <div class="label">vry</div>
+          <div class="meaning">very</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="9" x2="20" y2="9" /><line x1="4" y1="15" x2="20" y2="15" /></svg>
+          <div class="label">is</div>
+          <div class="meaning">be</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="20" x2="20" y2="20" /><circle cx="12" cy="16" r="4" fill="#333" /></svg>
+          <div class="label">ex</div>
+          <div class="meaning">there is</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="4" fill="#333" /></svg>
+          <div class="label">hav</div>
+          <div class="meaning">have</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7" /><line x1="4" y1="12" x2="20" y2="12" /><line x1="4" y1="17" x2="20" y2="17" /></svg>
+          <div class="label">sam</div>
+          <div class="meaning">the same</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="12" r="5" /><rect x="15" y="7" width="10" height="10" /></svg>
+          <div class="label">oth</div>
+          <div class="meaning">other</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="M 12 12 L 12 2 A 10 10 0 0 1 21.5 15 Z" fill="#333" /></svg>
+          <div class="label">kind</div>
+          <div class="meaning">kind</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M 12 12 L 12 2 A 10 10 0 0 1 21.5 15 Z" fill="#333" /></svg>
+          <div class="label">part</div>
+          <div class="meaning">part</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="4" x2="12" y2="20" /><polyline points="6,14 12,20 18,14" /></svg>
+          <div class="label">dei</div>
+          <div class="meaning">this</div>
+        </div>
+        
+        <div class="glyph-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="6" r="2.5" fill="#333"/><circle cx="6" cy="16" r="2.5" fill="#333"/><circle cx="18" cy="16" r="2.5" fill="#333"/></svg>
+          <div class="label">bik</div>
+          <div class="meaning">because</div>
+        </div>
+        </div>
 
 </div>
-
 </body>
 </html>
