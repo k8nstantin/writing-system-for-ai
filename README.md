@@ -27,7 +27,7 @@ If **one meaning has exactly one written form** (`T(x) = x`), an instruction can
 
 This project is not a historical recreation, but the realization of the *characteristica universalis* concept. Leibniz was an amazing visionary, and 350 years later — now that we have the urgent need (AI coordination) and the engine (LLMs) — it is finally time for his vision to come alive as a pure **Spatial Geometric Language**:
 1.  **~65 Base Primes:** Derived from the empirically validated Natural Semantic Metalanguage (NSM), represented by pure geometric categories (Circles for Entities, Triangles for Actions).
-2.  **Visual Composition:** Complex concepts are built by placing these geometric primitives into spatial relationships (e.g., inside, above, flipped horizontally).
+2.  **Visual Composition & Polarity:** Complex concepts are built by placing geometric primitives into spatial relationships. Furthermore, semantic opposites act like matter and anti-matter: flipping a symbol vertically or horizontally mathematically derives its exact opposite (e.g., Live ▲ / Die ▼).
 3.  **No Tokens, Just Logic:** A machine parsing this language does not need an NLP token-guesser; it simply traverses an unambiguous logical tree.
 
 ## Concrete Benefits to AI
