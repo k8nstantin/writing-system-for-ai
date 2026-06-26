@@ -5,7 +5,7 @@ html_start = """<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alan Split Keyboard Teaser</title>
+<title>Alan Universal Keyboard Teaser</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   body {
@@ -204,7 +204,7 @@ html_start = """<!DOCTYPE html>
 <div class="teaser-text">
   <h1 style="display: flex; align-items: center; justify-content: center; gap: 12px;">
     <span style="display:inline-block; position:relative; width:1.1em; height:1.1em; margin-right:4px; vertical-align:-0.2em;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position:absolute; top:0; left:0; width:100%; height:100%;"><polygon points="12,2 22,9 18,20 6,20 2,9" /></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position:absolute; top:0; left:0; width:100%; height:100%; transform:scale(0.5); transform-origin: center;"><rect x="9" y="8" width="6" height="8" fill="currentColor" /></svg></span>
-    Alan Split Keyboard
+    Alan Universal Keyboard
   </h1>
   <p>Left Brain (Logic/Entity) | Right Brain (Action/Space)</p>
 </div>
@@ -224,6 +224,8 @@ html_start = """<!DOCTYPE html>
       <div class="key num"><svg viewBox="0 0 24 24"><text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">3</text></svg></div>
       <div class="key num"><svg viewBox="0 0 24 24"><text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">4</text></svg></div>
       <div class="key num"><svg viewBox="0 0 24 24"><text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">5</text></svg></div>
+      <div class="key num"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19" stroke-width="3" /><line x1="5" y1="12" x2="19" y2="12" stroke-width="3" /></svg></div>
+      <div class="key num"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12" stroke-width="3" /></svg></div>
     </div>
     <!-- Row 1: Logic -->
     <div class="row" style="padding-left: 0px;">
@@ -282,6 +284,9 @@ html_start = """<!DOCTYPE html>
       <div class="key num"><svg viewBox="0 0 24 24"><text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">8</text></svg></div>
       <div class="key num"><svg viewBox="0 0 24 24"><text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">9</text></svg></div>
       <div class="key num"><svg viewBox="0 0 24 24"><text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">0</text></svg></div>
+      <div class="key num"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="6" y1="6" x2="18" y2="18" stroke-width="3" /><line x1="18" y1="6" x2="6" y2="18" stroke-width="3" /></svg></div>
+      <div class="key num"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12" stroke-width="3" /><circle cx="12" cy="6" r="2" fill="#e2e8f0" /><circle cx="12" cy="18" r="2" fill="#e2e8f0" /></svg></div>
+      <div class="key num"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="5" y1="9" x2="19" y2="9" stroke-width="3" /><line x1="5" y1="15" x2="19" y2="15" stroke-width="3" /></svg></div>
     </div>
     <!-- Row 1: Quantifiers -->
     <div class="row" style="padding-right: 0px;">

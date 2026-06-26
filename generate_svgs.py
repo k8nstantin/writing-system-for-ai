@@ -163,6 +163,11 @@ categories = [
             {"handle": "7", "desc": "seven", "svg": '<text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">7</text>'},
             {"handle": "8", "desc": "eight", "svg": '<text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">8</text>'},
             {"handle": "9", "desc": "nine", "svg": '<text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">9</text>'},
+            {"handle": "add", "desc": "add", "svg": '<line x1="12" y1="5" x2="12" y2="19" stroke-width="3" /><line x1="5" y1="12" x2="19" y2="12" stroke-width="3" />'},
+            {"handle": "sub", "desc": "subtract", "svg": '<line x1="5" y1="12" x2="19" y2="12" stroke-width="3" />'},
+            {"handle": "mul", "desc": "multiply", "svg": '<line x1="6" y1="6" x2="18" y2="18" stroke-width="3" /><line x1="18" y1="6" x2="6" y2="18" stroke-width="3" />'},
+            {"handle": "div", "desc": "divide", "svg": '<line x1="5" y1="12" x2="19" y2="12" stroke-width="3" /><circle cx="12" cy="6" r="2" fill="#333" /><circle cx="12" cy="18" r="2" fill="#333" />'},
+            {"handle": "eql", "desc": "equals", "svg": '<line x1="5" y1="9" x2="19" y2="9" stroke-width="3" /><line x1="5" y1="15" x2="19" y2="15" stroke-width="3" />'},
         ]
     },
     {
