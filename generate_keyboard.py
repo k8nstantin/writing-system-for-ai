@@ -234,7 +234,7 @@ html_start = """<!DOCTYPE html>
     </div>
     <!-- Row 1: Logic -->
     <div class="row" style="padding-left: 0px;">
-      <div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="4" y1="4" x2="20" y2="20" stroke-width="3" /><line x1="20" y1="4" x2="4" y2="20" stroke-width="3" /></svg></div>
+      <div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><line x1="4" y1="4" x2="20" y2="20" /></svg></div>
       <div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 12 20 V 12 L 6 4 M 12 12 L 18 4" /></svg></div>
       <div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 12 4 A 6 6 0 0 1 18 10 V 20 M 12 4 A 6 6 0 0 0 6 10 V 12 M 6 16 V 20" /></svg></div>
       <div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 6 12 Q 9 6 12 12 T 18 12" /></svg></div>
