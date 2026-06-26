@@ -111,6 +111,7 @@ html_start = """<!DOCTYPE html>
   .key.desc   { border-top: 2px solid #f67280; } /* Pink/Red */
   .key.logic  { border-top: 2px solid #ffd166; } /* Yellow */
   .key.time   { border-top: 2px solid #48b5c4; } /* Cyan */
+  .key.num    { border-top: 2px solid #e2e8f0; } /* White/Silver */
   .key.role   { border-top: 2px solid #f0f4f8; } /* White/Grey */
 
   .key.wide { width: 70px; }
@@ -216,6 +217,14 @@ html_start = """<!DOCTYPE html>
 
   <!-- LEFT HALF: Logic, Mental, Entities, Time -->
   <div class="half left">
+    <!-- Row 0: Numbers -->
+    <div class="row" style="padding-left: 20px;">
+      <div class="key num"><svg viewBox="0 0 24 24"><text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">1</text></svg></div>
+      <div class="key num"><svg viewBox="0 0 24 24"><text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">2</text></svg></div>
+      <div class="key num"><svg viewBox="0 0 24 24"><text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">3</text></svg></div>
+      <div class="key num"><svg viewBox="0 0 24 24"><text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">4</text></svg></div>
+      <div class="key num"><svg viewBox="0 0 24 24"><text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">5</text></svg></div>
+    </div>
     <!-- Row 1: Logic -->
     <div class="row" style="padding-left: 0px;">
       <div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="4" y1="4" x2="20" y2="20" stroke-width="3" /><line x1="20" y1="4" x2="4" y2="20" stroke-width="3" /></svg></div>
@@ -266,6 +275,14 @@ html_start = """<!DOCTYPE html>
 
   <!-- RIGHT HALF: Quantifiers, Actions, Descriptors, Space -->
   <div class="half right">
+    <!-- Row 0: Numbers -->
+    <div class="row" style="padding-right: 20px;">
+      <div class="key num"><svg viewBox="0 0 24 24"><text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">6</text></svg></div>
+      <div class="key num"><svg viewBox="0 0 24 24"><text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">7</text></svg></div>
+      <div class="key num"><svg viewBox="0 0 24 24"><text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">8</text></svg></div>
+      <div class="key num"><svg viewBox="0 0 24 24"><text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">9</text></svg></div>
+      <div class="key num"><svg viewBox="0 0 24 24"><text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">0</text></svg></div>
+    </div>
     <!-- Row 1: Quantifiers -->
     <div class="row" style="padding-right: 0px;">
       <div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="2" fill="#e2e8f0" /></svg></div>
@@ -316,6 +333,7 @@ html_start = """<!DOCTYPE html>
 </div>
 
 <div class="legend">
+  <div class="legend-item"><div class="dot" style="background: #e2e8f0;"></div> Numbers</div>
   <div class="legend-item"><div class="dot" style="background: #7fcf9f;"></div> Entities (Substantives)</div>
   <div class="legend-item"><div class="dot" style="background: #a388ed;"></div> Mental Predicates</div>
   <div class="legend-item"><div class="dot" style="background: #ffd166;"></div> Logic & Quantifiers</div>

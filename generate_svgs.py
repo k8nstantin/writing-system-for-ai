@@ -151,6 +151,21 @@ categories = [
         ]
     },
     {
+        "name": "Numbers (Mathematics)",
+        "glyphs": [
+            {"handle": "0", "desc": "zero", "svg": '<text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">0</text>'},
+            {"handle": "1", "desc": "one", "svg": '<text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">1</text>'},
+            {"handle": "2", "desc": "two", "svg": '<text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">2</text>'},
+            {"handle": "3", "desc": "three", "svg": '<text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">3</text>'},
+            {"handle": "4", "desc": "four", "svg": '<text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">4</text>'},
+            {"handle": "5", "desc": "five", "svg": '<text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">5</text>'},
+            {"handle": "6", "desc": "six", "svg": '<text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">6</text>'},
+            {"handle": "7", "desc": "seven", "svg": '<text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">7</text>'},
+            {"handle": "8", "desc": "eight", "svg": '<text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">8</text>'},
+            {"handle": "9", "desc": "nine", "svg": '<text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">9</text>'},
+        ]
+    },
+    {
         "name": "Quantifiers",
         "glyphs": [
             {"handle": "one", "desc": "one", "svg": '<circle cx="12" cy="12" r="2" fill="#333" />'},
