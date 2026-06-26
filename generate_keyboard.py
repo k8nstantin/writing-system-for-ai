@@ -132,6 +132,26 @@ html_start = """<!DOCTYPE html>
   }
   .legend-item { display: flex; align-items: center; gap: 6px; }
   .dot { width: 10px; height: 10px; border-radius: 50%; }
+
+  /* Responsive Design for smaller iframes/screens */
+  @media (max-width: 900px) {
+    .split-keyboard {
+      transform: scale(0.8);
+      transform-origin: center top;
+      margin-bottom: -80px; /* Adjust for scaling */
+    }
+  }
+  @media (max-width: 650px) {
+    .split-keyboard {
+      transform: scale(0.8);
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+      margin-bottom: 0;
+    }
+    .half.left { transform: rotate(0deg); }
+    .half.right { transform: rotate(0deg); }
+  }
 </style>
 </head>
 <body>
