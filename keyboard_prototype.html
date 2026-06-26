@@ -133,6 +133,15 @@
   .legend-item { display: flex; align-items: center; gap: 6px; }
   .dot { width: 10px; height: 10px; border-radius: 50%; }
 
+  /* Hide scrollbars completely while keeping scroll functionality */
+  body::-webkit-scrollbar {
+    display: none;
+  }
+  body {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
   .output-display {
     width: 100%;
     max-width: 800px;
