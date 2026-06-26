@@ -242,7 +242,8 @@ for cat in categories:
     html_body += f"<h2>{cat['name']}</h2>\n"
     html_body += '<div class="grid">\n'
     for glyph in cat['glyphs']:
-        svg = f'<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{glyph["svg"]}</svg>'
+        stroke_color = "#ffd166" if glyph['handle'] in ['alan', 'carl', 'k8n'] else "#e2e8f0"
+        svg = f'<svg viewBox="0 0 24 24" fill="none" stroke="{stroke_color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{glyph["svg"]}</svg>'
         html_body += f"""
         <div class="glyph-card">
           {svg}
