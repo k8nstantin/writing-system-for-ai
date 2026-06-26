@@ -5,7 +5,7 @@ html_start = """<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Characteristica Reborn - Full Glyph Set</title>
+<title>Alan - Full Glyph Set</title>
 <style>
   body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -76,12 +76,12 @@ html_start = """<!DOCTYPE html>
 <body>
 
 <div class="container">
-  <h1>Characteristica Visual Grammar</h1>
+  <h1>Alan Visual Grammar</h1>
   <p class="subtitle">The complete dictionary of ~65 Natural Semantic Metalanguage (NSM) primes, mapped to a unified visual typology. All glyphs share a consistent visual language, bound to a 24x24 grid with uniform stroke weight.</p>
 
-  <div style="background: #eef2f5; padding: 20px; border-radius: 6px; border-left: 4px solid #4a90e2; margin-bottom: 40px;">
-    <h3 style="margin-top: 0; color: #333;">The Four Laws of Visual Grammar</h3>
-    <ul style="color: #444; line-height: 1.6; font-size: 15px; margin-bottom: 0;">
+  <div style="background: #1b2330; padding: 20px; border-radius: 8px; border-left: 4px solid #8aa6d4; margin-bottom: 40px;">
+    <h3 style="margin-top: 0; color: #fff;">The Four Laws of Visual Grammar</h3>
+    <ul style="color: #c8cdd6; line-height: 1.6; font-size: 15px; margin-bottom: 0;">
       <li><strong>1. Typology Base:</strong> Every base prime belongs to a rigid geometric category. Circles = Entities, Triangles = Events, Diamonds = Mental States, Squares = Descriptors, Hexagons = Macro/Cosmic concepts.</li>
       <li><strong>2. Geometric Opposites (Matter & Anti-Matter):</strong> Semantic opposites are created via geometric reflections. You do not need a new symbol for an antonym; flipping a shape vertically creates its polar opposite (e.g., Live ▲ / Die ▼). Flipping a shape horizontally creates its lateral opposite (e.g., Left / Right).</li>
       <li><strong>3. Layout Syntax:</strong> Text-based brackets `[ ]` are abandoned. The notation uses vertical indentation and subtle layout lines to build unambiguous, machine-parsable logical trees that are easily readable by humans.</li>
@@ -232,15 +232,6 @@ categories = [
             {"handle": "and", "desc": "and", "svg": '<polyline points="6,18 12,6 18,18" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />'},
             {"handle": "or", "desc": "or", "svg": '<polyline points="6,6 12,18 18,6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />'},
             {"handle": "andor", "desc": "and/or", "svg": '<polyline points="6,18 12,6 18,18" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /><polyline points="6,6 12,18 18,6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />'},
-        ]
-    },
-    {
-        "name": "Semantic Roles (Structural Connections)",
-        "glyphs": [
-            {"handle": "agt", "desc": "agent / doer", "svg": '<line x1="2" y1="12" x2="22" y2="12" /><circle cx="4" cy="12" r="2" fill="#e2e8f0" /><polyline points="18,8 22,12 18,16" />'},
-            {"handle": "pat", "desc": "patient / receiver", "svg": '<line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" /><line x1="22" y1="6" x2="22" y2="18" />'},
-            {"handle": "res", "desc": "result / output", "svg": '<line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" stroke-width="4" />'},
-            {"handle": "man", "desc": "manner / how", "svg": '<path d="M 2 12 Q 7 4 12 12 T 22 12" /><polyline points="18,8 22,12 18,16" />'},
         ]
     }
 ]
