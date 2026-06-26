@@ -10,4 +10,6 @@ It names the critical, *measured* AI failures it closes — hallucination, RAG �
 
 **Live site:** https://k8nstantin.github.io/writing-system-for-ai/
 
+✨ **NEW:** [View the pure, bracketless Visual Grammar Prototypes](https://k8nstantin.github.io/writing-system-for-ai/svg_prototypes.html)
+
 Single self-contained `index.html` — no build step, no dependencies. Mirrors the working essay; sources cited inline.
