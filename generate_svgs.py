@@ -276,51 +276,51 @@ html_end = """
       <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linejoin="round"><polygon points="12,2 22,12 12,22 2,12" fill="#333"/></svg>
       <div class="args-block">
         <div class="arg-line">
-          <span class="role-label">agt</span>
+          <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="agt"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><circle cx="4" cy="12" r="2" fill="#8aa6d4" /><polyline points="18,8 22,12 18,16" /></svg></div>
           <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="4" fill="#333" /></svg> <!-- me -->
         </div>
         <div class="arg-line">
-          <span class="role-label">man</span>
+          <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="man"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 2 12 Q 7 4 12 12 T 22 12" /><polyline points="18,8 22,12 18,16" /></svg></div>
           <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><rect x="4" y="4" width="16" height="16" fill="#333" /></svg> <!-- tru -->
         </div>
         <div class="arg-line">
-          <span class="role-label">pat</span>
+          <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="pat"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" /><line x1="22" y1="6" x2="22" y2="18" /></svg></div>
           <div class="statement nested-block">
             <!-- not prime -->
             <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><line x1="4" y1="4" x2="20" y2="20" stroke-width="3" /><line x1="20" y1="4" x2="4" y2="20" stroke-width="3" /></svg>
             <div class="args-block" style="border-left-color: #b0bec5;">
               <div class="arg-line">
-                <span class="role-label">res</span>
+                <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="res"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" stroke-width="4" /></svg></div>
                 <div class="statement nested-block" style="background: #fff;">
                   <!-- bik (cause) -->
                   <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" /></svg>
                   <div class="args-block" style="border-left-color: #cfd8dc;">
                     <div class="arg-line">
-                      <span class="role-label">agt</span>
+                      <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="agt"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><circle cx="4" cy="12" r="2" fill="#8aa6d4" /><polyline points="18,8 22,12 18,16" /></svg></div>
                       <div class="list-items">DEATH ∨ LIFE ∨ ANGELS ∨ DEMONS ∨ NOW ∨ LATER ∨ HEIGHT ∨ DEPTH ∨ ∀ OTHERS</div>
                     </div>
                     <div class="arg-line">
-                      <span class="role-label">res</span>
+                      <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="res"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" stroke-width="4" /></svg></div>
                       <div class="statement nested-block" style="background: #f9f9f9;">
                         <!-- not prime -->
                         <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><line x1="4" y1="4" x2="20" y2="20" stroke-width="3" /><line x1="20" y1="4" x2="4" y2="20" stroke-width="3" /></svg>
                         <div class="args-block">
                           <div class="arg-line">
-                            <span class="role-label">res</span>
+                            <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="res"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" stroke-width="4" /></svg></div>
                             <div class="statement nested-block" style="background: #eef2f5;">
                               <!-- fel (feel) -->
                               <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linejoin="round"><polygon points="12,2 22,12 12,22 2,12" /><path d="M 8 12 Q 10 8 12 12 T 16 12" /></svg>
                               <div class="args-block">
                                 <div class="arg-line">
-                                  <span class="role-label">exp</span>
+                                  <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="exp"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" /><line x1="22" y1="6" x2="22" y2="18" /></svg></div>
                                   <span style="font-weight:bold; font-size: 16px; margin-top:2px;">GOD</span>
                                 </div>
                                 <div class="arg-line">
-                                  <span class="role-label">pat</span>
+                                  <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="pat"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" /><line x1="22" y1="6" x2="22" y2="18" /></svg></div>
                                   <span style="font-weight:bold; font-size: 16px; margin-top:2px;">us</span>
                                 </div>
                                 <div class="arg-line">
-                                  <span class="role-label">man</span>
+                                  <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="man"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 2 12 Q 7 4 12 12 T 22 12" /><polyline points="18,8 22,12 18,16" /></svg></div>
                                   <span style="display:flex; align-items:center; gap:4px;">
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polyline points="8,13 12,8 16,13" /><polyline points="8,18 12,13 16,18" /></svg> <!-- vry -->
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polyline points="8,14 12,9 16,14" /></svg> <!-- gud -->
@@ -352,51 +352,51 @@ html_end = """
       <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linejoin="round"><polygon points="12,2 22,12 12,22 2,12" fill="#333"/></svg>
       <div class="args-block">
         <div class="arg-line">
-          <span class="role-label">agt</span>
+          <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="agt"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><circle cx="4" cy="12" r="2" fill="#8aa6d4" /><polyline points="18,8 22,12 18,16" /></svg></div>
           <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="4" fill="#333" /></svg>
         </div>
         <div class="arg-line">
-          <span class="role-label">man</span>
+          <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="man"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 2 12 Q 7 4 12 12 T 22 12" /><polyline points="18,8 22,12 18,16" /></svg></div>
           <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><rect x="4" y="4" width="16" height="16" fill="#333" /></svg>
         </div>
         <div class="arg-line">
-          <span class="role-label">pat</span>
+          <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="pat"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" /><line x1="22" y1="6" x2="22" y2="18" /></svg></div>
           <div class="statement nested-block">
             <!-- not prime -->
             <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><line x1="4" y1="4" x2="20" y2="20" stroke-width="3" /><line x1="20" y1="4" x2="4" y2="20" stroke-width="3" /></svg>
             <div class="args-block" style="border-left-color: #b0bec5;">
               <div class="arg-line">
-                <span class="role-label">res</span>
+                <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="res"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" stroke-width="4" /></svg></div>
                 <div class="statement nested-block" style="background: #fff;">
                   <!-- bik (cause) -->
                   <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" /></svg>
                   <div class="args-block" style="border-left-color: #cfd8dc;">
                     <div class="arg-line">
-                      <span class="role-label">agt</span>
+                      <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="agt"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><circle cx="4" cy="12" r="2" fill="#8aa6d4" /><polyline points="18,8 22,12 18,16" /></svg></div>
                       <div class="list-items" style="font-family: monospace;">DEATH ∨ LIFE ∨ ANGEL ∨ DEMON ∨ ⟦tim⟧now ∨ ⟦tim⟧aft ∨ HEIGHT ∨ DEPTH ∨ ∀⟦ren⟧oth</div>
                     </div>
                     <div class="arg-line">
-                      <span class="role-label">res</span>
+                      <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="res"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" stroke-width="4" /></svg></div>
                       <div class="statement nested-block" style="background: #f9f9f9;">
                         <!-- not prime -->
                         <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><line x1="4" y1="4" x2="20" y2="20" stroke-width="3" /><line x1="20" y1="4" x2="4" y2="20" stroke-width="3" /></svg>
                         <div class="args-block">
                           <div class="arg-line">
-                            <span class="role-label">res</span>
+                            <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="res"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" stroke-width="4" /></svg></div>
                             <div class="statement nested-block" style="background: #eef2f5;">
                               <!-- fel (feel) -->
                               <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linejoin="round"><polygon points="12,2 22,12 12,22 2,12" /><path d="M 8 12 Q 10 8 12 12 T 16 12" /></svg>
                               <div class="args-block">
                                 <div class="arg-line">
-                                  <span class="role-label">exp</span>
+                                  <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="exp"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" /><line x1="22" y1="6" x2="22" y2="18" /></svg></div>
                                   <span style="font-weight:bold; font-size: 16px; margin-top:2px; font-family: monospace;">GOD</span>
                                 </div>
                                 <div class="arg-line">
-                                  <span class="role-label">pat</span>
+                                  <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="pat"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" /><line x1="22" y1="6" x2="22" y2="18" /></svg></div>
                                   <span style="font-weight:bold; font-size: 16px; margin-top:2px; font-family: monospace;">⟦qen⟧↺</span>
                                 </div>
                                 <div class="arg-line">
-                                  <span class="role-label">man</span>
+                                  <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="man"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 2 12 Q 7 4 12 12 T 22 12" /><polyline points="18,8 22,12 18,16" /></svg></div>
                                   <span style="display:flex; align-items:center; gap:4px;">
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polyline points="8,13 12,8 16,13" /><polyline points="8,18 12,13 16,18" /></svg> <!-- vry -->
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polyline points="8,14 12,9 16,14" /></svg> <!-- gud -->
@@ -427,27 +427,27 @@ html_end = """
       <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linejoin="round"><polygon points="12,2 22,12 12,22 2,12" fill="#333"/></svg>
       <div class="args-block">
         <div class="arg-line">
-          <span class="role-label">agt</span>
+          <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="agt"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><circle cx="4" cy="12" r="2" fill="#8aa6d4" /><polyline points="18,8 22,12 18,16" /></svg></div>
           <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="4" fill="#333" /></svg>
         </div>
         <div class="arg-line">
-          <span class="role-label">man</span>
+          <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="man"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 2 12 Q 7 4 12 12 T 22 12" /><polyline points="18,8 22,12 18,16" /></svg></div>
           <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><rect x="4" y="4" width="16" height="16" fill="#333" /></svg>
         </div>
         <div class="arg-line">
-          <span class="role-label">pat</span>
+          <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="pat"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" /><line x1="22" y1="6" x2="22" y2="18" /></svg></div>
           <div class="statement nested-block">
             <!-- not prime -->
             <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><line x1="4" y1="4" x2="20" y2="20" stroke-width="3" /><line x1="20" y1="4" x2="4" y2="20" stroke-width="3" /></svg>
             <div class="args-block" style="border-left-color: #b0bec5;">
               <div class="arg-line">
-                <span class="role-label">res</span>
+                <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="res"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" stroke-width="4" /></svg></div>
                 <div class="statement nested-block" style="background: #fff;">
                   <!-- bik (cause) -->
                   <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" /></svg>
                   <div class="args-block" style="border-left-color: #cfd8dc;">
                     <div class="arg-line">
-                      <span class="role-label">agt</span>
+                      <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="agt"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><circle cx="4" cy="12" r="2" fill="#8aa6d4" /><polyline points="18,8 22,12 18,16" /></svg></div>
                       <div class="list-items" style="display:flex; align-items:center; gap:8px;">
                         <!-- DEATH: hap + die -->
                         <div style="position:relative; width:28px; height:28px;" title="DEATH">
@@ -475,19 +475,19 @@ html_end = """
                       </div>
                     </div>
                     <div class="arg-line">
-                      <span class="role-label">res</span>
+                      <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="res"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" stroke-width="4" /></svg></div>
                       <div class="statement nested-block" style="background: #f9f9f9;">
                         <!-- not prime -->
                         <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><line x1="4" y1="4" x2="20" y2="20" stroke-width="3" /><line x1="20" y1="4" x2="4" y2="20" stroke-width="3" /></svg>
                         <div class="args-block">
                           <div class="arg-line">
-                            <span class="role-label">res</span>
+                            <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="res"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" stroke-width="4" /></svg></div>
                             <div class="statement nested-block" style="background: #eef2f5;">
                               <!-- fel (feel) -->
                               <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linejoin="round"><polygon points="12,2 22,12 12,22 2,12" /><path d="M 8 12 Q 10 8 12 12 T 16 12" /></svg>
                               <div class="args-block">
                                 <div class="arg-line">
-                                  <span class="role-label">exp</span>
+                                  <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="exp"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" /><line x1="22" y1="6" x2="22" y2="18" /></svg></div>
                                   <!-- GOD: hex + radiating star/sun -->
                                   <div style="position:relative; width:32px; height:32px; margin-top:2px;" title="GOD">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" /></svg>
@@ -495,11 +495,11 @@ html_end = """
                                   </div>
                                 </div>
                                 <div class="arg-line">
-                                  <span class="role-label">pat</span>
+                                  <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="pat"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" /><line x1="22" y1="6" x2="22" y2="18" /></svg></div>
                                   <span style="font-weight:bold; font-size: 16px; margin-top:2px; font-family: monospace;">⟦qen⟧↺</span>
                                 </div>
                                 <div class="arg-line">
-                                  <span class="role-label">man</span>
+                                  <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="man"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 2 12 Q 7 4 12 12 T 22 12" /><polyline points="18,8 22,12 18,16" /></svg></div>
                                   <span style="display:flex; align-items:center; gap:4px;">
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polyline points="8,13 12,8 16,13" /><polyline points="8,18 12,13 16,18" /></svg> <!-- vry -->
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polyline points="8,14 12,9 16,14" /></svg> <!-- gud -->
