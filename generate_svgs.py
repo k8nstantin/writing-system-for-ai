@@ -162,15 +162,15 @@ categories = [
     {
         "name": "Space — Base: Axes",
         "glyphs": [
-            {"handle": "loc", "desc": "where / place", "svg": '<line x1="2" y1="20" x2="22" y2="20" /><circle cx="12" cy="12" r="3" fill="#333"/><line x1="12" y1="15" x2="12" y2="20" />'},
-            {"handle": "here", "desc": "here", "svg": '<circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="6" /><circle cx="12" cy="12" r="2" fill="#333" />'},
-            {"handle": "abv", "desc": "above", "svg": '<line x1="4" y1="16" x2="20" y2="16" /><circle cx="12" cy="8" r="3" fill="#333" />'},
-            {"handle": "blw", "desc": "below", "svg": '<line x1="4" y1="8" x2="20" y2="8" /><circle cx="12" cy="16" r="3" fill="#333" />'},
-            {"handle": "far", "desc": "far", "svg": '<line x1="4" y1="4" x2="4" y2="20" /><line x1="20" y1="4" x2="20" y2="20" />'},
+            {"handle": "loc", "desc": "where / place", "svg": '<line x1="2" y1="20" x2="22" y2="20" /><line x1="12" y1="20" x2="12" y2="2" /><circle cx="12" cy="12" r="3" fill="#333" />'},
+            {"handle": "here", "desc": "here", "svg": '<line x1="2" y1="20" x2="22" y2="20" /><line x1="12" y1="20" x2="12" y2="2" /><circle cx="12" cy="20" r="4" fill="#333" />'},
+            {"handle": "abv", "desc": "above", "svg": '<line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,10 12,4 16,10" /><line x1="12" y1="4" x2="12" y2="14" />'},
+            {"handle": "blw", "desc": "below", "svg": '<line x1="2" y1="6" x2="22" y2="6" /><polyline points="8,14 12,20 16,14" /><line x1="12" y1="20" x2="12" y2="10" />'},
+            {"handle": "far", "desc": "far", "svg": '<line x1="4" y1="4" x2="4" y2="20" /><line x1="20" y1="4" x2="20" y2="20" /><path d="M 6 12 Q 12 18 18 12" stroke-dasharray="2,2" />'},
             {"handle": "near", "desc": "near", "svg": '<line x1="10" y1="4" x2="10" y2="20" /><line x1="14" y1="4" x2="14" y2="20" />'},
-            {"handle": "side", "desc": "side", "svg": '<line x1="10" y1="2" x2="10" y2="22" /><circle cx="18" cy="12" r="3" fill="#333" />'},
-            {"handle": "in", "desc": "inside", "svg": '<rect x="4" y="4" width="16" height="16" /><circle cx="12" cy="12" r="3" fill="#333" />'},
-            {"handle": "tch", "desc": "touch", "svg": '<circle cx="8" cy="12" r="6" /><circle cx="20" cy="12" r="6" />'},
+            {"handle": "side", "desc": "side", "svg": '<line x1="12" y1="2" x2="12" y2="22" /><rect x="16" y="8" width="6" height="8" fill="#333" />'},
+            {"handle": "in", "desc": "inside", "svg": '<rect x="4" y="4" width="16" height="16" /><rect x="9" y="9" width="6" height="6" fill="#333" />'},
+            {"handle": "tch", "desc": "touch", "svg": '<rect x="4" y="6" width="8" height="12" /><rect x="12" y="6" width="8" height="12" />'},
         ]
     },
     {
