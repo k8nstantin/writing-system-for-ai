@@ -18,7 +18,7 @@ html_start = """<!DOCTYPE html>
     justify-content: center;
     min-height: 100vh;
     margin: 0;
-    padding: 40px;
+    padding: 40px 40px 80px 40px;
     box-sizing: border-box;
     overflow-x: hidden;
   }
