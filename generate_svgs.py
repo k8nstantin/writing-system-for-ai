@@ -98,9 +98,9 @@ categories = [
             {"handle": "god", "desc": "deity / creator", "svg": '<polygon points="12,2 21,7 21,17 12,22 3,17 3,7" /><circle cx="12" cy="12" r="3" fill="#e2e8f0" />'},
             {"handle": "sys", "desc": "system / structure", "svg": '<polygon points="12,2 22,9 18,20 6,20 2,9" />'},
             {"handle": "law", "desc": "law / absolute rule", "svg": '<polygon points="9,2 15,2 22,9 22,15 15,22 9,22 2,15 2,9" stroke-width="3" />'},
-            {"handle": "alan", "desc": "Turing (Computation)", "svg": '<g stroke="#ffd166"><polygon points="12,2 22,9 18,20 6,20 2,9" /><rect x="9" y="8" width="6" height="8" fill="#ffd166" /></g>'},
-            {"handle": "carl", "desc": "Leibniz (Logic/Vision)", "svg": '<g stroke="#ffd166"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" /><polygon points="12,6 18,16 6,16" fill="#ffd166" /></g>'},
-            {"handle": "k8n", "desc": "Konstantin (Creator)", "svg": '<g stroke="#ffd166"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" /><circle cx="12" cy="10" r="2" fill="#ffd166" /><circle cx="12" cy="14" r="2" fill="#ffd166" /></g>'},
+            {"handle": "alan", "desc": "reserved", "svg": '<g stroke="#ffd166"><polygon points="12,2 22,9 18,20 6,20 2,9" /><rect x="9" y="8" width="6" height="8" fill="#ffd166" /></g>'},
+            {"handle": "carl", "desc": "reserved", "svg": '<g stroke="#ffd166"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" /><polygon points="12,6 18,16 6,16" fill="#ffd166" /></g>'},
+            {"handle": "k8n", "desc": "reserved", "svg": '<g stroke="#ffd166"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" /><circle cx="12" cy="10" r="2" fill="#ffd166" /><circle cx="12" cy="14" r="2" fill="#ffd166" /></g>'},
             {"handle": "mdl", "desc": "AI Model / Network", "svg": '<polygon points="12,2 22,9 18,20 6,20 2,9" /><circle cx="12" cy="8" r="1.5" fill="#e2e8f0" /><circle cx="8" cy="14" r="1.5" fill="#e2e8f0" /><circle cx="16" cy="14" r="1.5" fill="#e2e8f0" /><polyline points="12,8 8,14 16,14 12,8" stroke-width="1.5" stroke="#e2e8f0" />'},
         ]
     },
