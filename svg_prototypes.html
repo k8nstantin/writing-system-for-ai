@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Characteristica Reborn - SVG Prototypes</title>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+  }
+  .container {
+    background: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    max-width: 800px;
+    width: 100%;
+  }
+  h1, h2 {
+    color: #111;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+  .glyph-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    background: #fafafa;
+  }
+  .glyph-card svg {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 10px;
+  }
+  .label {
+    font-family: monospace;
+    font-size: 14px;
+    color: #555;
+  }
+  .meaning {
+    font-size: 12px;
+    color: #888;
+    margin-top: 4px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Characteristica Visual Grammar</h1>
+  <p>A unified SVG typology for NSM Primes. Consistent line weight (`stroke-width="2"`), bounded in `24x24` grids.</p>
+
+  <h2>Entities (Substantives) — Base: Circle</h2>
+  <div class="grid">
+    <div class="glyph-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10" />
+        <circle cx="12" cy="12" r="4" fill="black" />
+      </svg>
+      <div class="label">me</div>
+      <div class="meaning">solid core (self)</div>
+    </div>
+    <div class="glyph-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10" />
+        <circle cx="12" cy="12" r="4" />
+      </svg>
+      <div class="label">yu</div>
+      <div class="meaning">open core (other)</div>
+    </div>
+    <div class="glyph-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10" />
+      </svg>
+      <div class="label">qen</div>
+      <div class="meaning">someone (empty)</div>
+    </div>
+    <div class="glyph-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10" />
+        <line x1="6" y1="12" x2="18" y2="12" />
+      </svg>
+      <div class="label">ren</div>
+      <div class="meaning">something (rigid)</div>
+    </div>
+  </div>
+
+  <h2>Actions (Events) — Base: Triangle/Directional</h2>
+  <div class="grid">
+    <div class="glyph-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="4,20 12,4 20,20" />
+      </svg>
+      <div class="label">do</div>
+      <div class="meaning">active base</div>
+    </div>
+    <div class="glyph-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="4,4 20,4 12,20" />
+      </svg>
+      <div class="label">hap</div>
+      <div class="meaning">passive/falling</div>
+    </div>
+    <div class="glyph-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="4" y1="12" x2="20" y2="12" />
+        <polyline points="14,6 20,12 14,18" />
+        <line x1="8" y1="12" x2="12" y2="12" stroke-dasharray="2,2" />
+      </svg>
+      <div class="label">mov</div>
+      <div class="meaning">directional shift</div>
+    </div>
+  </div>
+
+  <h2>Mental Predicates — Base: Diamond</h2>
+  <div class="grid">
+    <div class="glyph-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="12,2 22,12 12,22 2,12" />
+        <circle cx="12" cy="12" r="2" fill="black" />
+      </svg>
+      <div class="label">tnk</div>
+      <div class="meaning">think (focus)</div>
+    </div>
+    <div class="glyph-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="12,2 22,12 12,22 2,12" fill="black"/>
+      </svg>
+      <div class="label">noe</div>
+      <div class="meaning">know (solid/fixed)</div>
+    </div>
+    <div class="glyph-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="12,2 22,12 12,22 2,12" />
+        <line x1="12" y1="12" x2="24" y2="12" />
+        <polyline points="20,8 24,12 20,16" />
+      </svg>
+      <div class="label">wnt</div>
+      <div class="meaning">want (outward)</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
