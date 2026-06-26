@@ -94,7 +94,8 @@ categories = [
     {
         "name": "Macro-Concepts (Complex Geometry)",
         "glyphs": [
-            {"handle": "unv", "desc": "universe / all things", "svg": '<polygon points="12,2 21,7 21,17 12,22 3,17 3,7" /><circle cx="12" cy="12" r="3" fill="#e2e8f0" />'},
+                        {"handle": "unv", "desc": "universe / all things", "svg": '<polygon points="12,2 21,7 21,17 12,22 3,17 3,7" />'},
+            {"handle": "god", "desc": "deity / creator", "svg": '<polygon points="12,2 21,7 21,17 12,22 3,17 3,7" /><circle cx="12" cy="12" r="3" fill="#e2e8f0" />'},
             {"handle": "sys", "desc": "system / structure", "svg": '<polygon points="12,2 22,9 18,20 6,20 2,9" />'},
             {"handle": "law", "desc": "law / absolute rule", "svg": '<polygon points="9,2 15,2 22,9 22,15 15,22 9,22 2,15 2,9" stroke-width="3" />'},
             {"handle": "alan", "desc": "Turing (Computation)", "svg": '<polygon points="12,2 22,9 18,20 6,20 2,9" /><rect x="9" y="8" width="6" height="8" fill="#e2e8f0" />'},
@@ -148,7 +149,7 @@ categories = [
             {"handle": "bad", "desc": "bad", "svg": '<rect x="4" y="4" width="16" height="16" /><polyline points="8,10 12,15 16,10" />'},
             {"handle": "big", "desc": "big", "svg": '<rect x="2" y="2" width="20" height="20" stroke-width="4" />'},
             {"handle": "sml", "desc": "small", "svg": '<rect x="10" y="10" width="4" height="4" fill="#e2e8f0" />'},
-            {"handle": "tru", "desc": "true", "svg": '<rect x="4" y="4" width="16" height="16" fill="#e2e8f0" />'},
+            {"handle": "tru", "desc": "true / yes", "svg": '<rect x="4" y="4" width="16" height="16" fill="#e2e8f0" />'},
             {"handle": "lik", "desc": "like / as", "svg": '<rect x="4" y="4" width="12" height="12" /><rect x="8" y="8" width="12" height="12" />'},
         ]
     },
@@ -214,7 +215,7 @@ categories = [
     {
         "name": "Logical, Existence & Core",
         "glyphs": [
-            {"handle": "not", "desc": "not", "svg": '<line x1="4" y1="4" x2="20" y2="20" stroke-width="3" /><line x1="20" y1="4" x2="4" y2="20" stroke-width="3" />'},
+            {"handle": "not", "desc": "not / false / no", "svg": '<rect x="4" y="4" width="16" height="16" /><line x1="4" y1="4" x2="20" y2="20" />'},
             {"handle": "may", "desc": "maybe", "svg": '<path d="M 6 12 Q 9 6 12 12 T 18 12" />'},
             {"handle": "can", "desc": "can", "svg": '<path d="M 12 4 A 6 6 0 0 1 18 10 V 20 M 12 4 A 6 6 0 0 0 6 10 V 12 M 6 16 V 20" />'},
             {"handle": "if", "desc": "if", "svg": '<path d="M 12 20 V 12 L 6 4 M 12 12 L 18 4" />'},
@@ -227,7 +228,7 @@ categories = [
             {"handle": "kind", "desc": "kind", "svg": '<circle cx="12" cy="12" r="10" /><path d="M 12 12 L 12 2 A 10 10 0 0 1 21.5 15 Z" fill="#e2e8f0" />'},
             {"handle": "part", "desc": "part", "svg": '<path d="M 12 12 L 12 2 A 10 10 0 0 1 21.5 15 Z" fill="#e2e8f0" />'},
             {"handle": "dei", "desc": "this", "svg": '<line x1="12" y1="4" x2="12" y2="20" /><polyline points="6,14 12,20 18,14" />'},
-            {"handle": "bik", "desc": "because", "svg": '<polygon points="12,2 21,7 21,17 12,22 3,17 3,7" />'},
+            {"handle": "bik", "desc": "because", "svg": '<path d="M 12 4 V 12 L 6 20 M 12 12 L 18 20" />'},
             {"handle": "and", "desc": "and", "svg": '<polyline points="6,18 12,6 18,18" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />'},
             {"handle": "or", "desc": "or", "svg": '<polyline points="6,6 12,18 18,6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />'},
             {"handle": "andor", "desc": "and/or", "svg": '<polyline points="6,18 12,6 18,18" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /><polyline points="6,6 12,18 18,6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />'},
