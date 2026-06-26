@@ -217,7 +217,7 @@ categories = [
             {"handle": "can", "desc": "can", "svg": '<path d="M 12 4 A 6 6 0 0 1 18 10 V 20 M 12 4 A 6 6 0 0 0 6 10 V 12 M 6 16 V 20" />'},
             {"handle": "if", "desc": "if", "svg": '<path d="M 12 20 V 12 L 6 4 M 12 12 L 18 4" />'},
             {"handle": "vry", "desc": "very", "svg": '<rect x="4" y="4" width="16" height="16" /><polyline points="8,13 12,8 16,13" /><polyline points="8,18 12,13 16,18" />'},
-            {"handle": "is", "desc": "be", "svg": '<line x1="4" y1="9" x2="20" y2="9" /><line x1="4" y1="15" x2="20" y2="15" />'},
+            {"handle": "is", "desc": "be", "svg": '<line x1="9" y1="4" x2="9" y2="20" stroke-width="3" /><line x1="15" y1="4" x2="15" y2="20" stroke-width="3" />'},
             {"handle": "ex", "desc": "there is", "svg": '<line x1="4" y1="20" x2="20" y2="20" /><circle cx="12" cy="16" r="4" fill="#333" />'},
             {"handle": "hav", "desc": "have", "svg": '<polygon points="12,2 2,20 22,20" /><circle cx="12" cy="14" r="3" fill="#333" />'},
             {"handle": "sam", "desc": "the same", "svg": '<circle cx="9" cy="12" r="6" /><circle cx="15" cy="12" r="6" />'},
@@ -226,6 +226,8 @@ categories = [
             {"handle": "part", "desc": "part", "svg": '<path d="M 12 12 L 12 2 A 10 10 0 0 1 21.5 15 Z" fill="#333" />'},
             {"handle": "dei", "desc": "this", "svg": '<line x1="12" y1="4" x2="12" y2="20" /><polyline points="6,14 12,20 18,14" />'},
             {"handle": "bik", "desc": "because", "svg": '<polygon points="12,2 21,7 21,17 12,22 3,17 3,7" />'},
+            {"handle": "and", "desc": "and", "svg": '<polyline points="6,18 12,6 18,18" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />'},
+            {"handle": "or", "desc": "or", "svg": '<polyline points="6,6 12,18 18,6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />'},
         ]
     },
     {
