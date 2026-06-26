@@ -43,6 +43,8 @@ html_start = """<!DOCTYPE html>
 
   .split-keyboard {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 60px; /* The physical split */
     align-items: flex-end;
   }
@@ -179,20 +181,18 @@ html_start = """<!DOCTYPE html>
   @keyframes blink { 50% { opacity: 0; } }
 
   /* Responsive Design for smaller iframes/screens */
-  @media (max-width: 900px) {
+  @media (max-width: 1000px) {
     .split-keyboard {
-      transform: scale(0.8);
-      transform-origin: center top;
-      margin-bottom: -80px; /* Adjust for scaling */
+      gap: 30px;
     }
+    .half.left { transform: rotate(2deg); }
+    .half.right { transform: rotate(-2deg); }
   }
-  @media (max-width: 650px) {
+  @media (max-width: 800px) {
     .split-keyboard {
-      transform: scale(0.8);
       flex-direction: column;
       align-items: center;
-      gap: 30px;
-      margin-bottom: 0;
+      gap: 40px;
     }
     .half.left { transform: rotate(0deg); }
     .half.right { transform: rotate(0deg); }

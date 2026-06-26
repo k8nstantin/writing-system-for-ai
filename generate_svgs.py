@@ -8,26 +8,27 @@ html_start = """<!DOCTYPE html>
 <title>Characteristica Reborn - Full Glyph Set</title>
 <style>
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background-color: #f5f5f5;
-    color: #333;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #0b0e13;
+    color: #c8cdd6;
     display: flex;
     justify-content: center;
     padding: 40px;
   }
   .container {
-    background: white;
+    background: #161b24;
     padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     max-width: 900px;
     width: 100%;
+    border: 1px solid #2b3340;
   }
-  h1 { color: #111; margin-bottom: 5px; }
-  p.subtitle { color: #666; margin-bottom: 40px; }
+  h1 { color: #fff; margin-bottom: 5px; }
+  p.subtitle { color: #8aa6d4; margin-bottom: 40px; }
   h2 {
-    color: #333;
-    border-bottom: 2px solid #eee;
+    color: #fff;
+    border-bottom: 2px solid #2b3340;
     padding-bottom: 8px;
     margin-top: 40px;
   }
@@ -42,30 +43,31 @@ html_start = """<!DOCTYPE html>
     flex-direction: column;
     align-items: center;
     padding: 15px;
-    border: 1px solid #e0e0e0;
-    border-radius: 6px;
-    background: #fafafa;
+    border: 1px solid #2b3340;
+    border-radius: 8px;
+    background: #1e2430;
     transition: transform 0.2s, box-shadow 0.2s;
   }
   .glyph-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-    border-color: #ccc;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    border-color: #4a5669;
   }
   .glyph-card svg {
     width: 48px;
     height: 48px;
     margin-bottom: 10px;
+    stroke: #e2e8f0;
   }
   .label {
-    font-family: monospace;
+    font-family: 'JetBrains Mono', monospace;
     font-size: 15px;
     font-weight: bold;
-    color: #222;
+    color: #fff;
   }
   .meaning {
     font-size: 12px;
-    color: #666;
+    color: #8aa6d4;
     margin-top: 4px;
     text-align: center;
   }
@@ -92,22 +94,22 @@ categories = [
     {
         "name": "Macro-Concepts (Complex Geometry)",
         "glyphs": [
-            {"handle": "unv", "desc": "universe / all things", "svg": '<polygon points="12,2 21,7 21,17 12,22 3,17 3,7" /><circle cx="12" cy="12" r="3" fill="#333" />'},
+            {"handle": "unv", "desc": "universe / all things", "svg": '<polygon points="12,2 21,7 21,17 12,22 3,17 3,7" /><circle cx="12" cy="12" r="3" fill="#e2e8f0" />'},
             {"handle": "sys", "desc": "system / structure", "svg": '<polygon points="12,2 22,9 18,20 6,20 2,9" />'},
             {"handle": "law", "desc": "law / absolute rule", "svg": '<polygon points="9,2 15,2 22,9 22,15 15,22 9,22 2,15 2,9" stroke-width="3" />'},
-            {"handle": "alan", "desc": "Turing (Computation)", "svg": '<polygon points="12,2 22,9 18,20 6,20 2,9" /><rect x="9" y="8" width="6" height="8" fill="#333" />'},
-            {"handle": "carl", "desc": "Leibniz (Logic/Vision)", "svg": '<polygon points="12,2 21,7 21,17 12,22 3,17 3,7" /><polygon points="12,6 18,16 6,16" fill="#333" />'},
-            {"handle": "mdl", "desc": "AI Model / Network", "svg": '<polygon points="12,2 22,9 18,20 6,20 2,9" /><circle cx="12" cy="8" r="1.5" fill="#333" /><circle cx="8" cy="14" r="1.5" fill="#333" /><circle cx="16" cy="14" r="1.5" fill="#333" /><polyline points="12,8 8,14 16,14 12,8" stroke-width="1.5" stroke="#333" />'},
+            {"handle": "alan", "desc": "Turing (Computation)", "svg": '<polygon points="12,2 22,9 18,20 6,20 2,9" /><rect x="9" y="8" width="6" height="8" fill="#e2e8f0" />'},
+            {"handle": "carl", "desc": "Leibniz (Logic/Vision)", "svg": '<polygon points="12,2 21,7 21,17 12,22 3,17 3,7" /><polygon points="12,6 18,16 6,16" fill="#e2e8f0" />'},
+            {"handle": "mdl", "desc": "AI Model / Network", "svg": '<polygon points="12,2 22,9 18,20 6,20 2,9" /><circle cx="12" cy="8" r="1.5" fill="#e2e8f0" /><circle cx="8" cy="14" r="1.5" fill="#e2e8f0" /><circle cx="16" cy="14" r="1.5" fill="#e2e8f0" /><polyline points="12,8 8,14 16,14 12,8" stroke-width="1.5" stroke="#e2e8f0" />'},
         ]
     },
     {
         "name": "Entities (Substantives) — Base: Circle",
         "glyphs": [
-            {"handle": "me", "desc": "I / self", "svg": '<circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="4" fill="#333" />'},
+            {"handle": "me", "desc": "I / self", "svg": '<circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="4" fill="#e2e8f0" />'},
             {"handle": "yu", "desc": "you / other", "svg": '<circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="4" />'},
             {"handle": "qen", "desc": "someone", "svg": '<circle cx="12" cy="12" r="10" />'},
             {"handle": "ren", "desc": "something", "svg": '<circle cx="12" cy="12" r="10" /><line x1="6" y1="12" x2="18" y2="12" />'},
-            {"handle": "ppl", "desc": "people", "svg": '<circle cx="12" cy="12" r="10" /><circle cx="12" cy="7" r="1.5" fill="#333"/><circle cx="8" cy="14" r="1.5" fill="#333"/><circle cx="16" cy="14" r="1.5" fill="#333"/>'},
+            {"handle": "ppl", "desc": "people", "svg": '<circle cx="12" cy="12" r="10" /><circle cx="12" cy="7" r="1.5" fill="#e2e8f0"/><circle cx="8" cy="14" r="1.5" fill="#e2e8f0"/><circle cx="16" cy="14" r="1.5" fill="#e2e8f0"/>'},
             {"handle": "bod", "desc": "body", "svg": '<circle cx="12" cy="12" r="10" /><line x1="12" y1="2" x2="12" y2="22" />'},
         ]
     },
@@ -117,15 +119,15 @@ categories = [
             {"handle": "do", "desc": "do / active", "svg": '<polygon points="12,2 2,20 22,20" />'},
             {"handle": "hap", "desc": "happen", "svg": '<polygon points="2,4 22,4 12,22" />'},
             {"handle": "mov", "desc": "move", "svg": '<line x1="4" y1="12" x2="20" y2="12" /><polyline points="10,6 4,12 10,18" /><polyline points="14,6 20,12 14,18" />'},
-            {"handle": "liv", "desc": "live", "svg": '<polygon points="12,2 2,20 22,20" /><circle cx="12" cy="14" r="2" fill="#333"/>'},
-            {"handle": "die", "desc": "die", "svg": '<polygon points="2,4 22,4 12,22" /><circle cx="12" cy="10" r="2" fill="#333"/>'},
+            {"handle": "liv", "desc": "live", "svg": '<polygon points="12,2 2,20 22,20" /><circle cx="12" cy="14" r="2" fill="#e2e8f0"/>'},
+            {"handle": "die", "desc": "die", "svg": '<polygon points="2,4 22,4 12,22" /><circle cx="12" cy="10" r="2" fill="#e2e8f0"/>'},
         ]
     },
     {
         "name": "Mental Predicates — Base: Diamond",
         "glyphs": [
-            {"handle": "tnk", "desc": "think", "svg": '<polygon points="12,2 22,12 12,22 2,12" /><circle cx="12" cy="12" r="2" fill="#333" />'},
-            {"handle": "noe", "desc": "know", "svg": '<polygon points="12,2 22,12 12,22 2,12" fill="#333"/>'},
+            {"handle": "tnk", "desc": "think", "svg": '<polygon points="12,2 22,12 12,22 2,12" /><circle cx="12" cy="12" r="2" fill="#e2e8f0" />'},
+            {"handle": "noe", "desc": "know", "svg": '<polygon points="12,2 22,12 12,22 2,12" fill="#e2e8f0"/>'},
             {"handle": "wnt", "desc": "want", "svg": '<polygon points="12,2 22,12 12,22 2,12" /><line x1="12" y1="12" x2="24" y2="12" /><polyline points="20,8 24,12 20,16" />'},
             {"handle": "fel", "desc": "feel", "svg": '<polygon points="12,2 22,12 12,22 2,12" /><path d="M 8 12 Q 10 8 12 12 T 16 12" />'},
             {"handle": "see", "desc": "see", "svg": '<polygon points="12,2 22,12 12,22 2,12" /><path d="M 7 12 Q 12 7 17 12 Q 12 17 7 12" />'},
@@ -145,40 +147,40 @@ categories = [
             {"handle": "gud", "desc": "good", "svg": '<rect x="4" y="4" width="16" height="16" /><polyline points="8,14 12,9 16,14" />'},
             {"handle": "bad", "desc": "bad", "svg": '<rect x="4" y="4" width="16" height="16" /><polyline points="8,10 12,15 16,10" />'},
             {"handle": "big", "desc": "big", "svg": '<rect x="2" y="2" width="20" height="20" stroke-width="4" />'},
-            {"handle": "sml", "desc": "small", "svg": '<rect x="10" y="10" width="4" height="4" fill="#333" />'},
-            {"handle": "tru", "desc": "true", "svg": '<rect x="4" y="4" width="16" height="16" fill="#333" />'},
+            {"handle": "sml", "desc": "small", "svg": '<rect x="10" y="10" width="4" height="4" fill="#e2e8f0" />'},
+            {"handle": "tru", "desc": "true", "svg": '<rect x="4" y="4" width="16" height="16" fill="#e2e8f0" />'},
             {"handle": "lik", "desc": "like / as", "svg": '<rect x="4" y="4" width="12" height="12" /><rect x="8" y="8" width="12" height="12" />'},
         ]
     },
     {
         "name": "Numbers (Mathematics)",
         "glyphs": [
-            {"handle": "0", "desc": "zero", "svg": '<text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">0</text>'},
-            {"handle": "1", "desc": "one", "svg": '<text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">1</text>'},
-            {"handle": "2", "desc": "two", "svg": '<text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">2</text>'},
-            {"handle": "3", "desc": "three", "svg": '<text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">3</text>'},
-            {"handle": "4", "desc": "four", "svg": '<text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">4</text>'},
-            {"handle": "5", "desc": "five", "svg": '<text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">5</text>'},
-            {"handle": "6", "desc": "six", "svg": '<text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">6</text>'},
-            {"handle": "7", "desc": "seven", "svg": '<text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">7</text>'},
-            {"handle": "8", "desc": "eight", "svg": '<text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">8</text>'},
-            {"handle": "9", "desc": "nine", "svg": '<text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">9</text>'},
+            {"handle": "0", "desc": "zero", "svg": '<text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">0</text>'},
+            {"handle": "1", "desc": "one", "svg": '<text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">1</text>'},
+            {"handle": "2", "desc": "two", "svg": '<text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">2</text>'},
+            {"handle": "3", "desc": "three", "svg": '<text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">3</text>'},
+            {"handle": "4", "desc": "four", "svg": '<text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">4</text>'},
+            {"handle": "5", "desc": "five", "svg": '<text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">5</text>'},
+            {"handle": "6", "desc": "six", "svg": '<text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">6</text>'},
+            {"handle": "7", "desc": "seven", "svg": '<text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">7</text>'},
+            {"handle": "8", "desc": "eight", "svg": '<text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">8</text>'},
+            {"handle": "9", "desc": "nine", "svg": '<text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">9</text>'},
             {"handle": "add", "desc": "add", "svg": '<line x1="12" y1="5" x2="12" y2="19" stroke-width="3" /><line x1="5" y1="12" x2="19" y2="12" stroke-width="3" />'},
             {"handle": "sub", "desc": "subtract", "svg": '<line x1="5" y1="12" x2="19" y2="12" stroke-width="3" />'},
             {"handle": "mul", "desc": "multiply", "svg": '<line x1="6" y1="6" x2="18" y2="18" stroke-width="3" /><line x1="18" y1="6" x2="6" y2="18" stroke-width="3" />'},
-            {"handle": "div", "desc": "divide", "svg": '<line x1="5" y1="12" x2="19" y2="12" stroke-width="3" /><circle cx="12" cy="6" r="2" fill="#333" /><circle cx="12" cy="18" r="2" fill="#333" />'},
+            {"handle": "div", "desc": "divide", "svg": '<line x1="5" y1="12" x2="19" y2="12" stroke-width="3" /><circle cx="12" cy="6" r="2" fill="#e2e8f0" /><circle cx="12" cy="18" r="2" fill="#e2e8f0" />'},
             {"handle": "eql", "desc": "equals", "svg": '<line x1="5" y1="9" x2="19" y2="9" stroke-width="3" /><line x1="5" y1="15" x2="19" y2="15" stroke-width="3" />'},
         ]
     },
     {
         "name": "Quantifiers",
         "glyphs": [
-            {"handle": "one", "desc": "one", "svg": '<circle cx="12" cy="12" r="2" fill="#333" />'},
-            {"handle": "two", "desc": "two", "svg": '<circle cx="8" cy="12" r="2" fill="#333" /><circle cx="16" cy="12" r="2" fill="#333" />'},
-            {"handle": "few", "desc": "few", "svg": '<circle cx="12" cy="8" r="1.5" fill="#333" /><circle cx="7" cy="15" r="1.5" fill="#333" /><circle cx="17" cy="15" r="1.5" fill="#333" />'},
+            {"handle": "one", "desc": "one", "svg": '<circle cx="12" cy="12" r="2" fill="#e2e8f0" />'},
+            {"handle": "two", "desc": "two", "svg": '<circle cx="8" cy="12" r="2" fill="#e2e8f0" /><circle cx="16" cy="12" r="2" fill="#e2e8f0" />'},
+            {"handle": "few", "desc": "few", "svg": '<circle cx="12" cy="8" r="1.5" fill="#e2e8f0" /><circle cx="7" cy="15" r="1.5" fill="#e2e8f0" /><circle cx="17" cy="15" r="1.5" fill="#e2e8f0" />'},
             {"handle": "som", "desc": "some", "svg": '<circle cx="12" cy="12" r="10" stroke-dasharray="4,4" />'},
-            {"handle": "mor", "desc": "much / many", "svg": '<circle cx="6" cy="6" r="1.5" fill="#333" /><circle cx="12" cy="6" r="1.5" fill="#333" /><circle cx="18" cy="6" r="1.5" fill="#333" /><circle cx="6" cy="12" r="1.5" fill="#333" /><circle cx="12" cy="12" r="1.5" fill="#333" /><circle cx="18" cy="12" r="1.5" fill="#333" /><circle cx="6" cy="18" r="1.5" fill="#333" /><circle cx="12" cy="18" r="1.5" fill="#333" /><circle cx="18" cy="18" r="1.5" fill="#333" />'},
-            {"handle": "al", "desc": "all", "svg": '<circle cx="12" cy="12" r="10" fill="#333" />'},
+            {"handle": "mor", "desc": "much / many", "svg": '<circle cx="6" cy="6" r="1.5" fill="#e2e8f0" /><circle cx="12" cy="6" r="1.5" fill="#e2e8f0" /><circle cx="18" cy="6" r="1.5" fill="#e2e8f0" /><circle cx="6" cy="12" r="1.5" fill="#e2e8f0" /><circle cx="12" cy="12" r="1.5" fill="#e2e8f0" /><circle cx="18" cy="12" r="1.5" fill="#e2e8f0" /><circle cx="6" cy="18" r="1.5" fill="#e2e8f0" /><circle cx="12" cy="18" r="1.5" fill="#e2e8f0" /><circle cx="18" cy="18" r="1.5" fill="#e2e8f0" />'},
+            {"handle": "al", "desc": "all", "svg": '<circle cx="12" cy="12" r="10" fill="#e2e8f0" />'},
         ]
     },
     {
@@ -195,17 +197,17 @@ categories = [
     {
         "name": "Space — Base: Axes",
         "glyphs": [
-            {"handle": "loc", "desc": "where / place", "svg": '<line x1="2" y1="20" x2="22" y2="20" /><line x1="12" y1="20" x2="12" y2="2" /><circle cx="12" cy="12" r="3" fill="#333" />'},
-            {"handle": "here", "desc": "here", "svg": '<line x1="2" y1="20" x2="22" y2="20" /><line x1="12" y1="20" x2="12" y2="2" /><circle cx="12" cy="20" r="4" fill="#333" />'},
+            {"handle": "loc", "desc": "where / place", "svg": '<line x1="2" y1="20" x2="22" y2="20" /><line x1="12" y1="20" x2="12" y2="2" /><circle cx="12" cy="12" r="3" fill="#e2e8f0" />'},
+            {"handle": "here", "desc": "here", "svg": '<line x1="2" y1="20" x2="22" y2="20" /><line x1="12" y1="20" x2="12" y2="2" /><circle cx="12" cy="20" r="4" fill="#e2e8f0" />'},
             {"handle": "abv", "desc": "above", "svg": '<line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,10 12,4 16,10" /><line x1="12" y1="4" x2="12" y2="14" />'},
             {"handle": "blw", "desc": "below", "svg": '<line x1="2" y1="6" x2="22" y2="6" /><polyline points="8,14 12,20 16,14" /><line x1="12" y1="20" x2="12" y2="10" />'},
             {"handle": "far", "desc": "far", "svg": '<line x1="4" y1="4" x2="4" y2="20" /><line x1="20" y1="4" x2="20" y2="20" /><path d="M 6 12 Q 12 18 18 12" stroke-dasharray="2,2" />'},
             {"handle": "near", "desc": "near", "svg": '<line x1="10" y1="4" x2="10" y2="20" /><line x1="14" y1="4" x2="14" y2="20" />'},
-            {"handle": "side", "desc": "side", "svg": '<line x1="12" y1="2" x2="12" y2="22" /><rect x="4" y="8" width="5" height="8" fill="#333" /><rect x="15" y="8" width="5" height="8" fill="#333" />'},
-            {"handle": "lft", "desc": "left", "svg": '<line x1="12" y1="2" x2="12" y2="22" /><rect x="4" y="8" width="6" height="8" fill="#333" />'},
-            {"handle": "rgt", "desc": "right", "svg": '<line x1="12" y1="2" x2="12" y2="22" /><rect x="14" y="8" width="6" height="8" fill="#333" />'},
-            {"handle": "in", "desc": "inside", "svg": '<rect x="4" y="4" width="16" height="16" /><rect x="9" y="9" width="6" height="6" fill="#333" />'},
-            {"handle": "out", "desc": "outside", "svg": '<rect x="2" y="8" width="14" height="14" /><rect x="16" y="2" width="6" height="6" fill="#333" />'},
+            {"handle": "side", "desc": "side", "svg": '<line x1="12" y1="2" x2="12" y2="22" /><rect x="4" y="8" width="5" height="8" fill="#e2e8f0" /><rect x="15" y="8" width="5" height="8" fill="#e2e8f0" />'},
+            {"handle": "lft", "desc": "left", "svg": '<line x1="12" y1="2" x2="12" y2="22" /><rect x="4" y="8" width="6" height="8" fill="#e2e8f0" />'},
+            {"handle": "rgt", "desc": "right", "svg": '<line x1="12" y1="2" x2="12" y2="22" /><rect x="14" y="8" width="6" height="8" fill="#e2e8f0" />'},
+            {"handle": "in", "desc": "inside", "svg": '<rect x="4" y="4" width="16" height="16" /><rect x="9" y="9" width="6" height="6" fill="#e2e8f0" />'},
+            {"handle": "out", "desc": "outside", "svg": '<rect x="2" y="8" width="14" height="14" /><rect x="16" y="2" width="6" height="6" fill="#e2e8f0" />'},
             {"handle": "tch", "desc": "touch", "svg": '<rect x="4" y="6" width="8" height="12" /><rect x="12" y="6" width="8" height="12" />'},
         ]
     },
@@ -218,12 +220,12 @@ categories = [
             {"handle": "if", "desc": "if", "svg": '<path d="M 12 20 V 12 L 6 4 M 12 12 L 18 4" />'},
             {"handle": "vry", "desc": "very", "svg": '<rect x="4" y="4" width="16" height="16" /><polyline points="8,13 12,8 16,13" /><polyline points="8,18 12,13 16,18" />'},
             {"handle": "is", "desc": "be", "svg": '<line x1="9" y1="4" x2="9" y2="20" stroke-width="3" /><line x1="15" y1="4" x2="15" y2="20" stroke-width="3" />'},
-            {"handle": "ex", "desc": "there is", "svg": '<line x1="4" y1="20" x2="20" y2="20" /><circle cx="12" cy="16" r="4" fill="#333" />'},
-            {"handle": "hav", "desc": "have", "svg": '<polygon points="12,2 2,20 22,20" /><circle cx="12" cy="14" r="3" fill="#333" />'},
+            {"handle": "ex", "desc": "there is", "svg": '<line x1="4" y1="20" x2="20" y2="20" /><circle cx="12" cy="16" r="4" fill="#e2e8f0" />'},
+            {"handle": "hav", "desc": "have", "svg": '<polygon points="12,2 2,20 22,20" /><circle cx="12" cy="14" r="3" fill="#e2e8f0" />'},
             {"handle": "sam", "desc": "the same", "svg": '<circle cx="9" cy="12" r="6" /><circle cx="15" cy="12" r="6" />'},
             {"handle": "oth", "desc": "other", "svg": '<circle cx="8" cy="12" r="5" /><rect x="15" y="7" width="10" height="10" />'},
-            {"handle": "kind", "desc": "kind", "svg": '<circle cx="12" cy="12" r="10" /><path d="M 12 12 L 12 2 A 10 10 0 0 1 21.5 15 Z" fill="#333" />'},
-            {"handle": "part", "desc": "part", "svg": '<path d="M 12 12 L 12 2 A 10 10 0 0 1 21.5 15 Z" fill="#333" />'},
+            {"handle": "kind", "desc": "kind", "svg": '<circle cx="12" cy="12" r="10" /><path d="M 12 12 L 12 2 A 10 10 0 0 1 21.5 15 Z" fill="#e2e8f0" />'},
+            {"handle": "part", "desc": "part", "svg": '<path d="M 12 12 L 12 2 A 10 10 0 0 1 21.5 15 Z" fill="#e2e8f0" />'},
             {"handle": "dei", "desc": "this", "svg": '<line x1="12" y1="4" x2="12" y2="20" /><polyline points="6,14 12,20 18,14" />'},
             {"handle": "bik", "desc": "because", "svg": '<polygon points="12,2 21,7 21,17 12,22 3,17 3,7" />'},
             {"handle": "and", "desc": "and", "svg": '<polyline points="6,18 12,6 18,18" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />'},
@@ -234,7 +236,7 @@ categories = [
     {
         "name": "Semantic Roles (Structural Connections)",
         "glyphs": [
-            {"handle": "agt", "desc": "agent / doer", "svg": '<line x1="2" y1="12" x2="22" y2="12" /><circle cx="4" cy="12" r="2" fill="#333" /><polyline points="18,8 22,12 18,16" />'},
+            {"handle": "agt", "desc": "agent / doer", "svg": '<line x1="2" y1="12" x2="22" y2="12" /><circle cx="4" cy="12" r="2" fill="#e2e8f0" /><polyline points="18,8 22,12 18,16" />'},
             {"handle": "pat", "desc": "patient / receiver", "svg": '<line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" /><line x1="22" y1="6" x2="22" y2="18" />'},
             {"handle": "res", "desc": "result / output", "svg": '<line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" stroke-width="4" />'},
             {"handle": "man", "desc": "manner / how", "svg": '<path d="M 2 12 Q 7 4 12 12 T 22 12" /><polyline points="18,8 22,12 18,16" />'},
@@ -247,7 +249,7 @@ for cat in categories:
     html_body += f"<h2>{cat['name']}</h2>\n"
     html_body += '<div class="grid">\n'
     for glyph in cat['glyphs']:
-        svg = f'<svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{glyph["svg"]}</svg>'
+        svg = f'<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{glyph["svg"]}</svg>'
         html_body += f"""
         <div class="glyph-card">
           {svg}
@@ -258,83 +260,34 @@ for cat in categories:
     html_body += '</div>\n'
 
 html_end = """
-  <hr style="margin-top: 60px; border: 1px solid #eee; margin-bottom: 40px;">
-  <h2>Visual Layout Test: Romans 8:38-39 (With Reference Text)</h2>
-  <p class="subtitle" style="margin-bottom: 20px; font-style: italic;">"For I am convinced that neither death nor life... will be able to separate us from the love of God that is in Christ Jesus our Lord."</p>
-
-  <style>
-    .syntax-new { display: flex; flex-direction: column; gap: 10px; font-size: 18px; font-family: monospace; padding-bottom: 40px; }
-    .statement { display: flex; align-items: flex-start; gap: 12px; }
-    .prime-icon { width: 28px; height: 28px; flex-shrink: 0; }
-    .args-block { display: flex; flex-direction: column; gap: 6px; border-left: 2px solid #e0e0e0; padding-left: 12px; margin-top: 4px; }
-    .arg-line { display: flex; align-items: flex-start; gap: 8px; }
-    .role-label { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; width: 40px; text-align: right; margin-top: 4px; }
-    .nested-block { background: #f0f4f8; border-radius: 6px; padding: 10px 15px; border: 1px solid #d9e2ec; }
-    .list-items { font-size: 14px; font-family: sans-serif; color: #555; background: #fff; padding: 4px 8px; border: 1px solid #ccc; border-radius: 4px; margin-top: 2px; }
-  </style>
-
-  <div class="syntax-new">
-    <div class="statement">
-      <!-- noe prime -->
-      <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linejoin="round"><polygon points="12,2 22,12 12,22 2,12" fill="#333"/></svg>
-      <div class="args-block">
-        <div class="arg-line">
-          <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="agt"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><circle cx="4" cy="12" r="2" fill="#8aa6d4" /><polyline points="18,8 22,12 18,16" /></svg></div>
-          <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="4" fill="#333" /></svg> <!-- me -->
+  <hr style="margin-top: 60px; border: 1px solid #2b3340; margin-bottom: 40px;">
+  <h2>Visual Layout Tests</h2>
+<div class="glyphline-visual" style="display: flex; flex-direction: column; gap: 10px; font-size: 18px; font-family: var(--mono); padding: 14px 0px;">
+      <div style="display: flex; align-items: flex-start; gap: 12px;">
+        <!-- CALC prime (Pentagon + tnk) -->
+        <div style="position:relative; width:28px; height:28px;" title="CALCULATE">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polygon points="12,2 22,9 18,20 6,20 2,9" /></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" style="position:absolute; top:0; left:0; transform:scale(0.5); transform-origin: center;"><polygon points="12,2 22,12 12,22 2,12" /><circle cx="12" cy="12" r="2" fill="#fff" /></svg>
         </div>
-        <div class="arg-line">
-          <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="man"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 2 12 Q 7 4 12 12 T 22 12" /><polyline points="18,8 22,12 18,16" /></svg></div>
-          <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><rect x="4" y="4" width="16" height="16" fill="#333" /></svg> <!-- tru -->
-        </div>
-        <div class="arg-line">
-          <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="pat"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" /><line x1="22" y1="6" x2="22" y2="18" /></svg></div>
-          <div class="statement nested-block">
-            <!-- not prime -->
-            <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><line x1="4" y1="4" x2="20" y2="20" stroke-width="3" /><line x1="20" y1="4" x2="4" y2="20" stroke-width="3" /></svg>
-            <div class="args-block" style="border-left-color: #b0bec5;">
-              <div class="arg-line">
-                <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="res"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" stroke-width="4" /></svg></div>
-                <div class="statement nested-block" style="background: #fff;">
-                  <!-- bik (cause) -->
-                  <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" /></svg>
-                  <div class="args-block" style="border-left-color: #cfd8dc;">
-                    <div class="arg-line">
-                      <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="agt"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><circle cx="4" cy="12" r="2" fill="#8aa6d4" /><polyline points="18,8 22,12 18,16" /></svg></div>
-                      <div class="list-items">DEATH ∨ LIFE ∨ ANGELS ∨ DEMONS ∨ NOW ∨ LATER ∨ HEIGHT ∨ DEPTH ∨ ∀ OTHERS</div>
-                    </div>
-                    <div class="arg-line">
-                      <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="res"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" stroke-width="4" /></svg></div>
-                      <div class="statement nested-block" style="background: #f9f9f9;">
-                        <!-- not prime -->
-                        <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><line x1="4" y1="4" x2="20" y2="20" stroke-width="3" /><line x1="20" y1="4" x2="4" y2="20" stroke-width="3" /></svg>
-                        <div class="args-block">
-                          <div class="arg-line">
-                            <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="res"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" stroke-width="4" /></svg></div>
-                            <div class="statement nested-block" style="background: #eef2f5;">
-                              <!-- fel (feel) -->
-                              <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linejoin="round"><polygon points="12,2 22,12 12,22 2,12" /><path d="M 8 12 Q 10 8 12 12 T 16 12" /></svg>
-                              <div class="args-block">
-                                <div class="arg-line">
-                                  <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="exp"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" /><line x1="22" y1="6" x2="22" y2="18" /></svg></div>
-                                  <span style="font-weight:bold; font-size: 16px; margin-top:2px;">GOD</span>
-                                </div>
-                                <div class="arg-line">
-                                  <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="pat"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" /><line x1="22" y1="6" x2="22" y2="18" /></svg></div>
-                                  <span style="font-weight:bold; font-size: 16px; margin-top:2px;">us</span>
-                                </div>
-                                <div class="arg-line">
-                                  <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="man"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 2 12 Q 7 4 12 12 T 22 12" /><polyline points="18,8 22,12 18,16" /></svg></div>
-                                  <span style="display:flex; align-items:center; gap:4px;">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polyline points="8,13 12,8 16,13" /><polyline points="8,18 12,13 16,18" /></svg> <!-- vry -->
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polyline points="8,14 12,9 16,14" /></svg> <!-- gud -->
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+        <div style="display: flex; flex-direction: column; gap: 6px; border-left: 2px solid #2b3340; padding-left: 12px; margin-top: 4px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            
+            <svg style="width: 28px; height: 28px; flex-shrink: 0;" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10" /></svg>
+          </div>
+          <div style="display: flex; align-items: flex-start; gap: 8px;">
+            
+            <div style="background: #161b24; border-radius: 6px; padding: 10px 15px; border: 1px solid #2b3340; display: flex; align-items: flex-start; gap: 12px;">
+              <!-- noe prime -->
+              <svg style="width: 28px; height: 28px; flex-shrink: 0;" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12,2 22,12 12,22 2,12" fill="#fff"/>
+              </svg>
+              <div style="display: flex; flex-direction: column; gap: 6px; border-left: 2px solid #2b3340; padding-left: 12px; margin-top: 4px;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10" /></svg>
+                    <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="9" cy="12" r="6" /><circle cx="15" cy="12" r="6" /></svg>
+                    <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="4" y="4" width="16" height="16" fill="#fff" /></svg>
                   </div>
                 </div>
               </div>
@@ -343,171 +296,62 @@ html_end = """
         </div>
       </div>
     </div>
-  </div>
-  
-  <hr style="border: 1px solid #eee; margin-bottom: 40px;">
-  <h2>Visual Layout Test: Pure Symbolic Grammar</h2>
-  <p class="subtitle" style="margin-bottom: 20px;">The exact same structure, but with all English reference text removed. This is how the Characteristica looks purely to a machine or fluent reader. The capitalized terms (like GOD or DEATH) are 'Registered Terms', and 'us' represents the entity variable.</p>
-
-  <div class="syntax-new">
-    <div class="statement">
-      <!-- noe prime -->
-      <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linejoin="round"><polygon points="12,2 22,12 12,22 2,12" fill="#333"/></svg>
-      <div class="args-block">
-        <div class="arg-line">
-          <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="agt"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><circle cx="4" cy="12" r="2" fill="#8aa6d4" /><polyline points="18,8 22,12 18,16" /></svg></div>
-          <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="4" fill="#333" /></svg>
-        </div>
-        <div class="arg-line">
-          <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="man"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 2 12 Q 7 4 12 12 T 22 12" /><polyline points="18,8 22,12 18,16" /></svg></div>
-          <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><rect x="4" y="4" width="16" height="16" fill="#333" /></svg>
-        </div>
-        <div class="arg-line">
-          <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="pat"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" /><line x1="22" y1="6" x2="22" y2="18" /></svg></div>
-          <div class="statement nested-block">
-            <!-- not prime -->
-            <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><line x1="4" y1="4" x2="20" y2="20" stroke-width="3" /><line x1="20" y1="4" x2="4" y2="20" stroke-width="3" /></svg>
-            <div class="args-block" style="border-left-color: #b0bec5;">
-              <div class="arg-line">
-                <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="res"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" stroke-width="4" /></svg></div>
-                <div class="statement nested-block" style="background: #fff;">
-                  <!-- bik (cause) -->
-                  <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" /></svg>
-                  <div class="args-block" style="border-left-color: #cfd8dc;">
-                    <div class="arg-line">
-                      <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="agt"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><circle cx="4" cy="12" r="2" fill="#8aa6d4" /><polyline points="18,8 22,12 18,16" /></svg></div>
-                      <div class="list-items" style="font-family: monospace;">DEATH ∨ LIFE ∨ ANGEL ∨ DEMON ∨ ⟦tim⟧now ∨ ⟦tim⟧aft ∨ HEIGHT ∨ DEPTH ∨ ∀⟦ren⟧oth</div>
-                    </div>
-                    <div class="arg-line">
-                      <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="res"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" stroke-width="4" /></svg></div>
-                      <div class="statement nested-block" style="background: #f9f9f9;">
-                        <!-- not prime -->
-                        <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><line x1="4" y1="4" x2="20" y2="20" stroke-width="3" /><line x1="20" y1="4" x2="4" y2="20" stroke-width="3" /></svg>
-                        <div class="args-block">
-                          <div class="arg-line">
-                            <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="res"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" stroke-width="4" /></svg></div>
-                            <div class="statement nested-block" style="background: #eef2f5;">
-                              <!-- fel (feel) -->
-                              <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linejoin="round"><polygon points="12,2 22,12 12,22 2,12" /><path d="M 8 12 Q 10 8 12 12 T 16 12" /></svg>
-                              <div class="args-block">
-                                <div class="arg-line">
-                                  <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="exp"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" /><line x1="22" y1="6" x2="22" y2="18" /></svg></div>
-                                  <span style="font-weight:bold; font-size: 16px; margin-top:2px; font-family: monospace;">GOD</span>
-                                </div>
-                                <div class="arg-line">
-                                  <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="pat"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" /><line x1="22" y1="6" x2="22" y2="18" /></svg></div>
-                                  <span style="font-weight:bold; font-size: 16px; margin-top:2px; font-family: monospace;">⟦qen⟧↺</span>
-                                </div>
-                                <div class="arg-line">
-                                  <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="man"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 2 12 Q 7 4 12 12 T 22 12" /><polyline points="18,8 22,12 18,16" /></svg></div>
-                                  <span style="display:flex; align-items:center; gap:4px;">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polyline points="8,13 12,8 16,13" /><polyline points="8,18 12,13 16,18" /></svg> <!-- vry -->
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polyline points="8,14 12,9 16,14" /></svg> <!-- gud -->
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+    <p class="ask" style="margin-bottom: 5px;"><b>Do you know what it means?</b></p>
+    <p class="sub" style="margin-bottom: 40px; color: #8aa6d4;">It says: <em>"Let us calculate, to see who is right."</em> — the words of G. W. Leibniz in 1685.</p>
+<p class="sub" style="margin-top: 40px;">Now, here is a more complex thought — the opening line of <span style="display:inline-block; position:relative; width:1.1em; height:1.1em; margin-right:4px; vertical-align:-0.2em;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position:absolute; top:0; left:0; width:100%; height:100%;"><polygon points="12,2 22,9 18,20 6,20 2,9" /></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position:absolute; top:0; left:0; width:100%; height:100%; transform:scale(0.5); transform-origin: center;"><rect x="9" y="8" width="6" height="8" fill="currentColor" /></svg></span>Alan Turing's 1950 paper on AI:</p>
+    <div class="glyphline-visual" style="display: flex; flex-direction: column; gap: 10px; font-size: 18px; font-family: var(--mono); padding: 14px 0px;">
+      <div style="display: flex; align-items: flex-start; gap: 12px;">
+        <!-- sai prime -->
+        <svg style="width: 28px; height: 28px; flex-shrink: 0;" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polygon points="8,4 8,20 20,12" /></svg>
+        <div style="display: flex; flex-direction: column; gap: 6px; border-left: 2px solid #2b3340; padding-left: 12px; margin-top: 4px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            
+            <svg style="width: 28px; height: 28px; flex-shrink: 0;" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="4" fill="#fff" /></svg>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <hr style="border: 1px solid #eee; margin-bottom: 40px; margin-top: 40px;">
-  <h2>Visual Layout Test: Macro-Radical Composition</h2>
-  <p class="subtitle" style="margin-bottom: 20px;">The final evolution. All English ASCII "Registered Terms" are replaced by composite glyphs. The Hexagon (Universe/God), combined with specific modifiers, constructs the complex actors. This is a 100% language-independent visual calculus.</p>
-
-  <div class="syntax-new">
-    <div class="statement">
-      <!-- noe prime -->
-      <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linejoin="round"><polygon points="12,2 22,12 12,22 2,12" fill="#333"/></svg>
-      <div class="args-block">
-        <div class="arg-line">
-          <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="agt"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><circle cx="4" cy="12" r="2" fill="#8aa6d4" /><polyline points="18,8 22,12 18,16" /></svg></div>
-          <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="4" fill="#333" /></svg>
-        </div>
-        <div class="arg-line">
-          <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="man"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 2 12 Q 7 4 12 12 T 22 12" /><polyline points="18,8 22,12 18,16" /></svg></div>
-          <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><rect x="4" y="4" width="16" height="16" fill="#333" /></svg>
-        </div>
-        <div class="arg-line">
-          <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="pat"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" /><line x1="22" y1="6" x2="22" y2="18" /></svg></div>
-          <div class="statement nested-block">
-            <!-- not prime -->
-            <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><line x1="4" y1="4" x2="20" y2="20" stroke-width="3" /><line x1="20" y1="4" x2="4" y2="20" stroke-width="3" /></svg>
-            <div class="args-block" style="border-left-color: #b0bec5;">
-              <div class="arg-line">
-                <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="res"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" stroke-width="4" /></svg></div>
-                <div class="statement nested-block" style="background: #fff;">
-                  <!-- bik (cause) -->
-                  <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" /></svg>
-                  <div class="args-block" style="border-left-color: #cfd8dc;">
-                    <div class="arg-line">
-                      <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="agt"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><circle cx="4" cy="12" r="2" fill="#8aa6d4" /><polyline points="18,8 22,12 18,16" /></svg></div>
-                      <div class="list-items" style="display:flex; align-items:center; gap:8px;">
-                        <!-- DEATH: hap + die -->
-                        <div style="position:relative; width:28px; height:28px;" title="DEATH">
-                          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><polygon points="2,4 22,4 12,22" /></svg>
-                          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" style="position:absolute; top:0; left:0; transform:scale(0.5); transform-origin: 12px 14px;"><polygon points="2,4 22,4 12,22" /><circle cx="12" cy="10" r="2" fill="#333"/></svg>
-                        </div>
-                        <span style="font-size:12px;">∨</span>
-                        <!-- LIFE: hap + liv -->
-                        <div style="position:relative; width:28px; height:28px;" title="LIFE">
-                          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><polygon points="2,4 22,4 12,22" /></svg>
-                          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" style="position:absolute; top:0; left:0; transform:scale(0.5); transform-origin: 12px 14px;"><polygon points="12,2 2,20 22,20" /><circle cx="12" cy="14" r="2" fill="#333"/></svg>
-                        </div>
-                        <span style="font-size:12px;">∨</span>
-                        <!-- ANGEL: upright star -->
-                        <div style="position:relative; width:28px; height:28px;" title="ANGEL">
-                          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linejoin="round"><polygon points="12,2 15,9 22,9 17,14 19,21 12,17 5,21 7,14 2,9 9,9" /></svg>
-                        </div>
-                        <span style="font-size:12px;">∨</span>
-                        <!-- DEMON: inverted star -->
-                        <div style="position:relative; width:28px; height:28px;" title="DEMON">
-                          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linejoin="round"><polygon points="12,22 15,15 22,15 17,10 19,3 12,7 5,3 7,10 2,15 9,15" /></svg>
-                        </div>
-                        <span style="font-size:12px;">∨</span>
-                        <span style="font-family: monospace;">... ∀⟦ren⟧oth</span>
+          <div style="display: flex; align-items: flex-start; gap: 8px;">
+            
+            <div style="background: #161b24; border-radius: 6px; padding: 10px 15px; border: 1px solid #2b3340; display: flex; align-items: flex-start; gap: 12px;">
+              <!-- wnt prime -->
+              <svg style="width: 28px; height: 28px; flex-shrink: 0;" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,2 22,12 12,22 2,12" /><line x1="12" y1="12" x2="24" y2="12" /><polyline points="20,8 24,12 20,16" /></svg>
+              <div style="display: flex; flex-direction: column; gap: 6px; border-left: 2px solid #2b3340; padding-left: 12px; margin-top: 4px;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  
+                  <svg style="width: 28px; height: 28px; flex-shrink: 0;" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="4" fill="#fff" /></svg>
+                </div>
+                <div style="display: flex; align-items: flex-start; gap: 8px;">
+                  
+                  <div style="background: #1b2330; border-radius: 6px; padding: 10px 15px; border: 1px solid #3d4757; display: flex; align-items: flex-start; gap: 12px;">
+                    <!-- tnk prime -->
+                    <svg style="width: 28px; height: 28px; flex-shrink: 0;" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,2 22,12 12,22 2,12" /><circle cx="12" cy="12" r="2" fill="#fff" /></svg>
+                    <div style="display: flex; flex-direction: column; gap: 6px; border-left: 2px solid #4a5669; padding-left: 12px; margin-top: 4px;">
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        
+                        <svg style="width: 28px; height: 28px; flex-shrink: 0;" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="4" fill="#fff" /></svg>
                       </div>
-                    </div>
-                    <div class="arg-line">
-                      <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="res"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" stroke-width="4" /></svg></div>
-                      <div class="statement nested-block" style="background: #f9f9f9;">
-                        <!-- not prime -->
-                        <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><line x1="4" y1="4" x2="20" y2="20" stroke-width="3" /><line x1="20" y1="4" x2="4" y2="20" stroke-width="3" /></svg>
-                        <div class="args-block">
-                          <div class="arg-line">
-                            <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="res"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" stroke-width="4" /></svg></div>
-                            <div class="statement nested-block" style="background: #eef2f5;">
-                              <!-- fel (feel) -->
-                              <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linejoin="round"><polygon points="12,2 22,12 12,22 2,12" /><path d="M 8 12 Q 10 8 12 12 T 16 12" /></svg>
-                              <div class="args-block">
-                                <div class="arg-line">
-                                  <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="exp"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" /><line x1="22" y1="6" x2="22" y2="18" /></svg></div>
-                                  <!-- GOD: hex + radiating star/sun -->
-                                  <div style="position:relative; width:32px; height:32px; margin-top:2px;" title="GOD">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" /></svg>
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" style="position:absolute; top:0; left:0; transform:scale(0.5); transform-origin: center;"><polygon points="12,4 14,10 20,12 14,14 12,20 10,14 4,12 10,10" fill="#333"/></svg>
+                      <div style="display: flex; align-items: flex-start; gap: 8px;">
+                        
+                        <div style="background: #232d3d; border-radius: 6px; padding: 10px 15px; border: 1px solid #4a5669; display: flex; align-items: flex-start; gap: 12px;">
+                          <!-- can prime -->
+                          <svg style="width: 28px; height: 28px; flex-shrink: 0;" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M 12 4 A 6 6 0 0 1 18 10 V 20 M 12 4 A 6 6 0 0 0 6 10 V 12 M 6 16 V 20" /></svg>
+                          <div style="display: flex; flex-direction: column; gap: 6px; border-left: 2px solid #5a6980; padding-left: 12px; margin-top: 4px;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                              
+                              <div style="position:relative; width:28px; height:28px;" title="MACHINE"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polygon points="12,2 22,9 18,20 6,20 2,9" /></svg><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" style="position:absolute; top:0; left:0; transform:scale(0.5); transform-origin: center;"><polygon points="12,2 2,20 22,20" /></svg></div> <!-- MACHINE (sys + do) -->
+                            </div>
+                            <div style="display: flex; align-items: flex-start; gap: 8px;">
+                              
+                              <div style="background: #2b384a; border-radius: 6px; padding: 10px 15px; border: 1px solid #5a6980; display: flex; align-items: flex-start; gap: 12px;">
+                                <!-- tnk prime -->
+                                <svg style="width: 28px; height: 28px; flex-shrink: 0;" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,2 22,12 12,22 2,12" /><circle cx="12" cy="12" r="2" fill="#fff" /></svg>
+                                <div style="display: flex; flex-direction: column; gap: 6px; border-left: 2px solid #6b7a94; padding-left: 12px; margin-top: 4px;">
+                                  <div style="display: flex; align-items: center; gap: 8px;">
+                                    
+                                    <div style="display:flex; align-items:center; gap:6px;" title="The aforementioned someone">
+  <svg style="width: 24px; height: 24px; flex-shrink: 0;" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10" /></svg>
+  <svg style="width: 16px; height: 16px; flex-shrink: 0;" viewBox="0 0 24 24" fill="none" stroke="#8aa6d4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M 21 12 A 9 9 0 1 1 12 3 L 12 7 M 12 3 L 16 3" /></svg>
+</div>
                                   </div>
                                 </div>
-                                <div class="arg-line">
-                                  <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="pat"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" /><line x1="22" y1="6" x2="22" y2="18" /></svg></div>
-                                  <span style="font-weight:bold; font-size: 16px; margin-top:2px; font-family: monospace;">⟦qen⟧↺</span>
-                                </div>
-                                <div class="arg-line">
-                                  <div style="width: 40px; display: flex; align-items: center; justify-content: flex-end; margin-top: 4px;" title="man"><svg style="width: 16px; height: 16px; margin-left: auto; stroke: #8aa6d4;" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 2 12 Q 7 4 12 12 T 22 12" /><polyline points="18,8 22,12 18,16" /></svg></div>
-                                  <span style="display:flex; align-items:center; gap:4px;">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polyline points="8,13 12,8 16,13" /><polyline points="8,18 12,13 16,18" /></svg> <!-- vry -->
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polyline points="8,14 12,9 16,14" /></svg> <!-- gud -->
-                                  </span>
-                                </div>
                               </div>
                             </div>
                           </div>
@@ -522,7 +366,7 @@ html_end = """
         </div>
       </div>
     </div>
-  </div>
+    <p class="sub">It says: <em>"I propose to consider the question, 'Can machines think?'"</em> No dialect, no drift, nothing lost between them. <strong>One meaning, one form.</strong></p>
 </div>
 </body>
 </html>
