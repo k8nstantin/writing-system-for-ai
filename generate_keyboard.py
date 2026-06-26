@@ -43,7 +43,6 @@ html_start = """<!DOCTYPE html>
 
   .split-keyboard {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
     gap: 60px; /* The physical split */
     align-items: flex-end;
@@ -184,18 +183,24 @@ html_start = """<!DOCTYPE html>
   @media (max-width: 1000px) {
     .split-keyboard {
       gap: 30px;
+      transform: scale(0.85);
     }
     .half.left { transform: rotate(2deg); }
     .half.right { transform: rotate(-2deg); }
   }
   @media (max-width: 800px) {
     .split-keyboard {
-      flex-direction: column;
-      align-items: center;
-      gap: 40px;
+      transform: scale(0.65);
+      gap: 20px;
     }
     .half.left { transform: rotate(0deg); }
     .half.right { transform: rotate(0deg); }
+  }
+  @media (max-width: 600px) {
+    .split-keyboard {
+      transform: scale(0.45);
+      gap: 10px;
+    }
   }
 </style>
 </head>
