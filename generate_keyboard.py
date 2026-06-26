@@ -214,43 +214,43 @@ html_start = """<!DOCTYPE html>
   <div class="half left">
     <!-- Row 1: Logic -->
     <div class="row" style="padding-left: 0px;">
-      <div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="4" y1="4" x2="20" y2="20" stroke-width="3" /><line x1="20" y1="4" x2="4" y2="20" stroke-width="3" /></svg><span class="handle">not</span></div>
-      <div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 12 20 V 12 L 6 4 M 12 12 L 18 4" /></svg><span class="handle">if</span></div>
-      <div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 12 4 A 6 6 0 0 1 18 10 V 20 M 12 4 A 6 6 0 0 0 6 10 V 12 M 6 16 V 20" /></svg><span class="handle">can</span></div>
-      <div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 6 12 Q 9 6 12 12 T 18 12" /></svg><span class="handle">may</span></div>
-      <div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" /></svg><span class="handle">bik</span></div>
-      <div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="4" y1="9" x2="20" y2="9" /><line x1="4" y1="15" x2="20" y2="15" /></svg><span class="handle">is</span></div>
+      <div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="4" y1="4" x2="20" y2="20" stroke-width="3" /><line x1="20" y1="4" x2="4" y2="20" stroke-width="3" /></svg></div>
+      <div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 12 20 V 12 L 6 4 M 12 12 L 18 4" /></svg></div>
+      <div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 12 4 A 6 6 0 0 1 18 10 V 20 M 12 4 A 6 6 0 0 0 6 10 V 12 M 6 16 V 20" /></svg></div>
+      <div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 6 12 Q 9 6 12 12 T 18 12" /></svg></div>
+      <div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" /></svg></div>
+      <div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="4" y1="9" x2="20" y2="9" /><line x1="4" y1="15" x2="20" y2="15" /></svg></div>
     </div>
     <!-- Row 2: Mental -->
     <div class="row" style="padding-left: 20px;">
-      <div class="key mental"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 22,12 12,22 2,12" /><circle cx="12" cy="12" r="2" fill="#e2e8f0" /></svg><span class="handle">tnk</span></div>
-      <div class="key mental"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 22,12 12,22 2,12" fill="#e2e8f0"/></svg><span class="handle">noe</span></div>
-      <div class="key mental"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 22,12 12,22 2,12" /><line x1="12" y1="12" x2="24" y2="12" /><polyline points="20,8 24,12 20,16" /></svg><span class="handle">wnt</span></div>
-      <div class="key mental"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 22,12 12,22 2,12" /><path d="M 8 12 Q 10 8 12 12 T 16 12" /></svg><span class="handle">fel</span></div>
-      <div class="key mental"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 22,12 12,22 2,12" /><path d="M 7 12 Q 12 7 17 12 Q 12 17 7 12" /></svg><span class="handle">see</span></div>
-      <div class="key mental"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 22,12 12,22 2,12" /><path d="M 12 8 A 4 4 0 0 1 12 16 M 9 10 A 2 2 0 0 1 9 14" /></svg><span class="handle">her</span></div>
+      <div class="key mental"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 22,12 12,22 2,12" /><circle cx="12" cy="12" r="2" fill="#e2e8f0" /></svg></div>
+      <div class="key mental"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 22,12 12,22 2,12" fill="#e2e8f0"/></svg></div>
+      <div class="key mental"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 22,12 12,22 2,12" /><line x1="12" y1="12" x2="24" y2="12" /><polyline points="20,8 24,12 20,16" /></svg></div>
+      <div class="key mental"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 22,12 12,22 2,12" /><path d="M 8 12 Q 10 8 12 12 T 16 12" /></svg></div>
+      <div class="key mental"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 22,12 12,22 2,12" /><path d="M 7 12 Q 12 7 17 12 Q 12 17 7 12" /></svg></div>
+      <div class="key mental"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 22,12 12,22 2,12" /><path d="M 12 8 A 4 4 0 0 1 12 16 M 9 10 A 2 2 0 0 1 9 14" /></svg></div>
     </div>
     <!-- Row 3: Entities -->
     <div class="row" style="padding-left: 10px;">
-      <div class="key entity"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="4" fill="#e2e8f0" /></svg><span class="handle">me</span></div>
-      <div class="key entity"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="4" /></svg><span class="handle">yu</span></div>
-      <div class="key entity"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" /></svg><span class="handle">qen</span></div>
-      <div class="key entity"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" /><line x1="6" y1="12" x2="18" y2="12" /></svg><span class="handle">ren</span></div>
-      <div class="key entity"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="7" r="1.5" fill="#e2e8f0"/><circle cx="8" cy="14" r="1.5" fill="#e2e8f0"/><circle cx="16" cy="14" r="1.5" fill="#e2e8f0"/></svg><span class="handle">ppl</span></div>
-      <div class="key entity"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" /><line x1="12" y1="2" x2="12" y2="22" /></svg><span class="handle">bod</span></div>
+      <div class="key entity"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="4" fill="#e2e8f0" /></svg></div>
+      <div class="key entity"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="4" /></svg></div>
+      <div class="key entity"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" /></svg></div>
+      <div class="key entity"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" /><line x1="6" y1="12" x2="18" y2="12" /></svg></div>
+      <div class="key entity"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="7" r="1.5" fill="#e2e8f0"/><circle cx="8" cy="14" r="1.5" fill="#e2e8f0"/><circle cx="16" cy="14" r="1.5" fill="#e2e8f0"/></svg></div>
+      <div class="key entity"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" /><line x1="12" y1="2" x2="12" y2="22" /></svg></div>
     </div>
     <!-- Row 4: Time -->
     <div class="row" style="padding-left: 30px;">
-      <div class="key time"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><line x1="12" y1="8" x2="12" y2="16" /></svg><span class="handle">tim</span></div>
-      <div class="key time"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><line x1="12" y1="6" x2="12" y2="18" stroke-width="4" /></svg><span class="handle">now</span></div>
-      <div class="key time"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><line x1="12" y1="8" x2="12" y2="16" /><polyline points="10,12 6,12" /><polyline points="8,10 6,12 8,14" /></svg><span class="handle">bef</span></div>
-      <div class="key time"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><line x1="12" y1="8" x2="12" y2="16" /><polyline points="14,12 18,12" /><polyline points="16,10 18,12 16,14" /></svg><span class="handle">aft</span></div>
-      <div class="key time"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="4" y1="12" x2="20" y2="12" /><polyline points="6,9 2,12 6,15" /><polyline points="18,9 22,12 18,15" /></svg><span class="handle">lng</span></div>
+      <div class="key time"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><line x1="12" y1="8" x2="12" y2="16" /></svg></div>
+      <div class="key time"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><line x1="12" y1="6" x2="12" y2="18" stroke-width="4" /></svg></div>
+      <div class="key time"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><line x1="12" y1="8" x2="12" y2="16" /><polyline points="10,12 6,12" /><polyline points="8,10 6,12 8,14" /></svg></div>
+      <div class="key time"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><line x1="12" y1="8" x2="12" y2="16" /><polyline points="14,12 18,12" /><polyline points="16,10 18,12 16,14" /></svg></div>
+      <div class="key time"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="4" y1="12" x2="20" y2="12" /><polyline points="6,9 2,12 6,15" /><polyline points="18,9 22,12 18,15" /></svg></div>
     </div>
     <!-- Left Thumb Cluster -->
     <div class="thumb-cluster left">
-      <div class="key wide" style="color:#5d626c; font-size:12px; font-weight:bold;">SHIFT</div>
-      <div class="key logic tall"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" fill="#e2e8f0" /></svg><span class="handle">al</span></div>
+      <div class="key wide" style="color:#5d626c; font-size:18px; font-weight:bold;" data-action="SHIFT">⇧</div>
+      <div class="key logic tall"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" fill="#e2e8f0" /></svg></div>
     </div>
   </div>
 
@@ -259,43 +259,43 @@ html_start = """<!DOCTYPE html>
   <div class="half right">
     <!-- Row 1: Quantifiers -->
     <div class="row" style="padding-right: 0px;">
-      <div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="2" fill="#e2e8f0" /></svg><span class="handle">one</span></div>
-      <div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="8" cy="12" r="2" fill="#e2e8f0" /><circle cx="16" cy="12" r="2" fill="#e2e8f0" /></svg><span class="handle">two</span></div>
-      <div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="8" r="1.5" fill="#e2e8f0" /><circle cx="7" cy="15" r="1.5" fill="#e2e8f0" /><circle cx="17" cy="15" r="1.5" fill="#e2e8f0" /></svg><span class="handle">few</span></div>
-      <div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" stroke-dasharray="4,4" /></svg><span class="handle">som</span></div>
-      <div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="6" cy="6" r="1.5" fill="#e2e8f0" /><circle cx="12" cy="6" r="1.5" fill="#e2e8f0" /><circle cx="18" cy="6" r="1.5" fill="#e2e8f0" /><circle cx="6" cy="12" r="1.5" fill="#e2e8f0" /><circle cx="12" cy="12" r="1.5" fill="#e2e8f0" /><circle cx="18" cy="12" r="1.5" fill="#e2e8f0" /><circle cx="6" cy="18" r="1.5" fill="#e2e8f0" /><circle cx="12" cy="18" r="1.5" fill="#e2e8f0" /><circle cx="18" cy="18" r="1.5" fill="#e2e8f0" /></svg><span class="handle">mor</span></div>
-      <div class="key wide" style="color:#5d626c; font-size:12px; font-weight:bold;">BACK</div>
+      <div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="2" fill="#e2e8f0" /></svg></div>
+      <div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="8" cy="12" r="2" fill="#e2e8f0" /><circle cx="16" cy="12" r="2" fill="#e2e8f0" /></svg></div>
+      <div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="8" r="1.5" fill="#e2e8f0" /><circle cx="7" cy="15" r="1.5" fill="#e2e8f0" /><circle cx="17" cy="15" r="1.5" fill="#e2e8f0" /></svg></div>
+      <div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" stroke-dasharray="4,4" /></svg></div>
+      <div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="6" cy="6" r="1.5" fill="#e2e8f0" /><circle cx="12" cy="6" r="1.5" fill="#e2e8f0" /><circle cx="18" cy="6" r="1.5" fill="#e2e8f0" /><circle cx="6" cy="12" r="1.5" fill="#e2e8f0" /><circle cx="12" cy="12" r="1.5" fill="#e2e8f0" /><circle cx="18" cy="12" r="1.5" fill="#e2e8f0" /><circle cx="6" cy="18" r="1.5" fill="#e2e8f0" /><circle cx="12" cy="18" r="1.5" fill="#e2e8f0" /><circle cx="18" cy="18" r="1.5" fill="#e2e8f0" /></svg></div>
+      <div class="key wide" style="color:#5d626c; font-size:18px; font-weight:bold;" data-action="BACK">⌫</div>
     </div>
     <!-- Row 2: Actions & Comm -->
     <div class="row" style="padding-right: 20px;">
-      <div class="key action"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 2,20 22,20" /></svg><span class="handle">do</span></div>
-      <div class="key action"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="2,4 22,4 12,22" /></svg><span class="handle">hap</span></div>
-      <div class="key action"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="4" y1="12" x2="20" y2="12" /><polyline points="10,6 4,12 10,18" /><polyline points="14,6 20,12 14,18" /></svg><span class="handle">mov</span></div>
-      <div class="key action"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 2,20 22,20" /><circle cx="12" cy="14" r="2" fill="#e2e8f0"/></svg><span class="handle">liv</span></div>
-      <div class="key action"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="2,4 22,4 12,22" /><circle cx="12" cy="10" r="2" fill="#e2e8f0"/></svg><span class="handle">die</span></div>
-      <div class="key action"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="8,4 8,20 20,12" /></svg><span class="handle">sai</span></div>
+      <div class="key action"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 2,20 22,20" /></svg></div>
+      <div class="key action"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="2,4 22,4 12,22" /></svg></div>
+      <div class="key action"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="4" y1="12" x2="20" y2="12" /><polyline points="10,6 4,12 10,18" /><polyline points="14,6 20,12 14,18" /></svg></div>
+      <div class="key action"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 2,20 22,20" /><circle cx="12" cy="14" r="2" fill="#e2e8f0"/></svg></div>
+      <div class="key action"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="2,4 22,4 12,22" /><circle cx="12" cy="10" r="2" fill="#e2e8f0"/></svg></div>
+      <div class="key action"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="8,4 8,20 20,12" /></svg></div>
     </div>
     <!-- Row 3: Descriptors -->
     <div class="row" style="padding-right: 10px;">
-      <div class="key desc"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polyline points="8,14 12,9 16,14" /></svg><span class="handle">gud</span></div>
-      <div class="key desc"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polyline points="8,10 12,15 16,10" /></svg><span class="handle">bad</span></div>
-      <div class="key desc"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="2" width="20" height="20" stroke-width="4" /></svg><span class="handle">big</span></div>
-      <div class="key desc"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="10" y="10" width="4" height="4" fill="#e2e8f0" /></svg><span class="handle">sml</span></div>
-      <div class="key desc"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" fill="#e2e8f0" /></svg><span class="handle">tru</span></div>
-      <div class="key desc"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polyline points="8,13 12,8 16,13" /><polyline points="8,18 12,13 16,18" /></svg><span class="handle">vry</span></div>
+      <div class="key desc"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polyline points="8,14 12,9 16,14" /></svg></div>
+      <div class="key desc"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polyline points="8,10 12,15 16,10" /></svg></div>
+      <div class="key desc"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="2" width="20" height="20" stroke-width="4" /></svg></div>
+      <div class="key desc"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="10" y="10" width="4" height="4" fill="#e2e8f0" /></svg></div>
+      <div class="key desc"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" fill="#e2e8f0" /></svg></div>
+      <div class="key desc"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polyline points="8,13 12,8 16,13" /><polyline points="8,18 12,13 16,18" /></svg></div>
     </div>
     <!-- Row 4: Space -->
     <div class="row" style="padding-right: 30px;">
-      <div class="key space"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="20" x2="22" y2="20" /><line x1="12" y1="20" x2="12" y2="2" /><circle cx="12" cy="12" r="3" fill="#e2e8f0" /></svg><span class="handle">loc</span></div>
-      <div class="key space"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,10 12,4 16,10" /><line x1="12" y1="4" x2="12" y2="14" /></svg><span class="handle">abv</span></div>
-      <div class="key space"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="6" x2="22" y2="6" /><polyline points="8,14 12,20 16,14" /><line x1="12" y1="20" x2="12" y2="10" /></svg><span class="handle">blw</span></div>
-      <div class="key space"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="2" x2="12" y2="22" /><rect x="4" y="8" width="6" height="8" fill="#e2e8f0" /></svg><span class="handle">lft</span></div>
-      <div class="key space"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="2" x2="12" y2="22" /><rect x="14" y="8" width="6" height="8" fill="#e2e8f0" /></svg><span class="handle">rgt</span></div>
+      <div class="key space"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="20" x2="22" y2="20" /><line x1="12" y1="20" x2="12" y2="2" /><circle cx="12" cy="12" r="3" fill="#e2e8f0" /></svg></div>
+      <div class="key space"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,10 12,4 16,10" /><line x1="12" y1="4" x2="12" y2="14" /></svg></div>
+      <div class="key space"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="6" x2="22" y2="6" /><polyline points="8,14 12,20 16,14" /><line x1="12" y1="20" x2="12" y2="10" /></svg></div>
+      <div class="key space"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="2" x2="12" y2="22" /><rect x="4" y="8" width="6" height="8" fill="#e2e8f0" /></svg></div>
+      <div class="key space"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="2" x2="12" y2="22" /><rect x="14" y="8" width="6" height="8" fill="#e2e8f0" /></svg></div>
     </div>
     <!-- Right Thumb Cluster -->
     <div class="thumb-cluster right">
-      <div class="key macro tall"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" /><circle cx="12" cy="12" r="3" fill="#e2e8f0" /></svg><span class="handle">unv</span></div>
-      <div class="key wide" style="color:#5d626c; font-size:12px; font-weight:bold;">ENTER</div>
+      <div class="key macro tall"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" /><circle cx="12" cy="12" r="3" fill="#e2e8f0" /></svg></div>
+      <div class="key wide" style="color:#5d626c; font-size:18px; font-weight:bold;" data-action="ENTER">↵</div>
     </div>
   </div>
 
@@ -321,15 +321,15 @@ html_start = """<!DOCTYPE html>
   keys.forEach(key => {
     key.addEventListener('click', () => {
       // Handle special keys
-      const text = key.textContent.trim();
-      if (text === 'BACK') {
+      const action = key.getAttribute('data-action');
+      if (action === 'BACK') {
         if (output.children.length > 1) { // 1 is the cursor
           output.removeChild(output.children[output.children.length - 2]);
         }
         return;
       }
-      if (text === 'SPACE' || text === 'SHIFT' || text === 'TAB' || text === 'CAPS' || text === 'ENTER') {
-        return; // Ignore modifiers for now
+      if (action) {
+        return; // Ignore other modifiers for now
       }
 
       // Clone the SVG from the key
