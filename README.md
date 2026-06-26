@@ -1,4 +1,4 @@
-# A Universal Writing System for the Age of AI
+# Alan: A Universal Writing System for the Age of AI
 
 **Live site:** https://k8nstantin.github.io/writing-system-for-ai/
 

@@ -5,7 +5,7 @@ html_start = """<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Characteristica Ergo-Keyboard Teaser</title>
+<title>Alan Split Keyboard Teaser</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   body {
@@ -137,7 +137,7 @@ html_start = """<!DOCTYPE html>
 <body>
 
 <div class="teaser-text">
-  <h1>Characteristica Split Keyboard</h1>
+  <h1>Alan Split Keyboard</h1>
   <p>Left Brain (Logic/Entity) | Right Brain (Action/Space)</p>
 </div>
 
