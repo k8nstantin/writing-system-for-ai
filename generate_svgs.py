@@ -95,6 +95,8 @@ categories = [
             {"handle": "unv", "desc": "universe / all things", "svg": '<polygon points="12,2 21,7 21,17 12,22 3,17 3,7" /><circle cx="12" cy="12" r="3" fill="#333" />'},
             {"handle": "sys", "desc": "system / structure", "svg": '<polygon points="12,2 22,9 18,20 6,20 2,9" />'},
             {"handle": "law", "desc": "law / absolute rule", "svg": '<polygon points="9,2 15,2 22,9 22,15 15,22 9,22 2,15 2,9" stroke-width="3" />'},
+            {"handle": "alan", "desc": "Turing (Computation)", "svg": '<polygon points="12,2 22,9 18,20 6,20 2,9" /><rect x="9" y="8" width="6" height="8" fill="#333" />'},
+            {"handle": "carl", "desc": "Leibniz (Logic/Vision)", "svg": '<polygon points="12,2 21,7 21,17 12,22 3,17 3,7" /><polygon points="12,6 18,16 6,16" fill="#333" />'},
         ]
     },
     {
