@@ -45,10 +45,8 @@ Semantic opposites act like **matter and anti-matter**: flipping a symbol vertic
 
 ## 3. Non-primes, roles, and marks
 
-### 3.1 Roles (closed set — fixed order, see N2)
-`agt` agent · `exp` experiencer · `pat` patient · `rec` recipient · `res` result/complement · `ins` instrument · `src` source · `gol` goal · `tim` time · `loc` place · `man` manner · `cau` cause · `pur` purpose
-
-The role set is **closed**. New predicates reuse these slots; they never invent roles.
+### 3.1 Structural Connections (Roles)
+English semantic role labels (`agt`, `pat`, `res`) are completely abandoned. Roles are established purely through **Canonical Order** in the vertical layout or through specific geometric connective lines (e.g., an arrow with a solid root for the doer, an arrow hitting a wall for the receiver).
 
 ### 3.2 Entities & reference (this retires "the")
 - `⟦T⟧°` — introduce a **new** entity of type `T`.
@@ -76,11 +74,11 @@ A registered term is shared, not paraphrased: everyone uses `ADMIN`, no one re-i
 A form is **canonical** iff all of these hold. The compiler emits only canonical forms; two writers (or one model run twice) who mean the same thing produce **byte-identical** output.
 
 - **N1 · One word per meaning.** Every concept is written with its single assigned glyph or registered term. No synonyms, no spelling variants. (Synonyms are resolved to the canonical entry on the way in.)
-- **N2 · Canonical role order.** Within a predicate, roles serialize in the fixed global order of §3.1 — *regardless of source word order.* So `I see you` and `you are seen by me` normalize to the **same** form.
+- **N2 · Canonical Cascading Order.** Within a predicate, arguments cascade vertically in a strict, globally fixed order (Doer → Receiver → Manner/Result) — *regardless of source word order.* So `I see you` and `you are seen by me` normalize to the **exact same** vertical graph.
 - **N3 · Commutative operands sorted.** Arguments of `∧ ∨` and unordered sets are flattened and sorted by canonical key (sub-form, by glyph code point). `A ∧ B` and `B ∧ A` are one form.
 - **N4 · Deterministic entity indexing.** Entities are numbered by first appearance in a fixed pre-order traversal; `↺` references use those indices. Same referent-graph → same indices, always.
 - **N5 · No function words.** No articles, no agreement, no filler. Definiteness lives in `°`/`↺`; tense lives in `tim:`.
-- **N6 · One serialization.** Exactly one spacing/bracketing rule (`[ P role:arg ]`, single spaces, no trailing). No formatting freedom.
+- **N6 · One visualization.** Exactly one layout rule: geometric predicates on the left, arguments indented vertically below. No formatting freedom. No text-based brackets.
 - **N7 · Maximal shared decomposition.** Registered terms resolve to their explication; two forms that decompose to the same prime structure **are** the same form.
 - **N8 · Explicit gaps.** Missing required role → `⟨?⟩`. Supplied default → `⟨≈ v⟩`. Never silently omitted, never silently guessed.
 
@@ -93,21 +91,21 @@ A form is **canonical** iff all of these hold. The compiler emits only canonical
 **Normalization (two English phrasings → one form):**
 ```
 "I see you."             ┐
-"You are seen by me."    ┘ →  [ ⊳  agt:◉  pat:◎ ]      (N2 fixes role order)
+"You are seen by me."    ┘ →  ◇ (SEE)
+                              ├── ◉ (I)
+                              └── ◎ (YOU)
 ```
 
 **Reference & negation:**
 ```
 "A person came in; the person said something."
-[ mov  agt:⟦qen⟧°  gol:(in) ]  ∧  [ ⟪  agt:⟦qen⟧↺  pat:⟦ren⟧° ]
-```
-
-**The admins instruction (with explication + marks):**
-```
-[ SET-STATE
-    pat:  ⟦Account⟧° ∀  where ( ¬[ LOGIN tim: since @2026-03-20 ⟨≈ "last spring"⟩ ] ∧ role ≠ ADMIN )
-    res:  state = INACTIVE
-    loc:  ⟨≈ ∀ ⟦Tenant⟧ ⟩ ]
+▲ (MOVE)
+├── ○ (SOMEONE °)
+└── ⧄ (INSIDE)
+∧ (AND)
+▲ (SAY)
+├── ↺ (Aforementioned SOMEONE)
+└── □ (SOMETHING °)
 ```
 Re-emit it through ten agents → identical, character for character. The two `⟨≈⟩` marks are the only things the compiler assumed; they are shown, not hidden.
 
