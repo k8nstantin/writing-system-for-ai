@@ -113,7 +113,7 @@ categories = [
         "glyphs": [
             {"handle": "do", "desc": "do / active", "svg": '<polygon points="6,20 18,12 6,4" />'},
             {"handle": "hap", "desc": "happen", "svg": '<polygon points="4,6 20,6 12,18" />'},
-            {"handle": "mov", "desc": "move", "svg": '<line x1="4" y1="12" x2="20" y2="12" /><polyline points="14,6 20,12 14,18" /><line x1="6" y1="12" x2="10" y2="12" stroke="#fff" stroke-width="4"/>'},
+            {"handle": "mov", "desc": "move", "svg": '<line x1="4" y1="12" x2="20" y2="12" /><polyline points="10,6 4,12 10,18" /><polyline points="14,6 20,12 14,18" />'},
             {"handle": "liv", "desc": "live", "svg": '<polygon points="12,4 4,20 20,20" /><circle cx="12" cy="14" r="2" fill="#333"/>'},
             {"handle": "die", "desc": "die", "svg": '<polygon points="12,20 4,4 20,4" /><circle cx="12" cy="10" r="2" fill="#333"/>'},
         ]
