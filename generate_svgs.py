@@ -121,8 +121,8 @@ categories = [
     {
         "name": "Descriptors — Base: Square",
         "glyphs": [
-            {"handle": "gud", "desc": "good", "svg": '<rect x="4" y="4" width="16" height="16" /><line x1="12" y1="8" x2="12" y2="16" /><line x1="8" y1="12" x2="16" y2="12" />'},
-            {"handle": "bad", "desc": "bad", "svg": '<rect x="4" y="4" width="16" height="16" /><line x1="8" y1="12" x2="16" y2="12" />'},
+            {"handle": "gud", "desc": "good", "svg": '<rect x="4" y="4" width="16" height="16" /><polyline points="8,14 12,9 16,14" />'},
+            {"handle": "bad", "desc": "bad", "svg": '<rect x="4" y="4" width="16" height="16" /><polyline points="8,10 12,15 16,10" />'},
             {"handle": "big", "desc": "big", "svg": '<rect x="2" y="2" width="20" height="20" stroke-width="4" />'},
             {"handle": "sml", "desc": "small", "svg": '<rect x="10" y="10" width="4" height="4" fill="#333" />'},
             {"handle": "tru", "desc": "true", "svg": '<rect x="4" y="4" width="16" height="16" fill="#333" />'},
