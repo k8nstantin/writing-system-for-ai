@@ -561,77 +561,12 @@ footer .big{font-family:var(--serif);font-style:italic;font-size:20px;color:#dfe
 
 <section data-c="purple">
   <div class="wrap reveal">
-    <p class="lead-eyebrow">Specimen · Plate I</p>
+    <p class="lead-eyebrow">The Complete Dictionary</p>
     <h2>Here is the notation</h2>
-    <p>About <strong>sixty-five symbols</strong> for the handful of meanings every language already shares — the atoms — plus a grammar of who-did-what-to-whom and the logic signs from math. Sixty-five primes, the way a hundred elements give you all of chemistry: coverage comes from a small generative basis, not an infinite dictionary. You could learn them in an afternoon.</p>
-    <div class="plate">
-      <p class="ptitle">Specimen · Plate I</p>
-      <p class="pnote">A basis of meaning-primitives — ~24 of an estimated ~65. Everything else is built from these.</p>
-      <h3>Substantives</h3>
-      <table class="gl"><tbody>
-        <tr><td class="g">◉</td><td class="h">me</td><td class="m">I / me</td></tr>
-        <tr><td class="g">◎</td><td class="h">yu</td><td class="m">you</td></tr>
-        <tr><td class="g">○</td><td class="h">qen</td><td class="m">someone / person</td></tr>
-        <tr><td class="g">□</td><td class="h">ren</td><td class="m">something / thing</td></tr>
-        <tr><td class="g">◇</td><td class="h">kind</td><td class="m">kind / type</td></tr>
-      </tbody></table>
-      <h3>Quantity &amp; determiners</h3>
-      <table class="gl"><tbody>
-        <tr><td class="g">▷</td><td class="h">dei</td><td class="m">this</td></tr>
-        <tr><td class="g">≡</td><td class="h">sam</td><td class="m">the same</td></tr>
-        <tr><td class="g">∀</td><td class="h">al</td><td class="m">all / every</td></tr>
-        <tr><td class="g">∃</td><td class="h">som</td><td class="m">some / there-is</td></tr>
-        <tr><td class="g">⋙</td><td class="h">mor</td><td class="m">much / many</td></tr>
-      </tbody></table>
-      <h3>Mental &amp; speech predicates</h3>
-      <table class="gl"><tbody>
-        <tr><td class="g">⊢</td><td class="h">noe</td><td class="m">know</td></tr>
-        <tr><td class="g">✲</td><td class="h">tnk</td><td class="m">think</td></tr>
-        <tr><td class="g">⟿</td><td class="h">wnt</td><td class="m">want</td></tr>
-        <tr><td class="g">⊳</td><td class="h">see</td><td class="m">see</td></tr>
-        <tr><td class="g">⟪</td><td class="h">sai</td><td class="m">say</td></tr>
-      </tbody></table>
-      <h3>Action, event, being</h3>
-      <table class="gl"><tbody>
-        <tr><td class="g">▶</td><td class="h">do</td><td class="m">do</td></tr>
-        <tr><td class="g">⇡</td><td class="h">hap</td><td class="m">happen</td></tr>
-        <tr><td class="g">=</td><td class="h">is</td><td class="m">be (X is Y)</td></tr>
-        <tr><td class="g">⊨</td><td class="h">ex</td><td class="m">exist / there is</td></tr>
-        <tr><td class="g">⊇</td><td class="h">hav</td><td class="m">have</td></tr>
-      </tbody></table>
-      <h3>Evaluators &amp; logic</h3>
-      <table class="gl"><tbody>
-        <tr><td class="g">+</td><td class="h">gud</td><td class="m">good</td></tr>
-        <tr><td class="g">−</td><td class="h">bad</td><td class="m">bad</td></tr>
-        <tr><td class="g">¬</td><td class="h">not</td><td class="m">not</td></tr>
-        <tr><td class="g">∵</td><td class="h">bik</td><td class="m">because</td></tr>
-      </tbody></table>
-      <h3>The grammar — roles, references, marks</h3>
-      <table class="gl"><tbody>
-        <tr><td class="h" style="width:auto">[ P : r a ]</td><td class="m">predicate P, with role r filled by argument a</td></tr>
-        <tr><td class="h" style="width:auto">agt / pat / rec / res</td><td class="m">agent / patient / recipient / result</td></tr>
-        <tr><td class="h" style="width:auto">tim / loc / man / cau</td><td class="m">time / place / manner / cause</td></tr>
-        <tr><td class="h" style="width:auto">⟦T⟧°</td><td class="m">a newly introduced entity of type T</td></tr>
-        <tr><td class="h" style="width:auto">⟦T⟧↺</td><td class="m">reference to an already-known entity — this retires “the”</td></tr>
-        <tr><td class="h" style="width:auto">∀ ∃ ¬ ∧ ∨ ⇒</td><td class="m">logical operators, borrowed from mathematics</td></tr>
-        <tr><td class="h" style="width:auto">≔</td><td class="m">explication — define a non-prime from primes</td></tr>
-        <tr><td class="h" style="width:auto"><span class="mark">⟨?⟩</span></td><td class="m">a hole — information missing, must be asked</td></tr>
-        <tr><td class="h" style="width:auto"><span class="mark">⟨≈ v⟩</span></td><td class="m">an assumption v the engine supplied — confirm before acting</td></tr>
-      </tbody></table>
-      <p style="color:#c8cdd6;margin:24px 0 8px">The sentence that lost its admins, written once and for all:</p>
-      <pre class="code">[ <span class="k">SET-STATE</span>
-    pat:  ⟦Account⟧° ∀  where (
-            ¬ [ <span class="k">LOGIN</span>  tim: since @2026-03-20  <span class="a">⟨≈ "last spring" ⟩</span> ]
-            ∧  role ≠ ADMIN
-          )
-    res:  state = INACTIVE
-    loc:  <span class="a">⟨≈ ∀ ⟦Tenant⟧ ⟩</span>            ← assumption, surfaced
-]</pre>
-      <div class="readback">
-        <div><b>EN</b> &nbsp;“Set every account with no login since 2026-03-20 whose role isn’t ADMIN to inactive, across all tenants.”</div>
-        <div><b>ES</b> &nbsp;“Poner todas las cuentas sin inicio de sesión desde 2026-03-20 cuyo rol no sea ADMIN en inactivo, en todos los inquilinos.”</div>
-      </div>
-      <p style="color:#8b93a1;font-size:14.5px;margin:18px 0 0">The two <span class="mark">marked</span> values are the only things the engine had to assume — the date behind “last spring,” and “all tenants.” Neither is silently guessed; both are surfaced for confirmation. And notice: no <span class="mark">the,</span> no <span class="mark">a</span> — which account you mean lives in ° (new) vs ↺ (already known).</p>
+    <p>About <strong>sixty-five symbols</strong> for the handful of meanings every language already shares — the atoms — plus a grammar of spatial connections and logic signs from math. Sixty-five primes, the way a hundred elements give you all of chemistry: coverage comes from a small generative basis, not an infinite dictionary. You could learn them in an afternoon.</p>
+    <p>We have fully realized these 65 primes into a comprehensive visual grammar, categorized by their geometric families (Entities, Actions, Time, Space, Logic).</p>
+    <div style="text-align: center; margin-top: 40px; margin-bottom: 40px;">
+      <a href="svg_prototypes.html" style="display:inline-block; padding:16px 32px; background:var(--purple); color:#fff; font-weight:bold; font-family: var(--mono); letter-spacing: 0.05em; border-radius:8px; border:none; text-decoration:none; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">View the Full Visual Dictionary &rarr;</a>
     </div>
   </div>
 </section>
