@@ -249,7 +249,7 @@ html_start = """<!DOCTYPE html>
     </div>
     <!-- Left Thumb Cluster -->
     <div class="thumb-cluster left">
-      <div class="key wide" style="color:#5d626c; font-size:18px; font-weight:bold;" data-action="SHIFT">⇧</div>
+      <div class="key wide" style="color:#5d626c; font-size:24px; font-weight:bold;" data-action="FLIP">⇿</div>
       <div class="key logic tall"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" fill="#e2e8f0" /></svg></div>
     </div>
   </div>
