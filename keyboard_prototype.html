@@ -133,6 +133,38 @@
   .legend-item { display: flex; align-items: center; gap: 6px; }
   .dot { width: 10px; height: 10px; border-radius: 50%; }
 
+  .output-display {
+    width: 100%;
+    max-width: 800px;
+    min-height: 80px;
+    background: #0f131a;
+    border: 1px solid #2b3340;
+    border-radius: 12px;
+    margin-bottom: 40px;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 12px;
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+  }
+
+  .output-display svg {
+    width: 32px;
+    height: 32px;
+    stroke: #e2e8f0;
+  }
+
+  .cursor {
+    width: 2px;
+    height: 32px;
+    background: #8aa6d4;
+    animation: blink 1s step-end infinite;
+  }
+  
+  @keyframes blink { 50% { opacity: 0; } }
+
   /* Responsive Design for smaller iframes/screens */
   @media (max-width: 900px) {
     .split-keyboard {
@@ -159,6 +191,10 @@
 <div class="teaser-text">
   <h1>Alan Split Keyboard</h1>
   <p>Left Brain (Logic/Entity) | Right Brain (Action/Space)</p>
+</div>
+
+<div class="output-display" id="output">
+  <div class="cursor" id="cursor"></div>
 </div>
 
 <div class="split-keyboard">
@@ -266,5 +302,34 @@
   <div class="legend-item"><div class="dot" style="background: #ffd166;"></div> Macro/Cosmic</div>
 </div>
 
+<script>
+  const output = document.getElementById('output');
+  const cursor = document.getElementById('cursor');
+  const keys = document.querySelectorAll('.key');
+
+  keys.forEach(key => {
+    key.addEventListener('click', () => {
+      // Handle special keys
+      const text = key.textContent.trim();
+      if (text === 'BACK') {
+        if (output.children.length > 1) { // 1 is the cursor
+          output.removeChild(output.children[output.children.length - 2]);
+        }
+        return;
+      }
+      if (text === 'SPACE' || text === 'SHIFT' || text === 'TAB' || text === 'CAPS' || text === 'ENTER') {
+        return; // Ignore modifiers for now
+      }
+
+      // Clone the SVG from the key
+      const svg = key.querySelector('svg');
+      if (svg) {
+        const clone = svg.cloneNode(true);
+        // Insert before the cursor
+        output.insertBefore(clone, cursor);
+      }
+    });
+  });
+</script>
 </body>
 </html>
