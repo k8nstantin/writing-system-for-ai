@@ -97,6 +97,7 @@ categories = [
             {"handle": "law", "desc": "law / absolute rule", "svg": '<polygon points="9,2 15,2 22,9 22,15 15,22 9,22 2,15 2,9" stroke-width="3" />'},
             {"handle": "alan", "desc": "Turing (Computation)", "svg": '<polygon points="12,2 22,9 18,20 6,20 2,9" /><rect x="9" y="8" width="6" height="8" fill="#333" />'},
             {"handle": "carl", "desc": "Leibniz (Logic/Vision)", "svg": '<polygon points="12,2 21,7 21,17 12,22 3,17 3,7" /><polygon points="12,6 18,16 6,16" fill="#333" />'},
+            {"handle": "mdl", "desc": "AI Model / Network", "svg": '<polygon points="12,2 22,9 18,20 6,20 2,9" /><circle cx="12" cy="8" r="1.5" fill="#333" /><circle cx="8" cy="14" r="1.5" fill="#333" /><circle cx="16" cy="14" r="1.5" fill="#333" /><polyline points="12,8 8,14 16,14 12,8" stroke-width="1.5" stroke="#333" />'},
         ]
     },
     {
@@ -205,6 +206,15 @@ categories = [
             {"handle": "part", "desc": "part", "svg": '<path d="M 12 12 L 12 2 A 10 10 0 0 1 21.5 15 Z" fill="#333" />'},
             {"handle": "dei", "desc": "this", "svg": '<line x1="12" y1="4" x2="12" y2="20" /><polyline points="6,14 12,20 18,14" />'},
             {"handle": "bik", "desc": "because", "svg": '<polygon points="12,2 21,7 21,17 12,22 3,17 3,7" />'},
+        ]
+    },
+    {
+        "name": "Semantic Roles (Structural Connections)",
+        "glyphs": [
+            {"handle": "agt", "desc": "agent / doer", "svg": '<line x1="2" y1="12" x2="22" y2="12" /><circle cx="4" cy="12" r="2" fill="#333" /><polyline points="18,8 22,12 18,16" />'},
+            {"handle": "pat", "desc": "patient / receiver", "svg": '<line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" /><line x1="22" y1="6" x2="22" y2="18" />'},
+            {"handle": "res", "desc": "result / output", "svg": '<line x1="2" y1="12" x2="22" y2="12" /><polyline points="18,8 22,12 18,16" stroke-width="4" />'},
+            {"handle": "man", "desc": "manner / how", "svg": '<path d="M 2 12 Q 7 4 12 12 T 22 12" /><polyline points="18,8 22,12 18,16" />'},
         ]
     }
 ]
