@@ -111,11 +111,11 @@ categories = [
     {
         "name": "Actions (Events) — Base: Triangle",
         "glyphs": [
-            {"handle": "do", "desc": "do / active", "svg": '<polygon points="6,20 18,12 6,4" />'},
-            {"handle": "hap", "desc": "happen", "svg": '<polygon points="4,6 20,6 12,18" />'},
+            {"handle": "do", "desc": "do / active", "svg": '<polygon points="12,2 2,20 22,20" />'},
+            {"handle": "hap", "desc": "happen", "svg": '<polygon points="2,4 22,4 12,22" />'},
             {"handle": "mov", "desc": "move", "svg": '<line x1="4" y1="12" x2="20" y2="12" /><polyline points="10,6 4,12 10,18" /><polyline points="14,6 20,12 14,18" />'},
-            {"handle": "liv", "desc": "live", "svg": '<polygon points="12,4 4,20 20,20" /><circle cx="12" cy="14" r="2" fill="#333"/>'},
-            {"handle": "die", "desc": "die", "svg": '<polygon points="12,20 4,4 20,4" /><circle cx="12" cy="10" r="2" fill="#333"/>'},
+            {"handle": "liv", "desc": "live", "svg": '<polygon points="12,2 2,20 22,20" /><circle cx="12" cy="14" r="2" fill="#333"/>'},
+            {"handle": "die", "desc": "die", "svg": '<polygon points="2,4 22,4 12,22" /><circle cx="12" cy="10" r="2" fill="#333"/>'},
         ]
     },
     {
@@ -132,8 +132,8 @@ categories = [
     {
         "name": "Communication",
         "glyphs": [
-            {"handle": "sai", "desc": "say", "svg": '<path d="M 4 12 L 12 4 A 10 10 0 0 1 12 20 Z" />'},
-            {"handle": "wrd", "desc": "words", "svg": '<line x1="4" y1="8" x2="20" y2="8" /><line x1="4" y1="12" x2="16" y2="12" /><line x1="4" y1="16" x2="20" y2="16" />'},
+            {"handle": "sai", "desc": "say", "svg": '<polygon points="8,4 8,20 20,12" />'},
+            {"handle": "wrd", "desc": "words", "svg": '<circle cx="12" cy="12" r="10" /><line x1="8" y1="9" x2="16" y2="9" /><line x1="8" y1="12" x2="16" y2="12" /><line x1="8" y1="15" x2="12" y2="15" />'},
         ]
     },
     {
@@ -189,14 +189,14 @@ categories = [
     {
         "name": "Logical, Existence & Core",
         "glyphs": [
-            {"handle": "not", "desc": "not", "svg": '<circle cx="12" cy="12" r="10" /><line x1="5" y1="5" x2="19" y2="19" />'},
+            {"handle": "not", "desc": "not", "svg": '<line x1="4" y1="4" x2="20" y2="20" stroke-width="3" /><line x1="20" y1="4" x2="4" y2="20" stroke-width="3" />'},
             {"handle": "may", "desc": "maybe", "svg": '<path d="M 6 12 Q 9 6 12 12 T 18 12" />'},
             {"handle": "can", "desc": "can", "svg": '<path d="M 12 4 A 6 6 0 0 1 18 10 V 20 M 12 4 A 6 6 0 0 0 6 10 V 12 M 6 16 V 20" />'},
             {"handle": "if", "desc": "if", "svg": '<path d="M 12 20 V 12 L 6 4 M 12 12 L 18 4" />'},
-            {"handle": "vry", "desc": "very", "svg": '<polygon points="12,2 4,20 20,20" fill="#333" />'},
+            {"handle": "vry", "desc": "very", "svg": '<rect x="4" y="4" width="16" height="16" /><polyline points="8,13 12,8 16,13" /><polyline points="8,18 12,13 16,18" />'},
             {"handle": "is", "desc": "be", "svg": '<line x1="4" y1="9" x2="20" y2="9" /><line x1="4" y1="15" x2="20" y2="15" />'},
             {"handle": "ex", "desc": "there is", "svg": '<line x1="4" y1="20" x2="20" y2="20" /><circle cx="12" cy="16" r="4" fill="#333" />'},
-            {"handle": "hav", "desc": "have", "svg": '<circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="4" fill="#333" />'},
+            {"handle": "hav", "desc": "have", "svg": '<polygon points="12,2 2,20 22,20" /><circle cx="12" cy="14" r="3" fill="#333" />'},
             {"handle": "sam", "desc": "the same", "svg": '<line x1="4" y1="7" x2="20" y2="7" /><line x1="4" y1="12" x2="20" y2="12" /><line x1="4" y1="17" x2="20" y2="17" />'},
             {"handle": "oth", "desc": "other", "svg": '<circle cx="8" cy="12" r="5" /><rect x="15" y="7" width="10" height="10" />'},
             {"handle": "kind", "desc": "kind", "svg": '<circle cx="12" cy="12" r="10" /><path d="M 12 12 L 12 2 A 10 10 0 0 1 21.5 15 Z" fill="#333" />'},
@@ -255,7 +255,7 @@ html_end = """
           <span class="role-label">pat</span>
           <div class="statement nested-block">
             <!-- not prime -->
-            <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><circle cx="12" cy="12" r="10" /><line x1="5" y1="5" x2="19" y2="19" /></svg>
+            <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><line x1="4" y1="4" x2="20" y2="20" stroke-width="3" /><line x1="20" y1="4" x2="4" y2="20" stroke-width="3" /></svg>
             <div class="args-block" style="border-left-color: #b0bec5;">
               <div class="arg-line">
                 <span class="role-label">res</span>
@@ -271,7 +271,7 @@ html_end = """
                       <span class="role-label">res</span>
                       <div class="statement nested-block" style="background: #f9f9f9;">
                         <!-- not prime -->
-                        <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><circle cx="12" cy="12" r="10" /><line x1="5" y1="5" x2="19" y2="19" /></svg>
+                        <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><line x1="4" y1="4" x2="20" y2="20" stroke-width="3" /><line x1="20" y1="4" x2="4" y2="20" stroke-width="3" /></svg>
                         <div class="args-block">
                           <div class="arg-line">
                             <span class="role-label">res</span>
@@ -290,7 +290,7 @@ html_end = """
                                 <div class="arg-line">
                                   <span class="role-label">man</span>
                                   <span style="display:flex; align-items:center; gap:4px;">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><polygon points="12,2 4,20 20,20" fill="#333" /></svg> <!-- vry -->
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polyline points="8,13 12,8 16,13" /><polyline points="8,18 12,13 16,18" /></svg> <!-- vry -->
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polyline points="8,14 12,9 16,14" /></svg> <!-- gud -->
                                   </span>
                                 </div>
@@ -331,7 +331,7 @@ html_end = """
           <span class="role-label">pat</span>
           <div class="statement nested-block">
             <!-- not prime -->
-            <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><circle cx="12" cy="12" r="10" /><line x1="5" y1="5" x2="19" y2="19" /></svg>
+            <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><line x1="4" y1="4" x2="20" y2="20" stroke-width="3" /><line x1="20" y1="4" x2="4" y2="20" stroke-width="3" /></svg>
             <div class="args-block" style="border-left-color: #b0bec5;">
               <div class="arg-line">
                 <span class="role-label">res</span>
@@ -347,7 +347,7 @@ html_end = """
                       <span class="role-label">res</span>
                       <div class="statement nested-block" style="background: #f9f9f9;">
                         <!-- not prime -->
-                        <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><circle cx="12" cy="12" r="10" /><line x1="5" y1="5" x2="19" y2="19" /></svg>
+                        <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><line x1="4" y1="4" x2="20" y2="20" stroke-width="3" /><line x1="20" y1="4" x2="4" y2="20" stroke-width="3" /></svg>
                         <div class="args-block">
                           <div class="arg-line">
                             <span class="role-label">res</span>
@@ -366,7 +366,7 @@ html_end = """
                                 <div class="arg-line">
                                   <span class="role-label">man</span>
                                   <span style="display:flex; align-items:center; gap:4px;">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><polygon points="12,2 4,20 20,20" fill="#333" /></svg> <!-- vry -->
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polyline points="8,13 12,8 16,13" /><polyline points="8,18 12,13 16,18" /></svg> <!-- vry -->
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polyline points="8,14 12,9 16,14" /></svg> <!-- gud -->
                                   </span>
                                 </div>
@@ -406,7 +406,7 @@ html_end = """
           <span class="role-label">pat</span>
           <div class="statement nested-block">
             <!-- not prime -->
-            <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><circle cx="12" cy="12" r="10" /><line x1="5" y1="5" x2="19" y2="19" /></svg>
+            <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><line x1="4" y1="4" x2="20" y2="20" stroke-width="3" /><line x1="20" y1="4" x2="4" y2="20" stroke-width="3" /></svg>
             <div class="args-block" style="border-left-color: #b0bec5;">
               <div class="arg-line">
                 <span class="role-label">res</span>
@@ -419,14 +419,14 @@ html_end = """
                       <div class="list-items" style="display:flex; align-items:center; gap:8px;">
                         <!-- DEATH: hap + die -->
                         <div style="position:relative; width:28px; height:28px;" title="DEATH">
-                          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><polygon points="4,6 20,6 12,18" /></svg>
-                          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" style="position:absolute; top:0; left:0; transform:scale(0.5); transform-origin: 12px 14px;"><polygon points="12,20 4,4 20,4" /><circle cx="12" cy="10" r="2" fill="#333"/></svg>
+                          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><polygon points="2,4 22,4 12,22" /></svg>
+                          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" style="position:absolute; top:0; left:0; transform:scale(0.5); transform-origin: 12px 14px;"><polygon points="2,4 22,4 12,22" /><circle cx="12" cy="10" r="2" fill="#333"/></svg>
                         </div>
                         <span style="font-size:12px;">∨</span>
                         <!-- LIFE: hap + liv -->
                         <div style="position:relative; width:28px; height:28px;" title="LIFE">
-                          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><polygon points="4,6 20,6 12,18" /></svg>
-                          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" style="position:absolute; top:0; left:0; transform:scale(0.5); transform-origin: 12px 14px;"><polygon points="12,4 4,20 20,20" /><circle cx="12" cy="14" r="2" fill="#333"/></svg>
+                          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><polygon points="2,4 22,4 12,22" /></svg>
+                          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" style="position:absolute; top:0; left:0; transform:scale(0.5); transform-origin: 12px 14px;"><polygon points="12,2 2,20 22,20" /><circle cx="12" cy="14" r="2" fill="#333"/></svg>
                         </div>
                         <span style="font-size:12px;">∨</span>
                         <!-- ANGEL: upright star -->
@@ -446,7 +446,7 @@ html_end = """
                       <span class="role-label">res</span>
                       <div class="statement nested-block" style="background: #f9f9f9;">
                         <!-- not prime -->
-                        <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><circle cx="12" cy="12" r="10" /><line x1="5" y1="5" x2="19" y2="19" /></svg>
+                        <svg class="prime-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><line x1="4" y1="4" x2="20" y2="20" stroke-width="3" /><line x1="20" y1="4" x2="4" y2="20" stroke-width="3" /></svg>
                         <div class="args-block">
                           <div class="arg-line">
                             <span class="role-label">res</span>
@@ -469,7 +469,7 @@ html_end = """
                                 <div class="arg-line">
                                   <span class="role-label">man</span>
                                   <span style="display:flex; align-items:center; gap:4px;">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><polygon points="12,2 4,20 20,20" fill="#333" /></svg> <!-- vry -->
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polyline points="8,13 12,8 16,13" /><polyline points="8,18 12,13 16,18" /></svg> <!-- vry -->
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polyline points="8,14 12,9 16,14" /></svg> <!-- gud -->
                                   </span>
                                 </div>
