@@ -76,6 +76,16 @@ html_start = """<!DOCTYPE html>
 <div class="container">
   <h1>Characteristica Visual Grammar</h1>
   <p class="subtitle">The complete dictionary of ~65 Natural Semantic Metalanguage (NSM) primes, mapped to a unified visual typology. All glyphs share a consistent visual language, bound to a 24x24 grid with uniform stroke weight.</p>
+
+  <div style="background: #eef2f5; padding: 20px; border-radius: 6px; border-left: 4px solid #4a90e2; margin-bottom: 40px;">
+    <h3 style="margin-top: 0; color: #333;">The Four Laws of Visual Grammar</h3>
+    <ul style="color: #444; line-height: 1.6; font-size: 15px; margin-bottom: 0;">
+      <li><strong>1. Typology Base:</strong> Every base prime belongs to a rigid geometric category. Circles = Entities, Triangles = Events, Diamonds = Mental States, Squares = Descriptors, Hexagons = Macro/Cosmic concepts.</li>
+      <li><strong>2. Geometric Opposites:</strong> Semantic opposites are created via geometric reflections. Flipping a shape vertically creates its polar opposite (e.g., Live ▲ / Die ▼). Flipping a shape horizontally creates its lateral opposite (e.g., Left / Right).</li>
+      <li><strong>3. Layout Syntax:</strong> Text-based brackets `[ ]` are abandoned. The notation uses vertical indentation and subtle layout lines to build unambiguous, machine-parsable logical trees that are easily readable by humans.</li>
+      <li><strong>4. Composite Shorthand:</strong> Complex nouns (Registered Terms) do not use English ASCII. They are represented as composite "Molecules" (e.g., a Hexagon enclosing a Star). Universally recognized cultural shorthand (like a star for Angel) is explicitly allowed to reduce the learning curve, provided it maps deterministically to a prime definition.</li>
+    </ul>
+  </div>
 """
 
 categories = [
