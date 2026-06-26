@@ -25,7 +25,7 @@ We need a canonical writing system for **meaning** — a universal language shar
 
 If **one meaning has exactly one written form** (`T(x) = x`), an instruction cannot drift, get misread, or get lost as it passes across the loop. 
 
-This project realizes Leibniz's *characteristica universalis*: a visual, mathematical calculus of meaning. By stripping away alphabets, cultural idioms, and text-based brackets, it utilizes a pure **Spatial Geometric Language**:
+This project is not a historical recreation, but the realization of the *characteristica universalis* concept. Leibniz was an amazing visionary, and 350 years later — now that we have the urgent need (AI coordination) and the engine (LLMs) — it is finally time for his vision to come alive as a pure **Spatial Geometric Language**:
 1.  **~65 Base Primes:** Derived from the empirically validated Natural Semantic Metalanguage (NSM), represented by pure geometric categories (Circles for Entities, Triangles for Actions).
 2.  **Visual Composition:** Complex concepts are built by placing these geometric primitives into spatial relationships (e.g., inside, above, flipped horizontally).
 3.  **No Tokens, Just Logic:** A machine parsing this language does not need an NLP token-guesser; it simply traverses an unambiguous logical tree.
