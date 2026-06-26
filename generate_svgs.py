@@ -220,7 +220,7 @@ categories = [
             {"handle": "is", "desc": "be", "svg": '<line x1="4" y1="9" x2="20" y2="9" /><line x1="4" y1="15" x2="20" y2="15" />'},
             {"handle": "ex", "desc": "there is", "svg": '<line x1="4" y1="20" x2="20" y2="20" /><circle cx="12" cy="16" r="4" fill="#333" />'},
             {"handle": "hav", "desc": "have", "svg": '<polygon points="12,2 2,20 22,20" /><circle cx="12" cy="14" r="3" fill="#333" />'},
-            {"handle": "sam", "desc": "the same", "svg": '<line x1="4" y1="7" x2="20" y2="7" /><line x1="4" y1="12" x2="20" y2="12" /><line x1="4" y1="17" x2="20" y2="17" />'},
+            {"handle": "sam", "desc": "the same", "svg": '<circle cx="9" cy="12" r="6" /><circle cx="15" cy="12" r="6" />'},
             {"handle": "oth", "desc": "other", "svg": '<circle cx="8" cy="12" r="5" /><rect x="15" y="7" width="10" height="10" />'},
             {"handle": "kind", "desc": "kind", "svg": '<circle cx="12" cy="12" r="10" /><path d="M 12 12 L 12 2 A 10 10 0 0 1 21.5 15 Z" fill="#333" />'},
             {"handle": "part", "desc": "part", "svg": '<path d="M 12 12 L 12 2 A 10 10 0 0 1 21.5 15 Z" fill="#333" />'},
