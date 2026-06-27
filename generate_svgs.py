@@ -237,6 +237,7 @@ categories = [
         "glyphs": [
             {"handle": "alan", "desc": "reserved", "svg": '<g stroke="#ffd166"><polygon points="12,2 22,9 18,20 6,20 2,9" /><rect x="9" y="8" width="6" height="8" fill="#ffd166" /></g>'},
             {"handle": "carl", "desc": "reserved", "svg": '<g stroke="#ffd166"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" /><polygon points="12,6 18,16 6,16" fill="#ffd166" /></g>'},
+            {"handle": "jesus", "desc": "reserved", "svg": '<g stroke="#ffd166"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" /><circle cx="12" cy="7.5" r="2" fill="#ffd166" /><circle cx="8" cy="14.5" r="2" fill="#ffd166" /><circle cx="16" cy="14.5" r="2" fill="#ffd166" /></g>'},
             {"handle": "reserved", "desc": "", "svg": '<g stroke="#ffd166"><polygon points="12,22 22,15 18,4 6,4 2,15" /><polygon points="12,22 18,4 2,15 22,15 6,4" /></g>'},
         ]
     }
@@ -247,7 +248,7 @@ for cat in categories:
     html_body += f"<h2>{cat['name']}</h2>\n"
     html_body += '<div class="grid">\n'
     for glyph in cat['glyphs']:
-        stroke_color = "#ffd166" if glyph['handle'] in ['alan', 'carl', 'reserved'] else "#e2e8f0"
+        stroke_color = "#ffd166" if glyph['handle'] in ['alan', 'carl', 'reserved', 'jesus'] else "#e2e8f0"
         svg = f'<svg viewBox="0 0 24 24" fill="none" stroke="{stroke_color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{glyph["svg"]}</svg>'
         html_body += f"""
         <div class="glyph-card">
