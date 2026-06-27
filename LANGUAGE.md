@@ -99,13 +99,13 @@ A form is **canonical** iff all of these hold. The compiler emits only canonical
 **Reference & negation:**
 ```
 "A person came in; the person said something."
-▲ (MOVE)
+↔ (MOVE)
 ├── ○ (SOMEONE °)
-└── ⧄ (INSIDE)
+└── 回 (INSIDE)
 ∧ (AND)
-▲ (SAY)
+▷ (SAY)
 ├── ↺ (Aforementioned SOMEONE)
-└── □ (SOMETHING °)
+└── ⊖ (SOMETHING °)
 ```
 Re-emit it through ten agents → identical, character for character. The two `⟨≈⟩` marks are the only things the compiler assumed; they are shown, not hidden.
 
@@ -120,4 +120,4 @@ Re-emit it through ten agents → identical, character for character. The two `�
 
 ---
 
-*v0.1 — the first formulation, not the last. The grammar (§1–3) and the normalization law (§4) are the load-bearing parts; the glyph table is finishable work.*
+*v1.0 — the first formulation, not the last. The grammar (§1–3) and the normalization law (§4) are the load-bearing parts; the glyph table is finishable work.*
