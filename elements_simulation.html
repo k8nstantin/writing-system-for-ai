@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alan Classical Elements - Semiotic Rotations Playground</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  body {
+    background-color: #0b0e13;
+    color: #c8cdd6;
+    font-family: 'JetBrains Mono', monospace;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    padding: 30px;
+    box-sizing: border-box;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+    width: 100%;
+    max-width: 1000px;
+  }
+
+  .header h1 {
+    font-size: 26px;
+    color: #fff;
+    margin: 0 0 10px 0;
+  }
+
+  .header p {
+    font-size: 14px;
+    color: #8aa6d4;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 30px;
+    width: 100%;
+    max-width: 1000px;
+    margin-bottom: 40px;
+  }
+
+  .card {
+    background: #161b24;
+    border: 1px solid #2b3340;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card h2 {
+    color: #fff;
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 10px;
+    align-self: flex-start;
+    border-bottom: 2px solid #48b5c4;
+    padding-bottom: 5px;
+  }
+
+  .card .desc {
+    font-size: 13px;
+    color: #8aa6d4;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    align-self: flex-start;
+  }
+
+  .interactive-view {
+    width: 150px;
+    height: 150px;
+    background: #090c11;
+    border: 2px dashed #3d4757;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .interactive-view svg {
+    width: 100px;
+    height: 100px;
+    stroke: #e2e8f0;
+    stroke-width: 2.5;
+    fill: none;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .label-badge {
+    position: absolute;
+    bottom: 10px;
+    background: #2b3340;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    width: 100%;
+  }
+
+  button {
+    background: #2b3340;
+    color: #c8cdd6;
+    border: 1px solid #3d4757;
+    padding: 8px 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  button:hover {
+    background: #48b5c4;
+    color: #0b0e13;
+    border-color: #48b5c4;
+    transform: scale(1.05);
+  }
+
+  button.active {
+    background: #7fcf9f;
+    color: #0b0e13;
+    border-color: #7fcf9f;
+  }
+
+  /* Two Axis Matrix Style */
+  .matrix {
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr;
+    grid-template-rows: 40px 100px 100px;
+    gap: 10px;
+    width: 100%;
+    margin-top: 15px;
+  }
+
+  .matrix-cell {
+    background: #090c11;
+    border: 1px solid #2a313d;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: #8aa6d4;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .matrix-cell:hover {
+    border-color: #48b5c4;
+    background: #121820;
+  }
+
+  .matrix-cell.header-cell {
+    background: transparent;
+    border: none;
+    font-weight: bold;
+    color: #fff;
+    cursor: default;
+  }
+
+  .matrix-cell svg {
+    width: 40px;
+    height: 40px;
+    stroke: #e2e8f0;
+    stroke-width: 2;
+    margin-bottom: 5px;
+  }
+
+  .matrix-cell .cell-label {
+    font-size: 10px;
+    color: #7fcf9f;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+  .back-link {
+    margin-top: 20px;
+    color: #48b5c4;
+    text-decoration: none;
+    font-size: 14px;
+    border-bottom: 1px dashed #48b5c4;
+  }
+
+  .back-link:hover {
+    color: #7fcf9f;
+    border-color: #7fcf9f;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Alan Classical Elements Rotation Playground</h1>
+  <p>
+    Collaborative visual simulation mapping the 4 fundamental forces of nature (Water, Fire, Earth, Sky) into a unified, minimal, transformable geometric primitive.
+  </p>
+</div>
+
+<div class="grid">
+
+  <!-- OPTION A: Triple-Prong Combs (Asymmetric Prong Combs) -->
+  <div class="card">
+    <h2>Option A: Asymmetric Combs</h2>
+    <div class="desc">A single asymmetric triple-prong "comb" rotates 4 ways inside the coordinate plane. This creates 4 distinct visual directions.</div>
+    
+    <div class="interactive-view">
+      <svg id="svgComb" viewBox="0 0 24 24">
+        <!-- Base Prong Comb pointing Right -->
+        <g id="combGroup">
+          <line x1="4" y1="6" x2="20" y2="6" stroke-linecap="round"/>
+          <line x1="4" y1="12" x2="20" y2="12" stroke-linecap="round"/>
+          <line x1="4" y1="18" x2="20" y2="18" stroke-linecap="round"/>
+          <path d="M 4,6 V 18" stroke-linecap="round" />
+        </g>
+      </svg>
+      <div class="label-badge" id="lblComb">Earth (0°)</div>
+    </div>
+
+    <div class="controls">
+      <button onclick="rotateComb(0, 'Earth (0°: Strata)')" class="active comb-btn">0° (Right)</button>
+      <button onclick="rotateComb(90, 'Fire (90°: Rising Flames)')" class="comb-btn">90° (Down)</button>
+      <button onclick="rotateComb(180, 'Water (180°: Flow)')" class="comb-btn">180° (Left)</button>
+      <button onclick="rotateComb(270, 'Sky (270°: Canopy)')" class="comb-btn">270° (Up)</button>
+    </div>
+  </div>
+
+  <!-- OPTION B: Parabolic Arc/Canopy Rotation -->
+  <div class="card">
+    <h2>Option B: Curved Arcs</h2>
+    <div class="desc">A single parabolic arc canopy rotates to 4 cardinal directions, mimicking lake bowls, rising flares, or protecting atmospheric domes.</div>
+    
+    <div class="interactive-view">
+      <svg id="svgArc" viewBox="0 0 24 24">
+        <path id="arcPath" d="M 4,8 Q 12,18 20,8" stroke-linecap="round" />
+      </svg>
+      <div class="label-badge" id="lblArc">Water (Bowl)</div>
+    </div>
+
+    <div class="controls">
+      <button onclick="rotateArc(0, 'Water (0°: Bowl/Lake)')" class="active arc-btn">0° (Bowl)</button>
+      <button onclick="rotateArc(90, 'Fire (90°: Flare)')" class="arc-btn">90° (Right Crescent)</button>
+      <button onclick="rotateArc(180, 'Sky (180°: Dome/Canopy)')" class="arc-btn">180° (Dome)</button>
+      <button onclick="rotateArc(270, 'Earth (270°: Cave/Plate)')" class="arc-btn">270° (Left Crescent)</button>
+    </div>
+  </div>
+
+  <!-- OPTION C: The Two-Axis Matrix (Fifth Element Paradigm) -->
+  <div class="card" style="grid-column: span 2;">
+    <h2>Option C: Two-Axis Textural Matrix</h2>
+    <div class="desc">
+      Inspired by <strong>The Fifth Element</strong> stone carvings, this layout maps concepts across two logical axes: <strong>Straight vs. Wavy</strong> (Static vs. Dynamic energy) multiplied by <strong>Horizontal vs. Vertical</strong> (Passive flow vs. Active projection).
+    </div>
+    
+    <div class="matrix">
+      <!-- Headers -->
+      <div class="matrix-cell header-cell"></div>
+      <div class="matrix-cell header-cell">Wavy (Dynamic)</div>
+      <div class="matrix-cell header-cell">Straight (Static)</div>
+      
+      <!-- Row 1: Horizontal -->
+      <div class="matrix-cell header-cell">Horizontal</div>
+      
+      <!-- Water Cell -->
+      <div class="matrix-cell" onclick="selectCell('water')">
+        <svg viewBox="0 0 24 24">
+          <path d="M 3,8 Q 7.5,5 12,8 T 21,8 M 3,14 Q 7.5,11 12,14 T 21,14 M 3,20 Q 7.5,17 12,20 T 21,20" stroke-linecap="round" />
+        </svg>
+        <span class="cell-label">Water</span>
+      </div>
+      
+      <!-- Earth Cell -->
+      <div class="matrix-cell" onclick="selectCell('earth')">
+        <svg viewBox="0 0 24 24">
+          <line x1="3" y1="8" x2="21" y2="8" stroke-linecap="round" />
+          <line x1="3" y1="14" x2="21" y2="14" stroke-linecap="round" />
+          <line x1="3" y1="20" x2="21" y2="20" stroke-linecap="round" />
+        </svg>
+        <span class="cell-label">Earth</span>
+      </div>
+      
+      <!-- Row 2: Vertical -->
+      <div class="matrix-cell header-cell">Vertical</div>
+      
+      <!-- Fire Cell -->
+      <div class="matrix-cell" onclick="selectCell('fire')">
+        <svg viewBox="0 0 24 24">
+          <path d="M 3,8 Q 7.5,5 12,8 T 21,8 M 3,14 Q 7.5,11 12,14 T 21,14 M 3,20 Q 7.5,17 12,20 T 21,20" transform="rotate(90, 12, 12)" stroke-linecap="round" />
+        </svg>
+        <span class="cell-label">Fire</span>
+      </div>
+      
+      <!-- Air Cell -->
+      <div class="matrix-cell" onclick="selectCell('air')">
+        <svg viewBox="0 0 24 24">
+          <line x1="3" y1="8" x2="21" y2="8" stroke-linecap="round" transform="rotate(90, 12, 12)" />
+          <line x1="3" y1="14" x2="21" y2="14" stroke-linecap="round" transform="rotate(90, 12, 12)" />
+          <line x1="3" y1="20" x2="21" y2="20" stroke-linecap="round" transform="rotate(90, 12, 12)" />
+        </svg>
+        <span class="cell-label">Air / Wind</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<a href="practice.html" class="back-link">&larr; Back to Alan Sandbox Practice</a>
+
+<script>
+  // Option A: Combs
+  function rotateComb(deg, label) {
+    const comb = document.getElementById('combGroup');
+    comb.setAttribute('transform', `rotate(${deg}, 12, 12)`);
+    document.getElementById('lblComb').textContent = label;
+    
+    // Manage button highlight
+    const btns = document.querySelectorAll('.comb-btn');
+    btns.forEach((btn, idx) => {
+      btn.classList.toggle('active', idx === deg/90);
+    });
+  }
+
+  // Option B: Curved Arcs
+  function rotateArc(deg, label) {
+    const arc = document.getElementById('arcPath');
+    
+    // We update the transform in 2D space
+    if (deg === 0) {
+      arc.setAttribute('d', 'M 4,8 Q 12,18 20,8');
+    } else if (deg === 90) {
+      arc.setAttribute('d', 'M 8,4 Q 18,12 8,20');
+    } else if (deg === 180) {
+      arc.setAttribute('d', 'M 4,16 Q 12,6 20,16');
+    } else if (deg === 270) {
+      arc.setAttribute('d', 'M 16,4 Q 6,12 16,20');
+    }
+    document.getElementById('lblArc').textContent = label;
+    
+    const btns = document.querySelectorAll('.arc-btn');
+    btns.forEach((btn, idx) => {
+      btn.classList.toggle('active', idx === deg/90);
+    });
+  }
+
+  // Option C: Matrix Alert
+  function selectCell(element) {
+    alert(`Fifth Element Mapping Selected: ${element.toUpperCase()}! This beautiful, clean combination of line textures (straight vs. wavy) and orientations (horizontal vs. vertical) perfectly covers the elemental lexicon with zero clashing.`);
+  }
+</script>
+</body>
+</html>
