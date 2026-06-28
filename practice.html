@@ -583,6 +583,9 @@
     </div>
     <!-- Right Thumb Cluster -->
     <div class="thumb-cluster right" style="align-items: center; gap: 15px;">
+      <div class="key tall action" data-action="DOWN" title="Step Down (Newline / Sibling)"><svg viewBox="0 0 24 24" fill="none" stroke="#ff8a6b" stroke-width="2"><path d="M 20 6 V 14 H 6 M 12 8 L 6 14 L 12 20" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="handle">down</span></div>
+      <div class="key tall action" data-action="OUTDENT" title="Step Left (Outdent)"><svg viewBox="0 0 24 24" fill="none" stroke="#7fcf9f" stroke-width="2"><line x1="20" y1="12" x2="4" y2="12" stroke-width="3" /><polyline points="10,6 4,12 10,18" stroke-width="3" /></svg><span class="handle">outdent</span></div>
+
       <!-- Symmetrical Cross D-Pad (Right Half) -->
       <div class="compass-cross">
         <div></div>
@@ -609,8 +612,6 @@
       </div>
 
       <div class="key wide modifier" data-action="FLIP" style="color: #ffd166; font-size: 16px; font-weight: bold;" title="Hold/Toggle to flip symbols to opposites">⇿ ANTI</div>
-      <div class="key tall action" data-action="OUTDENT" title="Step Left (Outdent)"><svg viewBox="0 0 24 24" fill="none" stroke="#7fcf9f" stroke-width="2"><line x1="20" y1="12" x2="4" y2="12" stroke-width="3" /><polyline points="10,6 4,12 10,18" stroke-width="3" /></svg><span class="handle">outdent</span></div>
-      <div class="key tall action" data-action="DOWN" title="Step Down (Newline / Sibling)"><svg viewBox="0 0 24 24" fill="none" stroke="#ff8a6b" stroke-width="2"><path d="M 20 6 V 14 H 6 M 12 8 L 6 14 L 12 20" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="handle">down</span></div>
       <div class="key wide action" data-action="BACK" style="color: #f67280; font-size: 16px; font-weight: bold;" title="Backspace">⌫ BACK</div>
     </div>
   </div>
@@ -1016,42 +1017,51 @@
       }
 
       // Default: typing a symbol
-      let svgTemplate;
-      let targetHandle = pressedId;
+      let clone = null;
       let flipType = 'above';
 
       // Resolve the SVG template for our direction macros typed from the D-Pad Compass Key
       if (pressedId === 'above') {
-        svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,12 12,8 16,12" stroke-width="2" /><line x1="12" y1="8" x2="12" y2="16" stroke-width="2" /><polygon points="12,1 13,3 15,4 13,5 12,7 11,5 9,4 11,3" fill="#e2e8f0" stroke="none" /></svg>`;
+        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,12 12,8 16,12" stroke-width="2" /><line x1="12" y1="8" x2="12" y2="16" stroke-width="2" /><polygon points="12,1 13,3 15,4 13,5 12,7 11,5 9,4 11,3" fill="#e2e8f0" stroke="none" /></svg>`;
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(svgTemplate, 'image/svg+xml');
+        clone = document.importNode(doc.documentElement, true);
         flipType = 'below';
       } else if (pressedId === 'below') {
-        svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,12 12,8 16,12" stroke-width="2" /><line x1="12" y1="8" x2="12" y2="16" stroke-width="2" /><polygon points="12,1 13,3 15,4 13,5 12,7 11,5 9,4 11,3" fill="#e2e8f0" stroke="none" /></svg>`;
+        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,12 12,8 16,12" stroke-width="2" /><line x1="12" y1="8" x2="12" y2="16" stroke-width="2" /><polygon points="12,1 13,3 15,4 13,5 12,7 11,5 9,4 11,3" fill="#e2e8f0" stroke="none" /></svg>`;
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(svgTemplate, 'image/svg+xml');
+        clone = document.importNode(doc.documentElement, true);
         isFlipped = true; // For below, we force-flip it so the star sits underneath!
         flipType = 'below';
       } else if (pressedId === 'right') {
-        svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="4" y1="2" x2="4" y2="22" stroke-width="2" /><polyline points="12,8 16,12 12,16" stroke-width="2" /><line x1="8" y1="12" x2="16" y2="12" stroke-width="2" /><polygon points="20,9 21,11 23,12 21,13 20,15 19,13 17,12 19,11" fill="#e2e8f0" stroke="none" /></svg>`;
+        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="4" y1="2" x2="4" y2="22" stroke-width="2" /><polyline points="12,8 16,12 12,16" stroke-width="2" /><line x1="8" y1="12" x2="16" y2="12" stroke-width="2" /><polygon points="20,9 21,11 23,12 21,13 20,15 19,13 17,12 19,11" fill="#e2e8f0" stroke="none" /></svg>`;
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(svgTemplate, 'image/svg+xml');
+        clone = document.importNode(doc.documentElement, true);
         flipType = 'left';
       } else if (pressedId === 'left') {
-        svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="4" y1="2" x2="4" y2="22" stroke-width="2" /><polyline points="12,8 16,12 12,16" stroke-width="2" /><line x1="8" y1="12" x2="16" y2="12" stroke-width="2" /><polygon points="20,9 21,11 23,12 21,13 20,15 19,13 17,12 19,11" fill="#e2e8f0" stroke="none" /></svg>`;
+        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="4" y1="2" x2="4" y2="22" stroke-width="2" /><polyline points="12,8 16,12 12,16" stroke-width="2" /><line x1="8" y1="12" x2="16" y2="12" stroke-width="2" /><polygon points="20,9 21,11 23,12 21,13 20,15 19,13 17,12 19,11" fill="#e2e8f0" stroke="none" /></svg>`;
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(svgTemplate, 'image/svg+xml');
+        clone = document.importNode(doc.documentElement, true);
         isFlipped = true; // For left, we force-flip it so the star sits to its left!
         flipType = 'left';
       } else if (pressedId === 'in') {
-        svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><rect x="4" y="6" width="16" height="16" /><polygon points="12,11 13,13 15,14 13,15 12,17 11,15 9,14 11,13" fill="#e2e8f0" stroke="none" /></svg>`;
+        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><rect x="4" y="6" width="16" height="16" /><polygon points="12,11 13,13 15,14 13,15 12,17 11,15 9,14 11,13" fill="#e2e8f0" stroke="none" /></svg>`;
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(svgTemplate, 'image/svg+xml');
+        clone = document.importNode(doc.documentElement, true);
         flipType = 'above';
       } else {
         const svg = key.querySelector('svg');
         if (svg) {
-          svgTemplate = svg.outerHTML;
+          clone = svg.cloneNode(true);
           flipType = key.getAttribute('data-flip') || 'above';
         }
       }
 
-      if (svgTemplate) {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(svgTemplate, 'image/svg+xml');
-        // VITAL FIX: Import parsed XML node into the main HTML document context to prevent context mismatch exceptions!
-        const clone = document.importNode(doc.documentElement, true);
-        
+      if (clone) {
         // Dynamically add the glowing diacritical star above, below, or to the left of the typed symbol when flipped!
         if (isFlipped && flipType) {
           clone.setAttribute('data-flipped', 'true');
