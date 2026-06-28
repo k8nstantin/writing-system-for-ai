@@ -448,6 +448,9 @@
     Heuristic Translation loaded successfully! Let's type it using the split-keyboard below.
   </div>
 
+  <!-- Visual AST Unicode Tree Container -->
+  <div id="treeContainer" style="margin-bottom: 15px;"></div>
+
   <div class="checklist" id="checklist" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; font-size: 13px; color: #8aa6d4;"></div>
 
   <div class="hint-box" id="lessonHint">
@@ -663,6 +666,7 @@
   const lessonInstructionsEl = document.getElementById('lessonInstructions');
   const lessonHintEl = document.getElementById('lessonHint');
   const checklistEl = document.getElementById('checklist');
+  const treeContainer = document.getElementById('treeContainer');
 
   let currentStep = 0;
   let sandboxConfig = null;
@@ -945,6 +949,59 @@
       return true;
     };
     
+    // Inject visual Unicode Tree map dynamically into Guidance Box based on translated sentence!
+    let visualTreeHTML = "";
+    const cleanSentence = sentence.toLowerCase();
+    
+    if (cleanSentence.includes("beginning") || cleanSentence.includes("genesis") || cleanSentence.includes("created")) {
+      visualTreeHTML = `
+      <pre style="background: #090c11; padding: 12px; border-radius: 8px; font-size: 12px; border: 1px solid #1c2330; line-height: 1.5; color: #7fcf9f; font-family: 'JetBrains Mono', monospace; margin-bottom: 12px;">
+Hierarchy Dependency Map:
+┌── BEFORE (In the beginning)
+└── DO (created)
+     ├── SKY (the heavens)
+     └── EARTH (and the earth)
+      </pre>
+      <div style="font-size: 13px; color: #a6f2be; line-height: 1.5; margin-bottom: 15px;">
+        💡 <strong>Geometric Advantage:</strong> Look at the visual structure! In Alan, we use INDENT and DOWN to build nesting scopes, just like directory folders or programming code blocks. This removes the need for grammatical noise words!
+      </div>`;
+    } else if (cleanSentence.includes("word") || cleanSentence.includes("john") || cleanSentence.includes("beginning was")) {
+      visualTreeHTML = `
+      <pre style="background: #090c11; padding: 12px; border-radius: 8px; font-size: 12px; border: 1px solid #1c2330; line-height: 1.5; color: #7fcf9f; font-family: 'JetBrains Mono', monospace; margin-bottom: 12px;">
+Hierarchy Dependency Map:
+┌── BEFORE (In the beginning)
+└── BE (was)
+     └── WORDS (the word)
+          └── WITH (with)
+               └── SPIRIT (God)
+      </pre>
+      <div style="font-size: 13px; color: #a6f2be; line-height: 1.5; margin-bottom: 15px;">
+        💡 <strong>Geometric Chaining:</strong> Sub-dependency modifiers are expressed by chaining deeper indents. Each level down directly modifies the line above it!
+      </div>`;
+    } else if (cleanSentence.includes("shepherd") || cleanSentence.includes("psalm") || cleanSentence.includes("lord is")) {
+      visualTreeHTML = `
+      <pre style="background: #090c11; padding: 12px; border-radius: 8px; font-size: 12px; border: 1px solid #1c2330; line-height: 1.5; color: #7fcf9f; font-family: 'JetBrains Mono', monospace; margin-bottom: 12px;">
+Hierarchy Dependency Map:
+┌── SPIRIT (The Lord)
+└── BE (is)
+     └── PROTECT (my shepherd)
+          └── ANTI + WANT (I shall not lack / want)
+      </pre>
+      <div style="font-size: 13px; color: #a6f2be; line-height: 1.5; margin-bottom: 15px;">
+        💡 <strong>Geometric Subject-Predicate:</strong> Subject ➔ Predicate ➔ Modifiers cascade vertically downwards, keeping semantics pristine and regular.
+      </div>`;
+    } else {
+      visualTreeHTML = `
+      <div style="font-size: 13px; color: #8aa6d4; line-height: 1.5; margin-bottom: 15px; background: #090c11; padding: 10px; border-radius: 8px; border: 1px solid #2b3340;">
+        💡 <strong>Geometric Advantage:</strong> Use INDENT and Newline (DOWN) to organize your cascading ideas into visual logical tree blocks! modifiers sit indented below their target nouns.
+      </div>`;
+    }
+    
+    // Inject tree
+    setTimeout(() => {
+      treeContainer.innerHTML = visualTreeHTML;
+    }, 50);
+
     return {
       targetKeys: targetKeys,
       validate: validatorFn,
@@ -1091,33 +1148,33 @@
 
       // Resolve the SVG template for our direction macros typed from the D-Pad Compass Key
       if (pressedId === 'above') {
-        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,12 12,8 16,12" stroke-width="2" /><line x1="12" y1="8" x2="12" y2="16" stroke-width="2" /><polygon points="2,-14 12,-10 22,-14 18,-8 24,-6 15.5,-4 12,-1 8.5,-4 0,-6 6,-8" fill="#e2e8f0" stroke="none" /></svg>`;
+        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,12 12,8 16,12" stroke-width="2" /><line x1="12" y1="8" x2="12" y2="16" stroke-width="2" /><polygon points="12,-14 14,-9 19,-7 14,-5 12,0 10,-5 5,-7 10,-9" fill="#e2e8f0" stroke="none" /></svg>`;
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = svgTemplate;
         clone = tempDiv.querySelector('svg');
         flipType = 'below';
       } else if (pressedId === 'below') {
-        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,12 12,8 16,12" stroke-width="2" /><line x1="12" y1="8" x2="12" y2="16" stroke-width="2" /><polygon points="2,25 12,29 22,25 18,32 24,34 15.5,36 12,41 8.5,36 0,34 6,32" fill="#e2e8f0" stroke="none" /></svg>`;
+        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="2" y1="6" x2="22" y2="6" /><polyline points="8,12 12,16 16,12" stroke-width="2" /><line x1="12" y1="8" x2="12" y2="16" stroke-width="2" /><polygon points="12,24 14,29 19,31 14,33 12,38 10,33 5,31 10,29" fill="#e2e8f0" stroke="none" /></svg>`;
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = svgTemplate;
         clone = tempDiv.querySelector('svg');
         isFlipped = true; // For below, we force-flip it so the star sits underneath!
         flipType = 'below';
       } else if (pressedId === 'right') {
-        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="4" y1="2" x2="4" y2="22" stroke-width="2" /><polyline points="12,8 16,12 12,16" stroke-width="2" /><line x1="8" y1="12" x2="16" y2="12" stroke-width="2" /><polygon points="20,9 21,11 23,12 21,13 20,15 19,13 17,12 19,11" fill="#e2e8f0" stroke="none" /></svg>`;
+        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="4" y1="2" x2="4" y2="22" stroke-width="2" /><polyline points="12,8 16,12 12,16" stroke-width="2" /><line x1="8" y1="12" x2="16" y2="12" stroke-width="2" /><polygon points="20,7 21,10 23,12 21,14 20,17 19,14 17,12 19,10" fill="#e2e8f0" stroke="none" /></svg>`;
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = svgTemplate;
         clone = tempDiv.querySelector('svg');
         flipType = 'left';
       } else if (pressedId === 'left') {
-        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="4" y1="2" x2="4" y2="22" stroke-width="2" /><polyline points="12,8 16,12 12,16" stroke-width="2" /><line x1="8" y1="12" x2="16" y2="12" stroke-width="2" /><polygon points="20,9 21,11 23,12 21,13 20,15 19,13 17,12 19,11" fill="#e2e8f0" stroke="none" /></svg>`;
+        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="20" y1="2" x2="20" y2="22" stroke-width="2" /><polyline points="12,8 8,12 12,16" stroke-width="2" /><line x1="16" y1="12" x2="8" y2="12" stroke-width="2" /><polygon points="4,7 5,10 7,12 5,14 4,17 3,14 1,12 3,10" fill="#e2e8f0" stroke="none" /></svg>`;
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = svgTemplate;
         clone = tempDiv.querySelector('svg');
         isFlipped = true; // For left, we force-flip it so the star sits to its left!
         flipType = 'left';
       } else if (pressedId === 'in') {
-        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><rect x="4" y="6" width="16" height="16" /><polygon points="2,-14 12,-10 22,-14 18,-8 24,-6 15.5,-4 12,-1 8.5,-4 0,-6 6,-8" fill="#e2e8f0" stroke="none" /></svg>`;
+        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><rect x="4" y="6" width="16" height="16" /><polygon points="12,9 13.5,12 15,14 13.5,16 12,19 10.5,16 9,14 10.5,12" fill="#e2e8f0" stroke="none" /></svg>`;
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = svgTemplate;
         clone = tempDiv.querySelector('svg');
@@ -1170,7 +1227,7 @@
         
         // Auto reset flip after typing
         isFlipped = false;
-        document.querySelectorAll('.split-keyboard').forEach(el => el.classList.remove('flipped'));
+        document.querySelectorAll('.split-keyboard').forEach(el => el.classList.remove('remove'));
         document.querySelectorAll('.key[data-action="FLIP"]').forEach(el => el.classList.remove('active'));
       }
       
