@@ -887,8 +887,10 @@ html_start = r"""<!DOCTYPE html>
       
       if (/^\d+$/.test(w)) {
         const digits = w.split('');
+        if (currentLineKeys.length > 0) {
+          currentLineKeys.push("SPACE");
+        }
         digits.forEach((d) => {
-          if (currentLineKeys.length > 0) currentLineKeys.push("SPACE");
           currentLineKeys.push(d);
         });
         continue;
