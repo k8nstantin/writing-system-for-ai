@@ -1,6 +1,6 @@
 import os
 
-html_start = r"""<!DOCTYPE html>
+html_start = """<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -423,7 +423,8 @@ html_start = r"""<!DOCTYPE html>
   <div class="spellcheck-box" style="margin-top: 15px; border-top: 1px dashed #2b3340; padding-top: 15px;">
     <div style="font-size: 13px; color: #ffd166; margin-bottom: 8px; font-weight: bold;">Spellcheck &amp; Translate Sandbox:</div>
     <div style="display: flex; gap: 10px;">
-      <input type="text" id="spellcheckInput" placeholder="Type a sentence (e.g., 'I want you', 'I know now', 'update customer number 3736 set balance to 0')..." style="flex-grow: 1; background: #0f131a; border: 1px solid #2b3340; border-radius: 6px; padding: 8px 12px; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 13px;">
+      <input type="text" id="spellcheckInput" placeholder="Type a sentence (e.g., 'I want you', 'I know now', 'update customer 756 set balance to 5000')..." style="flex-grow: 1; background: #0f131a; border: 1px solid #2b3340; border-radius: 6px; padding: 8px 12px; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 13px;">
+      <button class="tab-btn" id="pasteBtn" style="background: #3d4757; color: #fff; border: 1px solid #4a5669; margin-bottom: 0;" title="Paste from Clipboard">📋 Paste &amp; Verify</button>
       <button class="tab-btn" id="spellcheckBtn" style="background: #48b5c4; color: #0b0e13; border: none; font-weight: bold; margin-bottom: 0;">Verify Phrase</button>
     </div>
     <div id="spellcheckFeedback" style="font-size: 12px; margin-top: 8px; color: #8aa6d4;"></div>
@@ -490,7 +491,7 @@ html_start = r"""<!DOCTYPE html>
     </div>
     <!-- Left Thumb Cluster -->
     <div class="thumb-cluster left">
-      <div class="key wide modifier" data-action="FLIP" style="color: #ffd166; font-size: 16px; font-weight: bold;" title="Hold/Toggle to turn symbols into opposites (Anti-matter)">⇿ ANTI</div>
+      <div class="key wide modifier" data-action="FLIP" style="color: #ffd166; font-size: 16px; font-weight: bold;" title="Hold/Toggle to flip symbols to opposites">⇿ ANTI</div>
       <div class="key tall space" data-action="SPACE" title="Space (Horizontal Word Gap)"><svg viewBox="0 0 24 24" fill="none" stroke="#8aa6d4" stroke-width="2"><path d="M 4 8 V 16 H 20 V 8" stroke-width="3" /></svg></div>
       <div class="key tall action" data-action="INDENT" title="Step Right (Indent)"><svg viewBox="0 0 24 24" fill="none" stroke="#7fcf9f" stroke-width="2"><line x1="4" y1="12" x2="20" y2="12" stroke-width="3" /><polyline points="14,6 20,12 14,18" stroke-width="3" /></svg></div>
     </div>
@@ -862,8 +863,8 @@ html_start = r"""<!DOCTYPE html>
 
   function translateEnglishToAlan(sentence) {
     const raw = sentence.trim();
-    const text = raw.toLowerCase().replace(/[.,\\/#!$%\\^&\\*;:{}=\\-_`~()?]/g,"");
-    const words = text.split(/\s+/);
+    const text = raw.toLowerCase().replace(/[.,\\\\/#!$%\\\\^&\\\\*;:{}=\\\\-_`~()?]/g,"");
+    const words = text.split(/\\\\s+/);
     
     // Check customPhrases first
     if (customPhrases[text]) {
@@ -885,7 +886,7 @@ html_start = r"""<!DOCTYPE html>
       const w = words[i];
       if (!w) continue;
       
-      if (/^\d+$/.test(w)) {
+      if (/^\\\\d+$/.test(w)) {
         const digits = w.split('');
         if (currentLineKeys.length > 0) {
           currentLineKeys.push("SPACE");
@@ -1081,6 +1082,7 @@ html_start = r"""<!DOCTYPE html>
   const spellInput = document.getElementById('spellcheckInput');
   const spellBtn = document.getElementById('spellcheckBtn');
   const spellFeedback = document.getElementById('spellcheckFeedback');
+  const pasteBtn = document.getElementById('pasteBtn');
 
   function handleSpellcheck() {
     const text = spellInput.value.trim().toLowerCase();
@@ -1107,13 +1109,31 @@ html_start = r"""<!DOCTYPE html>
       resetWorkspace();
     } else {
       spellFeedback.style.color = '#f67280';
-      spellFeedback.textContent = "Could not parse phrase. Try something like 'I want you', 'update customer number 3736 set balance to 0', or 'I know now'.";
+      spellFeedback.textContent = "Could not parse phrase. Try something like 'I want you', 'update customer 756 set balance to 5000', or 'I know now'.";
     }
   }
 
   spellBtn.addEventListener('click', handleSpellcheck);
   spellInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') handleSpellcheck();
+  });
+
+  pasteBtn.addEventListener('click', () => {
+    if (navigator.clipboard && navigator.clipboard.readText) {
+      navigator.clipboard.readText()
+        .then(text => {
+          spellInput.value = text;
+          handleSpellcheck();
+        })
+        .catch(err => {
+          console.error('Failed to read clipboard: ', err);
+          spellFeedback.style.color = '#f67280';
+          spellFeedback.textContent = "Clipboard access denied. Please click the input box and use Cmd+V / Ctrl+V to paste manually.";
+        });
+    } else {
+      spellFeedback.style.color = '#f67280';
+      spellFeedback.textContent = "Clipboard API not supported in this browser. Please use Cmd+V / Ctrl+V to paste manually.";
+    }
   });
 
 
