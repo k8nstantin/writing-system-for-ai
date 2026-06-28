@@ -407,6 +407,7 @@
     Alan: Live Practice
   </h1>
   <div style="display:flex; gap:15px;">
+    <a href="elements_simulation.html">Switch to Elements Simulator &rarr;</a>
     <a href="symbols.html">Switch to Semiotic Catalog &rarr;</a>
     <a href="keyboard_prototype.html">Back to Sandbox &rarr;</a>
   </div>
@@ -507,7 +508,7 @@
       <div class="key entity" data-handle="spirit"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" /><polygon points="12,8 13.5,11 16,12 13.5,13 12,16 10.5,13 8,12 10.5,11" fill="#e2e8f0" stroke="none" /></svg><span class="handle">spirit</span></div>
     </div>
     <!-- Row 4: Time & Nature -->
-    <div class="row" style="padding-left: 30px;">
+    <div class="row" style="padding-right: 20px;">
       <div class="key time" data-handle="time"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><line x1="12" y1="8" x2="12" y2="16" /></svg><span class="handle">time</span></div>
       <div class="key time" data-handle="now"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><line x1="12" y1="6" x2="12" y2="18" stroke-width="4" /></svg><span class="handle">now</span></div>
       <div class="key time" data-handle="before" data-flip="left"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="8" y1="12" x2="24" y2="12" /><line x1="14" y1="8" x2="14" y2="16" /><polyline points="12,12 8,12" /><polyline points="10,10 8,12 10,14" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">before</span></div>
@@ -567,7 +568,7 @@
       <div class="key num" data-handle="div"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12" stroke-width="3" /><circle cx="12" cy="6" r="2" fill="#e2e8f0" /><circle cx="12" cy="18" r="2" fill="#e2e8f0" /></svg><span class="handle">div</span></div>
       <div class="key num" data-handle="eql"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="5" y1="9" x2="19" y2="9" stroke-width="3" /><line x1="5" y1="15" x2="19" y2="15" stroke-width="3" /></svg><span class="handle">eql</span></div>
     </div>
-    <!-- Row 1: Quantifiers (Pruned 'one' and 'two' keys to remove spacer redundancy!) -->
+    <!-- Row 1: Quantifiers -->
     <div class="row" style="padding-right: 0px;">
       <div class="key logic" data-handle="few"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="8" r="1.5" fill="#e2e8f0" /><circle cx="7" cy="15" r="1.5" fill="#e2e8f0" /><circle cx="17" cy="15" r="1.5" fill="#e2e8f0" /></svg><span class="handle">few</span></div>
       <div class="key logic" data-handle="som"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" stroke-dasharray="4,4" /></svg><span class="handle">some</span></div>
@@ -595,16 +596,11 @@
       <!-- ADDED STONE KEY: "stone" (Upward triangle resting flat on heavy solid base plate) -->
       <div class="key desc" data-handle="stone"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="3" y1="20" x2="21" y2="20" stroke-linecap="round" stroke-width="3" /><polygon points="12,5 5,17 19,17" fill="#e2e8f0" /></svg><span class="handle">stone</span></div>
     </div>
-    <!-- Row 4: Space, Compass & Classical Elements -->
+    <!-- Row 4: Space & Nature -->
     <div class="row" style="padding-right: 30px;">
       <div class="key space" data-handle="place"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="20" x2="22" y2="20" /><line x1="12" y1="20" x2="12" y2="2" /><circle cx="12" cy="12" r="3" fill="#e2e8f0" /></svg><span class="handle">place</span></div>
-      <div class="key space" data-handle="water"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 3,8 Q 7.5,5 12,8 T 21,8 M 3,14 Q 7.5,11 12,14 T 21,14 M 3,20 Q 7.5,17 12,20 T 21,20" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" /></svg><span class="handle">water</span></div>
-      <!-- ADDED FIRE KEY: Classic Element Water glyph rotated exactly 90 degrees to represent vertically rising flames/heat! -->
-      <div class="key space" data-handle="fire"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 3,8 Q 7.5,5 12,8 T 21,8 M 3,14 Q 7.5,11 12,14 T 21,14 M 3,20 Q 7.5,17 12,20 T 21,20" transform="rotate(90, 12, 12)" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" /></svg><span class="handle">fire</span></div>
-      <!-- ADDED EARTH KEY: "earth" (Three flat horizontal strata lines - direct counterweight to wavy water lines) -->
-      <div class="key space" data-handle="earth"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="3" y1="8" x2="21" y2="8" stroke-linecap="round" /><line x1="3" y1="14" x2="21" y2="14" stroke-linecap="round" /><line x1="3" y1="20" x2="21" y2="20" stroke-linecap="round" /></svg><span class="handle">earth</span></div>
-      <!-- ADDED SKY KEY: "sky" (Two floating atmospheric canopy wind wisps) -->
-      <div class="key space" data-handle="sky"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 4,7 Q 10,4 16,7 T 20,11" stroke-linecap="round" /><path d="M 4,14 Q 10,11 16,14 T 20,18" stroke-linecap="round" /></svg><span class="handle">sky</span></div>
+      <!-- SINGLE UNIFIED ELEMENT BASE GLYPH: Three simple parallel strata straight lines -->
+      <div class="key space" data-handle="earth"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="3" y1="8" x2="21" y2="8" stroke-linecap="round" /><line x1="3" y1="14" x2="21" y2="14" stroke-linecap="round" /><line x1="3" y1="20" x2="21" y2="20" stroke-linecap="round" /></svg><span class="handle">element</span></div>
     </div>
     <!-- Right Thumb Cluster -->
     <div class="thumb-cluster right" style="align-items: center; gap: 15px;">
@@ -638,6 +634,8 @@
       </div>
 
       <div class="key wide modifier" data-action="FLIP" style="color: #ffd166; font-size: 16px; font-weight: bold;" title="Hold/Toggle to flip symbols to opposites">⇿ ANTI</div>
+      <!-- DEDICATED ELEMENT ROTATE DIAL KEYCAP -->
+      <div class="key wide modifier" data-action="ROTATE" style="color: #48b5c4; font-size: 16px; font-weight: bold;" title="Tap to rotate orbiting element arch"><svg viewBox="0 0 24 24" fill="none" stroke="#48b5c4" stroke-width="2.5" style="width:20px; height:20px;"><path d="M 21.5,12 A 9.5,9.5 0 1,1 17,4.5 L 21,8 M 21,3 V 8 H 16" stroke-linecap="round" stroke-linejoin="round"/></svg>⟳ ROTATE</div>
       <div class="key wide action" data-action="BACK" style="color: #f67280; font-size: 16px; font-weight: bold;" title="Backspace">⌫ BACK</div>
     </div>
   </div>
@@ -801,13 +799,10 @@
         "incorrect": "tru", "small": "small", "smaller": "small", "tiny": "small", "little": "small",
         "less": "les", "fewer": "les", "greater": "greater", "larger": "greater",
         "false": "tru",
-        "water": "water", "ocean": "water", "sea": "water",
-        "fire": "fire", "flame": "fire", "heat": "fire", "burn": "fire", "hot": "fire",
+        "water": "earth", "fire": "earth", "earth": "earth", "sky": "earth", "air": "earth", // Maps classical elements to element base key!
         "spirit": "spirit", "soul": "spirit", "ghost": "spirit", "god": "spirit", "lord": "spirit", "creator": "spirit",
         "light": "light", "day": "light", "sun": "light", "bright": "light",
         "with": "with", "together": "with", "union": "with",
-        "earth": "earth", "ground": "earth", "land": "earth", "world": "earth",
-        "sky": "sky", "air": "sky", "heaven": "sky", "heavens": "sky", "wind": "sky",
         "protect": "protect", "guard": "protect", "shield": "protect", "save": "protect", "shepherd": "protect",
         "stone": "stone", "rock": "stone", "solid": "stone", "hard": "stone",
         "gravity": "gravity", "mass": "gravity", "pull": "gravity", "antigravity": "gravity",
@@ -892,7 +887,24 @@
         if (currentLineKeys.length > 0 && !["FLIP", "INDENT", "OUTDENT", "DOWN"].includes(handle)) {
           currentLineKeys.push("SPACE");
         }
-        currentLineKeys.push(handle);
+        
+        // Dynamic mapping of elemental words to their specific rotation step
+        if (wordToMap === "water") {
+          currentLineKeys.push("earth");
+          currentLineKeys.push("ROTATE"); // Water is Bottom Arch
+          currentLineKeys.push("ROTATE");
+        } else if (wordToMap === "fire") {
+          currentLineKeys.push("earth");
+          currentLineKeys.push("ROTATE"); // Fire is Top Arch
+        } else if (wordToMap === "sky" || wordToMap === "air" || wordToMap === "heaven" || wordToMap === "heavens" || wordToMap === "wind") {
+          currentLineKeys.push("earth");
+          currentLineKeys.push("ROTATE"); // Air is Left Arch
+          currentLineKeys.push("ROTATE");
+          currentLineKeys.push("ROTATE");
+          currentLineKeys.push("ROTATE");
+        } else {
+          currentLineKeys.push(handle);
+        }
       }
     }
     
@@ -1077,6 +1089,86 @@ Hierarchy Dependency Map:
         highlightNextKey();
         updateChecklist();
         return;
+      }
+
+      if (action === 'ROTATE') {
+        // ROTATION KEY INTERACTION DESIGN:
+        // Cyclically rotates an orbiting Arch Satellite (crescent) around the last typed symbol!
+        const svgs = activeLine.querySelectorAll('svg');
+        if (svgs.length > 0) {
+          const lastSvg = svgs[svgs.length - 1];
+          let existingArch = lastSvg.querySelector('path[data-role="arch"]');
+          
+          if (!existingArch) {
+            // Step 1: Append Top Arch (Fire - above)
+            existingArch = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            existingArch.setAttribute("stroke", "#e2e8f0");
+            existingArch.setAttribute("stroke-width", "1.5");
+            existingArch.setAttribute("fill", "none");
+            existingArch.setAttribute("data-role", "arch");
+            existingArch.setAttribute("d", "M 5,6 Q 12,2 19,6");
+            existingArch.setAttribute("data-dir", "above");
+            lastSvg.appendChild(existingArch);
+            lastSvg.setAttribute("data-arch", "above");
+            
+            // Baseline shift down for Top Arch to prevent clipping & align beautifully!
+            lastSvg.style.transform = "translateY(12px)";
+            lastSvg.style.marginTop = "6px";
+            lastSvg.style.marginBottom = "-18px";
+          } else {
+            const currentDir = existingArch.getAttribute("data-dir");
+            if (currentDir === "above") {
+              // Step 2: Cycle to Right Arch (Earth - right)
+              existingArch.setAttribute("d", "M 18,5 Q 22,12 18,19");
+              existingArch.setAttribute("data-dir", "right");
+              lastSvg.setAttribute("data-arch", "right");
+              
+              // Reset baseline shift since Right Arch fits perfectly on standard baseline!
+              lastSvg.style.transform = "";
+              lastSvg.style.marginTop = "";
+              lastSvg.style.marginBottom = "";
+            } else if (currentDir === "right") {
+              // Step 3: Cycle to Bottom Arch (Water - below)
+              existingArch.setAttribute("d", "M 5,18 Q 12,22 19,18");
+              existingArch.setAttribute("data-dir", "below");
+              lastSvg.setAttribute("data-arch", "below");
+              
+              // Baseline shift UP for Bottom Arch to maintain balance!
+              lastSvg.style.transform = "translateY(-12px)";
+              lastSvg.style.marginTop = "-18px";
+              lastSvg.style.marginBottom = "6px";
+            } else if (currentDir === "below") {
+              // Step 4: Cycle to Left Arch (Wind/Air - left)
+              existingArch.setAttribute("d", "M 6,5 Q 2,12 6,19");
+              existingArch.setAttribute("data-dir", "left");
+              lastSvg.setAttribute("data-arch", "left");
+              
+              // Reset baseline shift
+              lastSvg.style.transform = "";
+              lastSvg.style.marginTop = "";
+              lastSvg.style.marginBottom = "";
+            } else if (currentDir === "left") {
+              // Step 5: Cycle back to Plain Base (No Arch)
+              existingArch.remove();
+              lastSvg.removeAttribute("data-arch");
+              
+              // Reset baseline shift
+              lastSvg.style.transform = "";
+              lastSvg.style.marginTop = "";
+              lastSvg.style.marginBottom = "";
+            }
+          }
+          
+          // Auto reset flip after rotation
+          isFlipped = false;
+          document.querySelectorAll('.split-keyboard').forEach(el => el.classList.remove('flipped'));
+          document.querySelectorAll('.key[data-action="FLIP"]').forEach(el => el.classList.remove('active'));
+          
+          highlightNextKey();
+          updateChecklist();
+          checkLessonProgress();
+          return;
+        }
       }
 
       if (action === 'INDENT') {
