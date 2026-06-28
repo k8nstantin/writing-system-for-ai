@@ -242,6 +242,7 @@
     stroke: #e2e8f0;
     color: #e2e8f0; /* Perfect monochromatic standard base color for all star fills */
     overflow: visible !important; /* Extremely important to prevent diacritical clipping! */
+    transition: transform 0.2s ease, margin 0.2s ease; /* Smooth visual shifting transition! */
   }
 
   .cursor {
@@ -1181,8 +1182,20 @@ Hierarchy Dependency Map:
             const alreadyHasCrownAtTarget = alreadySelfFlipped(lastSvg, pressedId);
 
             if (isFlipped || alreadyHasCrownAtTarget) {
-              // Stack both stars (offsetting the compass star further out!)
-              // 1. Check if the crown is already there. If not, append it!
+              // 1. Shift the entire SVG container physically downwards using robust CSS transforms!
+              // This makes the circle slide lower, aligning the ANTI crown star perfectly on the baseline of adjacent symbols,
+              // while keeping the top compass star completely visible and safe from any container clipping!
+              if (pressedId === 'above') {
+                lastSvg.style.transform = "translateY(12px)";
+                lastSvg.style.marginTop = "6px";
+                lastSvg.style.marginBottom = "-18px";
+              } else if (pressedId === 'below') {
+                lastSvg.style.transform = "translateY(-12px)";
+                lastSvg.style.marginTop = "-18px";
+                lastSvg.style.marginBottom = "6px";
+              }
+
+              // 2. Check if the crown is already there. If not, append it!
               if (!hasChildCrown(lastSvg, pressedId)) {
                 const crown = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
                 crown.setAttribute("fill", "#e2e8f0");
@@ -1191,17 +1204,7 @@ Hierarchy Dependency Map:
                 crown.setAttribute("data-role", "crown");
                 
                 if (pressedId === 'above') {
-                  // SHIFT THE BASE SYMBOL DOWN TO MAKE ROOM & PREVENT BOUNDARY CLIPPING!
-                  // We translate all child nodes of the SVG down by 10 units
-                  const group = document.createElementNS("http://www.w3.org/2000/svg", "g");
-                  group.setAttribute("transform", "translate(0, 10)");
-                  while (lastSvg.firstChild) {
-                    group.appendChild(lastSvg.firstChild);
-                  }
-                  lastSvg.appendChild(group);
-                  
-                  // Now place the crown shifted down slightly (sitting inside the top margin of the shifted symbol)
-                  crown.setAttribute("points", "2,-4 12,0 22,-4 18,2 24,4 15.5,6 12,9 8.5,6 0,4 6,2");
+                  crown.setAttribute("points", "2,-14 12,-10 22,-14 18,-8 24,-6 15.5,-4 12,-1 8.5,-4 0,-6 6,-8");
                 } else if (pressedId === 'below') {
                   crown.setAttribute("points", "2,25 12,29 22,25 18,32 24,34 15.5,36 12,41 8.5,36 0,34 6,32");
                 } else if (pressedId === 'left') {
@@ -1212,15 +1215,14 @@ Hierarchy Dependency Map:
                 lastSvg.appendChild(crown);
               }
 
-              // 2. Append the 4-pointed compass star shifted further outwards to prevent any clashing/merging
+              // 3. Append the 4-pointed compass star shifted further outwards to complete the stack beautifully!
               const star = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
               star.setAttribute("fill", "#e2e8f0");
               star.setAttribute("stroke", "#e2e8f0");
               star.setAttribute("stroke-width", "1.5");
               
               if (pressedId === 'above') {
-                // Sits beautifully above the shifted crown, safely within the visible SVG viewport (y=-12)
-                star.setAttribute("points", "12,-12 14,-7 19,-5 14,-3 12,2 10,-3 5,-5 10,-7");
+                star.setAttribute("points", "12,-27 14,-22 19,-20 14,-18 12,-13 10,-18 5,-20 10,-22");
               } else if (pressedId === 'below') {
                 star.setAttribute("points", "12,42 14,47 19,49 14,51 12,56 10,51 5,49 10,47");
               } else if (pressedId === 'left') {
