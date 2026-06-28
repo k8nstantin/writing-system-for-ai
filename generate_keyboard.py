@@ -189,12 +189,13 @@ html_start = """<!DOCTYPE html>
   }
   .line .spacer::after {
     content: '·';
-    color: #2b3340;
+    color: #ffffff;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    font-size: 18px;
+    font-size: 20px;
+    font-weight: bold;
   }
 
   .line svg {
