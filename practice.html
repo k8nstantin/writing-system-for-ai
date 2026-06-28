@@ -713,6 +713,7 @@
           "see": "see", "hear": "hear", "do": "do", "move": "mov", "live": "liv",
           "die": "die", "say": "sai", "now": "now", "before": "before", "after": "after",
           "because": "bik", "place": "place", "here": "place", "not": "not", "dont": "not",
+          "false": "not", "no": "not", "incorrect": "not",
           "small": "small", "smaller": "small", "tiny": "small", "little": "small",
           "less": "les", "fewer": "les", "greater": "greater", "larger": "greater"
         };
