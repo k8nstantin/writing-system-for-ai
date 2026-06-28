@@ -1103,12 +1103,13 @@ Hierarchy Dependency Map:
           
           if (!existingArch) {
             // Step 1: Append Top Arch (Fire - above)
+            // OUTWARD FLARING DESIGN: Bulges down towards symbol, ends flare UPWARD/OUTWARD!
             existingArch = document.createElementNS("http://www.w3.org/2000/svg", "path");
             existingArch.setAttribute("stroke", "#e2e8f0");
             existingArch.setAttribute("stroke-width", "1.5");
             existingArch.setAttribute("fill", "none");
             existingArch.setAttribute("data-role", "arch");
-            existingArch.setAttribute("d", "M 5,6 Q 12,2 19,6");
+            existingArch.setAttribute("d", "M 5,2 Q 12,6 19,2");
             existingArch.setAttribute("data-dir", "above");
             lastSvg.appendChild(existingArch);
             lastSvg.setAttribute("data-arch", "above");
@@ -1121,7 +1122,8 @@ Hierarchy Dependency Map:
             const currentDir = existingArch.getAttribute("data-dir");
             if (currentDir === "above") {
               // Step 2: Cycle to Right Arch (Earth - right)
-              existingArch.setAttribute("d", "M 18,5 Q 22,12 18,19");
+              // OUTWARD FLARING DESIGN: Bulges left, ends flare RIGHTWARD/OUTWARD!
+              existingArch.setAttribute("d", "M 22,5 Q 18,12 22,19");
               existingArch.setAttribute("data-dir", "right");
               lastSvg.setAttribute("data-arch", "right");
               
@@ -1131,7 +1133,8 @@ Hierarchy Dependency Map:
               lastSvg.style.marginBottom = "";
             } else if (currentDir === "right") {
               // Step 3: Cycle to Bottom Arch (Water - below)
-              existingArch.setAttribute("d", "M 5,18 Q 12,22 19,18");
+              // OUTWARD FLARING DESIGN: Bulges up towards symbol, ends flare DOWNWARD/OUTWARD!
+              existingArch.setAttribute("d", "M 5,22 Q 12,18 19,22");
               existingArch.setAttribute("data-dir", "below");
               lastSvg.setAttribute("data-arch", "below");
               
@@ -1141,7 +1144,8 @@ Hierarchy Dependency Map:
               lastSvg.style.marginBottom = "6px";
             } else if (currentDir === "below") {
               // Step 4: Cycle to Left Arch (Wind/Air - left)
-              existingArch.setAttribute("d", "M 6,5 Q 2,12 6,19");
+              // OUTWARD FLARING DESIGN: Bulges right, ends flare LEFTWARD/OUTWARD!
+              existingArch.setAttribute("d", "M 2,5 Q 6,12 2,19");
               existingArch.setAttribute("data-dir", "left");
               lastSvg.setAttribute("data-arch", "left");
               
