@@ -1,6 +1,6 @@
 import os
 
-html_start = """<!DOCTYPE html>
+html_start = r"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -862,8 +862,8 @@ html_start = """<!DOCTYPE html>
 
   function translateEnglishToAlan(sentence) {
     const raw = sentence.trim();
-    const text = raw.toLowerCase().replace(/[.,\\\\/#!$%\\\\^&\\\\*;:{}=\\\\-_`~()?]/g,"");
-    const words = text.split(/\\\\s+/);
+    const text = raw.toLowerCase().replace(/[.,\\/#!$%\\^&\\*;:{}=\\-_`~()?]/g,"");
+    const words = text.split(/\s+/);
     
     // Check customPhrases first
     if (customPhrases[text]) {
@@ -885,7 +885,7 @@ html_start = """<!DOCTYPE html>
       const w = words[i];
       if (!w) continue;
       
-      if (/^\\\\d+$/.test(w)) {
+      if (/^\d+$/.test(w)) {
         const digits = w.split('');
         digits.forEach((d) => {
           if (currentLineKeys.length > 0) currentLineKeys.push("SPACE");
