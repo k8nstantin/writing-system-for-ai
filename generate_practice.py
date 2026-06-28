@@ -1,6 +1,4 @@
-import os
-
-html_start = """<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -54,7 +52,7 @@ html_start = """<!DOCTYPE html>
     border-color: #7fcf9f;
   }
 
-  /* Two Identical Large Boxes styled exactly like Output Display */
+  /* Symmetrical Dual-Box Rows */
   .box-container {
     display: flex;
     flex-direction: column;
@@ -65,12 +63,16 @@ html_start = """<!DOCTYPE html>
     box-sizing: border-box;
   }
 
-  /* English Input Box */
-  .english-box {
+  .row-layout {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 15px;
     width: 100%;
+  }
+
+  /* English Input Box */
+  .english-box {
+    flex-grow: 1;
     min-height: 140px;
     max-height: 200px;
     background: #090c11;
@@ -82,7 +84,9 @@ html_start = """<!DOCTYPE html>
   }
 
   .english-box textarea {
-    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+    min-height: 110px;
     background: transparent;
     border: none;
     outline: none;
@@ -90,13 +94,11 @@ html_start = """<!DOCTYPE html>
     font-family: 'JetBrains Mono', monospace;
     font-size: 15px;
     resize: none;
-    height: 100%;
-    min-height: 110px;
     box-sizing: border-box;
     line-height: 1.6;
   }
 
-  /* Redesigned Translate Button in Pure Alan (using sai / say communication symbol) */
+  /* Standalone Translate Button in Pure Alan (using sai / say communication symbol) */
   .translate-btn {
     background: #48b5c4;
     color: #0b0e13;
@@ -104,13 +106,13 @@ html_start = """<!DOCTYPE html>
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 48px;
-    height: 48px;
-    border-radius: 8px;
+    width: 54px;
+    height: 54px;
+    border-radius: 12px;
     cursor: pointer;
     flex-shrink: 0;
-    margin-left: 15px;
     transition: all 0.2s ease;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.3);
   }
   .translate-btn:hover {
     transform: scale(1.05);
@@ -119,6 +121,7 @@ html_start = """<!DOCTYPE html>
 
   /* Alan Output Display Box (Identical Styling to English Input Box) */
   .output-display {
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -126,7 +129,6 @@ html_start = """<!DOCTYPE html>
     min-height: 140px;
     max-height: 200px;
     overflow-y: auto;
-    width: 100%;
     background: #090c11;
     border: 1px solid #2b3340;
     border-radius: 12px;
@@ -389,21 +391,28 @@ html_start = """<!DOCTYPE html>
 </div>
 
 <div class="box-container">
-  <!-- Box 1: English Input Display (Identical styling to output display) -->
-  <div class="english-box">
-    <textarea id="spellcheckInput" placeholder="Type or paste your English sentence here... (e.g., 'update customer 756 set balance to 5000')"></textarea>
+  <!-- Row 1: English Input Display + Standalone Translate Button -->
+  <div class="row-layout">
+    <div class="english-box">
+      <textarea id="spellcheckInput" placeholder="Type or paste your English sentence here... (e.g., 'update customer 756 set balance to 5000')"></textarea>
+    </div>
     
-    <!-- Redesigned Translate Button in Pure Alan (using sai / say communication symbol) -->
+    <!-- Standalone Translate Button in Pure Alan (using sai / say communication symbol) -->
     <button class="translate-btn" id="spellcheckBtn" title="Translate &amp; Verify (Alan say symbol)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#0b0e13" stroke-width="3.5" style="width: 22px; height: 22px;"><polygon points="8,4 8,20 20,12" /></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="#0b0e13" stroke-width="3.5" style="width: 24px; height: 24px;"><polygon points="8,4 8,20 20,12" /></svg>
     </button>
   </div>
 
-  <!-- Box 2: Alan Output Display (Identical styling to English box) -->
-  <div class="output-display" id="output">
-    <div class="line" data-indent="0">
-      <div class="cursor" id="cursor"></div>
+  <!-- Row 2: Alan Output Display (Symmetrically aligned via blank spacer) -->
+  <div class="row-layout">
+    <div class="output-display" id="output">
+      <div class="line" data-indent="0">
+        <div class="cursor" id="cursor"></div>
+      </div>
     </div>
+    
+    <!-- Invisible spacer of identical size as Translate Button for perfect sub-pixel width symmetry -->
+    <div style="width: 54px; height: 54px; flex-shrink: 0;"></div>
   </div>
 </div>
 
@@ -643,8 +652,8 @@ html_start = """<!DOCTYPE html>
   // Universal Heuristic English NLP Parser
   function translateEnglishToAlan(sentence) {
     const raw = sentence.trim();
-    const text = raw.toLowerCase().replace(/[.,\\\\/#!$%\\\\^&\\\\*;:{}=\\\\-_`~()?]/g,"");
-    const words = text.split(/\\\\s+/);
+    const text = raw.toLowerCase().replace(/[.,\\/#!$%\\^&\\*;:{}=\\-_`~()?]/g,"");
+    const words = text.split(/\\s+/);
     
     const map = {
       "update": "do", "change": "do", "make": "do", "set": "is", "put": "is",
@@ -661,7 +670,7 @@ html_start = """<!DOCTYPE html>
       const w = words[i];
       if (!w) continue;
       
-      if (/^\\\\d+$/.test(w)) {
+      if (/^\\d+$/.test(w)) {
         const digits = w.split('');
         if (currentLineKeys.length > 0) {
           currentLineKeys.push("SPACE");
@@ -786,7 +795,6 @@ html_start = """<!DOCTYPE html>
   const spellInput = document.getElementById('spellcheckInput');
   const spellBtn = document.getElementById('spellcheckBtn');
   const spellFeedback = document.getElementById('spellcheckFeedback');
-  const sampleSelect = document.getElementById('samplePhrasesSelect');
 
   function handleSpellcheck() {
     const text = spellInput.value.trim().toLowerCase();
@@ -800,7 +808,6 @@ html_start = """<!DOCTYPE html>
       // Setup Custom Sandbox Lesson
       lessonInstructionsEl.innerHTML = sandboxConfig.instructions;
       lessonHintEl.innerHTML = sandboxConfig.hint;
-      lessonTargetPhraseEl.textContent = `"${spellInput.value}"`;
       
       // Display guidance panel
       guidancePanel.style.display = 'block';
@@ -817,14 +824,6 @@ html_start = """<!DOCTYPE html>
   spellBtn.addEventListener('click', handleSpellcheck);
   spellInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') handleSpellcheck();
-  });
-
-  sampleSelect.addEventListener('change', (e) => {
-    const val = e.target.value;
-    if (val) {
-      spellInput.value = val;
-      handleSpellcheck();
-    }
   });
 
 
@@ -957,9 +956,3 @@ html_start = """<!DOCTYPE html>
 </script>
 </body>
 </html>
-"""
-
-with open('/Users/calexander/writing-system-for-ai/practice.html', 'w') as f:
-    f.write(html_start)
-
-print("Practice sandbox generated successfully!")
