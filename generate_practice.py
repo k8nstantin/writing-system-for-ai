@@ -1,6 +1,4 @@
-import os
-
-html_start = r"""<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -54,7 +52,7 @@ html_start = r"""<!DOCTYPE html>
     border-color: #7fcf9f;
   }
 
-  /* Two Identical Large Boxes styled exactly like Output Display */
+  /* Symmetrical Dual-Box Rows */
   .box-container {
     display: flex;
     flex-direction: column;
@@ -65,12 +63,16 @@ html_start = r"""<!DOCTYPE html>
     box-sizing: border-box;
   }
 
-  /* English Input Box */
-  .english-box {
+  .row-layout {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 15px;
     width: 100%;
+  }
+
+  /* English Input Box */
+  .english-box {
+    flex-grow: 1;
     min-height: 140px;
     max-height: 200px;
     background: #090c11;
@@ -82,7 +84,9 @@ html_start = r"""<!DOCTYPE html>
   }
 
   .english-box textarea {
-    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+    min-height: 110px;
     background: transparent;
     border: none;
     outline: none;
@@ -90,13 +94,11 @@ html_start = r"""<!DOCTYPE html>
     font-family: 'JetBrains Mono', monospace;
     font-size: 15px;
     resize: none;
-    height: 100%;
-    min-height: 110px;
     box-sizing: border-box;
     line-height: 1.6;
   }
 
-  /* Redesigned Translate Button in Pure Alan (using sai / say communication symbol) */
+  /* Standalone Translate Button in Pure Alan (using sai / say communication symbol) */
   .translate-btn {
     background: #48b5c4;
     color: #0b0e13;
@@ -104,13 +106,13 @@ html_start = r"""<!DOCTYPE html>
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 48px;
-    height: 48px;
-    border-radius: 8px;
+    width: 54px;
+    height: 54px;
+    border-radius: 12px;
     cursor: pointer;
     flex-shrink: 0;
-    margin-left: 15px;
     transition: all 0.2s ease;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.3);
   }
   .translate-btn:hover {
     transform: scale(1.05);
@@ -119,6 +121,7 @@ html_start = r"""<!DOCTYPE html>
 
   /* Alan Output Display Box (Identical Styling to English Input Box) */
   .output-display {
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -126,7 +129,6 @@ html_start = r"""<!DOCTYPE html>
     min-height: 140px;
     max-height: 200px;
     overflow-y: auto;
-    width: 100%;
     background: #090c11;
     border: 1px solid #2b3340;
     border-radius: 12px;
@@ -860,10 +862,18 @@ html_start = r"""<!DOCTYPE html>
       const target = l ? l.targetKeys[currentStep] : null;
 
       const pressedId = action || handle;
-      if (l && pressedId === target) {
-        currentStep++;
-      } else if (l && pressedId === 'BACK') {
-        currentStep = Math.max(currentStep - 1, 0);
+      
+      // IF IN GUIDED MODE, ENFORCE STRICT CHARACTER-BY-CHARACTER MATCHING!
+      if (l) {
+        if (pressedId === target) {
+          currentStep++;
+        } else if (pressedId === 'BACK') {
+          // Allow Backspace to undo a step
+          currentStep = Math.max(currentStep - 1, 0);
+        } else {
+          // STRICT KEY-MATCH ENFORCED: Block any wrong keystroke!
+          return;
+        }
       }
 
       if (action === 'FLIP') {
@@ -978,9 +988,3 @@ html_start = r"""<!DOCTYPE html>
 </script>
 </body>
 </html>
-"""
-
-with open('/Users/calexander/writing-system-for-ai/practice.html', 'w') as f:
-    f.write(html_start)
-
-print("Practice sandbox generated successfully!")
