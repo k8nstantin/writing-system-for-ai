@@ -423,7 +423,7 @@ html_start = """<!DOCTYPE html>
   <div class="spellcheck-box" style="margin-top: 15px; border-top: 1px dashed #2b3340; padding-top: 15px;">
     <div style="font-size: 13px; color: #ffd166; margin-bottom: 8px; font-weight: bold;">Spellcheck &amp; Translate Sandbox:</div>
     <div style="display: flex; gap: 10px;">
-      <input type="text" id="spellcheckInput" placeholder="Type a sentence (e.g., 'I want you', 'I know now', 'I live')..." style="flex-grow: 1; background: #0f131a; border: 1px solid #2b3340; border-radius: 6px; padding: 8px 12px; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 13px;">
+      <input type="text" id="spellcheckInput" placeholder="Type a sentence (e.g., 'I want you', 'I know now', 'update customer number 3736 set balance to 0')..." style="flex-grow: 1; background: #0f131a; border: 1px solid #2b3340; border-radius: 6px; padding: 8px 12px; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 13px;">
       <button class="tab-btn" id="spellcheckBtn" style="background: #48b5c4; color: #0b0e13; border: none; font-weight: bold; margin-bottom: 0;">Verify Phrase</button>
     </div>
     <div id="spellcheckFeedback" style="font-size: 12px; margin-top: 8px; color: #8aa6d4;"></div>
@@ -860,6 +860,142 @@ html_start = """<!DOCTYPE html>
     tabsContainer.appendChild(btn);
   });
 
+  function translateEnglishToAlan(sentence) {
+    const raw = sentence.trim();
+    const text = raw.toLowerCase().replace(/[.,\\\\/#!$%\\\\^&\\\\*;:{}=\\\\-_`~()?]/g,"");
+    const words = text.split(/\\\\s+/);
+    
+    // Check customPhrases first
+    if (customPhrases[text]) {
+      return customPhrases[text];
+    }
+    
+    const map = {
+      "update": "do", "change": "do", "make": "do", "set": "is", "put": "is",
+      "customer": "someone", "user": "someone", "client": "someone", "employee": "someone",
+      "number": "something", "id": "something", "to": "eql", "equal": "eql", "balance": "something",
+      "value": "something", "account": "something"
+    };
+    
+    let currentLineKeys = [];
+    let lineBuilders = [];
+    let currentIndent = 0;
+    
+    for (let i = 0; i < words.length; i++) {
+      const w = words[i];
+      if (!w) continue;
+      
+      if (/^\\\\d+$/.test(w)) {
+        const digits = w.split('');
+        digits.forEach((d) => {
+          if (currentLineKeys.length > 0) currentLineKeys.push("SPACE");
+          currentLineKeys.push(d);
+        });
+        continue;
+      }
+      
+      let handle = map[w];
+      if (!handle) {
+        const standardMap = {
+          "i": "me", "me": "me", "my": "me", "you": "you", "your": "you",
+          "think": "think", "know": "know", "want": "want", "feel": "feel",
+          "see": "see", "hear": "hear", "do": "do", "move": "mov", "live": "liv",
+          "die": "die", "say": "sai", "now": "now", "before": "before", "after": "after",
+          "because": "bik", "place": "place", "here": "place", "not": "not", "dont": "not"
+        };
+        handle = standardMap[w];
+      }
+      
+      if (!handle) {
+        handle = "something";
+      }
+      
+      if (["is", "bik", "if", "eql"].includes(handle) || w === "set" || w === "update") {
+        if (currentLineKeys.length > 0) {
+          lineBuilders.push({ indent: currentIndent, keys: [...currentLineKeys] });
+          currentLineKeys = [];
+          currentIndent++;
+        }
+      }
+      
+      if (handle === "die") {
+        currentLineKeys.push("FLIP");
+        currentLineKeys.push("liv");
+      } else {
+        if (currentLineKeys.length > 0 && !["FLIP", "INDENT", "OUTDENT", "DOWN"].includes(handle)) {
+          currentLineKeys.push("SPACE");
+        }
+        currentLineKeys.push(handle);
+      }
+    }
+    
+    if (currentLineKeys.length > 0) {
+      lineBuilders.push({ indent: currentIndent, keys: [...currentLineKeys] });
+    }
+    
+    if (lineBuilders.length === 0) return null;
+    
+    let targetKeys = [];
+    let lastIndent = 0;
+    
+    lineBuilders.forEach((line, idx) => {
+      if (idx > 0) {
+        const diff = line.indent - lastIndent;
+        if (diff > 0) {
+          for (let d = 0; d < diff; d++) targetKeys.push("INDENT");
+        } else if (diff < 0) {
+          for (let d = 0; d < Math.abs(diff); d++) targetKeys.push("OUTDENT");
+        }
+        targetKeys.push("DOWN");
+        lastIndent = line.indent;
+      }
+      targetKeys.push(...line.keys);
+    });
+    
+    const validatorFn = (out) => {
+      const lines = Array.from(out.querySelectorAll('.line'));
+      if (lines.length !== lineBuilders.length) return false;
+      
+      for (let i = 0; i < lineBuilders.length; i++) {
+        const lineEl = lines[i];
+        const targetLine = lineBuilders[i];
+        
+        if (parseInt(lineEl.getAttribute('data-indent') || '0', 10) !== targetLine.indent) return false;
+        
+        const elements = Array.from(lineEl.children).filter(el => el.id !== 'cursor');
+        let elementIdx = 0;
+        
+        for (let k = 0; k < targetLine.keys.length; k++) {
+          const expected = targetLine.keys[k];
+          if (expected === "SPACE") {
+            if (elementIdx >= elements.length || elements[elementIdx].className !== 'spacer') return false;
+          } else if (expected === "FLIP") {
+            const nextExpected = targetLine.keys[k+1];
+            k++;
+            if (elementIdx >= elements.length) return false;
+            const el = elements[elementIdx];
+            if (el.getAttribute('data-handle') !== nextExpected || el.getAttribute('data-flipped') !== 'true') return false;
+          } else {
+            if (elementIdx >= elements.length) return false;
+            const el = elements[elementIdx];
+            if (el.getAttribute('data-handle') !== expected) return false;
+          }
+          elementIdx++;
+        }
+        
+        if (elementIdx !== elements.length) return false;
+      }
+      return true;
+    };
+    
+    return {
+      targetKeys: targetKeys,
+      validate: validatorFn,
+      instructions: `Heuristic Translation: <strong>"${sentence}"</strong>.`,
+      hint: `Type the cascading semantic tree: ${targetKeys.filter(k => !["FLIP", "INDENT", "OUTDENT", "DOWN"].includes(k)).join(" -> ").toUpperCase()}`
+    };
+  }
+
   function highlightNextKey() {
     document.querySelectorAll('.key').forEach(k => k.classList.remove('highlight'));
     
@@ -945,12 +1081,14 @@ html_start = """<!DOCTYPE html>
   const spellFeedback = document.getElementById('spellcheckFeedback');
 
   function handleSpellcheck() {
-    const text = spellInput.value.trim().toLowerCase().replace(/[.,\\/#!$%\\^&\\*;:{}=\\-_`~()?]/g,"");
+    const text = spellInput.value.trim().toLowerCase();
     if (!text) return;
 
-    if (customPhrases[text]) {
+    const config = translateEnglishToAlan(text);
+
+    if (config) {
       isCustomSandbox = true;
-      sandboxConfig = customPhrases[text];
+      sandboxConfig = config;
       
       // Setup Custom Sandbox Lesson
       lessonTitleEl.textContent = "Custom Sandbox Spellcheck";
@@ -967,7 +1105,7 @@ html_start = """<!DOCTYPE html>
       resetWorkspace();
     } else {
       spellFeedback.style.color = '#f67280';
-      spellFeedback.textContent = "Phrase not in tutorial dictionary. Try 'I want you', 'I live', 'I die', 'I know now', 'I move here', or 'I know because I see'.";
+      spellFeedback.textContent = "Could not parse phrase. Try something like 'I want you', 'update customer number 3736 set balance to 0', or 'I know now'.";
     }
   }
 
