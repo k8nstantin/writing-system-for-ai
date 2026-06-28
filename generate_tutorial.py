@@ -118,6 +118,19 @@ html_start = """<!DOCTYPE html>
     font-weight: bold;
   }
 
+  .target-phrase-box {
+    background: rgba(255, 209, 102, 0.08);
+    border: 1px solid rgba(255, 209, 102, 0.2);
+    border-radius: 6px;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    font-size: 15px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
   .instructions {
     font-size: 14px;
     line-height: 1.6;
@@ -135,48 +148,43 @@ html_start = """<!DOCTYPE html>
     margin-bottom: 15px;
   }
 
-  .success-modal {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(11, 14, 19, 0.95);
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-  }
-  .success-modal.active {
-    opacity: 1;
-    pointer-events: auto;
-  }
-  .success-modal h2 {
-    color: #7fcf9f;
-    margin-bottom: 10px;
-  }
-  .success-modal p {
-    color: #d6dae2;
-    margin-bottom: 20px;
+  /* Non-blocking success banner */
+  .success-banner {
+    display: none;
+    padding: 12px 15px;
+    background: rgba(127, 207, 159, 0.12);
+    border-left: 4px solid #7fcf9f;
+    border-radius: 0 8px 8px 0;
+    color: #a6f2be;
     font-size: 14px;
+    margin-bottom: 15px;
+    align-items: center;
+    justify-content: space-between;
+    animation: slide-down 0.3s ease;
   }
+  @keyframes slide-down {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
   .btn-next {
     background: #7fcf9f;
     color: #0b0e13;
     border: none;
-    padding: 12px 24px;
+    padding: 8px 16px;
     font-family: 'JetBrains Mono', monospace;
     font-weight: bold;
-    font-size: 14px;
-    border-radius: 8px;
+    font-size: 13px;
+    border-radius: 6px;
     cursor: pointer;
     transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
   }
   .btn-next:hover {
     transform: scale(1.05);
-    box-shadow: 0 4px 15px rgba(127,207,159,0.4);
+    box-shadow: 0 4px 12px rgba(127,207,159,0.3);
   }
 
   /* Output Display */
@@ -384,27 +392,41 @@ html_start = """<!DOCTYPE html>
 </div>
 
 <div class="tutorial-panel">
-  <div class="success-modal" id="successModal">
-    <h2 id="modalTitle">Correct! 🎉</h2>
-    <p id="modalDesc">You've successfully completed this lesson!</p>
-    <button class="btn-next" id="btnNext">Continue &rarr;</button>
-  </div>
-  
   <div class="lesson-title">
-    <span id="lessonTitle">Lesson 1: Mental States &amp; Entities</span>
+    <span id="lessonTitle">Lesson 1: The Self &amp; Thought</span>
     <span class="lesson-progress" id="lessonProgress">Rung 1/6</span>
   </div>
 
   <div class="lesson-tabs" id="lessonTabs"></div>
 
+  <div class="target-phrase-box">
+    <span style="font-size: 11px; text-transform: uppercase; color: #ffd166; background: rgba(255,209,102,0.15); padding: 2px 6px; border-radius: 4px; font-weight: bold;">English Target:</span>
+    <strong id="lessonTargetPhrase" style="font-size: 16px; color: #fff;">"I think"</strong>
+  </div>
+
   <div class="instructions" id="lessonInstructions">
     In Alan, diamonds represent mental states, and circles represent entities. Let's write the core thought: <strong>"I think"</strong>.
+  </div>
+
+  <div class="success-banner" id="successBanner">
+    <span>✓ Perfect representation! Feel free to play around, or click "Next Lesson" when you are ready.</span>
+    <button class="btn-next" id="btnNext">Next Lesson &rarr;</button>
   </div>
 
   <div class="checklist" id="checklist" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; font-size: 13px; color: #8aa6d4;"></div>
 
   <div class="hint-box" id="lessonHint">
     Hint: Press the purple Diamond key (think), then SPACE on your left thumb, then the green Circle-with-Dot key (me).
+  </div>
+
+  <!-- Spellcheck Box Sandbox -->
+  <div class="spellcheck-box" style="margin-top: 15px; border-top: 1px dashed #2b3340; padding-top: 15px;">
+    <div style="font-size: 13px; color: #ffd166; margin-bottom: 8px; font-weight: bold;">Spellcheck &amp; Translate Sandbox:</div>
+    <div style="display: flex; gap: 10px;">
+      <input type="text" id="spellcheckInput" placeholder="Type a sentence (e.g., 'I want you', 'I know because I see')..." style="flex-grow: 1; background: #0f131a; border: 1px solid #2b3340; border-radius: 6px; padding: 8px 12px; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 13px;">
+      <button class="tab-btn" id="spellcheckBtn" style="background: #48b5c4; color: #0b0e13; border: none; font-weight: bold; margin-bottom: 0;">Verify Phrase</button>
+    </div>
+    <div id="spellcheckFeedback" style="font-size: 12px; margin-top: 8px; color: #8aa6d4;"></div>
   </div>
 </div>
 
@@ -539,20 +561,20 @@ html_start = """<!DOCTYPE html>
   let currentIndent = 0;
   let isFlipped = false;
 
-  const successModal = document.getElementById('successModal');
-  const modalTitle = document.getElementById('modalTitle');
-  const modalDesc = document.getElementById('modalDesc');
+  const successBanner = document.getElementById('successBanner');
   const btnNext = document.getElementById('btnNext');
 
   const lessonTitleEl = document.getElementById('lessonTitle');
   const lessonProgressEl = document.getElementById('lessonProgress');
   const lessonInstructionsEl = document.getElementById('lessonInstructions');
   const lessonHintEl = document.getElementById('lessonHint');
+  const lessonTargetPhraseEl = document.getElementById('lessonTargetPhrase');
 
   const lessons = [
     {
       title: "Lesson 1: The Self & Thought",
       progress: "Rung 1/6",
+      targetPhrase: "I think",
       instructions: "In Alan, diamonds represent mental states, and circles represent entities. Let's write the core semantic thought: <strong>'I think'</strong>.",
       hint: "Press the purple Diamond key (think), then SPACE on your left thumb, then the green Circle-with-Dot key (me).",
       targetKeys: ["think", "SPACE", "me"],
@@ -567,6 +589,7 @@ html_start = """<!DOCTYPE html>
     {
       title: "Lesson 2: Matter & Anti-Matter (Flipping Opposites)",
       progress: "Rung 2/6",
+      targetPhrase: "I live, I die",
       instructions: "We don't need separate keys for semantic opposites. We vertically or horizontally reflect existing ones! Let's write: <strong>'live'</strong>, then step-down, then use the <strong>ANTI</strong> modifier to type <strong>'die'</strong>.",
       hint: "Press 'live'. Press STEP-DOWN on your right thumb. Press ANTI on your left thumb. Now press the inverted 'die' key (which was 'live')!",
       targetKeys: ["liv", "DOWN", "FLIP", "liv"],
@@ -586,6 +609,7 @@ html_start = """<!DOCTYPE html>
     {
       title: "Lesson 3: The Cascading Step-Ladder",
       progress: "Rung 3/6",
+      targetPhrase: "I want you",
       instructions: "In Alan, we write in steps (right, then down) to build a logical tree. Let's write the cascade: <strong>'I want you'</strong>. Indent to nest the receiver ('you') under the action ('want').",
       hint: "Press 'want'. Press STEP-RIGHT (Indent) on your left thumb. Press STEP-DOWN to start the nested line, then type 'you'!",
       targetKeys: ["want", "INDENT", "DOWN", "you"],
@@ -607,6 +631,7 @@ html_start = """<!DOCTYPE html>
     {
       title: "Lesson 4: Temporal Specification",
       progress: "Rung 4/6",
+      targetPhrase: "I know now",
       instructions: "Let's ground our thoughts in time. Primes like 'now' specify when an event or state occurs. Let's write the cascade: <strong>'I know now'</strong> by nesting 'now' under 'know'.",
       hint: "Press 'know' (purple Diamond). Press STEP-RIGHT (Indent) on your left thumb, then STEP-DOWN, and press 'now' (cyan double vertical line).",
       targetKeys: ["know", "INDENT", "DOWN", "now"],
@@ -628,6 +653,7 @@ html_start = """<!DOCTYPE html>
     {
       title: "Lesson 5: Cause & Effect (Because)",
       progress: "Rung 5/6",
+      targetPhrase: "I know because I see",
       instructions: "Let's build a logical argument using the connective prime 'because' (bik). We'll write: <strong>'I know because I see'</strong>. Each logical step cascades deeper into the tree.",
       hint: "Type 'know'. Press INDENT + STEP-DOWN and type 'because' (bik, the branch-like logic key). Then press INDENT + STEP-DOWN again and type 'see'!",
       targetKeys: ["know", "INDENT", "DOWN", "bik", "INDENT", "DOWN", "see"],
@@ -653,6 +679,7 @@ html_start = """<!DOCTYPE html>
     {
       title: "Lesson 6: Spatial Location (Move Here)",
       progress: "Rung 6/6",
+      targetPhrase: "I move here",
       instructions: "To specify where an action happens, we nest a spatial prime under it. Let's write the action: <strong>'I move here'</strong> by nesting 'place' under 'move'!",
       hint: "Press 'move' (orange double arrow). Press INDENT + STEP-DOWN on your thumbs, then press 'place' (blue vertical line with center dot).",
       targetKeys: ["mov", "INDENT", "DOWN", "place"],
@@ -673,22 +700,137 @@ html_start = """<!DOCTYPE html>
     }
   ];
 
+  const customPhrases = {
+    "i think": {
+      targetKeys: ["think", "SPACE", "me"],
+      instructions: "Custom Spellcheck: <strong>'I think'</strong>.",
+      hint: "Press 'think' (Diamond with dot) -> SPACE -> 'me' (Circle with dot).",
+      validate: (line) => {
+        const elements = Array.from(line.children).filter(el => el.id !== 'cursor');
+        if (elements.length !== 3) return false;
+        return elements[0].getAttribute('data-handle') === 'think' &&
+               elements[1].className === 'spacer' &&
+               elements[2].getAttribute('data-handle') === 'me';
+      }
+    },
+    "i want you": {
+      targetKeys: ["want", "INDENT", "DOWN", "you"],
+      instructions: "Custom Spellcheck: <strong>'I want you'</strong>.",
+      hint: "Press 'want' -> INDENT -> STEP-DOWN -> 'you'.",
+      validate: (out) => {
+        const lines = Array.from(out.querySelectorAll('.line'));
+        if (lines.length < 2) return false;
+        const l0_el = Array.from(lines[0].children).filter(el => el.id !== 'cursor');
+        const hasWant = l0_el.length === 1 && l0_el[0].getAttribute('data-handle') === 'want';
+        const l0_ind = parseInt(lines[0].getAttribute('data-indent') || '0', 10) === 0;
+        const l1_el = Array.from(lines[1].children).filter(el => el.id !== 'cursor');
+        const hasYou = l1_el.length === 1 && l1_el[0].getAttribute('data-handle') === 'you';
+        const l1_ind = parseInt(lines[1].getAttribute('data-indent') || '0', 10) === 1;
+        return hasWant && l0_ind && hasYou && l1_ind;
+      }
+    },
+    "i live": {
+      targetKeys: ["liv", "SPACE", "me"],
+      instructions: "Custom Spellcheck: <strong>'I live'</strong>.",
+      hint: "Press 'live' -> SPACE -> 'me'.",
+      validate: (line) => {
+        const elements = Array.from(line.children).filter(el => el.id !== 'cursor');
+        if (elements.length !== 3) return false;
+        return elements[0].getAttribute('data-handle') === 'liv' &&
+               elements[1].className === 'spacer' &&
+               elements[2].getAttribute('data-handle') === 'me';
+      }
+    },
+    "i die": {
+      targetKeys: ["FLIP", "liv", "SPACE", "me"],
+      instructions: "Custom Spellcheck: <strong>'I die'</strong>.",
+      hint: "Press ANTI -> 'live' (types die) -> SPACE -> 'me'.",
+      validate: (line) => {
+        const elements = Array.from(line.children).filter(el => el.id !== 'cursor');
+        if (elements.length !== 3) return false;
+        return elements[0].getAttribute('data-handle') === 'liv' &&
+               elements[0].getAttribute('data-flipped') === 'true' &&
+               elements[1].className === 'spacer' &&
+               elements[2].getAttribute('data-handle') === 'me';
+      }
+    },
+    "i know now": {
+      targetKeys: ["know", "INDENT", "DOWN", "now"],
+      instructions: "Custom Spellcheck: <strong>'I know now'</strong>.",
+      hint: "Press 'know' -> INDENT -> STEP-DOWN -> 'now'.",
+      validate: (out) => {
+        const lines = Array.from(out.querySelectorAll('.line'));
+        if (lines.length < 2) return false;
+        const l0_el = Array.from(lines[0].children).filter(el => el.id !== 'cursor');
+        const hasKnow = l0_el.length === 1 && l0_el[0].getAttribute('data-handle') === 'know';
+        const l0_ind = parseInt(lines[0].getAttribute('data-indent') || '0', 10) === 0;
+        const l1_el = Array.from(lines[1].children).filter(el => el.id !== 'cursor');
+        const hasNow = l1_el.length === 1 && l1_el[0].getAttribute('data-handle') === 'now';
+        const l1_ind = parseInt(lines[1].getAttribute('data-indent') || '0', 10) === 1;
+        return hasKnow && l0_ind && hasNow && l1_ind;
+      }
+    },
+    "i move here": {
+      targetKeys: ["mov", "INDENT", "DOWN", "place"],
+      instructions: "Custom Spellcheck: <strong>'I move here'</strong>.",
+      hint: "Press 'move' -> INDENT -> STEP-DOWN -> 'place'.",
+      validate: (out) => {
+        const lines = Array.from(out.querySelectorAll('.line'));
+        if (lines.length < 2) return false;
+        const l0_el = Array.from(lines[0].children).filter(el => el.id !== 'cursor');
+        const hasMov = l0_el.length === 1 && l0_el[0].getAttribute('data-handle') === 'mov';
+        const l0_ind = parseInt(lines[0].getAttribute('data-indent') || '0', 10) === 0;
+        const l1_el = Array.from(lines[1].children).filter(el => el.id !== 'cursor');
+        const hasPlace = l1_el.length === 1 && l1_el[0].getAttribute('data-handle') === 'place';
+        const l1_ind = parseInt(lines[1].getAttribute('data-indent') || '0', 10) === 1;
+        return hasMov && l0_ind && hasPlace && l1_ind;
+      }
+    },
+    "i know because i see": {
+      targetKeys: ["know", "INDENT", "DOWN", "bik", "INDENT", "DOWN", "see"],
+      instructions: "Custom Spellcheck: <strong>'I know because I see'</strong>.",
+      hint: "Press 'know' -> INDENT -> STEP-DOWN -> 'because' (bik) -> INDENT -> STEP-DOWN -> 'see'.",
+      validate: (out) => {
+        const lines = Array.from(out.querySelectorAll('.line'));
+        if (lines.length < 3) return false;
+        const l0_el = Array.from(lines[0].children).filter(el => el.id !== 'cursor');
+        const hasKnow = l0_el.length === 1 && l0_el[0].getAttribute('data-handle') === 'know';
+        const l0_ind = parseInt(lines[0].getAttribute('data-indent') || '0', 10) === 0;
+        const l1_el = Array.from(lines[1].children).filter(el => el.id !== 'cursor');
+        const hasBik = l1_el.length === 1 && l1_el[0].getAttribute('data-handle') === 'bik';
+        const l1_ind = parseInt(lines[1].getAttribute('data-indent') || '0', 10) === 1;
+        const l2_el = Array.from(lines[2].children).filter(el => el.id !== 'cursor');
+        const hasSee = l2_el.length === 1 && l2_el[0].getAttribute('data-handle') === 'see';
+        const l2_ind = parseInt(lines[2].getAttribute('data-indent') || '0', 10) === 2;
+        return hasKnow && l0_ind && hasBik && l1_ind && hasSee && l2_ind;
+      }
+    }
+  };
+
   let currentLessonIdx = 0;
   let currentStep = 0;
+  let isCustomSandbox = false;
+  let sandboxConfig = null;
 
   function loadLesson(idx) {
+    isCustomSandbox = false;
     currentLessonIdx = idx;
     const l = lessons[idx];
     lessonTitleEl.textContent = l.title;
     lessonProgressEl.textContent = l.progress;
     lessonInstructionsEl.innerHTML = l.instructions;
     lessonHintEl.innerHTML = l.hint;
+    lessonTargetPhraseEl.textContent = `"${l.targetPhrase}"`;
     
     // Update active tab button style
     document.querySelectorAll('.tab-btn').forEach((btn, i) => {
       btn.classList.toggle('active', i === idx);
     });
     
+    resetWorkspace();
+  }
+
+  function resetWorkspace() {
     // Clear Output Display
     output.innerHTML = '<div class="line" data-indent="0"><div class="cursor" id="cursor"></div></div>';
     activeLine = output.querySelector('.line');
@@ -701,7 +843,7 @@ html_start = """<!DOCTYPE html>
     const flipKey = document.querySelector('.key[data-action="FLIP"]');
     if (flipKey) flipKey.classList.remove('active');
     
-    successModal.classList.remove('active');
+    successBanner.style.display = 'none';
     highlightNextKey();
     updateChecklist();
   }
@@ -721,7 +863,7 @@ html_start = """<!DOCTYPE html>
   function highlightNextKey() {
     document.querySelectorAll('.key').forEach(k => k.classList.remove('highlight'));
     
-    const l = lessons[currentLessonIdx];
+    const l = isCustomSandbox ? sandboxConfig : lessons[currentLessonIdx];
     if (!l || currentStep >= l.targetKeys.length) return;
     
     const target = l.targetKeys[currentStep];
@@ -734,7 +876,7 @@ html_start = """<!DOCTYPE html>
   }
 
   function updateChecklist() {
-    const l = lessons[currentLessonIdx];
+    const l = isCustomSandbox ? sandboxConfig : lessons[currentLessonIdx];
     const checklistEl = document.getElementById('checklist');
     checklistEl.innerHTML = '';
     
@@ -767,26 +909,28 @@ html_start = """<!DOCTYPE html>
   }
 
   function checkLessonProgress() {
-    const l = lessons[currentLessonIdx];
-    const passed = l.validate(currentLessonIdx === 0 ? activeLine : output);
+    const l = isCustomSandbox ? sandboxConfig : lessons[currentLessonIdx];
+    const passed = l.validate(currentLessonIdx === 0 && !isCustomSandbox ? activeLine : output);
     
     if (passed) {
       document.querySelectorAll('.key').forEach(k => k.classList.remove('highlight'));
       
-      if (currentLessonIdx === lessons.length - 1) {
-        modalTitle.textContent = "Congratulations! 🏆";
-        modalDesc.textContent = "You have fully completed the Alan Visual Grammar Tutorial and mastered the steps of the ladder!";
-        btnNext.textContent = "Back to Sandbox";
+      // Update success banner next button label
+      if (!isCustomSandbox && currentLessonIdx === lessons.length - 1) {
+        btnNext.textContent = "Finish & Return";
       } else {
-        modalTitle.textContent = "Lesson Complete! 🎉";
-        modalDesc.textContent = "You typed the correct cascading semantic representation perfectly.";
-        btnNext.textContent = "Next Lesson &rarr;";
+        btnNext.textContent = "Next Lesson ➔";
       }
-      successModal.classList.add('active');
+      
+      successBanner.style.display = 'flex';
     }
   }
 
   btnNext.addEventListener('click', () => {
+    if (isCustomSandbox) {
+      loadLesson(0);
+      return;
+    }
     if (currentLessonIdx === lessons.length - 1) {
       window.location.href = "keyboard_prototype.html";
     } else {
@@ -795,6 +939,44 @@ html_start = """<!DOCTYPE html>
     }
   });
 
+  // Spellcheck & Sandbox Custom Phrase Parser
+  const spellInput = document.getElementById('spellcheckInput');
+  const spellBtn = document.getElementById('spellcheckBtn');
+  const spellFeedback = document.getElementById('spellcheckFeedback');
+
+  function handleSpellcheck() {
+    const text = spellInput.value.trim().toLowerCase().replace(/[.,\\/#!$%\\^&\\*;:{}=\\-_`~()?]/g,"");
+    if (!text) return;
+
+    if (customPhrases[text]) {
+      isCustomSandbox = true;
+      sandboxConfig = customPhrases[text];
+      
+      // Setup Custom Sandbox Lesson
+      lessonTitleEl.textContent = "Custom Sandbox Spellcheck";
+      lessonProgressEl.textContent = "Sandbox";
+      lessonInstructionsEl.innerHTML = sandboxConfig.instructions;
+      lessonHintEl.innerHTML = sandboxConfig.hint;
+      lessonTargetPhraseEl.textContent = `"${spellInput.value}"`;
+      
+      // Deactivate tabs
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      
+      spellFeedback.style.color = '#7fcf9f';
+      spellFeedback.textContent = "✓ Phrase translated successfully! Guides have loaded below.";
+      resetWorkspace();
+    } else {
+      spellFeedback.style.color = '#f67280';
+      spellFeedback.textContent = "Phrase not in tutorial dictionary. Try 'I want you', 'I live', 'I die', 'I know now', 'I move here', or 'I know because I see'.";
+    }
+  }
+
+  spellBtn.addEventListener('click', handleSpellcheck);
+  spellInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') handleSpellcheck();
+  });
+
+
   const keys = document.querySelectorAll('.key');
 
   keys.forEach(key => {
@@ -802,7 +984,7 @@ html_start = """<!DOCTYPE html>
       const action = key.getAttribute('data-action');
       const handle = key.getAttribute('data-handle');
       
-      const l = lessons[currentLessonIdx];
+      const l = isCustomSandbox ? sandboxConfig : lessons[currentLessonIdx];
       const target = l.targetKeys[currentStep];
 
       const pressedId = action || handle;
