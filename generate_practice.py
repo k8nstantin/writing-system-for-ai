@@ -1,8 +1,1172 @@
 import os
 
-html_start = '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<title>Alan Universal Writing System - Live Practice</title>\n<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">\n<style>\n  body {\n    background-color: #0b0e13;\n    color: #c8cdd6;\n    font-family: \'JetBrains Mono\', monospace;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: flex-start;\n    min-height: 100vh;\n    margin: 0;\n    padding: 20px 20px 60px 20px; /* Enhanced bottom padding to prevent legend cutoff */\n    box-sizing: border-box;\n    overflow-y: auto;\n  }\n  \n  .header {\n    text-align: center;\n    margin-bottom: 20px;\n    width: 100%;\n    max-width: 850px;\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n  }\n  \n  .header h1 {\n    font-size: 22px;\n    color: #fff;\n    margin: 0;\n    display: flex;\n    align-items: center;\n    gap: 10px;\n  }\n\n  .header a {\n    color: #48b5c4;\n    text-decoration: none;\n    border-bottom: 1px dashed #48b5c4;\n    font-size: 14px;\n    transition: all 0.2s ease;\n  }\n  .header a:hover {\n    color: #7fcf9f;\n    border-color: #7fcf9f;\n  }\n\n  /* Two Identical Large Boxes styled exactly like Output Display */\n  .box-container {\n    display: flex;\n    flex-direction: column;\n    gap: 20px;\n    width: 100%;\n    max-width: 850px;\n    margin-bottom: 25px;\n    box-sizing: border-box;\n  }\n\n  .row-layout {\n    display: flex;\n    align-items: center;\n    gap: 15px;\n    width: 100%;\n  }\n\n  /* English Input Box */\n  .english-box {\n    flex-grow: 1;\n    min-height: 140px;\n    max-height: 200px;\n    background: #090c11;\n    border: 1px solid #2b3340;\n    border-radius: 12px;\n    padding: 15px;\n    box-sizing: border-box;\n    box-shadow: inset 0 4px 15px rgba(0,0,0,0.6);\n  }\n\n  .english-box textarea {\n    width: 100%;\n    height: 100%;\n    min-height: 110px;\n    background: transparent;\n    border: none;\n    outline: none;\n    color: #fff;\n    font-family: \'JetBrains Mono\', monospace;\n    font-size: 15px;\n    resize: none;\n    box-sizing: border-box;\n    line-height: 1.6;\n  }\n\n  /* Redesigned Translate Button in Pure Alan (using sai / say communication symbol) */\n  .translate-btn {\n    background: #48b5c4;\n    color: #0b0e13;\n    border: none;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    width: 54px;\n    height: 54px;\n    border-radius: 12px;\n    cursor: pointer;\n    flex-shrink: 0;\n    transition: all 0.2s ease;\n    box-shadow: 0 4px 14px rgba(0,0,0,0.3);\n  }\n  .translate-btn:hover {\n    transform: scale(1.05);\n    box-shadow: 0 4px 12px rgba(72,181,196,0.4);\n  }\n\n  /* Alan Output Display Box (Identical Styling to English Input Box) */\n  .output-display {\n    flex-grow: 1;\n    display: flex;\n    flex-direction: column;\n    align-items: stretch;\n    justify-content: flex-start;\n    min-height: 140px;\n    max-height: 200px;\n    overflow-y: auto;\n    background: #090c11;\n    border: 1px solid #2b3340;\n    border-radius: 12px;\n    padding: 15px;\n    box-sizing: border-box;\n    box-shadow: inset 0 4px 15px rgba(0,0,0,0.6);\n  }\n\n  /* Symmetrical Guidance Display */\n  .guidance-panel {\n    display: none;\n    background: #161b24;\n    border: 1px solid #2b3340;\n    border-radius: 12px;\n    width: 100%;\n    max-width: 850px;\n    padding: 20px;\n    margin-bottom: 20px;\n    box-sizing: border-box;\n    box-shadow: 0 10px 30px rgba(0,0,0,0.4);\n    animation: slide-down 0.3s ease;\n  }\n  @keyframes slide-down {\n    from { opacity: 0; transform: translateY(-5px); }\n    to { opacity: 1; transform: translateY(0); }\n  }\n\n  .instructions {\n    font-size: 14px;\n    line-height: 1.6;\n    color: #d6dae2;\n    margin-bottom: 15px;\n  }\n\n  .hint-box {\n    background: rgba(72, 181, 196, 0.1);\n    border-left: 4px solid #48b5c4;\n    padding: 10px 15px;\n    font-size: 13px;\n    color: #a7ddec;\n    border-radius: 0 8px 8px 0;\n    margin-bottom: 15px;\n  }\n\n  /* Non-blocking success banner */\n  .success-banner {\n    display: none;\n    padding: 12px 15px;\n    background: rgba(127, 207, 159, 0.12);\n    border-left: 4px solid #7fcf9f;\n    border-radius: 4px;\n    color: #a6f2be;\n    font-size: 14px;\n    margin-bottom: 15px;\n    align-items: center;\n    justify-content: space-between;\n  }\n\n  .btn-next {\n    background: #7fcf9f;\n    color: #0b0e13;\n    border: none;\n    padding: 8px 16px;\n    font-family: \'JetBrains Mono\', monospace;\n    font-weight: bold;\n    font-size: 13px;\n    border-radius: 6px;\n    cursor: pointer;\n    transition: all 0.2s ease;\n  }\n  .btn-next:hover {\n    transform: scale(1.05);\n  }\n\n  .line {\n    display: flex;\n    align-items: center;\n    gap: 12px;\n    min-height: 40px;\n    margin-top: 4px;\n    border-left: 2px solid transparent;\n    transition: all 0.2s ease;\n    box-sizing: border-box;\n  }\n  .line[data-indent="1"] { border-left-color: #2b3340; }\n  .line[data-indent="2"] { border-left-color: #3d4757; }\n  .line[data-indent="3"] { border-left-color: #4a5669; }\n  .line[data-indent="4"] { border-left-color: #5a6980; }\n\n  .line .spacer {\n    width: 16px;\n    height: 32px;\n    flex-shrink: 0;\n    position: relative;\n  }\n  .line .spacer::after {\n    content: \'·\';\n    color: #ffffff;\n    position: absolute;\n    left: 50%;\n    top: 50%;\n    transform: translate(-50%, -50%);\n    font-size: 20px;\n    font-weight: bold;\n  }\n\n  .line svg {\n    width: 28px;\n    height: 28px;\n    stroke: #e2e8f0;\n  }\n\n  .cursor {\n    width: 2px;\n    height: 28px;\n    background: #48b5c4;\n    animation: blink-anim 1s step-end infinite;\n  }\n  \n  @keyframes blink-anim { 50% { opacity: 0; } }\n\n  /* Keyboard Style */\n  .split-keyboard {\n    display: flex;\n    justify-content: center;\n    gap: 30px;\n    align-items: flex-end;\n  }\n\n  .half {\n    background: #161b24;\n    padding: 20px;\n    border-radius: 16px;\n    border: 1px solid #2b3340;\n    box-shadow: 0 15px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);\n    display: flex;\n    flex-direction: column;\n    gap: 4px; /* Pull honeycomb keys closer horizontally */\n  }\n\n  .half.left { transform: rotate(2deg); }\n  .half.right { transform: rotate(-2deg); }\n\n  /* Nest Honeycomb Rows Vertically with offset transform stagger */\n  .row {\n    display: flex;\n    gap: 2px;\n    justify-content: center;\n    margin-top: -10px; /* Pull flat-topped rows up to nest V-shapes */\n  }\n  .row:first-child {\n    margin-top: 0; /* Let top row sit naturally */\n  }\n  .row:nth-child(even) {\n    transform: translateX(24px); /* Perfect stagger for honeycomb locks */\n  }\n\n  /* Exquisite Metallic Hexagonal Honeycomb Keys */\n  .key {\n    width: 46px;\n    height: 40px;\n    background: linear-gradient(180deg, #2b3340 0%, #1e2430 100%);\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: center;\n    position: relative;\n    cursor: pointer;\n    transition: all 0.1s ease;\n    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);\n    border: none;\n    margin: 0;\n    box-shadow: inset 0 1px 1px rgba(255,255,255,0.1);\n  }\n  \n  .key:active {\n    transform: translateY(2px) scale(0.95);\n  }\n\n  .key svg {\n    width: 20px;\n    height: 20px;\n    stroke: #e2e8f0;\n  }\n  \n  .key .handle {\n    position: absolute;\n    bottom: 1px;\n    font-size: 7px;\n    color: #5d626c;\n    letter-spacing: 0.05em;\n  }\n  \n  /* Category Colors (Muted Metallic Gradients fitting Honeycomb aesthetics) */\n  .key.entity { background: linear-gradient(180deg, #223f2f 0%, #16241c 100%); }\n  .key.action { background: linear-gradient(180deg, #3d241c 0%, #251612 100%); }\n  .key.mental { background: linear-gradient(180deg, #2c1a40 0%, #1b1126 100%); }\n  .key.space  { background: linear-gradient(180deg, #1d2a3f 0%, #111a26 100%); }\n  .key.desc   { background: linear-gradient(180deg, #3c1e24 0%, #251317 100%); }\n  .key.logic  { background: linear-gradient(180deg, #3f3216 0%, #261f0e 100%); }\n  .key.time   { background: linear-gradient(180deg, #16363d 0%, #0e2126 100%); }\n  .key.num    { background: linear-gradient(180deg, #2b3340 0%, #1e2430 100%); }\n\n  .key.wide { width: 75px; }\n  .key.tall { height: 104px; }\n  \n  .thumb-cluster {\n    display: flex;\n    gap: 8px;\n    margin-top: 8px;\n  }\n  .thumb-cluster.left { justify-content: flex-end; padding-right: 10px; }\n  .thumb-cluster.right { justify-content: flex-start; padding-left: 10px; }\n\n  /* Symmetrical 3x3 Compass D-Pad */\n  .compass-cross {\n    display: grid;\n    grid-template-columns: repeat(3, 36px);\n    grid-template-rows: repeat(3, 36px);\n    gap: 4px;\n    align-items: center;\n    justify-content: center;\n  }\n\n  /* Highlighting Pulsing key */\n  .key.highlight {\n    animation: pulse-border 1.5s infinite alternate;\n    background: #22384a !important;\n  }\n  @keyframes pulse-border {\n    0% { transform: scale(1); }\n    100% { transform: scale(1.05); background: #2b495c !important; }\n  }\n\n  /* Symmetrical Top, Bottom, and Left Bar Negation Modifier */\n  .anti-bar {\n    display: none;\n    opacity: 0;\n  }\n  .flipped .key[data-flip] .anti-bar {\n    display: block !important;\n    opacity: 1 !important;\n  }\n\n  .key.modifier.active {\n    background: #2b384a;\n    box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);\n    border-top-color: #a388ed !important;\n  }\n\n  /* Responsive Design */\n  @media (max-width: 1000px) {\n    .split-keyboard {\n      gap: 20px;\n      transform: scale(0.85);\n    }\n  }\n\n  .legend {\n    display: flex;\n    flex-wrap: wrap;\n    justify-content: center;\n    gap: 15px;\n    margin-top: 30px;\n    font-size: 12px;\n    max-width: 800px;\n  }\n  .legend-item { display: flex; align-items: center; gap: 6px; }\n  .dot { width: 10px; height: 10px; border-radius: 50%; }\n</style>\n</head>\n<body>\n\n<div class="header">\n  <h1>\n    <span style="display:inline-block; position:relative; width:1.1em; height:1.1em; vertical-align:-0.2em;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position:absolute; top:0; left:0; width:100%; height:100%;"><polygon points="12,2 22,9 18,20 6,20 2,9" /></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position:absolute; top:0; left:0; width:100%; height:100%; transform:scale(0.5); transform-origin: center;"><rect x="9" y="8" width="6" height="8" fill="currentColor" /></svg></span>\n    Alan: Live Practice\n  </h1>\n  <div style="display:flex; gap:15px;">\n    <a href="tutorial.html">Switch to Tutorial App &rarr;</a>\n    <a href="keyboard_prototype.html">Back to Sandbox &rarr;</a>\n  </div>\n</div>\n\n<div class="box-container">\n  <!-- Row 1: English Input Display + Standalone Translate Button -->\n  <div class="row-layout">\n    <div class="english-box">\n      <textarea id="spellcheckInput" placeholder="Type or paste your English sentence here... (e.g., \'update customer 867 set balance to 500\')"></textarea>\n    </div>\n    \n    <!-- Standalone Translate Button in Pure Alan (using sai / say communication symbol) -->\n    <button class="translate-btn" id="spellcheckBtn" title="Translate &amp; Verify (Alan say symbol)">\n      <svg viewBox="0 0 24 24" fill="none" stroke="#0b0e13" stroke-width="3.5" style="width: 24px; height: 24px;"><polygon points="8,4 8,20 20,12" /></svg>\n    </button>\n  </div>\n\n  <!-- Row 2: Alan Output Display (Symmetrically aligned via blank spacer) -->\n  <div class="row-layout">\n    <div class="output-display" id="output">\n      <div class="line" data-indent="0">\n        <div class="cursor" id="cursor"></div>\n      </div>\n    </div>\n    \n    <!-- Invisible spacer of identical size as Translate Button for perfect sub-pixel width symmetry -->\n    <div style="width: 54px; height: 54px; flex-shrink: 0;"></div>\n  </div>\n</div>\n\n<!-- Symmetrical Guidance Box -->\n<div class="guidance-panel" id="guidancePanel">\n  <div class="success-banner" id="successBanner">\n    <span>✓ Perfect representation! Feel free to play around, or type a new sentence above.</span>\n    <button class="btn-next" id="btnReset">Reset Output</button>\n  </div>\n\n  <div class="instructions" id="lessonInstructions">\n    Heuristic Translation loaded successfully! Let\'s type it using the split-keyboard below.\n  </div>\n\n  <div class="checklist" id="checklist" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; font-size: 13px; color: #8aa6d4;"></div>\n\n  <div class="hint-box" id="lessonHint">\n    Hint: Follow the flashing keys on the keyboard to map your English sentence to Alan\'s vertical cascades!\n  </div>\n</div>\n\n<div class="split-keyboard">\n\n  <!-- LEFT HALF: Logic, Mental, Entities, Time -->\n  <div class="half left">\n    <!-- Row 0: Numbers -->\n    <div class="row" style="padding-left: 20px;">\n      <div class="key num" data-handle="1"><svg viewBox="0 0 24 24"><text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">1</text></svg><span class="handle">1</span></div>\n      <div class="key num" data-handle="2"><svg viewBox="0 0 24 24"><text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">2</text></svg><span class="handle">2</span></div>\n      <div class="key num" data-handle="3"><svg viewBox="0 0 24 24"><text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">3</text></svg><span class="handle">3</span></div>\n      <div class="key num" data-handle="4"><svg viewBox="0 0 24 24"><text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">4</text></svg><span class="handle">4</span></div>\n      <div class="key num" data-handle="5"><svg viewBox="0 0 24 24"><text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">5</text></svg><span class="handle">5</span></div>\n      <div class="key num" data-handle="add"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19" stroke-width="3" /><line x1="5" y1="12" x2="19" y2="12" stroke-width="3" /></svg><span class="handle">add</span></div>\n      <div class="key num" data-handle="sub"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12" stroke-width="3" /></svg><span class="handle">sub</span></div>\n    </div>\n    <!-- Row 1: Logic -->\n    <div class="row" style="padding-left: 0px;">\n      <div class="key logic" data-handle="not"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><line x1="4" y1="4" x2="20" y2="20" /></svg><span class="handle">not</span></div>\n      <div class="key logic" data-handle="if"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 12 20 V 12 L 6 4 M 12 12 L 18 4" /></svg><span class="handle">if</span></div>\n      <div class="key logic" data-handle="can"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 12 4 A 6 6 0 0 1 18 10 V 20 M 12 4 A 6 6 0 0 0 6 10 V 12 M 6 16 V 20" /></svg><span class="handle">can</span></div>\n      <div class="key logic" data-handle="may"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 6 12 Q 9 6 12 12 T 18 12" /></svg><span class="handle">may</span></div>\n      <div class="key logic" data-handle="bik"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 12 4 V 12 L 6 20 M 12 12 L 18 20" /></svg><span class="handle">cause</span></div>\n      <div class="key logic" data-handle="is"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="9" y1="4" x2="9" y2="20" stroke-width="3" /><line x1="15" y1="4" x2="15" y2="20" stroke-width="3" /></svg><span class="handle">be</span></div>\n      <div class="key logic" data-handle="and"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6,18 12,6 18,18" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="handle">and</span></div>\n      <div class="key logic" data-handle="or"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6,6 12,18 18,6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="handle">or</span></div>\n      <div class="key logic" data-handle="andor"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6,18 12,6 18,18" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /><polyline points="6,6 12,18 18,6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="handle">andor</span></div>\n    </div>\n    <!-- Row 2: Mental -->\n    <div class="row" style="padding-left: 20px;">\n      <div class="key mental" data-handle="think"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 22,12 12,22 2,12" /><circle cx="12" cy="12" r="2" fill="#e2e8f0" /></svg><span class="handle">think</span></div>\n      <div class="key mental" data-handle="know"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 22,12 12,22 2,12" fill="#e2e8f0"/></svg><span class="handle">know</span></div>\n      <div class="key mental" data-handle="want"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 22,12 12,22 2,12" /><line x1="12" y1="12" x2="24" y2="12" /><polyline points="20,8 24,12 20,16" /></svg><span class="handle">want</span></div>\n      <div class="key mental" data-handle="feel"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 22,12 12,22 2,12" /><path d="M 8 12 Q 10 8 12 12 T 16 12" /></svg><span class="handle">feel</span></div>\n      <div class="key mental" data-handle="see"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 22,12 12,22 2,12" /><path d="M 7 12 Q 12 7 17 12 Q 12 17 7 12" /></svg><span class="handle">see</span></div>\n      <div class="key mental" data-handle="hear"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 22,12 12,22 2,12" /><path d="M 12 8 A 4 4 0 0 1 12 16 M 9 10 A 2 2 0 0 1 9 14" /></svg><span class="handle">hear</span></div>\n    </div>\n    <!-- Row 3: Entities -->\n    <div class="row" style="padding-left: 10px;">\n      <div class="key entity" data-handle="me"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="4" fill="#e2e8f0" /></svg><span class="handle">me</span></div>\n      <div class="key entity" data-handle="you"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="4" /></svg><span class="handle">you</span></div>\n      <div class="key entity" data-handle="someone"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" /></svg><span class="handle">someone</span></div>\n      <div class="key entity" data-handle="something"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" /><line x1="6" y1="12" x2="18" y2="12" /></svg><span class="handle">thing</span></div>\n      <div class="key entity" data-handle="people"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="7" r="1.5" fill="#e2e8f0"/><circle cx="8" cy="14" r="1.5" fill="#e2e8f0"/><circle cx="16" cy="14" r="1.5" fill="#e2e8f0"/></svg><span class="handle">people</span></div>\n      <div class="key entity" data-handle="body"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" /><line x1="12" y1="2" x2="12" y2="22" /></svg><span class="handle">body</span></div>\n    </div>\n    <!-- Row 4: Time -->\n    <div class="row" style="padding-left: 30px;">\n      <div class="key time" data-handle="time"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><line x1="12" y1="8" x2="12" y2="16" /></svg><span class="handle">time</span></div>\n      <div class="key time" data-handle="now"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><line x1="12" y1="6" x2="12" y2="18" stroke-width="4" /></svg><span class="handle">now</span></div>\n      <div class="key time" data-handle="before" data-flip="left"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="8" y1="12" x2="24" y2="12" /><line x1="14" y1="8" x2="14" y2="16" /><polyline points="12,12 8,12" /><polyline points="10,10 8,12 10,14" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">before</span></div>\n      <div class="key time" data-handle="long"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="4" y1="12" x2="20" y2="12" /><polyline points="6,9 2,12 6,15" /><polyline points="18,9 22,12 18,15" /></svg><span class="handle">long</span></div>\n      <div class="key time" data-handle="moment"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="6" x2="12" y2="18" stroke-width="4" /></svg><span class="handle">moment</span></div>\n    </div>\n    <!-- Left Thumb Cluster -->\n    <div class="thumb-cluster left" style="align-items: center; gap: 15px;">\n      <div class="key wide modifier" data-action="FLIP" style="color: #ffd166; font-size: 16px; font-weight: bold;" title="Hold/Toggle to flip symbols to opposites">⇿ ANTI</div>\n      \n      <!-- Symmetrical Cross D-Pad (Left Half) -->\n      <div class="compass-cross">\n        <div></div>\n        <div class="key space" data-handle="above" data-flip="below" style="width:36px; height:36px;" title="Above">\n          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="8,14 12,9 16,14" /></svg>\n        </div>\n        <div></div>\n        \n        <div class="key space" data-handle="left" data-flip="left" style="width:36px; height:36px;" title="Left">\n          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="14,8 9,12 14,16" /></svg>\n        </div>\n        <div class="key space" data-handle="in" data-flip="above" style="width:36px; height:36px;" title="Inside">\n          <!-- Compass star in the center not a dot -->\n          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,6 13.5,11 18,12 13.5,13 12,18 10.5,13 6,12 10.5,11" fill="#e2e8f0" stroke="none" /></svg>\n        </div>\n        <div class="key space" data-handle="right" data-flip="left" style="width:36px; height:36px;" title="Right">\n          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="10,8 15,12 10,16" /></svg>\n        </div>\n        \n        <div></div>\n        <div class="key space" data-handle="below" data-flip="below" style="width:36px; height:36px;" title="Below">\n          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="8,10 12,15 16,10" /></svg>\n        </div>\n        <div></div>\n      </div>\n\n      <div class="key tall space" data-action="SPACE" title="Space (Horizontal Word Gap)"><svg viewBox="0 0 24 24" fill="none" stroke="#8aa6d4" stroke-width="2"><path d="M 4 8 V 16 H 20 V 8" stroke-width="3" /></svg><span class="handle">space</span></div>\n      <div class="key tall action" data-action="INDENT" title="Step Right (Indent)"><svg viewBox="0 0 24 24" fill="none" stroke="#7fcf9f" stroke-width="2"><line x1="4" y1="12" x2="20" y2="12" stroke-width="3" /><polyline points="14,6 20,12 14,18" stroke-width="3" /></svg><span class="handle">indent</span></div>\n    </div>\n  </div>\n\n\n  <!-- RIGHT HALF: Quantifiers, Actions, Descriptors, Space -->\n  <div class="half right">\n    <!-- Row 0: Numbers -->\n    <div class="row" style="padding-right: 20px;">\n      <div class="key num" data-handle="6"><svg viewBox="0 0 24 24"><text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">6</text></svg><span class="handle">6</span></div>\n      <div class="key num" data-handle="7"><svg viewBox="0 0 24 24"><text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">7</text></svg><span class="handle">7</span></div>\n      <div class="key num" data-handle="8"><svg viewBox="0 0 24 24"><text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">8</text></svg><span class="handle">8</span></div>\n      <div class="key num" data-handle="9"><svg viewBox="0 0 24 24"><text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">9</text></svg><span class="handle">9</span></div>\n      <div class="key num" data-handle="0"><svg viewBox="0 0 24 24"><text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">0</text></svg><span class="handle">0</span></div>\n      <div class="key num" data-handle="mul"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="6" y1="6" x2="18" y2="18" stroke-width="3" /><line x1="18" y1="6" x2="6" y2="18" stroke-width="3" /></svg><span class="handle">mul</span></div>\n      <div class="key num" data-handle="div"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12" stroke-width="3" /><circle cx="12" cy="6" r="2" fill="#e2e8f0" /><circle cx="12" cy="18" r="2" fill="#e2e8f0" /></svg><span class="handle">div</span></div>\n      <div class="key num" data-handle="eql"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="5" y1="9" x2="19" y2="9" stroke-width="3" /><line x1="5" y1="15" x2="19" y2="15" stroke-width="3" /></svg><span class="handle">eql</span></div>\n    </div>\n    <!-- Row 1: Quantifiers -->\n    <div class="row" style="padding-right: 0px;">\n      <div class="key logic" data-handle="one"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="2" fill="#e2e8f0" /></svg><span class="handle">one</span></div>\n      <div class="key logic" data-handle="two"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="8" cy="12" r="2" fill="#e2e8f0" /><circle cx="16" cy="12" r="2" fill="#e2e8f0" /></svg><span class="handle">two</span></div>\n      <div class="key logic" data-handle="few"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="8" r="1.5" fill="#e2e8f0" /><circle cx="7" cy="15" r="1.5" fill="#e2e8f0" /><circle cx="17" cy="15" r="1.5" fill="#e2e8f0" /></svg><span class="handle">few</span></div>\n      <div class="key logic" data-handle="som"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" stroke-dasharray="4,4" /></svg><span class="handle">some</span></div>\n      <div class="key logic" data-handle="mor"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="6" cy="6" r="1.5" fill="#e2e8f0" /><circle cx="12" cy="6" r="1.5" fill="#e2e8f0" /><circle cx="18" cy="6" r="1.5" fill="#e2e8f0" /><circle cx="6" cy="12" r="1.5" fill="#e2e8f0" /><circle cx="12" cy="12" r="1.5" fill="#e2e8f0" /><circle cx="18" cy="12" r="1.5" fill="#e2e8f0" /><circle cx="6" cy="18" r="1.5" fill="#e2e8f0" /><circle cx="12" cy="18" r="1.5" fill="#e2e8f0" /><circle cx="18" cy="18" r="1.5" fill="#e2e8f0" /></svg><span class="handle">more</span></div>\n      <div class="key logic" data-handle="al"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" fill="#e2e8f0" /></svg><span class="handle">all</span></div>\n    </div>\n    <!-- Row 2: Actions & Comm -->\n    <div class="row" style="padding-right: 20px;">\n      <div class="key action" data-handle="do"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 2,20 22,20" /></svg><span class="handle">do</span></div>\n      <div class="key action" data-handle="mov"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="4" y1="12" x2="20" y2="12" /><polyline points="10,6 4,12 10,18" /><polyline points="14,6 20,12 14,18" /></svg><span class="handle">move</span></div>\n      <div class="key action" data-handle="liv" data-flip="above"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,6 2,22 22,22" /><circle cx="12" cy="16" r="2" fill="#e2e8f0"/></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">live</span></div>\n      <div class="key action" data-handle="sai"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="8,4 8,20 20,12" /></svg><span class="handle">say</span></div>\n      <div class="key action" data-handle="wrd"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" /><line x1="8" y1="9" x2="16" y2="9" /><line x1="8" y1="12" x2="16" y2="12" /><line x1="8" y1="15" x2="12" y2="15" /></svg><span class="handle">words</span></div>\n    </div>\n    <!-- Row 3: Descriptors -->\n    <div class="row" style="padding-right: 10px;">\n      <div class="key desc" data-handle="gud" data-flip="above"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="6" width="16" height="16" /><polyline points="8,14 12,9 16,14" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">good</span></div>\n      <div class="key desc" data-handle="big" data-flip="above"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="6" width="16" height="16" /><polygon points="8,18 16,18 18,9 6,9" fill="#e2e8f0" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">big</span></div>\n      <div class="key desc" data-handle="les" data-flip="left"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="15,5 9,12 15,19" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">less</span></div>\n      <div class="key desc" data-handle="tru" data-flip="above"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="6" width="16" height="16" fill="#e2e8f0" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">true</span></div>\n      <div class="key desc" data-handle="lik"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polyline points="8,13 12,8 16,13" /><polyline points="8,18 12,13 16,18" /></svg><span class="handle">like</span></div>\n      <div class="key desc" data-handle="part"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="12" height="12" /><rect x="8" y="8" width="12" height="12" /></svg><span class="handle">part</span></div>\n    </div>\n    <!-- Row 4: Space -->\n    <div class="row" style="padding-right: 30px;">\n      <div class="key space" data-handle="place"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="20" x2="22" y2="20" /><line x1="12" y1="20" x2="12" y2="2" /><circle cx="12" cy="12" r="3" fill="#e2e8f0" /></svg><span class="handle">place</span></div>\n      <div class="key space" data-handle="water"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 3,8 Q 7.5,5 12,8 T 21,8 M 3,14 Q 7.5,11 12,14 T 21,14 M 3,20 Q 7.5,17 12,20 T 21,20" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" /></svg><span class="handle">water</span></div>\n    </div>\n    <!-- Right Thumb Cluster -->\n    <div class="thumb-cluster right" style="align-items: center; gap: 15px;">\n      <div class="key tall action" data-action="DOWN" title="Step Down (Newline / Sibling)"><svg viewBox="0 0 24 24" fill="none" stroke="#ff8a6b" stroke-width="2"><path d="M 20 6 V 14 H 6 M 12 8 L 6 14 L 12 20" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="handle">down</span></div>\n      <div class="key tall action" data-action="OUTDENT" title="Step Left (Outdent)"><svg viewBox="0 0 24 24" fill="none" stroke="#7fcf9f" stroke-width="2"><line x1="20" y1="12" x2="4" y2="12" stroke-width="3" /><polyline points="10,6 4,12 10,18" stroke-width="3" /></svg><span class="handle">outdent</span></div>\n\n      <!-- Symmetrical Cross D-Pad (Right Half) -->\n      <div class="compass-cross">\n        <div></div>\n        <div class="key space" data-handle="above" data-flip="below" style="width:36px; height:36px;" title="Above">\n          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="8,14 12,9 16,14" /></svg>\n        </div>\n        <div></div>\n        \n        <div class="key space" data-handle="left" data-flip="left" style="width:36px; height:36px;" title="Left">\n          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="14,8 9,12 14,16" /></svg>\n        </div>\n        <div class="key space" data-handle="in" data-flip="above" style="width:36px; height:36px;" title="Inside">\n          <!-- Compass star in the center not a dot -->\n          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,6 13.5,11 18,12 13.5,13 12,18 10.5,13 6,12 10.5,11" fill="#e2e8f0" stroke="none" /></svg>\n        </div>\n        <div class="key space" data-handle="right" data-flip="left" style="width:36px; height:36px;" title="Right">\n          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="10,8 15,12 10,16" /></svg>\n        </div>\n        \n        <div></div>\n        <div class="key space" data-handle="below" data-flip="below" style="width:36px; height:36px;" title="Below">\n          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="8,10 12,15 16,10" /></svg>\n        </div>\n        <div></div>\n      </div>\n\n      <div class="key wide modifier" data-action="FLIP" style="color: #ffd166; font-size: 16px; font-weight: bold;" title="Hold/Toggle to flip symbols to opposites">⇿ ANTI</div>\n      <div class="key wide action" data-action="BACK" style="color: #f67280; font-size: 16px; font-weight: bold;" title="Backspace">⌫ BACK</div>\n    </div>\n  </div>\n\n</div>\n\n<div class="legend">\n  <div class="legend-item"><div class="dot" style="background: #e2e8f0;"></div> Numbers</div>\n  <div class="legend-item"><div class="dot" style="background: #7fcf9f;"></div> Entities (Substantives)</div>\n  <div class="legend-item"><div class="dot" style="background: #a388ed;"></div> Mental Predicates</div>\n  <div class="legend-item"><div class="dot" style="background: #ffd166;"></div> Logic &amp; Quantifiers</div>\n  <div class="legend-item"><div class="dot" style="background: #48b5c4;"></div> Time</div>\n  <div class="legend-item"><div class="dot" style="background: #ff8a6b;"></div> Actions (Events)</div>\n  <div class="legend-item"><div class="dot" style="background: #f67280;"></div> Descriptors</div>\n  <div class="legend-item"><div class="dot" style="background: #8aa6d4;"></div> Space &amp; Compass</div> <!-- Updated legend title -->\n</div>\n\n<script>\n  const output = document.getElementById(\'output\');\n  let activeLine = output.querySelector(\'.line\');\n  let cursor = document.getElementById(\'cursor\');\n  let currentIndent = 0;\n  let isFlipped = false;\n\n  const successBanner = document.getElementById(\'successBanner\');\n  const btnReset = document.getElementById(\'btnReset\');\n  const guidancePanel = document.getElementById(\'guidancePanel\');\n\n  const lessonInstructionsEl = document.getElementById(\'lessonInstructions\');\n  const lessonHintEl = document.getElementById(\'lessonHint\');\n  const checklistEl = document.getElementById(\'checklist\');\n\n  let currentStep = 0;\n  let sandboxConfig = null;\n\n  function resetWorkspace() {\n    output.innerHTML = \'<div class="line" data-indent="0"><div class="cursor" id="cursor"></div></div>\';\n    activeLine = output.querySelector(\'.line\');\n    cursor = document.getElementById(\'cursor\');\n    currentIndent = 0;\n    \n    currentStep = 0;\n    isFlipped = false;\n    document.querySelector(\'.split-keyboard\').classList.remove(\'flipped\');\n    document.querySelectorAll(\'.key[data-action="FLIP"]\').forEach(el => el.classList.remove(\'active\'));\n    \n    successBanner.style.display = \'none\';\n    highlightNextKey();\n    updateChecklist();\n  }\n\n  btnReset.addEventListener(\'click\', resetWorkspace);\n\n  function highlightNextKey() {\n    document.querySelectorAll(\'.key\').forEach(k => k.classList.remove(\'highlight\'));\n    \n    if (!sandboxConfig || currentStep >= sandboxConfig.targetKeys.length) return;\n    \n    const target = sandboxConfig.targetKeys[currentStep];\n    const keyEl = document.querySelector(`.key[data-action="${target}"]`) || \n                  document.querySelector(`.key[data-handle="${target}"]`);\n                \n    if (keyEl) {\n      keyEl.classList.add(\'highlight\');\n    }\n  }\n\n  function updateChecklist() {\n    if (!sandboxConfig) {\n      checklistEl.innerHTML = \'\';\n      return;\n    }\n    \n    checklistEl.innerHTML = \'\';\n    sandboxConfig.targetKeys.forEach((keyName, i) => {\n      const item = document.createElement(\'div\');\n      item.style.display = \'flex\';\n      item.style.alignItems = \'center\';\n      item.style.gap = \'8px\';\n      \n      const check = document.createElement(\'span\');\n      check.innerHTML = i < currentStep ? \'✓\' : \'○\';\n      check.style.color = i < currentStep ? \'#7fcf9f\' : \'#5d626c\';\n      check.style.fontWeight = \'bold\';\n      \n      const text = document.createElement(\'span\');\n      let displayKeyName = keyName;\n      if (keyName === \'liv\') displayKeyName = isFlipped ? \'die (flipped live)\' : \'live\';\n      if (keyName === \'want\') displayKeyName = \'want\';\n      if (keyName === \'think\') displayKeyName = \'think\';\n      if (keyName === \'FLIP\') displayKeyName = \'anti\';\n      \n      text.textContent = `Step ${i+1}: press ${displayKeyName.toUpperCase()}`;\n      text.style.color = i < currentStep ? \'#7fcf9f\' : (i === currentStep ? \'#fff\' : \'#5d626c\');\n      if (i === currentStep) text.style.textDecoration = \'underline\';\n      \n      item.appendChild(check);\n      item.appendChild(text);\n      checklistEl.appendChild(item);\n    });\n  }\n\n  function checkLessonProgress() {\n    if (!sandboxConfig) return;\n    const passed = sandboxConfig.validate(output);\n    \n    if (passed) {\n      document.querySelectorAll(\'.key\').forEach(k => k.classList.remove(\'highlight\'));\n      successBanner.style.display = \'flex\';\n    }\n  }\n\n  // Universal Heuristic English NLP Parser\n  function translateEnglishToAlan(sentence) {\n    const raw = sentence.trim();\n    const text = raw.toLowerCase().replace(/[.,\\\\/#!$%\\\\^&\\\\*;:{}=\\\\-_`~()?]/g,"");\n    const words = text.split(/\\s+/);\n    \n    const map = {\n      "update": "do", "change": "do", "make": "do", "set": "is", "put": "is",\n      "customer": "someone", "user": "someone", "client": "someone", "employee": "someone",\n      "number": "something", "id": "something", "to": "eql", "equal": "eql", "balance": "something",\n      "value": "something", "account": "something"\n    };\n    \n    let currentLineKeys = [];\n    let lineBuilders = [];\n    let currentIndent = 0;\n    \n    for (let i = 0; i < words.length; i++) {\n      const w = words[i];\n      if (!w) continue;\n      \n      if (/^\\d+$/.test(w)) {\n        const digits = w.split(\'\');\n        if (currentLineKeys.length > 0) {\n          currentLineKeys.push("SPACE");\n        }\n        digits.forEach((d) => {\n          currentLineKeys.push(d);\n        });\n        continue;\n      }\n      \n      let handle = map[w];\n      if (!handle) {\n        const standardMap = {\n          "i": "me", "me": "me", "my": "me", "you": "you", "your": "you",\n          "think": "think", "know": "know", "want": "want", "feel": "feel",\n          "see": "see", "hear": "hear", "do": "do", "move": "mov", "live": "liv",\n          "die": "die", "say": "sai", "now": "now", "before": "before", "after": "after",\n          "because": "bik", "place": "place", "here": "place", "not": "not", "dont": "not",\n          "small": "small", "smaller": "small", "tiny": "small", "little": "small",\n          "less": "les", "fewer": "les", "greater": "greater", "larger": "greater",\n          "false": "tru", "no": "not", "incorrect": "not",\n          "left": "right", "below": "above", "outside": "in", "out": "in",\n          "water": "water", "ocean": "water", "sea": "water"\n        };\n        handle = standardMap[w];\n      }\n      \n      if (!handle) {\n        handle = "something";\n      }\n      \n      if (["is", "bik", "if", "eql", "les", "greater", "above", "below", "left", "right", "in", "out"].includes(handle) || w === "set" || w === "update") {\n        if (currentLineKeys.length > 0) {\n          lineBuilders.push({ indent: currentIndent, keys: [...currentLineKeys] });\n          currentLineKeys = [];\n          currentIndent++;\n        }\n      }\n      \n      if (handle === "die") {\n        currentLineKeys.push("FLIP");\n        currentLineKeys.push("liv");\n      } else if (handle === "small") {\n        currentLineKeys.push("FLIP");\n        currentLineKeys.push("big");\n      } else if (handle === "greater") {\n        currentLineKeys.push("FLIP");\n        currentLineKeys.push("les");\n      } else if (handle === "false") {\n        currentLineKeys.push("FLIP");\n        currentLineKeys.push("tru");\n      } else if (w === "left") {\n        currentLineKeys.push("FLIP");\n        currentLineKeys.push("right");\n      } else if (w === "below") {\n        currentLineKeys.push("FLIP");\n        currentLineKeys.push("above");\n      } else if (w === "outside" || w === "out") {\n        currentLineKeys.push("FLIP");\n        currentLineKeys.push("in");\n      } else if (w === "after") {\n        currentLineKeys.push("FLIP");\n        currentLineKeys.push("before");\n      } else {\n        if (currentLineKeys.length > 0 && !["FLIP", "INDENT", "OUTDENT", "DOWN"].includes(handle)) {\n          currentLineKeys.push("SPACE");\n        }\n        currentLineKeys.push(handle);\n      }\n    }\n    \n    if (currentLineKeys.length > 0) {\n      lineBuilders.push({ indent: currentIndent, keys: [...currentLineKeys] });\n    }\n    \n    if (lineBuilders.length === 0) return null;\n    \n    let targetKeys = [];\n    let lastIndent = 0;\n    \n    lineBuilders.forEach((line, idx) => {\n      if (idx > 0) {\n        const diff = line.indent - lastIndent;\n        if (diff > 0) {\n          for (let d = 0; d < diff; d++) targetKeys.push("INDENT");\n        } else if (diff < 0) {\n          for (let d = 0; d < Math.abs(diff); d++) targetKeys.push("OUTDENT");\n        }\n        targetKeys.push("DOWN");\n        lastIndent = line.indent;\n      }\n      targetKeys.push(...line.keys);\n    });\n    \n    const validatorFn = (out) => {\n      const lines = Array.from(out.querySelectorAll(\'.line\'));\n      if (lines.length !== lineBuilders.length) return false;\n      \n      for (let i = 0; i < lineBuilders.length; i++) {\n        const lineEl = lines[i];\n        const targetLine = lineBuilders[i];\n        \n        if (parseInt(lineEl.getAttribute(\'data-indent\') || \'0\', 10) !== targetLine.indent) return false;\n        \n        const elements = Array.from(lineEl.children).filter(el => el.id !== \'cursor\');\n        let elementIdx = 0;\n        \n        for (let k = 0; k < targetLine.keys.length; k++) {\n          const expected = targetLine.keys[k];\n          if (expected === "SPACE") {\n            if (elementIdx >= elements.length || elements[elementIdx].className !== \'spacer\') return false;\n          } else if (expected === "FLIP") {\n            const nextExpected = targetLine.keys[k+1];\n            k++;\n            if (elementIdx >= elements.length) return false;\n            const el = elements[elementIdx];\n            if (el.getAttribute(\'data-handle\') !== nextExpected || el.getAttribute(\'data-flipped\') !== \'true\') return false;\n          } else {\n            if (elementIdx >= elements.length) return false;\n            const el = elements[elementIdx];\n            if (el.getAttribute(\'data-handle\') !== expected) return false;\n          }\n          elementIdx++;\n        }\n        \n        if (elementIdx !== elements.length) return false;\n      }\n      return true;\n    };\n    \n    return {\n      targetKeys: targetKeys,\n      validate: validatorFn,\n      instructions: `Heuristic Translation: <strong>"${sentence}"</strong>.`,\n      hint: `Type the cascading semantic tree: ${targetKeys.filter(k => !["FLIP", "INDENT", "OUTDENT", "DOWN"].includes(k)).join(" -> ").toUpperCase()}`\n    };\n  }\n\n  // Spellcheck & Sandbox Custom Phrase Parser\n  const spellInput = document.getElementById(\'spellcheckInput\');\n  const spellBtn = document.getElementById(\'spellcheckBtn\');\n\n  function handleSpellcheck() {\n    const text = spellInput.value.trim().toLowerCase();\n    if (!text) return;\n\n    const config = translateEnglishToAlan(text);\n\n    if (config) {\n      sandboxConfig = config;\n      \n      // Setup Custom Sandbox Lesson\n      lessonInstructionsEl.innerHTML = sandboxConfig.instructions;\n      lessonHintEl.innerHTML = sandboxConfig.hint;\n      \n      // Display guidance panel\n      guidancePanel.style.display = \'block\';\n      resetWorkspace();\n    }\n  }\n\n  spellBtn.addEventListener(\'click\', handleSpellcheck);\n  spellInput.addEventListener(\'keypress\', (e) => {\n    if (e.key === \'Enter\') handleSpellcheck();\n  });\n\n\n  const keys = document.querySelectorAll(\'.key\');\n\n  keys.forEach(key => {\n    key.addEventListener(\'click\', (e) => {\n      const action = key.getAttribute(\'data-action\');\n      const handle = key.getAttribute(\'data-handle\');\n      \n      const l = sandboxConfig;\n      const target = l ? l.targetKeys[currentStep] : null;\n\n      let pressedId = action || handle;\n\n      // IF IN GUIDED MODE, ENFORCE STRICT CHARACTER-BY-CHARACTER MATCHING!\n      if (l) {\n        if (pressedId === target) {\n          currentStep++;\n        } else if (pressedId === \'BACK\') {\n          // Allow Backspace to undo a step\n          currentStep = Math.max(currentStep - 1, 0);\n        } else {\n          // STRICT KEY-MATCH ENFORCED: Block any wrong keystroke!\n          return;\n        }\n      }\n\n      if (action === \'FLIP\') {\n        isFlipped = !isFlipped;\n        document.querySelectorAll(\'.split-keyboard\').forEach(el => el.classList.toggle(\'flipped\', isFlipped));\n        document.querySelectorAll(\'.key[data-action="FLIP"]\').forEach(el => el.classList.toggle(\'active\', isFlipped));\n        highlightNextKey();\n        updateChecklist();\n        return;\n      }\n\n      if (action === \'INDENT\') {\n        currentIndent = Math.min(currentIndent + 1, 4);\n        activeLine.setAttribute(\'data-indent\', currentIndent);\n        activeLine.style.paddingLeft = `${currentIndent * 40}px`;\n        highlightNextKey();\n        updateChecklist();\n        checkLessonProgress();\n        return;\n      }\n\n      if (action === \'OUTDENT\') {\n        currentIndent = Math.max(currentIndent - 1, 0);\n        activeLine.setAttribute(\'data-indent\', currentIndent);\n        activeLine.style.paddingLeft = `${currentIndent * 40}px`;\n        highlightNextKey();\n        updateChecklist();\n        checkLessonProgress();\n        return;\n      }\n\n      if (action === \'DOWN\') {\n        const newLine = document.createElement(\'div\');\n        newLine.className = \'line\';\n        newLine.setAttribute(\'data-indent\', currentIndent);\n        newLine.style.paddingLeft = `${currentIndent * 40}px`;\n        \n        cursor.remove();\n        newLine.appendChild(cursor);\n        \n        output.appendChild(newLine);\n        activeLine = newLine;\n        output.scrollTop = output.scrollHeight;\n        highlightNextKey();\n        updateChecklist();\n        checkLessonProgress();\n        return;\n      }\n\n      if (action === \'SPACE\') {\n        const spacer = document.createElement(\'div\');\n        spacer.className = \'spacer\';\n        activeLine.insertBefore(spacer, cursor);\n        highlightNextKey();\n        updateChecklist();\n        checkLessonProgress();\n        return;\n      }\n\n      if (action === \'BACK\') {\n        const prev = cursor.previousElementSibling;\n        if (prev) {\n          prev.remove();\n        } else {\n          const prevLine = activeLine.previousElementSibling;\n          if (prevLine) {\n            cursor.remove();\n            prevLine.appendChild(cursor);\n            activeLine.remove();\n            activeLine = prevLine;\n            currentIndent = parseInt(activeLine.getAttribute(\'data-indent\') || \'0\', 10);\n            output.scrollTop = output.scrollHeight;\n          }\n        }\n        highlightNextKey();\n        updateChecklist();\n        checkLessonProgress();\n        return;\n      }\n\n      // Default: typing a symbol\n      let clone = null;\n      let flipType = \'above\';\n\n      // Resolve the SVG template for our direction macros typed from the D-Pad Compass Key\n      if (pressedId === \'above\') {\n        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,12 12,8 16,12" stroke-width="2" /><line x1="12" y1="8" x2="12" y2="16" stroke-width="2" /><polygon points="12,1 13,3 15,4 13,5 12,7 11,5 9,4 11,3" fill="#e2e8f0" stroke="none" /></svg>`;\n        const parser = new DOMParser();\n        const doc = parser.parseFromString(svgTemplate, \'image/svg+xml\');\n        clone = document.importNode(doc.documentElement, true);\n        flipType = \'below\';\n      } else if (pressedId === \'below\') {\n        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,12 12,8 16,12" stroke-width="2" /><line x1="12" y1="8" x2="12" y2="16" stroke-width="2" /><polygon points="12,1 13,3 15,4 13,5 12,7 11,5 9,4 11,3" fill="#e2e8f0" stroke="none" /></svg>`;\n        const parser = new DOMParser();\n        const doc = parser.parseFromString(svgTemplate, \'image/svg+xml\');\n        clone = document.importNode(doc.documentElement, true);\n        isFlipped = true; // For below, we force-flip it so the star sits underneath!\n        flipType = \'below\';\n      } else if (pressedId === \'right\') {\n        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="4" y1="2" x2="4" y2="22" stroke-width="2" /><polyline points="12,8 16,12 12,16" stroke-width="2" /><line x1="8" y1="12" x2="16" y2="12" stroke-width="2" /><polygon points="20,9 21,11 23,12 21,13 20,15 19,13 17,12 19,11" fill="#e2e8f0" stroke="none" /></svg>`;\n        const parser = new DOMParser();\n        const doc = parser.parseFromString(svgTemplate, \'image/svg+xml\');\n        clone = document.importNode(doc.documentElement, true);\n        flipType = \'left\';\n      } else if (pressedId === \'left\') {\n        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="4" y1="2" x2="4" y2="22" stroke-width="2" /><polyline points="12,8 16,12 12,16" stroke-width="2" /><line x1="8" y1="12" x2="16" y2="12" stroke-width="2" /><polygon points="20,9 21,11 23,12 21,13 20,15 19,13 17,12 19,11" fill="#e2e8f0" stroke="none" /></svg>`;\n        const parser = new DOMParser();\n        const doc = parser.parseFromString(svgTemplate, \'image/svg+xml\');\n        clone = document.importNode(doc.documentElement, true);\n        isFlipped = true; // For left, we force-flip it so the star sits to its left!\n        flipType = \'left\';\n      } else if (pressedId === \'in\') {\n        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><rect x="4" y="6" width="16" height="16" /><polygon points="12,11 13,13 15,14 13,15 12,17 11,15 9,14 11,13" fill="#e2e8f0" stroke="none" /></svg>`;\n        const parser = new DOMParser();\n        const doc = parser.parseFromString(svgTemplate, \'image/svg+xml\');\n        clone = document.importNode(doc.documentElement, true);\n        flipType = \'above\';\n      } else {\n        const svg = key.querySelector(\'svg\');\n        if (svg) {\n          clone = svg.cloneNode(true);\n          flipType = key.getAttribute(\'data-flip\') || \'above\';\n        }\n      }\n\n      if (clone) {\n        // Dynamically add the glowing diacritical star above, below, or to the left of the typed symbol when flipped!\n        if (isFlipped && flipType) {\n          clone.setAttribute(\'data-flipped\', \'true\');\n          \n          // Append the correct diacritical star vector based on layout direction!\n          if (flipType === \'above\') {\n            // Inverted 5-pointed Pentagram Star (Zone 2)\n            const star = document.createElementNS("http://www.w3.org/2000/svg", "polygon");\n            star.setAttribute("fill", "currentColor");\n            star.setAttribute("stroke", "none");\n            star.setAttribute("points", "9,1 12,2.2 15,1 13.8,2.4 16,3.2 13.5,3.8 12,5.5 10.5,3.8 8,3.2 10.2,2.4");\n            clone.appendChild(star);\n          } else if (flipType === \'below\') {\n            // Inverted 5-pointed Pentagram Star (Zone 1 Bottom)\n            const star = document.createElementNS("http://www.w3.org/2000/svg", "polygon");\n            star.setAttribute("fill", "currentColor");\n            star.setAttribute("stroke", "none");\n            star.setAttribute("points", "9,18.5 12,19.7 15,18.5 13.8,19.9 16,20.7 13.5,21.3 12,23.0 10.5,21.3 8,20.7 10.2,19.9");\n            clone.appendChild(star);\n          } else if (flipType === \'left\') {\n            // Sharp 4-pointed Compass Star (Zone 1 Left)\n            const star = document.createElementNS("http://www.w3.org/2000/svg", "polygon");\n            star.setAttribute("fill", "currentColor");\n            star.setAttribute("stroke", "none");\n            star.setAttribute("points", "4,8 5,11 8,12 5,13 4,16 3,13 0,12 3,11");\n            clone.appendChild(star);\n          }\n        }\n        if (targetHandle) {\n          clone.setAttribute(\'data-handle\', targetHandle);\n        }\n        \n        activeLine.insertBefore(clone, cursor);\n        \n        // Auto reset flip after typing\n        isFlipped = false;\n        document.querySelectorAll(\'.split-keyboard\').forEach(el => el.classList.remove(\'flipped\'));\n        document.querySelectorAll(\'.key[data-action="FLIP"]\').forEach(el => el.classList.remove(\'active\'));\n      }\n      \n      highlightNextKey();\n      updateChecklist();\n      checkLessonProgress();\n    });\n  });\n\n  resetWorkspace();\n</script>\n</body>\n</html>\n'
+html_start = r"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alan Universal Writing System - Live Practice</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  body {
+    background-color: #0b0e13;
+    color: #c8cdd6;
+    font-family: 'JetBrains Mono', monospace;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px 20px 60px 20px; /* Enhanced bottom padding to prevent legend cutoff */
+    box-sizing: border-box;
+    overflow-y: auto;
+  }
+  
+  .header {
+    text-align: center;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 850px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .header h1 {
+    font-size: 22px;
+    color: #fff;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
 
+  .header a {
+    color: #48b5c4;
+    text-decoration: none;
+    border-bottom: 1px dashed #48b5c4;
+    font-size: 14px;
+    transition: all 0.2s ease;
+  }
+  .header a:hover {
+    color: #7fcf9f;
+    border-color: #7fcf9f;
+  }
+
+  /* Two Identical Large Boxes styled exactly like Output Display */
+  .box-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 850px;
+    margin-bottom: 25px;
+    box-sizing: border-box;
+  }
+
+  .row-layout {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+  }
+
+  /* English Input Box */
+  .english-box {
+    flex-grow: 1;
+    min-height: 140px;
+    max-height: 200px;
+    background: #090c11;
+    border: 1px solid #2b3340;
+    border-radius: 12px;
+    padding: 15px;
+    box-sizing: border-box;
+    box-shadow: inset 0 4px 15px rgba(0,0,0,0.6);
+  }
+
+  .english-box textarea {
+    width: 100%;
+    height: 100%;
+    min-height: 110px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px;
+    resize: none;
+    box-sizing: border-box;
+    line-height: 1.6;
+  }
+
+  /* Redesigned Translate Button in Pure Alan (using sai / say communication symbol) */
+  .translate-btn {
+    background: #48b5c4;
+    color: #0b0e13;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 54px;
+    border-radius: 12px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+  }
+  .translate-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(72,181,196,0.4);
+  }
+
+  /* Alan Output Display Box (Identical Styling to English Input Box) */
+  .output-display {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    min-height: 140px;
+    max-height: 200px;
+    overflow-y: auto;
+    background: #090c11;
+    border: 1px solid #2b3340;
+    border-radius: 12px;
+    padding: 15px;
+    box-sizing: border-box;
+    box-shadow: inset 0 4px 15px rgba(0,0,0,0.6);
+  }
+
+  /* Symmetrical Guidance Display */
+  .guidance-panel {
+    display: none;
+    background: #161b24;
+    border: 1px solid #2b3340;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 850px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    animation: slide-down 0.3s ease;
+  }
+  @keyframes slide-down {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .instructions {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #d6dae2;
+    margin-bottom: 15px;
+  }
+
+  .hint-box {
+    background: rgba(72, 181, 196, 0.1);
+    border-left: 4px solid #48b5c4;
+    padding: 10px 15px;
+    font-size: 13px;
+    color: #a7ddec;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 15px;
+  }
+
+  /* Non-blocking success banner */
+  .success-banner {
+    display: none;
+    padding: 12px 15px;
+    background: rgba(127, 207, 159, 0.12);
+    border-left: 4px solid #7fcf9f;
+    border-radius: 4px;
+    color: #a6f2be;
+    font-size: 14px;
+    margin-bottom: 15px;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .btn-next {
+    background: #7fcf9f;
+    color: #0b0e13;
+    border: none;
+    padding: 8px 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: bold;
+    font-size: 13px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .btn-next:hover {
+    transform: scale(1.05);
+  }
+
+  .line {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 40px;
+    margin-top: 4px;
+    border-left: 2px solid transparent;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+  }
+  .line[data-indent="1"] { border-left-color: #2b3340; }
+  .line[data-indent="2"] { border-left-color: #3d4757; }
+  .line[data-indent="3"] { border-left-color: #4a5669; }
+  .line[data-indent="4"] { border-left-color: #5a6980; }
+
+  .line .spacer {
+    width: 16px;
+    height: 32px;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .line .spacer::after {
+    content: '·';
+    color: #ffffff;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .line svg {
+    width: 28px;
+    height: 28px;
+    stroke: #e2e8f0;
+  }
+
+  .cursor {
+    width: 2px;
+    height: 28px;
+    background: #48b5c4;
+    animation: blink-anim 1s step-end infinite;
+  }
+  
+  @keyframes blink-anim { 50% { opacity: 0; } }
+
+  /* Keyboard Style */
+  .split-keyboard {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    align-items: flex-end;
+  }
+
+  .half {
+    background: #161b24;
+    padding: 24px;
+    border-radius: 16px;
+    border: 1px solid #2b3340;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .half.left { transform: rotate(2deg); }
+  .half.right { transform: rotate(-2deg); }
+
+  /* Nest Honeycomb Rows Vertically with offset transform stagger and GAPS */
+  .row {
+    display: flex;
+    gap: 8px; /* Restore gaps between keys */
+    justify-content: center;
+    margin-top: -12px; /* Pull rows closer to nest V-shapes cleanly */
+  }
+  .row:first-child {
+    margin-top: 0;
+  }
+  .row:nth-child(even) {
+    transform: translateX(27px); /* Perfect stagger offset including gap math */
+  }
+
+  /* 3D Spaced Hexagonal Key Caps */
+  .key-wrap {
+    filter: drop-shadow(0 4px 0 #0b0e13); /* 3D bottom extrusion shadow */
+    cursor: pointer;
+    transition: all 0.1s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .key-wrap:active {
+    transform: translateY(4px);
+    filter: drop-shadow(0 0px 0 #0b0e13);
+  }
+
+  .key {
+    width: 46px;
+    height: 40px;
+    background: linear-gradient(180deg, #2b3340 0%, #1e2430 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.1);
+  }
+
+  .key svg {
+    width: 20px;
+    height: 20px;
+    stroke: #e2e8f0;
+  }
+  
+  .key .handle {
+    position: absolute;
+    bottom: 1px;
+    font-size: 7px;
+    color: #5d626c;
+    letter-spacing: 0.05em;
+  }
+  
+  /* Category Colors (Muted Metallic Gradients fitting Honeycomb aesthetics) */
+  .key.entity { background: linear-gradient(180deg, #223f2f 0%, #16241c 100%); }
+  .key.action { background: linear-gradient(180deg, #3d241c 0%, #251612 100%); }
+  .key.mental { background: linear-gradient(180deg, #2c1a40 0%, #1b1126 100%); }
+  .key.space  { background: linear-gradient(180deg, #1d2a3f 0%, #111a26 100%); }
+  .key.desc   { background: linear-gradient(180deg, #3c1e24 0%, #251317 100%); }
+  .key.logic  { background: linear-gradient(180deg, #3f3216 0%, #261f0e 100%); }
+  .key.time   { background: linear-gradient(180deg, #16363d 0%, #0e2126 100%); }
+  .key.num    { background: linear-gradient(180deg, #2b3340 0%, #1e2430 100%); }
+
+  .key-wrap.wide { width: 75px; }
+  .key-wrap.wide .key {
+    width: 75px;
+    clip-path: none;
+    border-radius: 8px;
+    border: 1px solid #0b0e13;
+  }
+  .key-wrap.tall { height: 104px; }
+  .key-wrap.tall .key {
+    height: 104px;
+    clip-path: none;
+    border-radius: 8px;
+    border: 1px solid #0b0e13;
+  }
+  
+  .thumb-cluster {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .thumb-cluster.left { justify-content: flex-end; padding-right: 10px; }
+  .thumb-cluster.right { justify-content: flex-start; padding-left: 10px; }
+
+  /* Symmetrical 3x3 Compass D-Pad */
+  .compass-cross {
+    display: grid;
+    grid-template-columns: repeat(3, 36px);
+    grid-template-rows: repeat(3, 36px);
+    gap: 4px;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .compass-cross .key {
+    width: 36px;
+    height: 36px;
+    clip-path: none; /* D-pad keys are standard rounded squares */
+    border-radius: 6px;
+    border: 1px solid #0b0e13;
+    box-shadow: 0 3px 0 #0b0e13, inset 0 1px 1px rgba(255,255,255,0.1);
+    cursor: pointer;
+    transition: all 0.1s ease;
+  }
+  .compass-cross .key:active {
+    transform: translateY(3px);
+    box-shadow: 0 0px 0 #0b0e13;
+  }
+
+  /* Highlighting Pulsing key */
+  .key-wrap.highlight .key, .key.highlight {
+    animation: pulse-border 1.5s infinite alternate;
+    background: #22384a !important;
+  }
+  @keyframes pulse-border {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.05); background: #2b495c !important; }
+  }
+
+  /* Symmetrical Top, Bottom, and Left Bar Negation Modifier */
+  .anti-bar {
+    display: none;
+    opacity: 0;
+  }
+  .flipped .key-wrap[data-flip] .anti-bar {
+    display: block !important;
+    opacity: 1 !important;
+  }
+
+  .key-wrap.modifier.active .key {
+    background: #2b384a;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);
+    border-top-color: #a388ed !important;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 1000px) {
+    .split-keyboard {
+      gap: 20px;
+      transform: scale(0.85);
+    }
+  }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+    font-size: 12px;
+    max-width: 800px;
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>
+    <span style="display:inline-block; position:relative; width:1.1em; height:1.1em; vertical-align:-0.2em;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position:absolute; top:0; left:0; width:100%; height:100%;"><polygon points="12,2 22,9 18,20 6,20 2,9" /></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position:absolute; top:0; left:0; width:100%; height:100%; transform:scale(0.5); transform-origin: center;"><rect x="9" y="8" width="6" height="8" fill="currentColor" /></svg></span>
+    Alan: Live Practice
+  </h1>
+  <div style="display:flex; gap:15px;">
+    <a href="tutorial.html">Switch to Tutorial App &rarr;</a>
+    <a href="keyboard_prototype.html">Back to Sandbox &rarr;</a>
+  </div>
+</div>
+
+<div class="box-container">
+  <!-- Row 1: English Input Display + Standalone Translate Button -->
+  <div class="row-layout">
+    <div class="english-box">
+      <textarea id="spellcheckInput" placeholder="Type or paste your English sentence here... (e.g., 'update customer 867 set balance to 500')"></textarea>
+    </div>
+    
+    <!-- Standalone Translate Button in Pure Alan (using sai / say communication symbol) -->
+    <button class="translate-btn" id="spellcheckBtn" title="Translate &amp; Verify (Alan say symbol)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#0b0e13" stroke-width="3.5" style="width: 24px; height: 24px;"><polygon points="8,4 8,20 20,12" /></svg>
+    </button>
+  </div>
+
+  <!-- Row 2: Alan Output Display (Symmetrically aligned via blank spacer) -->
+  <div class="row-layout">
+    <div class="output-display" id="output">
+      <div class="line" data-indent="0">
+        <div class="cursor" id="cursor"></div>
+      </div>
+    </div>
+    
+    <!-- Invisible spacer of identical size as Translate Button for perfect sub-pixel width symmetry -->
+    <div style="width: 54px; height: 54px; flex-shrink: 0;"></div>
+  </div>
+</div>
+
+<!-- Symmetrical Guidance Box -->
+<div class="guidance-panel" id="guidancePanel">
+  <div class="success-banner" id="successBanner">
+    <span>✓ Perfect representation! Feel free to play around, or type a new sentence above.</span>
+    <button class="btn-next" id="btnReset">Reset Output</button>
+  </div>
+
+  <div class="instructions" id="lessonInstructions">
+    Heuristic Translation loaded successfully! Let's type it using the split-keyboard below.
+  </div>
+
+  <div class="checklist" id="checklist" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; font-size: 13px; color: #8aa6d4;"></div>
+
+  <div class="hint-box" id="lessonHint">
+    Hint: Follow the flashing keys on the keyboard to map your English sentence to Alan's vertical cascades!
+  </div>
+</div>
+
+<div class="split-keyboard">
+
+  <!-- LEFT HALF: Logic, Mental, Entities, Time -->
+  <div class="half left">
+    <!-- Row 0: Numbers -->
+    <div class="row" style="padding-left: 20px;">
+      <div class="key-wrap" data-handle="1"><div class="key num"><svg viewBox="0 0 24 24"><text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">1</text></svg><span class="handle">1</span></div></div>
+      <div class="key-wrap" data-handle="2"><div class="key num"><svg viewBox="0 0 24 24"><text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">2</text></svg><span class="handle">2</span></div></div>
+      <div class="key-wrap" data-handle="3"><div class="key num"><svg viewBox="0 0 24 24"><text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">3</text></svg><span class="handle">3</span></div></div>
+      <div class="key-wrap" data-handle="4"><div class="key num"><svg viewBox="0 0 24 24"><text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">4</text></svg><span class="handle">4</span></div></div>
+      <div class="key-wrap" data-handle="5"><div class="key num"><svg viewBox="0 0 24 24"><text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">5</text></svg><span class="handle">5</span></div></div>
+      <div class="key-wrap" data-handle="add"><div class="key num"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19" stroke-width="3" /><line x1="5" y1="12" x2="19" y2="12" stroke-width="3" /></svg><span class="handle">add</span></div></div>
+      <div class="key-wrap" data-handle="sub"><div class="key num"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12" stroke-width="3" /></svg><span class="handle">sub</span></div></div>
+    </div>
+    <!-- Row 1: Logic -->
+    <div class="row" style="padding-left: 0px;">
+      <div class="key-wrap" data-handle="not"><div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><line x1="4" y1="4" x2="20" y2="20" /></svg><span class="handle">not</span></div></div>
+      <div class="key-wrap" data-handle="if"><div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 12 20 V 12 L 6 4 M 12 12 L 18 4" /></svg><span class="handle">if</span></div></div>
+      <div class="key-wrap" data-handle="can"><div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 12 4 A 6 6 0 0 1 18 10 V 20 M 12 4 A 6 6 0 0 0 6 10 V 12 M 6 16 V 20" /></svg><span class="handle">can</span></div></div>
+      <div class="key-wrap" data-handle="may"><div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 6 12 Q 9 6 12 12 T 18 12" /></svg><span class="handle">may</span></div></div>
+      <div class="key-wrap" data-handle="bik"><div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 12 4 V 12 L 6 20 M 12 12 L 18 20" /></svg><span class="handle">cause</span></div></div>
+      <div class="key-wrap" data-handle="is"><div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="9" y1="4" x2="9" y2="20" stroke-width="3" /><line x1="15" y1="4" x2="15" y2="20" stroke-width="3" /></svg><span class="handle">be</span></div></div>
+      <div class="key-wrap" data-handle="and"><div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6,18 12,6 18,18" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="handle">and</span></div></div>
+      <div class="key-wrap" data-handle="or"><div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6,6 12,18 18,6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="handle">or</span></div></div>
+      <div class="key-wrap" data-handle="andor"><div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6,18 12,6 18,18" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /><polyline points="6,6 12,18 18,6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="handle">andor</span></div></div>
+    </div>
+    <!-- Row 2: Mental -->
+    <div class="row" style="padding-left: 20px;">
+      <div class="key-wrap" data-handle="think"><div class="key mental"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 22,12 12,22 2,12" /><circle cx="12" cy="12" r="2" fill="#e2e8f0" /></svg><span class="handle">think</span></div></div>
+      <div class="key-wrap" data-handle="know"><div class="key mental"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 22,12 12,22 2,12" fill="#e2e8f0"/></svg><span class="handle">know</span></div></div>
+      <div class="key-wrap" data-handle="want"><div class="key mental"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 22,12 12,22 2,12" /><line x1="12" y1="12" x2="24" y2="12" /><polyline points="20,8 24,12 20,16" /></svg><span class="handle">want</span></div></div>
+      <div class="key-wrap" data-handle="feel"><div class="key mental"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 22,12 12,22 2,12" /><path d="M 8 12 Q 10 8 12 12 T 16 12" /></svg><span class="handle">feel</span></div></div>
+      <div class="key-wrap" data-handle="see"><div class="key mental"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 22,12 12,22 2,12" /><path d="M 7 12 Q 12 7 17 12 Q 12 17 7 12" /></svg><span class="handle">see</span></div></div>
+      <div class="key-wrap" data-handle="hear"><div class="key mental"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 22,12 12,22 2,12" /><path d="M 12 8 A 4 4 0 0 1 12 16 M 9 10 A 2 2 0 0 1 9 14" /></svg><span class="handle">hear</span></div></div>
+    </div>
+    <!-- Row 3: Entities -->
+    <div class="row" style="padding-left: 10px;">
+      <div class="key-wrap" data-handle="me"><div class="key entity"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="4" fill="#e2e8f0" /></svg><span class="handle">me</span></div></div>
+      <div class="key-wrap" data-handle="you"><div class="key entity"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="4" /></svg><span class="handle">you</span></div></div>
+      <div class="key-wrap" data-handle="someone"><div class="key entity"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" /></svg><span class="handle">someone</span></div></div>
+      <div class="key-wrap" data-handle="something"><div class="key entity"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" /><line x1="6" y1="12" x2="18" y2="12" /></svg><span class="handle">thing</span></div></div>
+      <div class="key-wrap" data-handle="people"><div class="key entity"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="7" r="1.5" fill="#e2e8f0"/><circle cx="8" cy="14" r="1.5" fill="#e2e8f0"/><circle cx="16" cy="14" r="1.5" fill="#e2e8f0"/></svg><span class="handle">people</span></div></div>
+      <div class="key-wrap" data-handle="body"><div class="key entity"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" /><line x1="12" y1="2" x2="12" y2="22" /></svg><span class="handle">body</span></div></div>
+    </div>
+    <!-- Row 4: Time -->
+    <div class="row" style="padding-left: 30px;">
+      <div class="key-wrap" data-handle="time"><div class="key time"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><line x1="12" y1="8" x2="12" y2="16" /></svg><span class="handle">time</span></div></div>
+      <div class="key-wrap" data-handle="now"><div class="key time"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><line x1="12" y1="6" x2="12" y2="18" stroke-width="4" /></svg><span class="handle">now</span></div></div>
+      <div class="key-wrap" data-handle="before" data-flip="left"><div class="key time"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="8" y1="12" x2="24" y2="12" /><line x1="14" y1="8" x2="14" y2="16" /><polyline points="12,12 8,12" /><polyline points="10,10 8,12 10,14" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">before</span></div></div>
+      <div class="key-wrap" data-handle="long"><div class="key time"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="4" y1="12" x2="20" y2="12" /><polyline points="6,9 2,12 6,15" /><polyline points="18,9 22,12 18,15" /></svg><span class="handle">long</span></div></div>
+      <div class="key-wrap" data-handle="moment"><div class="key time"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="6" x2="12" y2="18" stroke-width="4" /></svg><span class="handle">moment</span></div></div>
+    </div>
+    <!-- Left Thumb Cluster -->
+    <div class="thumb-cluster left" style="align-items: center; gap: 15px;">
+      <div class="key-wrap modifier" data-action="FLIP"><div class="key" style="color: #ffd166; font-size: 16px; font-weight: bold;" title="Hold/Toggle to flip symbols to opposites">⇿ ANTI</div></div>
+      
+      <!-- Symmetrical Cross D-Pad (Left Half) -->
+      <div class="compass-cross">
+        <div></div>
+        <div class="key space" data-handle="above" data-flip="below" style="width:36px; height:36px;" title="Above">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="8,14 12,9 16,14" /></svg>
+        </div>
+        <div></div>
+        
+        <div class="key space" data-handle="left" data-flip="left" style="width:36px; height:36px;" title="Left">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="14,8 9,12 14,16" /></svg>
+        </div>
+        <div class="key space" data-handle="in" data-flip="above" style="width:36px; height:36px;" title="Inside">
+          <!-- Compass star in the center not a dot -->
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,6 13.5,11 18,12 13.5,13 12,18 10.5,13 6,12 10.5,11" fill="#e2e8f0" stroke="none" /></svg>
+        </div>
+        <div class="key space" data-handle="right" data-flip="left" style="width:36px; height:36px;" title="Right">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="10,8 15,12 10,16" /></svg>
+        </div>
+        
+        <div></div>
+        <div class="key space" data-handle="below" data-flip="below" style="width:36px; height:36px;" title="Below">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="8,10 12,15 16,10" /></svg>
+        </div>
+        <div></div>
+      </div>
+
+      <div class="key-wrap tall space" data-action="SPACE"><div class="key"><svg viewBox="0 0 24 24" fill="none" stroke="#8aa6d4" stroke-width="2"><path d="M 4 8 V 16 H 20 V 8" stroke-width="3" /></svg><span class="handle">space</span></div></div>
+      <div class="key-wrap tall action" data-action="INDENT"><div class="key"><svg viewBox="0 0 24 24" fill="none" stroke="#7fcf9f" stroke-width="2"><line x1="4" y1="12" x2="20" y2="12" stroke-width="3" /><polyline points="14,6 20,12 14,18" stroke-width="3" /></svg><span class="handle">indent</span></div></div>
+    </div>
+  </div>
+
+
+  <!-- RIGHT HALF: Quantifiers, Actions, Descriptors, Space -->
+  <div class="half right">
+    <!-- Row 0: Numbers -->
+    <div class="row" style="padding-right: 20px;">
+      <div class="key-wrap" data-handle="6"><div class="key num"><svg viewBox="0 0 24 24"><text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">6</text></svg><span class="handle">6</span></div></div>
+      <div class="key-wrap" data-handle="7"><div class="key num"><svg viewBox="0 0 24 24"><text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">7</text></svg><span class="handle">7</span></div></div>
+      <div class="key-wrap" data-handle="8"><div class="key num"><svg viewBox="0 0 24 24"><text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">8</text></svg><span class="handle">8</span></div></div>
+      <div class="key-wrap" data-handle="9"><div class="key num"><svg viewBox="0 0 24 24"><text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">9</text></svg><span class="handle">9</span></div></div>
+      <div class="key-wrap" data-handle="0"><div class="key num"><svg viewBox="0 0 24 24"><text x="12" y="16" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" fill="#e2e8f0">0</text></svg><span class="handle">0</span></div></div>
+      <div class="key-wrap" data-handle="mul"><div class="key num"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="6" y1="6" x2="18" y2="18" stroke-width="3" /><line x1="18" y1="6" x2="6" y2="18" stroke-width="3" /></svg><span class="handle">mul</span></div></div>
+      <div class="key-wrap" data-handle="div"><div class="key num"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12" stroke-width="3" /><circle cx="12" cy="6" r="2" fill="#e2e8f0" /><circle cx="12" cy="18" r="2" fill="#e2e8f0" /></svg><span class="handle">div</span></div></div>
+      <div class="key-wrap" data-handle="eql"><div class="key num"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="5" y1="9" x2="19" y2="9" stroke-width="3" /><line x1="5" y1="15" x2="19" y2="15" stroke-width="3" /></svg><span class="handle">eql</span></div></div>
+    </div>
+    <!-- Row 1: Quantifiers -->
+    <div class="row" style="padding-right: 0px;">
+      <div class="key-wrap" data-handle="one"><div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="2" fill="#e2e8f0" /></svg><span class="handle">one</span></div></div>
+      <div class="key-wrap" data-handle="two"><div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="8" cy="12" r="2" fill="#e2e8f0" /><circle cx="16" cy="12" r="2" fill="#e2e8f0" /></svg><span class="handle">two</span></div></div>
+      <div class="key-wrap" data-handle="few"><div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="8" r="1.5" fill="#e2e8f0" /><circle cx="7" cy="15" r="1.5" fill="#e2e8f0" /><circle cx="17" cy="15" r="1.5" fill="#e2e8f0" /></svg><span class="handle">few</span></div></div>
+      <div class="key-wrap" data-handle="som"><div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" stroke-dasharray="4,4" /></svg><span class="handle">some</span></div></div>
+      <div class="key-wrap" data-handle="mor"><div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="6" cy="6" r="1.5" fill="#e2e8f0" /><circle cx="12" cy="6" r="1.5" fill="#e2e8f0" /><circle cx="18" cy="6" r="1.5" fill="#e2e8f0" /><circle cx="6" cy="12" r="1.5" fill="#e2e8f0" /><circle cx="12" cy="12" r="1.5" fill="#e2e8f0" /><circle cx="18" cy="12" r="1.5" fill="#e2e8f0" /><circle cx="6" cy="18" r="1.5" fill="#e2e8f0" /><circle cx="12" cy="18" r="1.5" fill="#e2e8f0" /><circle cx="18" cy="18" r="1.5" fill="#e2e8f0" /></svg><span class="handle">more</span></div></div>
+      <div class="key-wrap" data-handle="al"><div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" fill="#e2e8f0" /></svg><span class="handle">all</span></div></div>
+    </div>
+    <!-- Row 2: Actions & Comm -->
+    <div class="row" style="padding-right: 20px;">
+      <div class="key-wrap" data-handle="do"><div class="key action"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 2,20 22,20" /></svg><span class="handle">do</span></div></div>
+      <div class="key-wrap" data-handle="mov"><div class="key action"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="4" y1="12" x2="20" y2="12" /><polyline points="10,6 4,12 10,18" /><polyline points="14,6 20,12 14,18" /></svg><span class="handle">move</span></div></div>
+      <div class="key-wrap" data-handle="liv" data-flip="above"><div class="key action"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,6 2,22 22,22" /><circle cx="12" cy="16" r="2" fill="#e2e8f0"/></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">live</span></div></div>
+      <div class="key-wrap" data-handle="sai"><div class="key action"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="8,4 8,20 20,12" /></svg><span class="handle">say</span></div></div>
+      <div class="key-wrap" data-handle="wrd"><div class="key action"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" /><line x1="8" y1="9" x2="16" y2="9" /><line x1="8" y1="12" x2="16" y2="12" /><line x1="8" y1="15" x2="12" y2="15" /></svg><span class="handle">words</span></div></div>
+    </div>
+    <!-- Row 3: Descriptors -->
+    <div class="row" style="padding-right: 10px;">
+      <div class="key-wrap" data-handle="gud" data-flip="above"><div class="key desc"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="6" width="16" height="16" /><polyline points="8,14 12,9 16,14" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">good</span></div></div>
+      <div class="key-wrap" data-handle="big" data-flip="above"><div class="key desc"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="6" width="16" height="16" /><polygon points="8,18 16,18 18,9 6,9" fill="#e2e8f0" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">big</span></div></div>
+      <div class="key-wrap" data-handle="les" data-flip="left"><div class="key desc"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="15,5 9,12 15,19" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">less</span></div></div>
+      <div class="key-wrap" data-handle="tru" data-flip="above"><div class="key desc"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="6" width="16" height="16" fill="#e2e8f0" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">true</span></div></div>
+      <div class="key-wrap" data-handle="lik"><div class="key desc"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polyline points="8,13 12,8 16,13" /><polyline points="8,18 12,13 16,18" /></svg><span class="handle">like</span></div></div>
+      <div class="key-wrap" data-handle="part"><div class="key desc"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="12" height="12" /><rect x="8" y="8" width="12" height="12" /></svg><span class="handle">part</span></div></div>
+    </div>
+    <!-- Row 4: Space -->
+    <div class="row" style="padding-right: 30px;">
+      <div class="key-wrap" data-handle="place"><div class="key space"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="20" x2="22" y2="20" /><line x1="12" y1="20" x2="12" y2="2" /><circle cx="12" cy="12" r="3" fill="#e2e8f0" /></svg><span class="handle">place</span></div></div>
+      <div class="key-wrap" data-handle="water"><div class="key space"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 3,8 Q 7.5,5 12,8 T 21,8 M 3,14 Q 7.5,11 12,14 T 21,14 M 3,20 Q 7.5,17 12,20 T 21,20" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" /></svg><span class="handle">water</span></div></div>
+    </div>
+    <!-- Right Thumb Cluster -->
+    <div class="thumb-cluster right" style="align-items: center; gap: 15px;">
+      <div class="key-wrap tall action" data-action="DOWN"><div class="key"><svg viewBox="0 0 24 24" fill="none" stroke="#ff8a6b" stroke-width="2"><path d="M 20 6 V 14 H 6 M 12 8 L 6 14 L 12 20" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="handle">down</span></div></div>
+      <div class="key-wrap tall action" data-action="OUTDENT"><div class="key"><svg viewBox="0 0 24 24" fill="none" stroke="#7fcf9f" stroke-width="2"><line x1="20" y1="12" x2="4" y2="12" stroke-width="3" /><polyline points="10,6 4,12 10,18" stroke-width="3" /></svg><span class="handle">outdent</span></div></div>
+
+      <!-- Symmetrical Cross D-Pad (Right Half) -->
+      <div class="compass-cross">
+        <div></div>
+        <div class="key space" data-handle="above" data-flip="below" style="width:36px; height:36px;" title="Above">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="8,14 12,9 16,14" /></svg>
+        </div>
+        <div></div>
+        
+        <div class="key space" data-handle="left" data-flip="left" style="width:36px; height:36px;" title="Left">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="14,8 9,12 14,16" /></svg>
+        </div>
+        <div class="key space" data-handle="in" data-flip="above" style="width:36px; height:36px;" title="Inside">
+          <!-- Compass star in the center not a dot -->
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,6 13.5,11 18,12 13.5,13 12,18 10.5,13 6,12 10.5,11" fill="#e2e8f0" stroke="none" /></svg>
+        </div>
+        <div class="key space" data-handle="right" data-flip="left" style="width:36px; height:36px;" title="Right">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="10,8 15,12 10,16" /></svg>
+        </div>
+        
+        <div></div>
+        <div class="key space" data-handle="below" data-flip="below" style="width:36px; height:36px;" title="Below">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="8,10 12,15 16,10" /></svg>
+        </div>
+        <div></div>
+      </div>
+
+      <div class="key-wrap modifier" data-action="FLIP"><div class="key" style="color: #ffd166; font-size: 16px; font-weight: bold;" title="Hold/Toggle to flip symbols to opposites">⇿ ANTI</div></div>
+      <div class="key-wrap action" data-action="BACK"><div class="key" style="color: #f67280; font-size: 16px; font-weight: bold;" title="Backspace">⌫ BACK</div></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="dot" style="background: #e2e8f0;"></div> Numbers</div>
+  <div class="legend-item"><div class="dot" style="background: #7fcf9f;"></div> Entities (Substantives)</div>
+  <div class="legend-item"><div class="dot" style="background: #a388ed;"></div> Mental Predicates</div>
+  <div class="legend-item"><div class="dot" style="background: #ffd166;"></div> Logic &amp; Quantifiers</div>
+  <div class="legend-item"><div class="dot" style="background: #48b5c4;"></div> Time</div>
+  <div class="legend-item"><div class="dot" style="background: #ff8a6b;"></div> Actions (Events)</div>
+  <div class="legend-item"><div class="dot" style="background: #f67280;"></div> Descriptors</div>
+  <div class="legend-item"><div class="dot" style="background: #8aa6d4;"></div> Space &amp; Compass</div> <!-- Updated legend title -->
+</div>
+
+<script>
+  const output = document.getElementById('output');
+  let activeLine = output.querySelector('.line');
+  let cursor = document.getElementById('cursor');
+  let currentIndent = 0;
+  let isFlipped = false;
+
+  const successBanner = document.getElementById('successBanner');
+  const btnReset = document.getElementById('btnReset');
+  const guidancePanel = document.getElementById('guidancePanel');
+
+  const lessonInstructionsEl = document.getElementById('lessonInstructions');
+  const lessonHintEl = document.getElementById('lessonHint');
+  const checklistEl = document.getElementById('checklist');
+
+  let currentStep = 0;
+  let sandboxConfig = null;
+
+  function resetWorkspace() {
+    output.innerHTML = '<div class="line" data-indent="0"><div class="cursor" id="cursor"></div></div>';
+    activeLine = output.querySelector('.line');
+    cursor = document.getElementById('cursor');
+    currentIndent = 0;
+    
+    currentStep = 0;
+    isFlipped = false;
+    document.querySelector('.split-keyboard').classList.remove('flipped');
+    document.querySelectorAll('.key-wrap[data-action="FLIP"]').forEach(el => el.classList.remove('active'));
+    
+    successBanner.style.display = 'none';
+    highlightNextKey();
+    updateChecklist();
+  }
+
+  btnReset.addEventListener('click', resetWorkspace);
+
+  function highlightNextKey() {
+    document.querySelectorAll('.key-wrap, .key').forEach(k => k.classList.remove('highlight'));
+    
+    if (!sandboxConfig || currentStep >= sandboxConfig.targetKeys.length) return;
+    
+    const target = sandboxConfig.targetKeys[currentStep];
+    const keyEl = document.querySelector(`.key-wrap[data-action="${target}"]`) || 
+                  document.querySelector(`.key-wrap[data-handle="${target}"]`) ||
+                  document.querySelector(`.key[data-handle="${target}"]`);
+                
+    if (keyEl) {
+      keyEl.classList.add('highlight');
+    }
+  }
+
+  function updateChecklist() {
+    if (!sandboxConfig) {
+      checklistEl.innerHTML = '';
+      return;
+    }
+    
+    checklistEl.innerHTML = '';
+    sandboxConfig.targetKeys.forEach((keyName, i) => {
+      const item = document.createElement('div');
+      item.style.display = 'flex';
+      item.style.alignItems = 'center';
+      item.style.gap = '8px';
+      
+      const check = document.createElement('span');
+      check.innerHTML = i < currentStep ? '✓' : '○';
+      check.style.color = i < currentStep ? '#7fcf9f' : '#5d626c';
+      check.style.fontWeight = 'bold';
+      
+      const text = document.createElement('span');
+      let displayKeyName = keyName;
+      if (keyName === 'liv') displayKeyName = isFlipped ? 'die (flipped live)' : 'live';
+      if (keyName === 'want') displayKeyName = 'want';
+      if (keyName === 'think') displayKeyName = 'think';
+      if (keyName === 'FLIP') displayKeyName = 'anti';
+      
+      text.textContent = `Step ${i+1}: press ${displayKeyName.toUpperCase()}`;
+      text.style.color = i < currentStep ? '#7fcf9f' : (i === currentStep ? '#fff' : '#5d626c');
+      if (i === currentStep) text.style.textDecoration = 'underline';
+      
+      item.appendChild(check);
+      item.appendChild(text);
+      checklistEl.appendChild(item);
+    });
+  }
+
+  function checkLessonProgress() {
+    if (!sandboxConfig) return;
+    const passed = sandboxConfig.validate(output);
+    
+    if (passed) {
+      document.querySelectorAll('.key-wrap, .key').forEach(k => k.classList.remove('highlight'));
+      successBanner.style.display = 'flex';
+    }
+  }
+
+  // Universal Heuristic English NLP Parser
+  function translateEnglishToAlan(sentence) {
+    const raw = sentence.trim();
+    const text = raw.toLowerCase().replace(/[.,\\/#!$%\\^&\\*;:{}=\\-_`~()?]/g,"");
+    const words = text.split(/\s+/);
+    
+    const map = {
+      "update": "do", "change": "do", "make": "do", "set": "is", "put": "is",
+      "customer": "someone", "user": "someone", "client": "someone", "employee": "someone",
+      "number": "something", "id": "something", "to": "eql", "equal": "eql", "balance": "something",
+      "value": "something", "account": "something"
+    };
+    
+    let currentLineKeys = [];
+    let lineBuilders = [];
+    let currentIndent = 0;
+    
+    for (let i = 0; i < words.length; i++) {
+      const w = words[i];
+      if (!w) continue;
+      
+      if (/^\d+$/.test(w)) {
+        const digits = w.split('');
+        if (currentLineKeys.length > 0) {
+          currentLineKeys.push("SPACE");
+        }
+        digits.forEach((d) => {
+          currentLineKeys.push(d);
+        });
+        continue;
+      }
+      
+      let handle = map[w];
+      if (!handle) {
+        const standardMap = {
+          "i": "me", "me": "me", "my": "me", "you": "you", "your": "you",
+          "think": "think", "know": "know", "want": "want", "feel": "feel",
+          "see": "see", "hear": "hear", "do": "do", "move": "mov", "live": "liv",
+          "die": "die", "say": "sai", "now": "now", "before": "before", "after": "after",
+          "because": "bik", "place": "place", "here": "place", "not": "not", "dont": "not",
+          "small": "small", "smaller": "small", "tiny": "small", "little": "small",
+          "less": "les", "fewer": "les", "greater": "greater", "larger": "greater",
+          "false": "tru", "no": "not", "incorrect": "not",
+          "left": "right", "below": "above", "outside": "in", "out": "in",
+          "water": "water", "ocean": "water", "sea": "water"
+        };
+        handle = standardMap[w];
+      }
+      
+      if (!handle) {
+        handle = "something";
+      }
+      
+      if (["is", "bik", "if", "eql", "les", "greater", "above", "below", "left", "right", "in", "out"].includes(handle) || w === "set" || w === "update") {
+        if (currentLineKeys.length > 0) {
+          lineBuilders.push({ indent: currentIndent, keys: [...currentLineKeys] });
+          currentLineKeys = [];
+          currentIndent++;
+        }
+      }
+      
+      if (handle === "die") {
+        currentLineKeys.push("FLIP");
+        currentLineKeys.push("liv");
+      } else if (handle === "small") {
+        currentLineKeys.push("FLIP");
+        currentLineKeys.push("big");
+      } else if (handle === "greater") {
+        currentLineKeys.push("FLIP");
+        currentLineKeys.push("les");
+      } else if (handle === "false") {
+        currentLineKeys.push("FLIP");
+        currentLineKeys.push("tru");
+      } else if (w === "left") {
+        currentLineKeys.push("FLIP");
+        currentLineKeys.push("right");
+      } else if (w === "below") {
+        currentLineKeys.push("FLIP");
+        currentLineKeys.push("above");
+      } else if (w === "outside" || w === "out") {
+        currentLineKeys.push("FLIP");
+        currentLineKeys.push("in");
+      } else if (w === "after") {
+        currentLineKeys.push("FLIP");
+        currentLineKeys.push("before");
+      } else {
+        if (currentLineKeys.length > 0 && !["FLIP", "INDENT", "OUTDENT", "DOWN"].includes(handle)) {
+          currentLineKeys.push("SPACE");
+        }
+        currentLineKeys.push(handle);
+      }
+    }
+    
+    if (currentLineKeys.length > 0) {
+      lineBuilders.push({ indent: currentIndent, keys: [...currentLineKeys] });
+    }
+    
+    if (lineBuilders.length === 0) return null;
+    
+    let targetKeys = [];
+    let lastIndent = 0;
+    
+    lineBuilders.forEach((line, idx) => {
+      if (idx > 0) {
+        const diff = line.indent - lastIndent;
+        if (diff > 0) {
+          for (let d = 0; d < diff; d++) targetKeys.push("INDENT");
+        } else if (diff < 0) {
+          for (let d = 0; d < Math.abs(diff); d++) targetKeys.push("OUTDENT");
+        }
+        targetKeys.push("DOWN");
+        lastIndent = line.indent;
+      }
+      targetKeys.push(...line.keys);
+    });
+    
+    const validatorFn = (out) => {
+      const lines = Array.from(out.querySelectorAll('.line'));
+      if (lines.length !== lineBuilders.length) return false;
+      
+      for (let i = 0; i < lineBuilders.length; i++) {
+        const lineEl = lines[i];
+        const targetLine = lineBuilders[i];
+        
+        if (parseInt(lineEl.getAttribute('data-indent') || '0', 10) !== targetLine.indent) return false;
+        
+        const elements = Array.from(lineEl.children).filter(el => el.id !== 'cursor');
+        let elementIdx = 0;
+        
+        for (let k = 0; k < targetLine.keys.length; k++) {
+          const expected = targetLine.keys[k];
+          if (expected === "SPACE") {
+            if (elementIdx >= elements.length || elements[elementIdx].className !== 'spacer') return false;
+          } else if (expected === "FLIP") {
+            const nextExpected = targetLine.keys[k+1];
+            k++;
+            if (elementIdx >= elements.length) return false;
+            const el = elements[elementIdx];
+            if (el.getAttribute('data-handle') !== nextExpected || el.getAttribute('data-flipped') !== 'true') return false;
+          } else {
+            if (elementIdx >= elements.length) return false;
+            const el = elements[elementIdx];
+            if (el.getAttribute('data-handle') !== expected) return false;
+          }
+          elementIdx++;
+        }
+        
+        if (elementIdx !== elements.length) return false;
+      }
+      return true;
+    };
+    
+    return {
+      targetKeys: targetKeys,
+      validate: validatorFn,
+      instructions: `Heuristic Translation: <strong>"${sentence}"</strong>.`,
+      hint: `Type the cascading semantic tree: ${targetKeys.filter(k => !["FLIP", "INDENT", "OUTDENT", "DOWN"].includes(k)).join(" -> ").toUpperCase()}`
+    };
+  }
+
+  // Spellcheck & Sandbox Custom Phrase Parser
+  const spellInput = document.getElementById('spellcheckInput');
+  const spellBtn = document.getElementById('spellcheckBtn');
+
+  function handleSpellcheck() {
+    const text = spellInput.value.trim().toLowerCase();
+    if (!text) return;
+
+    const config = translateEnglishToAlan(text);
+
+    if (config) {
+      sandboxConfig = config;
+      
+      // Setup Custom Sandbox Lesson
+      lessonInstructionsEl.innerHTML = sandboxConfig.instructions;
+      lessonHintEl.innerHTML = sandboxConfig.hint;
+      
+      // Display guidance panel
+      guidancePanel.style.display = 'block';
+      resetWorkspace();
+    }
+  }
+
+  spellBtn.addEventListener('click', handleSpellcheck);
+  spellInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') handleSpellcheck();
+  });
+
+
+  // BIND KEY CLICKS TO BOTH WRAPPERS AND RAW DPAD KEYS
+  const keys = document.querySelectorAll('.key-wrap, .compass-cross .key');
+
+  keys.forEach(key => {
+    key.addEventListener('click', (e) => {
+      const action = key.getAttribute('data-action');
+      const handle = key.getAttribute('data-handle');
+      
+      const l = sandboxConfig;
+      const target = l ? l.targetKeys[currentStep] : null;
+
+      let pressedId = action || handle;
+
+      // IF IN GUIDED MODE, ENFORCE STRICT CHARACTER-BY-CHARACTER MATCHING!
+      if (l) {
+        if (pressedId === target) {
+          currentStep++;
+        } else if (pressedId === 'BACK') {
+          // Allow Backspace to undo a step
+          currentStep = Math.max(currentStep - 1, 0);
+        } else {
+          // STRICT KEY-MATCH ENFORCED: Block any wrong keystroke!
+          return;
+        }
+      }
+
+      if (action === 'FLIP') {
+        isFlipped = !isFlipped;
+        document.querySelectorAll('.split-keyboard').forEach(el => el.classList.toggle('flipped', isFlipped));
+        document.querySelectorAll('.key-wrap[data-action="FLIP"]').forEach(el => el.classList.toggle('active', isFlipped));
+        highlightNextKey();
+        updateChecklist();
+        return;
+      }
+
+      if (action === 'INDENT') {
+        currentIndent = Math.min(currentIndent + 1, 4);
+        activeLine.setAttribute('data-indent', currentIndent);
+        activeLine.style.paddingLeft = `${currentIndent * 40}px`;
+        highlightNextKey();
+        updateChecklist();
+        checkLessonProgress();
+        return;
+      }
+
+      if (action === 'OUTDENT') {
+        currentIndent = Math.max(currentIndent - 1, 0);
+        activeLine.setAttribute('data-indent', currentIndent);
+        activeLine.style.paddingLeft = `${currentIndent * 40}px`;
+        highlightNextKey();
+        updateChecklist();
+        checkLessonProgress();
+        return;
+      }
+
+      if (action === 'DOWN') {
+        const newLine = document.createElement('div');
+        newLine.className = 'line';
+        newLine.setAttribute('data-indent', currentIndent);
+        newLine.style.paddingLeft = `${currentIndent * 40}px`;
+        
+        cursor.remove();
+        newLine.appendChild(cursor);
+        
+        output.appendChild(newLine);
+        activeLine = newLine;
+        output.scrollTop = output.scrollHeight;
+        highlightNextKey();
+        updateChecklist();
+        checkLessonProgress();
+        return;
+      }
+
+      if (action === 'SPACE') {
+        const spacer = document.createElement('div');
+        spacer.className = 'spacer';
+        activeLine.insertBefore(spacer, cursor);
+        highlightNextKey();
+        updateChecklist();
+        checkLessonProgress();
+        return;
+      }
+
+      if (action === 'BACK') {
+        const prev = cursor.previousElementSibling;
+        if (prev) {
+          prev.remove();
+        } else {
+          const prevLine = activeLine.previousElementSibling;
+          if (prevLine) {
+            cursor.remove();
+            prevLine.appendChild(cursor);
+            activeLine.remove();
+            activeLine = prevLine;
+            currentIndent = parseInt(activeLine.getAttribute('data-indent') || '0', 10);
+            output.scrollTop = output.scrollHeight;
+          }
+        }
+        highlightNextKey();
+        updateChecklist();
+        checkLessonProgress();
+        return;
+      }
+
+      // Default: typing a symbol
+      let clone = null;
+      let flipType = 'above';
+
+      // Resolve the SVG template for our direction macros typed from the D-Pad Compass Key
+      if (pressedId === 'above') {
+        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,12 12,8 16,12" stroke-width="2" /><line x1="12" y1="8" x2="12" y2="16" stroke-width="2" /><polygon points="12,1 13,3 15,4 13,5 12,7 11,5 9,4 11,3" fill="#e2e8f0" stroke="none" /></svg>`;
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(svgTemplate, 'text/html');
+        clone = doc.body.firstChild.cloneNode(true);
+        flipType = 'below';
+      } else if (pressedId === 'below') {
+        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,12 12,8 16,12" stroke-width="2" /><line x1="12" y1="8" x2="12" y2="16" stroke-width="2" /><polygon points="12,1 13,3 15,4 13,5 12,7 11,5 9,4 11,3" fill="#e2e8f0" stroke="none" /></svg>`;
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(svgTemplate, 'text/html');
+        clone = doc.body.firstChild.cloneNode(true);
+        isFlipped = true; // For below, we force-flip it so the star sits underneath!
+        flipType = 'below';
+      } else if (pressedId === 'right') {
+        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="4" y1="2" x2="4" y2="22" stroke-width="2" /><polyline points="12,8 16,12 12,16" stroke-width="2" /><line x1="8" y1="12" x2="16" y2="12" stroke-width="2" /><polygon points="20,9 21,11 23,12 21,13 20,15 19,13 17,12 19,11" fill="#e2e8f0" stroke="none" /></svg>`;
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(svgTemplate, 'text/html');
+        clone = doc.body.firstChild.cloneNode(true);
+        flipType = 'left';
+      } else if (pressedId === 'left') {
+        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="4" y1="2" x2="4" y2="22" stroke-width="2" /><polyline points="12,8 16,12 12,16" stroke-width="2" /><line x1="8" y1="12" x2="16" y2="12" stroke-width="2" /><polygon points="20,9 21,11 23,12 21,13 20,15 19,13 17,12 19,11" fill="#e2e8f0" stroke="none" /></svg>`;
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(svgTemplate, 'text/html');
+        clone = doc.body.firstChild.cloneNode(true);
+        isFlipped = true; // For left, we force-flip it so the star sits to its left!
+        flipType = 'left';
+      } else if (pressedId === 'in') {
+        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><rect x="4" y="6" width="16" height="16" /><polygon points="12,11 13,13 15,14 13,15 12,17 11,15 9,14 11,13" fill="#e2e8f0" stroke="none" /></svg>`;
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(svgTemplate, 'text/html');
+        clone = doc.body.firstChild.cloneNode(true);
+        flipType = 'above';
+      } else {
+        // Standard keys find SVG nested inside key-wrap
+        const svg = key.querySelector('svg');
+        if (svg) {
+          clone = svg.cloneNode(true);
+          flipType = key.getAttribute('data-flip') || 'above';
+        }
+      }
+
+      if (clone) {
+        // Dynamically add the glowing diacritical star above, below, or to the left of the typed symbol when flipped!
+        if (isFlipped && flipType) {
+          clone.setAttribute('data-flipped', 'true');
+          
+          // Append the correct diacritical star vector based on layout direction!
+          if (flipType === 'above') {
+            // Inverted 5-pointed Pentagram Star (Zone 2)
+            const star = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+            star.setAttribute("fill", "currentColor");
+            star.setAttribute("stroke", "none");
+            star.setAttribute("points", "9,1 12,2.2 15,1 13.8,2.4 16,3.2 13.5,3.8 12,5.5 10.5,3.8 8,3.2 10.2,2.4");
+            clone.appendChild(star);
+          } else if (flipType === 'below') {
+            // Inverted 5-pointed Pentagram Star (Zone 1 Bottom)
+            const star = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+            star.setAttribute("fill", "currentColor");
+            star.setAttribute("stroke", "none");
+            star.setAttribute("points", "9,18.5 12,19.7 15,18.5 13.8,19.9 16,20.7 13.5,21.3 12,23.0 10.5,21.3 8,20.7 10.2,19.9");
+            clone.appendChild(star);
+          } else if (flipType === 'left') {
+            // Sharp 4-pointed Compass Star (Zone 1 Left)
+            const star = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+            star.setAttribute("fill", "currentColor");
+            star.setAttribute("stroke", "none");
+            star.setAttribute("points", "4,8 5,11 8,12 5,13 4,16 3,13 0,12 3,11");
+            clone.appendChild(star);
+          }
+        }
+        if (targetHandle) {
+          clone.setAttribute('data-handle', targetHandle);
+        }
+        
+        activeLine.insertBefore(clone, cursor);
+        
+        // Auto reset flip after typing
+        isFlipped = false;
+        document.querySelectorAll('.split-keyboard').forEach(el => el.classList.remove('flipped'));
+        document.querySelectorAll('.key-wrap[data-action="FLIP"]').forEach(el => el.classList.remove('active'));
+      }
+      
+      highlightNextKey();
+      updateChecklist();
+      checkLessonProgress();
+    });
+  });
+
+  resetWorkspace();
+</script>
+</body>
+</html>
+"""
+
+# Save as python wrapper to generate_practice.py
+with open('/Users/calexander/writing-system-for-ai/generate_practice.py', 'w') as f:
+    f.write('import os\n\nhtml_start = ' + repr(html_start) + '\n\nwith open(\'/Users/calexander/writing-system-for-ai/practice.html\', \'w\') as f:\n    f.write(html_start)\n\nprint("Practice sandbox compiled successfully!")\n')
+
+# Also write to practice.html directly
 with open('/Users/calexander/writing-system-for-ai/practice.html', 'w') as f:
     f.write(html_start)
 
-print("Practice sandbox compiled successfully!")
+print("Double-star keyboard and landing page written and compiled successfully!")
