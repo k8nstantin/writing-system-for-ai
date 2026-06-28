@@ -1173,9 +1173,11 @@ Hierarchy Dependency Map:
             } else if (pressedId === 'below') {
               star.setAttribute("points", "12,24 14,29 19,31 14,33 12,38 10,33 5,31 10,29");
             } else if (pressedId === 'left') {
-              star.setAttribute("points", "-1,6 1,10 4,12 1,14 -1,18 -2,14 -4,12 -2,10");
+              // High-resolution floating left star with clean 4-unit horizontal air gap
+              star.setAttribute("points", "-9,5 -7,10 -2,12 -7,14 -9,19 -11,14 -16,12 -11,10");
             } else if (pressedId === 'right') {
-              star.setAttribute("points", "20,7 21,10 23,12 21,14 20,17 19,14 17,12 19,10");
+              // High-resolution floating right star with clean 4-unit horizontal air gap
+              star.setAttribute("points", "31,5 33,10 38,12 33,14 31,19 29,14 26,12 29,10");
             }
             lastSvg.appendChild(star);
           }
@@ -1209,9 +1211,9 @@ Hierarchy Dependency Map:
             } else if (pressedId === 'below') {
               star.setAttribute("points", "12,24 14,29 19,31 14,33 12,38 10,33 5,31 10,29");
             } else if (pressedId === 'left') {
-              star.setAttribute("points", "-1,6 1,10 4,12 1,14 -1,18 -2,14 -4,12 -2,10");
+              star.setAttribute("points", "-9,5 -7,10 -2,12 -7,14 -9,19 -11,14 -16,12 -11,10");
             } else if (pressedId === 'right') {
-              star.setAttribute("points", "20,7 21,10 23,12 21,14 20,17 19,14 17,12 19,10");
+              star.setAttribute("points", "31,5 33,10 38,12 33,14 31,19 29,14 26,12 29,10");
             }
             clone.appendChild(star);
           }
