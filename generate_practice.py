@@ -1,9 +1,11 @@
-<!DOCTYPE html>
+import os
+
+html_start = """<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alan Universal Writing System - Interactive Tutorial</title>
+<title>Alan Universal Writing System - Live Practice</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   body {
@@ -52,8 +54,90 @@
     border-color: #7fcf9f;
   }
 
-  /* Tutorial Panel */
-  .tutorial-panel {
+  /* Two Identical Large Boxes styled exactly like Output Display */
+  .box-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 850px;
+    margin-bottom: 25px;
+    box-sizing: border-box;
+  }
+
+  /* English Input Box */
+  .english-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 140px;
+    max-height: 200px;
+    background: #090c11;
+    border: 1px solid #2b3340;
+    border-radius: 12px;
+    padding: 15px;
+    box-sizing: border-box;
+    box-shadow: inset 0 4px 15px rgba(0,0,0,0.6);
+  }
+
+  .english-box textarea {
+    flex-grow: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px;
+    resize: none;
+    height: 100%;
+    min-height: 110px;
+    box-sizing: border-box;
+    line-height: 1.6;
+  }
+
+  /* Redesigned Translate Button in Pure Alan (using sai / say communication symbol) */
+  .translate-btn {
+    background: #48b5c4;
+    color: #0b0e13;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-left: 15px;
+    transition: all 0.2s ease;
+  }
+  .translate-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(72,181,196,0.4);
+  }
+
+  /* Alan Output Display Box (Identical Styling to English Input Box) */
+  .output-display {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    min-height: 140px;
+    max-height: 200px;
+    overflow-y: auto;
+    width: 100%;
+    background: #090c11;
+    border: 1px solid #2b3340;
+    border-radius: 12px;
+    padding: 15px;
+    box-sizing: border-box;
+    box-shadow: inset 0 4px 15px rgba(0,0,0,0.6);
+  }
+
+  /* Symmetrical Guidance Display */
+  .guidance-panel {
+    display: none;
     background: #161b24;
     border: 1px solid #2b3340;
     border-radius: 12px;
@@ -62,71 +146,12 @@
     padding: 20px;
     margin-bottom: 20px;
     box-sizing: border-box;
-    position: relative;
     box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    animation: slide-down 0.3s ease;
   }
-
-  .lesson-title {
-    color: #ffd166;
-    font-size: 18px;
-    font-weight: bold;
-    margin-top: 0;
-    margin-bottom: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .lesson-progress {
-    font-size: 12px;
-    color: #8aa6d4;
-    background: #0f131a;
-    padding: 4px 10px;
-    border-radius: 20px;
-    border: 1px solid #2b3340;
-  }
-
-  .lesson-tabs {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #2b3340;
-    padding-bottom: 10px;
-    flex-wrap: wrap;
-  }
-  .tab-btn {
-    background: #0f131a;
-    color: #8aa6d4;
-    border: 1px solid #2b3340;
-    padding: 6px 14px;
-    border-radius: 6px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  .tab-btn:hover {
-    color: #fff;
-    border-color: #48b5c4;
-  }
-  .tab-btn.active {
-    background: #48b5c4;
-    color: #0b0e13;
-    border-color: #48b5c4;
-    font-weight: bold;
-  }
-
-  .target-phrase-box {
-    background: rgba(255, 209, 102, 0.08);
-    border: 1px solid rgba(255, 209, 102, 0.2);
-    border-radius: 6px;
-    padding: 10px 15px;
-    margin-bottom: 15px;
-    font-size: 15px;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  @keyframes slide-down {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   .instructions {
@@ -152,17 +177,12 @@
     padding: 12px 15px;
     background: rgba(127, 207, 159, 0.12);
     border-left: 4px solid #7fcf9f;
-    border-radius: 0 8px 8px 0;
+    border-radius: 4px;
     color: #a6f2be;
     font-size: 14px;
     margin-bottom: 15px;
     align-items: center;
     justify-content: space-between;
-    animation: slide-down 0.3s ease;
-  }
-  @keyframes slide-down {
-    from { opacity: 0; transform: translateY(-5px); }
-    to { opacity: 1; transform: translateY(0); }
   }
 
   .btn-next {
@@ -176,33 +196,9 @@
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    gap: 6px;
   }
   .btn-next:hover {
     transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(127,207,159,0.3);
-  }
-
-  /* Output Display */
-  .output-display {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: flex-start;
-    min-height: 140px;
-    max-height: 200px;
-    overflow-y: auto;
-    width: 100%;
-    max-width: 850px;
-    padding: 15px;
-    box-shadow: inset 0 4px 15px rgba(0,0,0,0.6);
-    background: #090c11;
-    border: 1px solid #2b3340;
-    border-radius: 12px;
-    margin-bottom: 20px;
-    box-sizing: border-box;
   }
 
   .line {
@@ -384,44 +380,48 @@
 <div class="header">
   <h1>
     <span style="display:inline-block; position:relative; width:1.1em; height:1.1em; vertical-align:-0.2em;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position:absolute; top:0; left:0; width:100%; height:100%;"><polygon points="12,2 22,9 18,20 6,20 2,9" /></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position:absolute; top:0; left:0; width:100%; height:100%; transform:scale(0.5); transform-origin: center;"><rect x="9" y="8" width="6" height="8" fill="currentColor" /></svg></span>
-    Alan: Interactive Tutorial
+    Alan: Live Practice
   </h1>
-  <a href="keyboard_prototype.html">Back to Keyboard Sandbox &rarr;</a>
+  <div style="display:flex; gap:15px;">
+    <a href="tutorial.html">Switch to Tutorial App &rarr;</a>
+    <a href="keyboard_prototype.html">Back to Sandbox &rarr;</a>
+  </div>
 </div>
 
-<div class="tutorial-panel">
-  <div class="lesson-title">
-    <span id="lessonTitle">Lesson 1: The Self &amp; Thought</span>
-    <span class="lesson-progress" id="lessonProgress">Rung 1/6</span>
+<div class="box-container">
+  <!-- Box 1: English Input Display (Identical styling to output display) -->
+  <div class="english-box">
+    <textarea id="spellcheckInput" placeholder="Type or paste your English sentence here... (e.g., 'update customer 756 set balance to 5000')"></textarea>
+    
+    <!-- Redesigned Translate Button in Pure Alan (using sai / say communication symbol) -->
+    <button class="translate-btn" id="spellcheckBtn" title="Translate &amp; Verify (Alan say symbol)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#0b0e13" stroke-width="3.5" style="width: 22px; height: 22px;"><polygon points="8,4 8,20 20,12" /></svg>
+    </button>
   </div>
 
-  <div class="lesson-tabs" id="lessonTabs"></div>
+  <!-- Box 2: Alan Output Display (Identical styling to English box) -->
+  <div class="output-display" id="output">
+    <div class="line" data-indent="0">
+      <div class="cursor" id="cursor"></div>
+    </div>
+  </div>
+</div>
 
-  <!-- Symmetrical Warm Gold Target Box -->
-  <div class="target-phrase-box">
-    <span style="font-size: 11px; text-transform: uppercase; color: #ffd166; background: rgba(255,209,102,0.15); padding: 2px 6px; border-radius: 4px; font-weight: bold;">English Target:</span>
-    <strong id="lessonTargetPhrase" style="font-size: 16px; color: #fff;">"I think"</strong>
+<!-- Symmetrical Guidance Box -->
+<div class="guidance-panel" id="guidancePanel">
+  <div class="success-banner" id="successBanner">
+    <span>✓ Perfect representation! Feel free to play around, or type a new sentence above.</span>
+    <button class="btn-next" id="btnReset">Reset Output</button>
   </div>
 
   <div class="instructions" id="lessonInstructions">
-    In Alan, diamonds represent mental states, and circles represent entities. Let's write the core thought: <strong>"I think"</strong>.
-  </div>
-
-  <div class="success-banner" id="successBanner">
-    <span>✓ Perfect representation! Feel free to play around, or click "Next Lesson" when you are ready.</span>
-    <button class="btn-next" id="btnNext">Next Lesson &rarr;</button>
+    Heuristic Translation loaded successfully! Let's type it using the split-keyboard below.
   </div>
 
   <div class="checklist" id="checklist" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; font-size: 13px; color: #8aa6d4;"></div>
 
   <div class="hint-box" id="lessonHint">
-    Hint: Press the purple Diamond key (think), then SPACE on your left thumb, then the green Circle-with-Dot key (me).
-  </div>
-</div>
-
-<div class="output-display" id="output">
-  <div class="line" data-indent="0">
-    <div class="cursor" id="cursor"></div>
+    Hint: Follow the flashing keys on the keyboard to map your English sentence to Alan's vertical cascades!
   </div>
 </div>
 
@@ -551,166 +551,18 @@
   let isFlipped = false;
 
   const successBanner = document.getElementById('successBanner');
-  const btnNext = document.getElementById('btnNext');
+  const btnReset = document.getElementById('btnReset');
+  const guidancePanel = document.getElementById('guidancePanel');
 
-  const lessonTitleEl = document.getElementById('lessonTitle');
-  const lessonProgressEl = document.getElementById('lessonProgress');
   const lessonInstructionsEl = document.getElementById('lessonInstructions');
   const lessonHintEl = document.getElementById('lessonHint');
   const lessonTargetPhraseEl = document.getElementById('lessonTargetPhrase');
+  const checklistEl = document.getElementById('checklist');
 
-  const lessons = [
-    {
-      title: "Lesson 1: The Self & Thought",
-      progress: "Rung 1/6",
-      targetPhrase: "I think",
-      instructions: "In Alan, diamonds represent mental states, and circles represent entities. Let's write the core semantic thought: <strong>'I think'</strong>.",
-      hint: "Press the purple Diamond key (think), then SPACE on your left thumb, then the green Circle-with-Dot key (me).",
-      targetKeys: ["think", "SPACE", "me"],
-      validate: (line) => {
-        const elements = Array.from(line.children).filter(el => el.id !== 'cursor');
-        if (elements.length !== 3) return false;
-        return elements[0].getAttribute('data-handle') === 'think' &&
-               elements[1].className === 'spacer' &&
-               elements[2].getAttribute('data-handle') === 'me';
-      }
-    },
-    {
-      title: "Lesson 2: Matter & Anti-Matter (Flipping Opposites)",
-      progress: "Rung 2/6",
-      targetPhrase: "I live, I die",
-      instructions: "We don't need separate keys for semantic opposites. We vertically or horizontally reflect existing ones! Let's write: <strong>'live'</strong>, then step-down, then use the <strong>ANTI</strong> modifier to type <strong>'die'</strong>.",
-      hint: "Press 'live'. Press STEP-DOWN on your right thumb. Press ANTI on your left thumb. Now press the inverted 'die' key (which was 'live')!",
-      targetKeys: ["liv", "DOWN", "FLIP", "liv"],
-      validate: (out) => {
-        const lines = Array.from(out.querySelectorAll('.line'));
-        if (lines.length < 2) return false;
-        
-        const l0_el = Array.from(lines[0].children).filter(el => el.id !== 'cursor');
-        const hasLiv = l0_el.length === 1 && l0_el[0].getAttribute('data-handle') === 'liv';
-        
-        const l1_el = Array.from(lines[1].children).filter(el => el.id !== 'cursor');
-        const hasDie = l1_el.length === 1 && l1_el[0].getAttribute('data-flipped') === 'true' && l1_el[0].getAttribute('data-handle') === 'liv';
-        
-        return hasLiv && hasDie;
-      }
-    },
-    {
-      title: "Lesson 3: The Cascading Step-Ladder",
-      progress: "Rung 3/6",
-      targetPhrase: "I want you",
-      instructions: "In Alan, we write in steps (right, then down) to build a logical tree. Let's write the cascade: <strong>'I want you'</strong>. Indent to nest the receiver ('you') under the action ('want').",
-      hint: "Press 'want'. Press STEP-RIGHT (Indent) on your left thumb. Press STEP-DOWN to start the nested line, then type 'you'!",
-      targetKeys: ["want", "INDENT", "DOWN", "you"],
-      validate: (out) => {
-        const lines = Array.from(out.querySelectorAll('.line'));
-        if (lines.length < 2) return false;
-        
-        const l0_el = Array.from(lines[0].children).filter(el => el.id !== 'cursor');
-        const hasWant = l0_el.length === 1 && l0_el[0].getAttribute('data-handle') === 'want';
-        const l0_ind = parseInt(lines[0].getAttribute('data-indent') || '0', 10) === 0;
-        
-        const l1_el = Array.from(lines[1].children).filter(el => el.id !== 'cursor');
-        const hasYou = l1_el.length === 1 && l1_el[0].getAttribute('data-handle') === 'you';
-        const l1_ind = parseInt(lines[1].getAttribute('data-indent') || '0', 10) === 1;
-        
-        return hasWant && l0_ind && hasYou && l1_ind;
-      }
-    },
-    {
-      title: "Lesson 4: Temporal Specification",
-      progress: "Rung 4/6",
-      targetPhrase: "I know now",
-      instructions: "Let's ground our thoughts in time. Primes like 'now' specify when an event or state occurs. Let's write the cascade: <strong>'I know now'</strong> by nesting 'now' under 'know'.",
-      hint: "Press 'know' (purple Diamond). Press STEP-RIGHT (Indent) on your left thumb, then STEP-DOWN, and press 'now' (cyan double vertical line).",
-      targetKeys: ["know", "INDENT", "DOWN", "now"],
-      validate: (out) => {
-        const lines = Array.from(out.querySelectorAll('.line'));
-        if (lines.length < 2) return false;
-        
-        const l0_el = Array.from(lines[0].children).filter(el => el.id !== 'cursor');
-        const hasKnow = l0_el.length === 1 && l0_el[0].getAttribute('data-handle') === 'know';
-        const l0_ind = parseInt(lines[0].getAttribute('data-indent') || '0', 10) === 0;
-        
-        const l1_el = Array.from(lines[1].children).filter(el => el.id !== 'cursor');
-        const hasNow = l1_el.length === 1 && l1_el[0].getAttribute('data-handle') === 'now';
-        const l1_ind = parseInt(lines[1].getAttribute('data-indent') || '0', 10) === 1;
-        
-        return hasKnow && l0_ind && hasNow && l1_ind;
-      }
-    },
-    {
-      title: "Lesson 5: Cause & Effect (Because)",
-      progress: "Rung 5/6",
-      targetPhrase: "I know because I see",
-      instructions: "Let's build a logical argument using the connective prime 'because' (bik). We'll write: <strong>'I know because I see'</strong>. Each logical step cascades deeper into the tree.",
-      hint: "Type 'know'. Press INDENT + STEP-DOWN and type 'because' (bik, the branch-like logic key). Then press INDENT + STEP-DOWN again and type 'see'!",
-      targetKeys: ["know", "INDENT", "DOWN", "bik", "INDENT", "DOWN", "see"],
-      validate: (out) => {
-        const lines = Array.from(out.querySelectorAll('.line'));
-        if (lines.length < 3) return false;
-        
-        const l0_el = Array.from(lines[0].children).filter(el => el.id !== 'cursor');
-        const hasKnow = l0_el.length === 1 && l0_el[0].getAttribute('data-handle') === 'know';
-        const l0_ind = parseInt(lines[0].getAttribute('data-indent') || '0', 10) === 0;
-        
-        const l1_el = Array.from(lines[1].children).filter(el => el.id !== 'cursor');
-        const hasBik = l1_el.length === 1 && l1_el[0].getAttribute('data-handle') === 'bik';
-        const l1_ind = parseInt(lines[1].getAttribute('data-indent') || '0', 10) === 1;
-
-        const l2_el = Array.from(lines[2].children).filter(el => el.id !== 'cursor');
-        const hasSee = l2_el.length === 1 && l2_el[0].getAttribute('data-handle') === 'see';
-        const l2_ind = parseInt(lines[2].getAttribute('data-indent') || '0', 10) === 2;
-        
-        return hasKnow && l0_ind && hasBik && l1_ind && hasSee && l2_ind;
-      }
-    },
-    {
-      title: "Lesson 6: Spatial Location (Move Here)",
-      progress: "Rung 6/6",
-      targetPhrase: "I move here",
-      instructions: "To specify where an action happens, we nest a spatial prime under it. Let's write the action: <strong>'I move here'</strong> by nesting 'place' under 'move'!",
-      hint: "Press 'move' (orange double arrow). Press INDENT + STEP-DOWN on your thumbs, then press 'place' (blue vertical line with center dot).",
-      targetKeys: ["mov", "INDENT", "DOWN", "place"],
-      validate: (out) => {
-        const lines = Array.from(out.querySelectorAll('.line'));
-        if (lines.length < 2) return false;
-        
-        const l0_el = Array.from(lines[0].children).filter(el => el.id !== 'cursor');
-        const hasMov = l0_el.length === 1 && l0_el[0].getAttribute('data-handle') === 'mov';
-        const l0_ind = parseInt(lines[0].getAttribute('data-indent') || '0', 10) === 0;
-        
-        const l1_el = Array.from(lines[1].children).filter(el => el.id !== 'cursor');
-        const hasPlace = l1_el.length === 1 && l1_el[0].getAttribute('data-handle') === 'place';
-        const l1_ind = parseInt(lines[1].getAttribute('data-indent') || '0', 10) === 1;
-        
-        return hasMov && l0_ind && hasPlace && l1_ind;
-      }
-    }
-  ];
-
-  let currentLessonIdx = 0;
   let currentStep = 0;
-
-  function loadLesson(idx) {
-    currentLessonIdx = idx;
-    const l = lessons[idx];
-    lessonTitleEl.textContent = l.title;
-    lessonProgressEl.textContent = l.progress;
-    lessonInstructionsEl.innerHTML = l.instructions;
-    lessonHintEl.innerHTML = l.hint;
-    lessonTargetPhraseEl.textContent = `"${l.targetPhrase}"`;
-    
-    // Update active tab button style
-    document.querySelectorAll('.tab-btn').forEach((btn, i) => {
-      btn.classList.toggle('active', i === idx);
-    });
-    
-    resetWorkspace();
-  }
+  let sandboxConfig = null;
 
   function resetWorkspace() {
-    // Clear Output Display
     output.innerHTML = '<div class="line" data-indent="0"><div class="cursor" id="cursor"></div></div>';
     activeLine = output.querySelector('.line');
     cursor = document.getElementById('cursor');
@@ -727,25 +579,14 @@
     updateChecklist();
   }
 
-  // Generate tab buttons dynamically based on lessons array
-  const tabsContainer = document.getElementById('lessonTabs');
-  tabsContainer.innerHTML = '';
-  lessons.forEach((l, idx) => {
-    const btn = document.createElement('button');
-    btn.className = `tab-btn ${idx === 0 ? 'active' : ''}`;
-    btn.id = `tab${idx}`;
-    btn.textContent = `Rung ${idx + 1}`;
-    btn.addEventListener('click', () => loadLesson(idx));
-    tabsContainer.appendChild(btn);
-  });
+  btnReset.addEventListener('click', resetWorkspace);
 
   function highlightNextKey() {
     document.querySelectorAll('.key').forEach(k => k.classList.remove('highlight'));
     
-    const l = lessons[currentLessonIdx];
-    if (!l || currentStep >= l.targetKeys.length) return;
+    if (!sandboxConfig || currentStep >= sandboxConfig.targetKeys.length) return;
     
-    const target = l.targetKeys[currentStep];
+    const target = sandboxConfig.targetKeys[currentStep];
     let keyEl = document.querySelector(`.key[data-action="${target}"]`) || 
                 document.querySelector(`.key[data-handle="${target}"]`);
                 
@@ -755,11 +596,13 @@
   }
 
   function updateChecklist() {
-    const l = lessons[currentLessonIdx];
-    const checklistEl = document.getElementById('checklist');
-    checklistEl.innerHTML = '';
+    if (!sandboxConfig) {
+      checklistEl.innerHTML = '';
+      return;
+    }
     
-    l.targetKeys.forEach((keyName, i) => {
+    checklistEl.innerHTML = '';
+    sandboxConfig.targetKeys.forEach((keyName, i) => {
       const item = document.createElement('div');
       item.style.display = 'flex';
       item.style.alignItems = 'center';
@@ -788,29 +631,191 @@
   }
 
   function checkLessonProgress() {
-    const l = lessons[currentLessonIdx];
-    const passed = l.validate(currentLessonIdx === 0 ? activeLine : output);
+    if (!sandboxConfig) return;
+    const passed = sandboxConfig.validate(output);
     
     if (passed) {
       document.querySelectorAll('.key').forEach(k => k.classList.remove('highlight'));
-      
-      // Update success banner next button label
-      if (currentLessonIdx === lessons.length - 1) {
-        btnNext.textContent = "Finish & Return";
-      } else {
-        btnNext.textContent = "Next Lesson ➔";
-      }
-      
       successBanner.style.display = 'flex';
     }
   }
 
-  btnNext.addEventListener('click', () => {
-    if (currentLessonIdx === lessons.length - 1) {
-      window.location.href = "keyboard_prototype.html";
+  // Universal Heuristic English NLP Parser
+  function translateEnglishToAlan(sentence) {
+    const raw = sentence.trim();
+    const text = raw.toLowerCase().replace(/[.,\\\\/#!$%\\\\^&\\\\*;:{}=\\\\-_`~()?]/g,"");
+    const words = text.split(/\\\\s+/);
+    
+    const map = {
+      "update": "do", "change": "do", "make": "do", "set": "is", "put": "is",
+      "customer": "someone", "user": "someone", "client": "someone", "employee": "someone",
+      "number": "something", "id": "something", "to": "eql", "equal": "eql", "balance": "something",
+      "value": "something", "account": "something"
+    };
+    
+    let currentLineKeys = [];
+    let lineBuilders = [];
+    let currentIndent = 0;
+    
+    for (let i = 0; i < words.length; i++) {
+      const w = words[i];
+      if (!w) continue;
+      
+      if (/^\\\\d+$/.test(w)) {
+        const digits = w.split('');
+        if (currentLineKeys.length > 0) {
+          currentLineKeys.push("SPACE");
+        }
+        digits.forEach((d) => {
+          currentLineKeys.push(d);
+        });
+        continue;
+      }
+      
+      let handle = map[w];
+      if (!handle) {
+        const standardMap = {
+          "i": "me", "me": "me", "my": "me", "you": "you", "your": "you",
+          "think": "think", "know": "know", "want": "want", "feel": "feel",
+          "see": "see", "hear": "hear", "do": "do", "move": "mov", "live": "liv",
+          "die": "die", "say": "sai", "now": "now", "before": "before", "after": "after",
+          "because": "bik", "place": "place", "here": "place", "not": "not", "dont": "not"
+        };
+        handle = standardMap[w];
+      }
+      
+      if (!handle) {
+        handle = "something";
+      }
+      
+      if (["is", "bik", "if", "eql"].includes(handle) || w === "set" || w === "update") {
+        if (currentLineKeys.length > 0) {
+          lineBuilders.push({ indent: currentIndent, keys: [...currentLineKeys] });
+          currentLineKeys = [];
+          currentIndent++;
+        }
+      }
+      
+      if (handle === "die") {
+        currentLineKeys.push("FLIP");
+        currentLineKeys.push("liv");
+      } else {
+        if (currentLineKeys.length > 0 && !["FLIP", "INDENT", "OUTDENT", "DOWN"].includes(handle)) {
+          currentLineKeys.push("SPACE");
+        }
+        currentLineKeys.push(handle);
+      }
+    }
+    
+    if (currentLineKeys.length > 0) {
+      lineBuilders.push({ indent: currentIndent, keys: [...currentLineKeys] });
+    }
+    
+    if (lineBuilders.length === 0) return null;
+    
+    let targetKeys = [];
+    let lastIndent = 0;
+    
+    lineBuilders.forEach((line, idx) => {
+      if (idx > 0) {
+        const diff = line.indent - lastIndent;
+        if (diff > 0) {
+          for (let d = 0; d < diff; d++) targetKeys.push("INDENT");
+        } else if (diff < 0) {
+          for (let d = 0; d < Math.abs(diff); d++) targetKeys.push("OUTDENT");
+        }
+        targetKeys.push("DOWN");
+        lastIndent = line.indent;
+      }
+      targetKeys.push(...line.keys);
+    });
+    
+    const validatorFn = (out) => {
+      const lines = Array.from(out.querySelectorAll('.line'));
+      if (lines.length !== lineBuilders.length) return false;
+      
+      for (let i = 0; i < lineBuilders.length; i++) {
+        const lineEl = lines[i];
+        const targetLine = lineBuilders[i];
+        
+        if (parseInt(lineEl.getAttribute('data-indent') || '0', 10) !== targetLine.indent) return false;
+        
+        const elements = Array.from(lineEl.children).filter(el => el.id !== 'cursor');
+        let elementIdx = 0;
+        
+        for (let k = 0; k < targetLine.keys.length; k++) {
+          const expected = targetLine.keys[k];
+          if (expected === "SPACE") {
+            if (elementIdx >= elements.length || elements[elementIdx].className !== 'spacer') return false;
+          } else if (expected === "FLIP") {
+            const nextExpected = targetLine.keys[k+1];
+            k++;
+            if (elementIdx >= elements.length) return false;
+            const el = elements[elementIdx];
+            if (el.getAttribute('data-handle') !== nextExpected || el.getAttribute('data-flipped') !== 'true') return false;
+          } else {
+            if (elementIdx >= elements.length) return false;
+            const el = elements[elementIdx];
+            if (el.getAttribute('data-handle') !== expected) return false;
+          }
+          elementIdx++;
+        }
+        
+        if (elementIdx !== elements.length) return false;
+      }
+      return true;
+    };
+    
+    return {
+      targetKeys: targetKeys,
+      validate: validatorFn,
+      instructions: `Heuristic Translation: <strong>"${sentence}"</strong>.`,
+      hint: `Type the cascading semantic tree: ${targetKeys.filter(k => !["FLIP", "INDENT", "OUTDENT", "DOWN"].includes(k)).join(" -> ").toUpperCase()}`
+    };
+  }
+
+  // Spellcheck & Sandbox Custom Phrase Parser
+  const spellInput = document.getElementById('spellcheckInput');
+  const spellBtn = document.getElementById('spellcheckBtn');
+  const spellFeedback = document.getElementById('spellcheckFeedback');
+  const sampleSelect = document.getElementById('samplePhrasesSelect');
+
+  function handleSpellcheck() {
+    const text = spellInput.value.trim().toLowerCase();
+    if (!text) return;
+
+    const config = translateEnglishToAlan(text);
+
+    if (config) {
+      sandboxConfig = config;
+      
+      // Setup Custom Sandbox Lesson
+      lessonInstructionsEl.innerHTML = sandboxConfig.instructions;
+      lessonHintEl.innerHTML = sandboxConfig.hint;
+      lessonTargetPhraseEl.textContent = `"${spellInput.value}"`;
+      
+      // Display guidance panel
+      guidancePanel.style.display = 'block';
+      
+      spellFeedback.style.color = '#7fcf9f';
+      spellFeedback.textContent = "✓ Phrase translated successfully! Sibling guides loaded below.";
+      resetWorkspace();
     } else {
-      currentLessonIdx++;
-      loadLesson(currentLessonIdx);
+      spellFeedback.style.color = '#f67280';
+      spellFeedback.textContent = "Could not parse phrase. Try standard words or integers.";
+    }
+  }
+
+  spellBtn.addEventListener('click', handleSpellcheck);
+  spellInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') handleSpellcheck();
+  });
+
+  sampleSelect.addEventListener('change', (e) => {
+    const val = e.target.value;
+    if (val) {
+      spellInput.value = val;
+      handleSpellcheck();
     }
   });
 
@@ -822,13 +827,13 @@
       const action = key.getAttribute('data-action');
       const handle = key.getAttribute('data-handle');
       
-      const l = lessons[currentLessonIdx];
-      const target = l.targetKeys[currentStep];
+      const l = sandboxConfig;
+      const target = l ? l.targetKeys[currentStep] : null;
 
       const pressedId = action || handle;
-      if (pressedId === target) {
+      if (l && pressedId === target) {
         currentStep++;
-      } else if (pressedId === 'BACK') {
+      } else if (l && pressedId === 'BACK') {
         currentStep = Math.max(currentStep - 1, 0);
       }
 
@@ -940,8 +945,13 @@
     });
   });
 
-  // Start tutorial
-  loadLesson(0);
+  resetWorkspace();
 </script>
 </body>
 </html>
+"""
+
+with open('/Users/calexander/writing-system-for-ai/practice.html', 'w') as f:
+    f.write(html_start)
+
+print("Practice sandbox generated successfully!")
