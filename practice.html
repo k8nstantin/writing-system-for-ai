@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+import os
+
+html_start = r"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -52,7 +54,7 @@
     border-color: #7fcf9f;
   }
 
-  /* Symmetrical Dual-Box Rows */
+  /* Two Identical Large Boxes styled exactly like Output Display */
   .box-container {
     display: flex;
     flex-direction: column;
@@ -84,9 +86,7 @@
   }
 
   .english-box textarea {
-    width: 100%;
-    height: 100%;
-    min-height: 110px;
+    flex-grow: 1;
     background: transparent;
     border: none;
     outline: none;
@@ -94,11 +94,13 @@
     font-family: 'JetBrains Mono', monospace;
     font-size: 15px;
     resize: none;
+    height: 100%;
+    min-height: 110px;
     box-sizing: border-box;
     line-height: 1.6;
   }
 
-  /* Standalone Translate Button in Pure Alan (using sai / say communication symbol) */
+  /* Redesigned Translate Button in Pure Alan (using sai / say communication symbol) */
   .translate-btn {
     background: #48b5c4;
     color: #0b0e13;
@@ -106,13 +108,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 54px;
-    height: 54px;
-    border-radius: 12px;
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
     cursor: pointer;
     flex-shrink: 0;
+    margin-left: 15px;
     transition: all 0.2s ease;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.3);
   }
   .translate-btn:hover {
     transform: scale(1.05);
@@ -121,7 +123,6 @@
 
   /* Alan Output Display Box (Identical Styling to English Input Box) */
   .output-display {
-    flex-grow: 1;
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -129,6 +130,7 @@
     min-height: 140px;
     max-height: 200px;
     overflow-y: auto;
+    width: 100%;
     background: #090c11;
     border: 1px solid #2b3340;
     border-radius: 12px;
@@ -346,28 +348,20 @@
     100% { transform: scale(1.05); background: #22384a; }
   }
 
-  /* Flippable Modifier Styles */
-  .flipped .key[data-flip="Y"] svg {
-    transform: scaleY(-1);
-    stroke: #ff8a6b !important;
+  /* Symmetrical Top, Bottom, and Left Bar Negation Modifier */
+  .anti-bar {
+    display: none;
+    opacity: 0;
   }
-  .flipped .key[data-flip="X"] svg {
-    transform: scaleX(-1);
-    stroke: #ff8a6b !important;
+  .flipped .key[data-flip] .anti-bar {
+    display: block !important;
+    opacity: 1 !important;
   }
+
   .key.modifier.active {
     background: #2b384a;
     box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);
     border-top-color: #a388ed !important;
-  }
-
-  svg.flipped-Y {
-    transform: scaleY(-1);
-    stroke: #ff8a6b !important;
-  }
-  svg.flipped-X {
-    transform: scaleX(-1);
-    stroke: #ff8a6b !important;
   }
 
   /* Responsive Design */
@@ -496,7 +490,7 @@
     <div class="row" style="padding-left: 30px;">
       <div class="key time" data-handle="time"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><line x1="12" y1="8" x2="12" y2="16" /></svg><span class="handle">time</span></div>
       <div class="key time" data-handle="now"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><line x1="12" y1="6" x2="12" y2="18" stroke-width="4" /></svg><span class="handle">now</span></div>
-      <div class="key time" data-handle="before" data-flip="X"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><line x1="12" y1="8" x2="12" y2="16" /><polyline points="10,12 6,12" /><polyline points="8,10 6,12 8,14" /></svg><span class="handle">before</span></div>
+      <div class="key time" data-handle="before" data-flip="left"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="8" y1="12" x2="24" y2="12" /><line x1="14" y1="8" x2="14" y2="16" /><polyline points="12,12 8,12" /><polyline points="10,10 8,12 10,14" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">before</span></div>
       <div class="key time" data-handle="long"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="4" y1="12" x2="20" y2="12" /><polyline points="6,9 2,12 6,15" /><polyline points="18,9 22,12 18,15" /></svg><span class="handle">long</span></div>
       <div class="key time" data-handle="moment"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="6" x2="12" y2="18" stroke-width="4" /></svg><span class="handle">moment</span></div>
     </div>
@@ -535,25 +529,25 @@
     <div class="row" style="padding-right: 20px;">
       <div class="key action" data-handle="do"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 2,20 22,20" /></svg><span class="handle">do</span></div>
       <div class="key action" data-handle="mov"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="4" y1="12" x2="20" y2="12" /><polyline points="10,6 4,12 10,18" /><polyline points="14,6 20,12 14,18" /></svg><span class="handle">move</span></div>
-      <div class="key action" data-handle="liv" data-flip="Y"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 2,20 22,20" /><circle cx="12" cy="14" r="2" fill="#e2e8f0"/></svg><span class="handle">live</span></div>
+      <div class="key action" data-handle="liv" data-flip="above"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,6 2,22 22,22" /><circle cx="12" cy="16" r="2" fill="#e2e8f0"/></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">live</span></div>
       <div class="key action" data-handle="sai"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="8,4 8,20 20,12" /></svg><span class="handle">say</span></div>
       <div class="key action" data-handle="wrd"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" /><line x1="8" y1="9" x2="16" y2="9" /><line x1="8" y1="12" x2="16" y2="12" /><line x1="8" y1="15" x2="12" y2="15" /></svg><span class="handle">words</span></div>
     </div>
     <!-- Row 3: Descriptors -->
     <div class="row" style="padding-right: 10px;">
-      <div class="key desc" data-handle="gud" data-flip="Y"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polyline points="8,14 12,9 16,14" /></svg><span class="handle">good</span></div>
-      <div class="key desc" data-handle="big" data-flip="Y"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polygon points="8,16 16,16 18,7 6,7" fill="#e2e8f0" /></svg><span class="handle">big</span></div>
-      <div class="key desc" data-handle="les" data-flip="X"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="15,5 9,12 15,19" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="handle">less</span></div>
-      <div class="key desc" data-handle="tru"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" fill="#e2e8f0" /></svg><span class="handle">true</span></div>
+      <div class="key desc" data-handle="gud" data-flip="above"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="6" width="16" height="16" /><polyline points="8,16 12,11 16,16" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">good</span></div>
+      <div class="key desc" data-handle="big" data-flip="above"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="6" width="16" height="16" /><polygon points="8,18 16,18 18,9 6,9" fill="#e2e8f0" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">big</span></div>
+      <div class="key desc" data-handle="les" data-flip="left"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="15,5 9,12 15,19" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">less</span></div>
+      <div class="key desc" data-handle="tru" data-flip="above"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="6" width="16" height="16" fill="#e2e8f0" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">true</span></div>
       <div class="key desc" data-handle="lik"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polyline points="8,13 12,8 16,13" /><polyline points="8,18 12,13 16,18" /></svg><span class="handle">like</span></div>
       <div class="key desc" data-handle="part"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="12" height="12" /><rect x="8" y="8" width="12" height="12" /></svg><span class="handle">part</span></div>
     </div>
     <!-- Row 4: Space -->
     <div class="row" style="padding-right: 30px;">
       <div class="key space" data-handle="place"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="20" x2="22" y2="20" /><line x1="12" y1="20" x2="12" y2="2" /><circle cx="12" cy="12" r="3" fill="#e2e8f0" /></svg><span class="handle">place</span></div>
-      <div class="key space" data-handle="above" data-flip="Y"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,10 12,4 16,10" /><line x1="12" y1="4" x2="12" y2="14" /></svg><span class="handle">above</span></div>
-      <div class="key space" data-handle="left" data-flip="X"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="2" x2="12" y2="22" /><rect x="4" y="8" width="6" height="8" fill="#e2e8f0" /></svg><span class="handle">left</span></div>
-      <div class="key space" data-handle="in"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><rect x="9" y="9" width="6" height="6" fill="#e2e8f0" /></svg><span class="handle">in</span></div>
+      <div class="key space" data-handle="above" data-flip="below"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,10 12,4 16,10" /><line x1="12" y1="4" x2="12" y2="14" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">above</span></div>
+      <div class="key space" data-handle="right" data-flip="left"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="2" x2="12" y2="22" /><rect x="14" y="8" width="6" height="8" fill="#e2e8f0" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">right</span></div>
+      <div class="key space" data-handle="in" data-flip="above"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="6" width="16" height="16" /><rect x="9" y="11" width="6" height="6" fill="#e2e8f0" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">in</span></div>
       <div class="key space" data-handle="out"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="8" width="14" height="14" /><rect x="16" y="2" width="6" height="6" fill="#e2e8f0" /></svg><span class="handle">out</span></div>
     </div>
     <!-- Right Thumb Cluster -->
@@ -713,9 +707,9 @@
           "see": "see", "hear": "hear", "do": "do", "move": "mov", "live": "liv",
           "die": "die", "say": "sai", "now": "now", "before": "before", "after": "after",
           "because": "bik", "place": "place", "here": "place", "not": "not", "dont": "not",
-          "false": "not", "no": "not", "incorrect": "not",
           "small": "small", "smaller": "small", "tiny": "small", "little": "small",
-          "less": "les", "fewer": "les", "greater": "greater", "larger": "greater"
+          "less": "les", "fewer": "les", "greater": "greater", "larger": "greater",
+          "false": "tru", "no": "not", "incorrect": "not"
         };
         handle = standardMap[w];
       }
@@ -741,6 +735,9 @@
       } else if (handle === "greater") {
         currentLineKeys.push("FLIP");
         currentLineKeys.push("les");
+      } else if (handle === "false") {
+        currentLineKeys.push("FLIP");
+        currentLineKeys.push("tru");
       } else {
         if (currentLineKeys.length > 0 && !["FLIP", "INDENT", "OUTDENT", "DOWN"].includes(handle)) {
           currentLineKeys.push("SPACE");
@@ -960,9 +957,24 @@
       if (svg) {
         const clone = svg.cloneNode(true);
         const flipType = key.getAttribute('data-flip');
+        
+        // Dynamically add the glowing diacritical star above, below, or to the left of the typed symbol when flipped!
         if (isFlipped && flipType) {
-          clone.classList.add(`flipped-${flipType}`);
           clone.setAttribute('data-flipped', 'true');
+          
+          // Append the correct diacritical star vector based on layout direction!
+          const star = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+          star.setAttribute("fill", "currentColor");
+          star.setAttribute("stroke", "none");
+          
+          if (flipType === 'above') {
+            star.setAttribute("points", "9,1 12,2.2 15,1 13.8,2.4 16,3.2 13.5,3.8 12,5.5 10.5,3.8 8,3.2 10.2,2.4");
+          } else if (flipType === 'below') {
+            star.setAttribute("points", "9,18.5 12,19.7 15,18.5 13.8,19.9 16,20.7 13.5,21.3 12,23.0 10.5,21.3 8,20.7 10.2,19.9");
+          } else if (flipType === 'left') {
+            star.setAttribute("points", "1,10 4,11.2 7,10 5.8,11.4 8,12.2 5.5,12.8 4,14.5 2.5,12.8 0,12.2 2.2,11.4");
+          }
+          clone.appendChild(star);
         }
         if (handle) {
           clone.setAttribute('data-handle', handle);
@@ -989,3 +1001,9 @@
 </script>
 </body>
 </html>
+"""
+
+with open('/Users/calexander/writing-system-for-ai/practice.html', 'w') as f:
+    f.write(html_start)
+
+print("Practice sandbox compiled successfully!")
