@@ -374,6 +374,18 @@ html_start = r"""<!DOCTYPE html>
       transform: scale(0.85);
     }
   }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+    font-size: 12px;
+    max-width: 800px;
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
 </style>
 </head>
 <body>
@@ -549,6 +561,17 @@ html_start = r"""<!DOCTYPE html>
     </div>
   </div>
 
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="dot" style="background: #e2e8f0;"></div> Numbers</div>
+  <div class="legend-item"><div class="dot" style="background: #7fcf9f;"></div> Entities (Substantives)</div>
+  <div class="legend-item"><div class="dot" style="background: #a388ed;"></div> Mental Predicates</div>
+  <div class="legend-item"><div class="dot" style="background: #ffd166;"></div> Logic &amp; Quantifiers</div>
+  <div class="legend-item"><div class="dot" style="background: #48b5c4;"></div> Time</div>
+  <div class="legend-item"><div class="dot" style="background: #ff8a6b;"></div> Actions (Events)</div>
+  <div class="legend-item"><div class="dot" style="background: #f67280;"></div> Descriptors</div>
+  <div class="legend-item"><div class="dot" style="background: #8aa6d4;"></div> Space</div>
 </div>
 
 <script>
