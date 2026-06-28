@@ -52,7 +52,7 @@
     border-color: #7fcf9f;
   }
 
-  /* Two Identical Large Boxes styled exactly like Output Display */
+  /* Symmetrical Dual-Box Rows */
   .box-container {
     display: flex;
     flex-direction: column;
@@ -63,12 +63,16 @@
     box-sizing: border-box;
   }
 
-  /* English Input Box */
-  .english-box {
+  .row-layout {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 15px;
     width: 100%;
+  }
+
+  /* English Input Box */
+  .english-box {
+    flex-grow: 1;
     min-height: 140px;
     max-height: 200px;
     background: #090c11;
@@ -80,7 +84,9 @@
   }
 
   .english-box textarea {
-    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+    min-height: 110px;
     background: transparent;
     border: none;
     outline: none;
@@ -88,13 +94,11 @@
     font-family: 'JetBrains Mono', monospace;
     font-size: 15px;
     resize: none;
-    height: 100%;
-    min-height: 110px;
     box-sizing: border-box;
     line-height: 1.6;
   }
 
-  /* Redesigned Translate Button in Pure Alan (using sai / say communication symbol) */
+  /* Standalone Translate Button in Pure Alan (using sai / say communication symbol) */
   .translate-btn {
     background: #48b5c4;
     color: #0b0e13;
@@ -102,13 +106,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 48px;
-    height: 48px;
-    border-radius: 8px;
+    width: 54px;
+    height: 54px;
+    border-radius: 12px;
     cursor: pointer;
     flex-shrink: 0;
-    margin-left: 15px;
     transition: all 0.2s ease;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.3);
   }
   .translate-btn:hover {
     transform: scale(1.05);
@@ -117,6 +121,7 @@
 
   /* Alan Output Display Box (Identical Styling to English Input Box) */
   .output-display {
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -124,7 +129,6 @@
     min-height: 140px;
     max-height: 200px;
     overflow-y: auto;
-    width: 100%;
     background: #090c11;
     border: 1px solid #2b3340;
     border-radius: 12px;
@@ -387,21 +391,28 @@
 </div>
 
 <div class="box-container">
-  <!-- Box 1: English Input Display (Identical styling to output display) -->
-  <div class="english-box">
-    <textarea id="spellcheckInput" placeholder="Type or paste your English sentence here... (e.g., 'update customer 756 set balance to 5000')"></textarea>
+  <!-- Row 1: English Input Display + Standalone Translate Button -->
+  <div class="row-layout">
+    <div class="english-box">
+      <textarea id="spellcheckInput" placeholder="Type or paste your English sentence here... (e.g., 'update customer 756 set balance to 5000')"></textarea>
+    </div>
     
-    <!-- Redesigned Translate Button in Pure Alan (using sai / say communication symbol) -->
+    <!-- Standalone Translate Button in Pure Alan (using sai / say communication symbol) -->
     <button class="translate-btn" id="spellcheckBtn" title="Translate &amp; Verify (Alan say symbol)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#0b0e13" stroke-width="3.5" style="width: 22px; height: 22px;"><polygon points="8,4 8,20 20,12" /></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="#0b0e13" stroke-width="3.5" style="width: 24px; height: 24px;"><polygon points="8,4 8,20 20,12" /></svg>
     </button>
   </div>
 
-  <!-- Box 2: Alan Output Display (Identical styling to English box) -->
-  <div class="output-display" id="output">
-    <div class="line" data-indent="0">
-      <div class="cursor" id="cursor"></div>
+  <!-- Row 2: Alan Output Display (Symmetrically aligned via blank spacer) -->
+  <div class="row-layout">
+    <div class="output-display" id="output">
+      <div class="line" data-indent="0">
+        <div class="cursor" id="cursor"></div>
+      </div>
     </div>
+    
+    <!-- Invisible spacer of identical size as Translate Button for perfect sub-pixel width symmetry -->
+    <div style="width: 54px; height: 54px; flex-shrink: 0;"></div>
   </div>
 </div>
 
@@ -467,13 +478,13 @@
       <div class="key entity" data-handle="people"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="7" r="1.5" fill="#e2e8f0"/><circle cx="8" cy="14" r="1.5" fill="#e2e8f0"/><circle cx="16" cy="14" r="1.5" fill="#e2e8f0"/></svg><span class="handle">people</span></div>
       <div class="key entity" data-handle="body"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" /><line x1="12" y1="2" x2="12" y2="22" /></svg><span class="handle">body</span></div>
     </div>
-    <!-- Row 4: Time -->
+    <!-- Row 4: Space -->
     <div class="row" style="padding-left: 30px;">
-      <div class="key time" data-handle="time"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><line x1="12" y1="8" x2="12" y2="16" /></svg></div>
-      <div class="key time" data-handle="now"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><line x1="12" y1="6" x2="12" y2="18" stroke-width="4" /></svg></div>
-      <div class="key time" data-handle="before" data-flip="X"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><line x1="12" y1="8" x2="12" y2="16" /><polyline points="10,12 6,12" /><polyline points="8,10 6,12 8,14" /></svg></div>
-      <div class="key time" data-handle="long"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="4" y1="12" x2="20" y2="12" /><polyline points="6,9 2,12 6,15" /><polyline points="18,9 22,12 18,15" /></svg></div>
-      <div class="key time" data-handle="moment"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="6" x2="12" y2="18" stroke-width="4" /></svg></div>
+      <div class="key space" data-handle="place"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="20" x2="22" y2="20" /><line x1="12" y1="20" x2="12" y2="2" /><circle cx="12" cy="12" r="3" fill="#e2e8f0" /></svg></div>
+      <div class="key space" data-handle="above" data-flip="Y"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,10 12,4 16,10" /><line x1="12" y1="4" x2="12" y2="14" /></svg></div>
+      <div class="key space" data-handle="left" data-flip="X"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="2" x2="12" y2="22" /><rect x="4" y="8" width="6" height="8" fill="#e2e8f0" /></svg></div>
+      <div class="key space" data-handle="in"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><rect x="9" y="9" width="6" height="6" fill="#e2e8f0" /></svg></div>
+      <div class="key space" data-handle="out"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="8" width="14" height="14" /><rect x="16" y="2" width="6" height="6" fill="#e2e8f0" /></svg></div>
     </div>
     <!-- Left Thumb Cluster -->
     <div class="thumb-cluster left">
@@ -554,7 +565,6 @@
 
   const lessonInstructionsEl = document.getElementById('lessonInstructions');
   const lessonHintEl = document.getElementById('lessonHint');
-  const lessonTargetPhraseEl = document.getElementById('lessonTargetPhrase');
   const checklistEl = document.getElementById('checklist');
 
   let currentStep = 0;
@@ -642,7 +652,7 @@
   function translateEnglishToAlan(sentence) {
     const raw = sentence.trim();
     const text = raw.toLowerCase().replace(/[.,\\/#!$%\\^&\\*;:{}=\\-_`~()?]/g,"");
-    const words = text.split(/\\s+/);
+    const words = text.split(/\s+/);
     
     const map = {
       "update": "do", "change": "do", "make": "do", "set": "is", "put": "is",
@@ -659,7 +669,7 @@
       const w = words[i];
       if (!w) continue;
       
-      if (/^\\d+$/.test(w)) {
+      if (/^\d+$/.test(w)) {
         const digits = w.split('');
         if (currentLineKeys.length > 0) {
           currentLineKeys.push("SPACE");
@@ -784,7 +794,6 @@
   const spellInput = document.getElementById('spellcheckInput');
   const spellBtn = document.getElementById('spellcheckBtn');
   const spellFeedback = document.getElementById('spellcheckFeedback');
-  const sampleSelect = document.getElementById('samplePhrasesSelect');
 
   function handleSpellcheck() {
     const text = spellInput.value.trim().toLowerCase();
@@ -798,7 +807,6 @@
       // Setup Custom Sandbox Lesson
       lessonInstructionsEl.innerHTML = sandboxConfig.instructions;
       lessonHintEl.innerHTML = sandboxConfig.hint;
-      lessonTargetPhraseEl.textContent = `"${spellInput.value}"`;
       
       // Display guidance panel
       guidancePanel.style.display = 'block';
@@ -808,21 +816,13 @@
       resetWorkspace();
     } else {
       spellFeedback.style.color = '#f67280';
-      spellFeedback.textContent = "Could not parse phrase. Try standard words or integers.";
+      spellFeedback.textContent = "Could not parse phrase. Try something like 'I want you', 'update customer 756 set balance to 5000', or 'I know now'.";
     }
   }
 
   spellBtn.addEventListener('click', handleSpellcheck);
   spellInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') handleSpellcheck();
-  });
-
-  sampleSelect.addEventListener('change', (e) => {
-    const val = e.target.value;
-    if (val) {
-      spellInput.value = val;
-      handleSpellcheck();
-    }
   });
 
 

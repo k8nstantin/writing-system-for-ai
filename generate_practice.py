@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+import os
+
+html_start = r"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -478,13 +480,13 @@
       <div class="key entity" data-handle="people"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="7" r="1.5" fill="#e2e8f0"/><circle cx="8" cy="14" r="1.5" fill="#e2e8f0"/><circle cx="16" cy="14" r="1.5" fill="#e2e8f0"/></svg><span class="handle">people</span></div>
       <div class="key entity" data-handle="body"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" /><line x1="12" y1="2" x2="12" y2="22" /></svg><span class="handle">body</span></div>
     </div>
-    <!-- Row 4: Time -->
+    <!-- Row 4: Space -->
     <div class="row" style="padding-left: 30px;">
-      <div class="key time" data-handle="time"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><line x1="12" y1="8" x2="12" y2="16" /></svg></div>
-      <div class="key time" data-handle="now"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><line x1="12" y1="6" x2="12" y2="18" stroke-width="4" /></svg></div>
-      <div class="key time" data-handle="before" data-flip="X"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><line x1="12" y1="8" x2="12" y2="16" /><polyline points="10,12 6,12" /><polyline points="8,10 6,12 8,14" /></svg></div>
-      <div class="key time" data-handle="long"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="4" y1="12" x2="20" y2="12" /><polyline points="6,9 2,12 6,15" /><polyline points="18,9 22,12 18,15" /></svg></div>
-      <div class="key time" data-handle="moment"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="6" x2="12" y2="18" stroke-width="4" /></svg></div>
+      <div class="key space" data-handle="place"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="20" x2="22" y2="20" /><line x1="12" y1="20" x2="12" y2="2" /><circle cx="12" cy="12" r="3" fill="#e2e8f0" /></svg></div>
+      <div class="key space" data-handle="above" data-flip="Y"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,10 12,4 16,10" /><line x1="12" y1="4" x2="12" y2="14" /></svg></div>
+      <div class="key space" data-handle="left" data-flip="X"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="2" x2="12" y2="22" /><rect x="4" y="8" width="6" height="8" fill="#e2e8f0" /></svg></div>
+      <div class="key space" data-handle="in"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><rect x="9" y="9" width="6" height="6" fill="#e2e8f0" /></svg></div>
+      <div class="key space" data-handle="out"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="8" width="14" height="14" /><rect x="16" y="2" width="6" height="6" fill="#e2e8f0" /></svg></div>
     </div>
     <!-- Left Thumb Cluster -->
     <div class="thumb-cluster left">
@@ -565,7 +567,6 @@
 
   const lessonInstructionsEl = document.getElementById('lessonInstructions');
   const lessonHintEl = document.getElementById('lessonHint');
-  const lessonTargetPhraseEl = document.getElementById('lessonTargetPhrase');
   const checklistEl = document.getElementById('checklist');
 
   let currentStep = 0;
@@ -653,7 +654,7 @@
   function translateEnglishToAlan(sentence) {
     const raw = sentence.trim();
     const text = raw.toLowerCase().replace(/[.,\\/#!$%\\^&\\*;:{}=\\-_`~()?]/g,"");
-    const words = text.split(/\\s+/);
+    const words = text.split(/\s+/);
     
     const map = {
       "update": "do", "change": "do", "make": "do", "set": "is", "put": "is",
@@ -670,7 +671,7 @@
       const w = words[i];
       if (!w) continue;
       
-      if (/^\\d+$/.test(w)) {
+      if (/^\d+$/.test(w)) {
         const digits = w.split('');
         if (currentLineKeys.length > 0) {
           currentLineKeys.push("SPACE");
@@ -817,7 +818,7 @@
       resetWorkspace();
     } else {
       spellFeedback.style.color = '#f67280';
-      spellFeedback.textContent = "Could not parse phrase. Try standard words or integers.";
+      spellFeedback.textContent = "Could not parse phrase. Try something like 'I want you', 'update customer 756 set balance to 5000', or 'I know now'.";
     }
   }
 
@@ -956,3 +957,9 @@
 </script>
 </body>
 </html>
+"""
+
+with open('/Users/calexander/writing-system-for-ai/practice.html', 'w') as f:
+    f.write(html_start)
+
+print("Practice sandbox generated successfully!")
