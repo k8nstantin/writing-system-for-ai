@@ -71,7 +71,7 @@
     font-size: 18px;
     font-weight: bold;
     margin-top: 0;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -84,6 +84,35 @@
     padding: 4px 10px;
     border-radius: 20px;
     border: 1px solid #2b3340;
+  }
+
+  .lesson-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #2b3340;
+    padding-bottom: 10px;
+  }
+  .tab-btn {
+    background: #0f131a;
+    color: #8aa6d4;
+    border: 1px solid #2b3340;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .tab-btn:hover {
+    color: #fff;
+    border-color: #48b5c4;
+  }
+  .tab-btn.active {
+    background: #48b5c4;
+    color: #0b0e13;
+    border-color: #48b5c4;
+    font-weight: bold;
   }
 
   .instructions {
@@ -362,9 +391,19 @@
     <span id="lessonTitle">Lesson 1: Mental States &amp; Entities</span>
     <span class="lesson-progress" id="lessonProgress">Rung 1/3</span>
   </div>
+
+  <div class="lesson-tabs">
+    <button class="tab-btn active" id="tab0">Rung 1</button>
+    <button class="tab-btn" id="tab1">Rung 2</button>
+    <button class="tab-btn" id="tab2">Rung 3</button>
+  </div>
+
   <div class="instructions" id="lessonInstructions">
     In Alan, diamonds represent mental states, and circles represent entities. Let's write the core semantic thought: <strong>"I think"</strong>.
   </div>
+
+  <div class="checklist" id="checklist" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; font-size: 13px; color: #8aa6d4;"></div>
+
   <div class="hint-box" id="lessonHint">
     Hint: Press the purple Diamond key (think), then SPACE on your left thumb, then the green Circle-with-Dot key (me).
   </div>
@@ -430,7 +469,7 @@
     </div>
     <!-- Left Thumb Cluster -->
     <div class="thumb-cluster left">
-      <div class="key wide modifier" data-action="FLIP" style="color: #ffd166; font-size: 16px; font-weight: bold;" title="Hold/Toggle to turn symbols into opposites (Anti-matter)">⇿ ANTI</div>
+      <div class="key wide modifier" data-action="FLIP" style="color: #ffd166; font-size: 16px; font-weight: bold;" title="Hold/Toggle to flip symbols to opposites">⇿ FLIP</div>
       <div class="key tall space" data-action="SPACE" title="Space (Horizontal Word Gap)"><svg viewBox="0 0 24 24" fill="none" stroke="#8aa6d4" stroke-width="2"><path d="M 4 8 V 16 H 20 V 8" stroke-width="3" /></svg></div>
       <div class="key tall action" data-action="INDENT" title="Step Right (Indent)"><svg viewBox="0 0 24 24" fill="none" stroke="#7fcf9f" stroke-width="2"><line x1="4" y1="12" x2="20" y2="12" stroke-width="3" /><polyline points="14,6 20,12 14,18" stroke-width="3" /></svg></div>
     </div>
@@ -521,19 +560,9 @@
       validate: (line) => {
         const elements = Array.from(line.children).filter(el => el.id !== 'cursor');
         if (elements.length !== 3) return false;
-        
-        // Element 0: think
-        const isThink = elements[0].tagName.toLowerCase() === 'svg' && 
-                        elements[0].parentNode.querySelector('.handle') && 
-                        elements[0].parentNode.querySelector('.handle').textContent === 'think';
-        // Element 1: spacer
-        const isSpacer = elements[1].className === 'spacer';
-        // Element 2: me
-        const isMe = elements[2].tagName.toLowerCase() === 'svg' && 
-                     elements[2].parentNode.querySelector('.handle') && 
-                     elements[2].parentNode.querySelector('.handle').textContent === 'me';
-                     
-        return isThink && isSpacer && isMe;
+        return elements[0].getAttribute('data-handle') === 'think' &&
+               elements[1].className === 'spacer' &&
+               elements[2].getAttribute('data-handle') === 'me';
       }
     },
     {
@@ -547,10 +576,10 @@
         if (lines.length < 2) return false;
         
         const l0_el = Array.from(lines[0].children).filter(el => el.id !== 'cursor');
-        const hasLiv = l0_el.length === 1 && l0_el[0].parentNode.querySelector('.handle').textContent === 'live';
+        const hasLiv = l0_el.length === 1 && l0_el[0].getAttribute('data-handle') === 'liv';
         
         const l1_el = Array.from(lines[1].children).filter(el => el.id !== 'cursor');
-        const hasDie = l1_el.length === 1 && l1_el[0].classList.contains('flipped-Y') && l1_el[0].parentNode.querySelector('.handle').textContent === 'live';
+        const hasDie = l1_el.length === 1 && l1_el[0].getAttribute('data-flipped') === 'true' && l1_el[0].getAttribute('data-handle') === 'liv';
         
         return hasLiv && hasDie;
       }
@@ -566,11 +595,11 @@
         if (lines.length < 2) return false;
         
         const l0_el = Array.from(lines[0].children).filter(el => el.id !== 'cursor');
-        const hasWant = l0_el.length === 1 && l0_el[0].parentNode.querySelector('.handle').textContent === 'want';
+        const hasWant = l0_el.length === 1 && l0_el[0].getAttribute('data-handle') === 'want';
         const l0_ind = parseInt(lines[0].getAttribute('data-indent') || '0', 10) === 0;
         
         const l1_el = Array.from(lines[1].children).filter(el => el.id !== 'cursor');
-        const hasYou = l1_el.length === 1 && l1_el[0].parentNode.querySelector('.handle').textContent === 'you';
+        const hasYou = l1_el.length === 1 && l1_el[0].getAttribute('data-handle') === 'you';
         const l1_ind = parseInt(lines[1].getAttribute('data-indent') || '0', 10) === 1;
         
         return hasWant && l0_ind && hasYou && l1_ind;
@@ -582,11 +611,17 @@
   let currentStep = 0;
 
   function loadLesson(idx) {
+    currentLessonIdx = idx;
     const l = lessons[idx];
     lessonTitleEl.textContent = l.title;
     lessonProgressEl.textContent = l.progress;
     lessonInstructionsEl.innerHTML = l.instructions;
     lessonHintEl.innerHTML = l.hint;
+    
+    // Update active tab button style
+    document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+      btn.classList.toggle('active', i === idx);
+    });
     
     // Clear Output Display
     output.innerHTML = '<div class="line" data-indent="0"><div class="cursor" id="cursor"></div></div>';
@@ -602,18 +637,21 @@
     
     successModal.classList.remove('active');
     highlightNextKey();
+    updateChecklist();
   }
 
+  // Bind tab buttons to load lesson
+  document.getElementById('tab0').addEventListener('click', () => loadLesson(0));
+  document.getElementById('tab1').addEventListener('click', () => loadLesson(1));
+  document.getElementById('tab2').addEventListener('click', () => loadLesson(2));
+
   function highlightNextKey() {
-    // Remove all highlights
     document.querySelectorAll('.key').forEach(k => k.classList.remove('highlight'));
     
     const l = lessons[currentLessonIdx];
     if (!l || currentStep >= l.targetKeys.length) return;
     
     const target = l.targetKeys[currentStep];
-    
-    // Try to find by action or handle
     let keyEl = document.querySelector(`.key[data-action="${target}"]`) || 
                 document.querySelector(`.key[data-handle="${target}"]`);
                 
@@ -622,9 +660,41 @@
     }
   }
 
+  function updateChecklist() {
+    const l = lessons[currentLessonIdx];
+    const checklistEl = document.getElementById('checklist');
+    checklistEl.innerHTML = '';
+    
+    l.targetKeys.forEach((keyName, i) => {
+      const item = document.createElement('div');
+      item.style.display = 'flex';
+      item.style.alignItems = 'center';
+      item.style.gap = '8px';
+      
+      const check = document.createElement('span');
+      check.innerHTML = i < currentStep ? '✓' : '○';
+      check.style.color = i < currentStep ? '#7fcf9f' : '#5d626c';
+      check.style.fontWeight = 'bold';
+      
+      const text = document.createElement('span');
+      // Beautify key names for checklist
+      let displayKeyName = keyName;
+      if (keyName === 'liv') displayKeyName = isFlipped ? 'die (flipped live)' : 'live';
+      if (keyName === 'want') displayKeyName = 'want';
+      if (keyName === 'think') displayKeyName = 'think';
+      
+      text.textContent = `Step ${i+1}: press ${displayKeyName.toUpperCase()}`;
+      text.style.color = i < currentStep ? '#7fcf9f' : (i === currentStep ? '#fff' : '#5d626c');
+      if (i === currentStep) text.style.textDecoration = 'underline';
+      
+      item.appendChild(check);
+      item.appendChild(text);
+      checklistEl.appendChild(item);
+    });
+  }
+
   function checkLessonProgress() {
     const l = lessons[currentLessonIdx];
-    // We pass both line or output depending on validator needs
     const passed = l.validate(currentLessonIdx === 0 ? activeLine : output);
     
     if (passed) {
@@ -662,7 +732,6 @@
       const l = lessons[currentLessonIdx];
       const target = l.targetKeys[currentStep];
 
-      // Track tutorial step incrementing
       const pressedId = action || handle;
       if (pressedId === target) {
         currentStep++;
@@ -675,6 +744,7 @@
         document.querySelector('.split-keyboard').classList.toggle('flipped', isFlipped);
         key.classList.toggle('active', isFlipped);
         highlightNextKey();
+        updateChecklist();
         return;
       }
 
@@ -683,6 +753,7 @@
         activeLine.setAttribute('data-indent', currentIndent);
         activeLine.style.paddingLeft = `${currentIndent * 40}px`;
         highlightNextKey();
+        updateChecklist();
         checkLessonProgress();
         return;
       }
@@ -692,6 +763,7 @@
         activeLine.setAttribute('data-indent', currentIndent);
         activeLine.style.paddingLeft = `${currentIndent * 40}px`;
         highlightNextKey();
+        updateChecklist();
         checkLessonProgress();
         return;
       }
@@ -709,6 +781,7 @@
         activeLine = newLine;
         output.scrollTop = output.scrollHeight;
         highlightNextKey();
+        updateChecklist();
         checkLessonProgress();
         return;
       }
@@ -718,6 +791,7 @@
         spacer.className = 'spacer';
         activeLine.insertBefore(spacer, cursor);
         highlightNextKey();
+        updateChecklist();
         checkLessonProgress();
         return;
       }
@@ -738,6 +812,7 @@
           }
         }
         highlightNextKey();
+        updateChecklist();
         checkLessonProgress();
         return;
       }
@@ -749,25 +824,13 @@
         const flipType = key.getAttribute('data-flip');
         if (isFlipped && flipType) {
           clone.classList.add(`flipped-${flipType}`);
+          clone.setAttribute('data-flipped', 'true');
+        }
+        if (handle) {
+          clone.setAttribute('data-handle', handle);
         }
         
-        // Add handle tag text beneath so our validation can read it
-        if (handle) {
-          const handleSpan = document.createElement('span');
-          handleSpan.className = 'handle';
-          handleSpan.style.display = 'none';
-          handleSpan.textContent = handle;
-          
-          // Wrap SVG and handle span in a container to mirror key DOM structure
-          const container = document.createElement('div');
-          container.style.display = 'flex';
-          container.style.alignItems = 'center';
-          container.appendChild(clone);
-          container.appendChild(handleSpan);
-          activeLine.insertBefore(container, cursor);
-        } else {
-          activeLine.insertBefore(clone, cursor);
-        }
+        activeLine.insertBefore(clone, cursor);
         
         // Auto reset flip after typing if it was a flippable key
         if (isFlipped && flipType) {
@@ -779,6 +842,7 @@
       }
       
       highlightNextKey();
+      updateChecklist();
       checkLessonProgress();
     });
   });
