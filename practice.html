@@ -1099,6 +1099,7 @@ Hierarchy Dependency Map:
         const svgs = activeLine.querySelectorAll('svg');
         if (svgs.length > 0) {
           const lastSvg = svgs[svgs.length - 1];
+          const isSymbolFlipped = lastSvg.getAttribute('data-flipped') === 'true';
           let existingArch = lastSvg.querySelector('path[data-role="arch"]');
           
           if (!existingArch) {
@@ -1115,9 +1116,11 @@ Hierarchy Dependency Map:
             lastSvg.setAttribute("data-arch", "above");
             
             // Baseline shift down for Top Arch to prevent clipping & align beautifully!
-            lastSvg.style.transform = "translateY(12px)";
-            lastSvg.style.marginTop = "6px";
-            lastSvg.style.marginBottom = "-18px";
+            if (!isSymbolFlipped) {
+              lastSvg.style.transform = "translateY(12px)";
+              lastSvg.style.marginTop = "6px";
+              lastSvg.style.marginBottom = "-18px";
+            }
           } else {
             const currentDir = existingArch.getAttribute("data-dir");
             if (currentDir === "above") {
@@ -1128,9 +1131,11 @@ Hierarchy Dependency Map:
               lastSvg.setAttribute("data-arch", "right");
               
               // Reset baseline shift since Right Arch fits perfectly on standard baseline!
-              lastSvg.style.transform = "";
-              lastSvg.style.marginTop = "";
-              lastSvg.style.marginBottom = "";
+              if (!isSymbolFlipped) {
+                lastSvg.style.transform = "";
+                lastSvg.style.marginTop = "";
+                lastSvg.style.marginBottom = "";
+              }
             } else if (currentDir === "right") {
               // Step 3: Cycle to Bottom Arch (Water - below)
               // OUTWARD FLARING DESIGN: Bulges up towards symbol, ends flare DOWNWARD/OUTWARD!
@@ -1139,9 +1144,11 @@ Hierarchy Dependency Map:
               lastSvg.setAttribute("data-arch", "below");
               
               // Baseline shift UP for Bottom Arch to maintain balance!
-              lastSvg.style.transform = "translateY(-12px)";
-              lastSvg.style.marginTop = "-18px";
-              lastSvg.style.marginBottom = "6px";
+              if (!isSymbolFlipped) {
+                lastSvg.style.transform = "translateY(-12px)";
+                lastSvg.style.marginTop = "-18px";
+                lastSvg.style.marginBottom = "6px";
+              }
             } else if (currentDir === "below") {
               // Step 4: Cycle to Left Arch (Wind/Air - left)
               // OUTWARD FLARING DESIGN: Bulges right, ends flare LEFTWARD/OUTWARD!
@@ -1149,19 +1156,21 @@ Hierarchy Dependency Map:
               existingArch.setAttribute("data-dir", "left");
               lastSvg.setAttribute("data-arch", "left");
               
-              // Reset baseline shift
-              lastSvg.style.transform = "";
-              lastSvg.style.marginTop = "";
-              lastSvg.style.marginBottom = "";
+              if (!isSymbolFlipped) {
+                lastSvg.style.transform = "";
+                lastSvg.style.marginTop = "";
+                lastSvg.style.marginBottom = "";
+              }
             } else if (currentDir === "left") {
               // Step 5: Cycle back to Plain Base (No Arch)
               existingArch.remove();
               lastSvg.removeAttribute("data-arch");
               
-              // Reset baseline shift
-              lastSvg.style.transform = "";
-              lastSvg.style.marginTop = "";
-              lastSvg.style.marginBottom = "";
+              if (!isSymbolFlipped) {
+                lastSvg.style.transform = "";
+                lastSvg.style.marginTop = "";
+                lastSvg.style.marginBottom = "";
+              }
             }
           }
           
@@ -1441,6 +1450,12 @@ Hierarchy Dependency Map:
         if (isFlipped && flipType) {
           clone.setAttribute('data-flipped', 'true');
           clone.setAttribute('data-fliptype', flipType); // <-- STORE the flip direction!
+          
+          // ALWAYS AUTOMATICALLY SHIFT DOWN THE ENTIRE SVG OF ANY NEGATED SYMBOL (ANTI)
+          // This prevents the top crown star from ever clipping, keeping it 100% visible on standard baselines!
+          clone.style.transform = "translateY(12px)";
+          clone.style.marginTop = "6px";
+          clone.style.marginBottom = "-18px";
           
           // Append the correct diacritical star vector based on layout direction!
           if (flipType === 'above') {
