@@ -406,7 +406,7 @@
     Alan: Live Practice
   </h1>
   <div style="display:flex; gap:15px;">
-    <a href="tutorial.html">Switch to Tutorial App &rarr;</a>
+    <a href="symbols.html">Switch to Semiotic Catalog &rarr;</a>
     <a href="keyboard_prototype.html">Back to Sandbox &rarr;</a>
   </div>
 </div>
@@ -1145,40 +1145,77 @@ Hierarchy Dependency Map:
       // Default: typing a symbol
       let clone = null;
       let flipType = 'above';
+      const isDirectionKey = ['above', 'below', 'left', 'right', 'in'].includes(pressedId);
 
-      // Resolve the SVG template for our direction macros typed from the D-Pad Compass Key
-      if (pressedId === 'above') {
-        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,12 12,8 16,12" stroke-width="2" /><line x1="12" y1="8" x2="12" y2="16" stroke-width="2" /><polygon points="12,-14 14,-9 19,-7 14,-5 12,0 10,-5 5,-7 10,-9" fill="#e2e8f0" stroke="none" /></svg>`;
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = svgTemplate;
-        clone = tempDiv.querySelector('svg');
-        flipType = 'below';
-      } else if (pressedId === 'below') {
-        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="2" y1="6" x2="22" y2="6" /><polyline points="8,12 12,16 16,12" stroke-width="2" /><line x1="12" y1="8" x2="12" y2="16" stroke-width="2" /><polygon points="12,24 14,29 19,31 14,33 12,38 10,33 5,31 10,29" fill="#e2e8f0" stroke="none" /></svg>`;
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = svgTemplate;
-        clone = tempDiv.querySelector('svg');
-        isFlipped = true; // For below, we force-flip it so the star sits underneath!
-        flipType = 'below';
-      } else if (pressedId === 'right') {
-        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="4" y1="2" x2="4" y2="22" stroke-width="2" /><polyline points="12,8 16,12 12,16" stroke-width="2" /><line x1="8" y1="12" x2="16" y2="12" stroke-width="2" /><polygon points="20,7 21,10 23,12 21,14 20,17 19,14 17,12 19,10" fill="#e2e8f0" stroke="none" /></svg>`;
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = svgTemplate;
-        clone = tempDiv.querySelector('svg');
-        flipType = 'left';
-      } else if (pressedId === 'left') {
-        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="20" y1="2" x2="20" y2="22" stroke-width="2" /><polyline points="12,8 8,12 12,16" stroke-width="2" /><line x1="16" y1="12" x2="8" y2="12" stroke-width="2" /><polygon points="4,7 5,10 7,12 5,14 4,17 3,14 1,12 3,10" fill="#e2e8f0" stroke="none" /></svg>`;
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = svgTemplate;
-        clone = tempDiv.querySelector('svg');
-        isFlipped = true; // For left, we force-flip it so the star sits to its left!
-        flipType = 'left';
-      } else if (pressedId === 'in') {
-        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><rect x="4" y="6" width="16" height="16" /><polygon points="12,9 13.5,12 15,14 13.5,16 12,19 10.5,16 9,14 10.5,12" fill="#e2e8f0" stroke="none" /></svg>`;
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = svgTemplate;
-        clone = tempDiv.querySelector('svg');
-        flipType = 'above';
+      // UNIVERSAL SUFFIX-APPEND MODIFIER LOGIC FOR COMPASS D-PAD KEYS!
+      if (isDirectionKey) {
+        const svgs = activeLine.querySelectorAll('svg');
+        if (svgs.length > 0) {
+          const lastSvg = svgs[svgs.length - 1];
+          
+          if (pressedId === 'in') {
+            // "Inside" is represented by gorgeous thin frame brackets around the symbol (prevents filling clash!)
+            const brackets = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            brackets.setAttribute("stroke", "#e2e8f0");
+            brackets.setAttribute("stroke-width", "1.5");
+            brackets.setAttribute("fill", "none");
+            brackets.setAttribute("d", "M 2,5 L 2,2 L 5,2 M 19,2 L 22,2 L 22,5 M 22,19 L 22,22 L 19,22 M 5,22 L 2,22 L 2,19");
+            lastSvg.appendChild(brackets);
+          } else {
+            // Dynamic placement of the 4-pointed compass star
+            const star = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+            star.setAttribute("fill", "#e2e8f0");
+            star.setAttribute("stroke", "#e2e8f0");
+            star.setAttribute("stroke-width", "1.5");
+            
+            if (pressedId === 'above') {
+              star.setAttribute("points", "12,-14 14,-9 19,-7 14,-5 12,0 10,-5 5,-7 10,-9");
+            } else if (pressedId === 'below') {
+              star.setAttribute("points", "12,24 14,29 19,31 14,33 12,38 10,33 5,31 10,29");
+            } else if (pressedId === 'left') {
+              star.setAttribute("points", "-1,6 1,10 4,12 1,14 -1,18 -2,14 -4,12 -2,10");
+            } else if (pressedId === 'right') {
+              star.setAttribute("points", "20,7 21,10 23,12 21,14 20,17 19,14 17,12 19,10");
+            }
+            lastSvg.appendChild(star);
+          }
+          
+          highlightNextKey();
+          updateChecklist();
+          checkLessonProgress();
+          return;
+        } else {
+          // Fallback: If no last symbol exists, type a default anchor point (circle) with the compass/bracket attached
+          const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><circle cx="12" cy="12" r="3" fill="#e2e8f0" /></svg>`;
+          const tempDiv = document.createElement('div');
+          tempDiv.innerHTML = svgTemplate;
+          clone = tempDiv.querySelector('svg');
+          
+          if (pressedId === 'in') {
+            const brackets = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            brackets.setAttribute("stroke", "#e2e8f0");
+            brackets.setAttribute("stroke-width", "1.5");
+            brackets.setAttribute("fill", "none");
+            brackets.setAttribute("d", "M 2,5 L 2,2 L 5,2 M 19,2 L 22,2 L 22,5 M 22,19 L 22,22 L 19,22 M 5,22 L 2,22 L 2,19");
+            clone.appendChild(brackets);
+          } else {
+            const star = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+            star.setAttribute("fill", "#e2e8f0");
+            star.setAttribute("stroke", "#e2e8f0");
+            star.setAttribute("stroke-width", "1.5");
+            
+            if (pressedId === 'above') {
+              star.setAttribute("points", "12,-14 14,-9 19,-7 14,-5 12,0 10,-5 5,-7 10,-9");
+            } else if (pressedId === 'below') {
+              star.setAttribute("points", "12,24 14,29 19,31 14,33 12,38 10,33 5,31 10,29");
+            } else if (pressedId === 'left') {
+              star.setAttribute("points", "-1,6 1,10 4,12 1,14 -1,18 -2,14 -4,12 -2,10");
+            } else if (pressedId === 'right') {
+              star.setAttribute("points", "20,7 21,10 23,12 21,14 20,17 19,14 17,12 19,10");
+            }
+            clone.appendChild(star);
+          }
+        }
       } else {
         const svg = key.querySelector('svg');
         if (svg) {
@@ -1227,7 +1264,7 @@ Hierarchy Dependency Map:
         
         // Auto reset flip after typing
         isFlipped = false;
-        document.querySelectorAll('.split-keyboard').forEach(el => el.classList.remove('remove'));
+        document.querySelectorAll('.split-keyboard').forEach(el => el.classList.remove('flipped'));
         document.querySelectorAll('.key[data-action="FLIP"]').forEach(el => el.classList.remove('active'));
       }
       
