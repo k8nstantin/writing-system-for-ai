@@ -235,10 +235,12 @@
     font-weight: bold;
   }
 
+  /* Output Display SVG styles with glowing golden-yellow inherit color for stars */
   .line svg {
     width: 28px;
     height: 28px;
     stroke: #e2e8f0;
+    color: #ffd166; /* Large, glowing amber-yellow fill for diacritical stars */
   }
 
   .cursor {
@@ -759,7 +761,7 @@
     let currentIndent = 0;
     
     for (let i = 0; i < words.length; i++) {
-      const w = words[i];
+      let w = words[i];
       if (!w) continue;
       
       // Ignore common grammatical noise words to produce clean, tight semantic trees
@@ -778,37 +780,59 @@
         });
         continue;
       }
+
+      let forceFlip = false;
+      let wordToMap = w;
       
-      let handle = map[w];
+      const standardMap = {
+        "i": "me", "me": "me", "my": "me", "you": "you", "your": "you",
+        "think": "think", "know": "know", "want": "want", "feel": "feel",
+        "see": "see", "hear": "hear", "do": "do", "move": "mov", "live": "liv",
+        "die": "die", "say": "sai", "now": "now", "before": "before", "after": "after",
+        "because": "bik", "place": "place", "here": "place", "not": "not", "dont": "not",
+        "small": "small", "smaller": "small", "tiny": "small", "little": "small",
+        "less": "les", "fewer": "les", "greater": "greater", "larger": "greater",
+        "false": "tru", "no": "not", "incorrect": "not",
+        "water": "water", "ocean": "water", "sea": "water",
+        "spirit": "spirit", "soul": "spirit", "ghost": "spirit", "god": "spirit", "lord": "spirit", "creator": "spirit",
+        "light": "light", "day": "light", "sun": "light", "bright": "light",
+        "with": "with", "together": "with", "union": "with",
+        "earth": "earth", "ground": "earth", "land": "earth", "world": "earth",
+        "sky": "sky", "air": "sky", "heaven": "sky", "heavens": "sky", "wind": "sky",
+        "protect": "protect", "guard": "protect", "shield": "protect", "save": "protect", "shepherd": "protect",
+        "stone": "stone", "rock": "stone", "solid": "stone", "hard": "stone",
+        "beginning": "before", "created": "do", "in": "in",
+        "was": "is", "been": "is", "be": "is", "were": "is",
+        "un": "FLIP" // Direct mapping for "un" prefix itself
+      };
+
+      // Handle un- prefix dynamically (e.g. untrue, unknown, undo)
+      if (w.startsWith("un") && w.length > 3) {
+        const stem = w.substring(2);
+        if (map[stem] || standardMap[stem]) {
+          wordToMap = stem;
+          forceFlip = true;
+        }
+      }
+      // Handle dis- prefix dynamically (e.g. dislike)
+      else if (w.startsWith("dis") && w.length > 4) {
+        const stem = w.substring(3);
+        if (map[stem] || standardMap[stem]) {
+          wordToMap = stem;
+          forceFlip = true;
+        }
+      }
+      
+      let handle = map[wordToMap];
       if (!handle) {
-        const standardMap = {
-          "i": "me", "me": "me", "my": "me", "you": "you", "your": "you",
-          "think": "think", "know": "know", "want": "want", "feel": "feel",
-          "see": "see", "hear": "hear", "do": "do", "move": "mov", "live": "liv",
-          "die": "die", "say": "sai", "now": "now", "before": "before", "after": "after",
-          "because": "bik", "place": "place", "here": "place", "not": "not", "dont": "not",
-          "small": "small", "smaller": "small", "tiny": "small", "little": "small",
-          "less": "les", "fewer": "les", "greater": "greater", "larger": "greater",
-          "false": "tru", "no": "not", "incorrect": "not",
-          "water": "water", "ocean": "water", "sea": "water",
-          "spirit": "spirit", "soul": "spirit", "ghost": "spirit", "god": "spirit", "lord": "spirit",
-          "light": "light", "day": "light", "sun": "light", "bright": "light",
-          "with": "with", "together": "with", "union": "with",
-          "earth": "earth", "ground": "earth", "land": "earth", "world": "earth",
-          "sky": "sky", "air": "sky", "heaven": "sky", "heavens": "sky", "wind": "sky",
-          "protect": "protect", "guard": "protect", "shield": "protect", "save": "protect", "shepherd": "protect",
-          "stone": "stone", "rock": "stone", "solid": "stone", "hard": "stone",
-          "beginning": "before", "created": "do", "in": "in",
-          "was": "is", "been": "is", "be": "is", "were": "is"
-        };
-        handle = standardMap[w];
+        handle = standardMap[wordToMap];
       }
       
       if (!handle) {
         handle = "something";
       }
       
-      if (["is", "bik", "if", "eql", "les", "greater", "above", "below", "left", "right", "in", "out", "with", "protect"].includes(handle) || w === "set" || w === "update") {
+      if (["is", "bik", "if", "eql", "les", "greater", "above", "below", "left", "right", "in", "out", "with", "protect"].includes(handle) || wordToMap === "set" || wordToMap === "update") {
         if (currentLineKeys.length > 0) {
           lineBuilders.push({ indent: currentIndent, keys: [...currentLineKeys] });
           currentLineKeys = [];
@@ -816,7 +840,10 @@
         }
       }
       
-      if (handle === "die") {
+      if (forceFlip) {
+        currentLineKeys.push("FLIP");
+        currentLineKeys.push(handle);
+      } else if (handle === "die") {
         currentLineKeys.push("FLIP");
         currentLineKeys.push("liv");
       } else if (handle === "small") {
@@ -828,22 +855,22 @@
       } else if (handle === "false") {
         currentLineKeys.push("FLIP");
         currentLineKeys.push("tru");
-      } else if (w === "left") {
+      } else if (wordToMap === "left") {
         currentLineKeys.push("FLIP");
         currentLineKeys.push("right");
-      } else if (w === "below") {
+      } else if (wordToMap === "below") {
         currentLineKeys.push("FLIP");
         currentLineKeys.push("above");
-      } else if (w === "outside" || w === "out") {
+      } else if (wordToMap === "outside" || wordToMap === "out") {
         currentLineKeys.push("FLIP");
         currentLineKeys.push("in");
-      } else if (w === "after") {
+      } else if (wordToMap === "after") {
         currentLineKeys.push("FLIP");
         currentLineKeys.push("before");
-      } else if (w === "lack") {
+      } else if (wordToMap === "lack") {
         currentLineKeys.push("FLIP");
         currentLineKeys.push("want");
-      } else if (w === "nothing") {
+      } else if (wordToMap === "nothing") {
         currentLineKeys.push("FLIP");
         currentLineKeys.push("something");
       } else {
@@ -1059,13 +1086,13 @@
 
       // Resolve the SVG template for our direction macros typed from the D-Pad Compass Key
       if (pressedId === 'above') {
-        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,12 12,8 16,12" stroke-width="2" /><line x1="12" y1="8" x2="12" y2="16" stroke-width="2" /><polygon points="12,1 13,3 15,4 13,5 12,7 11,5 9,4 11,3" fill="#e2e8f0" stroke="none" /></svg>`;
+        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,12 12,8 16,12" stroke-width="2" /><line x1="12" y1="8" x2="12" y2="16" stroke-width="2" /><polygon points="7,0.5 12,2.2 17,0.5 15.5,3 19,4.5 14.5,5.5 12,8 9.5,5.5 5,4.5 8.5,3" fill="#ffd166" stroke="none" /></svg>`;
         const parser = new DOMParser();
         const doc = parser.parseFromString(svgTemplate, 'image/svg+xml');
         clone = document.importNode(doc.documentElement, true);
         flipType = 'below';
       } else if (pressedId === 'below') {
-        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,12 12,8 16,12" stroke-width="2" /><line x1="12" y1="8" x2="12" y2="16" stroke-width="2" /><polygon points="12,1 13,3 15,4 13,5 12,7 11,5 9,4 11,3" fill="#e2e8f0" stroke="none" /></svg>`;
+        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,12 12,8 16,12" stroke-width="2" /><line x1="12" y1="8" x2="12" y2="16" stroke-width="2" /><polygon points="7,0.5 12,2.2 17,0.5 15.5,3 19,4.5 14.5,5.5 12,8 9.5,5.5 5,4.5 8.5,3" fill="#ffd166" stroke="none" /></svg>`;
         const parser = new DOMParser();
         const doc = parser.parseFromString(svgTemplate, 'image/svg+xml');
         clone = document.importNode(doc.documentElement, true);
@@ -1085,7 +1112,7 @@
         isFlipped = true; // For left, we force-flip it so the star sits to its left!
         flipType = 'left';
       } else if (pressedId === 'in') {
-        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><rect x="4" y="6" width="16" height="16" /><polygon points="12,11 13,13 15,14 13,15 12,17 11,15 9,14 11,13" fill="#e2e8f0" stroke="none" /></svg>`;
+        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><rect x="4" y="6" width="16" height="16" /><polygon points="7,0.5 12,2.2 17,0.5 15.5,3 19,4.5 14.5,5.5 12,8 9.5,5.5 5,4.5 8.5,3" fill="#ffd166" stroke="none" /></svg>`;
         const parser = new DOMParser();
         const doc = parser.parseFromString(svgTemplate, 'image/svg+xml');
         clone = document.importNode(doc.documentElement, true);
@@ -1105,25 +1132,25 @@
           
           // Append the correct diacritical star vector based on layout direction!
           if (flipType === 'above') {
-            // Inverted 5-pointed Pentagram Star (Zone 2)
+            // Inverted 5-pointed Pentagram Star (Zone 2) - EXTREMELY VISIBLE & BOLD
             const star = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
             star.setAttribute("fill", "currentColor");
             star.setAttribute("stroke", "none");
-            star.setAttribute("points", "9,1 12,2.2 15,1 13.8,2.4 16,3.2 13.5,3.8 12,5.5 10.5,3.8 8,3.2 10.2,2.4");
+            star.setAttribute("points", "7,0.5 12,2.2 17,0.5 15.5,3 19,4.5 14.5,5.5 12,8 9.5,5.5 5,4.5 8.5,3");
             clone.appendChild(star);
           } else if (flipType === 'below') {
-            // Inverted 5-pointed Pentagram Star (Zone 1 Bottom)
+            // Inverted 5-pointed Pentagram Star (Zone 1 Bottom) - EXTREMELY VISIBLE & BOLD
             const star = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
             star.setAttribute("fill", "currentColor");
             star.setAttribute("stroke", "none");
-            star.setAttribute("points", "9,18.5 12,19.7 15,18.5 13.8,19.9 16,20.7 13.5,21.3 12,23.0 10.5,21.3 8,20.7 10.2,19.9");
+            star.setAttribute("points", "7,16 12,17.7 17,16 15.5,18.5 19,20 14.5,21 12,23.5 9.5,21 5,20 8.5,18.5");
             clone.appendChild(star);
           } else if (flipType === 'left') {
-            // Sharp 4-pointed Compass Star (Zone 1 Left)
+            // Sharp 4-pointed Compass Star (Zone 1 Left) - ENHANCED VISIBILITY
             const star = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
             star.setAttribute("fill", "currentColor");
             star.setAttribute("stroke", "none");
-            star.setAttribute("points", "4,8 5,11 8,12 5,13 4,16 3,13 0,12 3,11");
+            star.setAttribute("points", "3,6 5,10 8,12 5,14 3,18 2,14 0,12 2,10");
             clone.appendChild(star);
           }
         }
