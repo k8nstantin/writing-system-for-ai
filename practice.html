@@ -567,10 +567,8 @@
       <div class="key num" data-handle="div"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12" stroke-width="3" /><circle cx="12" cy="6" r="2" fill="#e2e8f0" /><circle cx="12" cy="18" r="2" fill="#e2e8f0" /></svg><span class="handle">div</span></div>
       <div class="key num" data-handle="eql"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="5" y1="9" x2="19" y2="9" stroke-width="3" /><line x1="5" y1="15" x2="19" y2="15" stroke-width="3" /></svg><span class="handle">eql</span></div>
     </div>
-    <!-- Row 1: Quantifiers -->
+    <!-- Row 1: Quantifiers (Pruned 'one' and 'two' keys to remove spacer redundancy!) -->
     <div class="row" style="padding-right: 0px;">
-      <div class="key logic" data-handle="one"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="2" fill="#e2e8f0" /></svg><span class="handle">one</span></div>
-      <div class="key logic" data-handle="two"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="8" cy="12" r="2" fill="#e2e8f0" /><circle cx="16" cy="12" r="2" fill="#e2e8f0" /></svg><span class="handle">two</span></div>
       <div class="key logic" data-handle="few"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="8" r="1.5" fill="#e2e8f0" /><circle cx="7" cy="15" r="1.5" fill="#e2e8f0" /><circle cx="17" cy="15" r="1.5" fill="#e2e8f0" /></svg><span class="handle">few</span></div>
       <div class="key logic" data-handle="som"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" stroke-dasharray="4,4" /></svg><span class="handle">some</span></div>
       <div class="key logic" data-handle="mor"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="6" cy="6" r="1.5" fill="#e2e8f0" /><circle cx="12" cy="6" r="1.5" fill="#e2e8f0" /><circle cx="18" cy="6" r="1.5" fill="#e2e8f0" /><circle cx="6" cy="12" r="1.5" fill="#e2e8f0" /><circle cx="12" cy="12" r="1.5" fill="#e2e8f0" /><circle cx="18" cy="12" r="1.5" fill="#e2e8f0" /><circle cx="6" cy="18" r="1.5" fill="#e2e8f0" /><circle cx="12" cy="18" r="1.5" fill="#e2e8f0" /><circle cx="18" cy="18" r="1.5" fill="#e2e8f0" /></svg><span class="handle">more</span></div>
@@ -597,10 +595,12 @@
       <!-- ADDED STONE KEY: "stone" (Upward triangle resting flat on heavy solid base plate) -->
       <div class="key desc" data-handle="stone"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="3" y1="20" x2="21" y2="20" stroke-linecap="round" stroke-width="3" /><polygon points="12,5 5,17 19,17" fill="#e2e8f0" /></svg><span class="handle">stone</span></div>
     </div>
-    <!-- Row 4: Space & Nature -->
+    <!-- Row 4: Space, Compass & Classical Elements -->
     <div class="row" style="padding-right: 30px;">
       <div class="key space" data-handle="place"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="20" x2="22" y2="20" /><line x1="12" y1="20" x2="12" y2="2" /><circle cx="12" cy="12" r="3" fill="#e2e8f0" /></svg><span class="handle">place</span></div>
       <div class="key space" data-handle="water"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 3,8 Q 7.5,5 12,8 T 21,8 M 3,14 Q 7.5,11 12,14 T 21,14 M 3,20 Q 7.5,17 12,20 T 21,20" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" /></svg><span class="handle">water</span></div>
+      <!-- ADDED FIRE KEY: Classic Element Water glyph rotated exactly 90 degrees to represent vertically rising flames/heat! -->
+      <div class="key space" data-handle="fire"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 3,8 Q 7.5,5 12,8 T 21,8 M 3,14 Q 7.5,11 12,14 T 21,14 M 3,20 Q 7.5,17 12,20 T 21,20" transform="rotate(90, 12, 12)" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" /></svg><span class="handle">fire</span></div>
       <!-- ADDED EARTH KEY: "earth" (Three flat horizontal strata lines - direct counterweight to wavy water lines) -->
       <div class="key space" data-handle="earth"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="3" y1="8" x2="21" y2="8" stroke-linecap="round" /><line x1="3" y1="14" x2="21" y2="14" stroke-linecap="round" /><line x1="3" y1="20" x2="21" y2="20" stroke-linecap="round" /></svg><span class="handle">earth</span></div>
       <!-- ADDED SKY KEY: "sky" (Two floating atmospheric canopy wind wisps) -->
@@ -802,6 +802,7 @@
         "less": "les", "fewer": "les", "greater": "greater", "larger": "greater",
         "false": "tru",
         "water": "water", "ocean": "water", "sea": "water",
+        "fire": "fire", "flame": "fire", "heat": "fire", "burn": "fire", "hot": "fire",
         "spirit": "spirit", "soul": "spirit", "ghost": "spirit", "god": "spirit", "lord": "spirit", "creator": "spirit",
         "light": "light", "day": "light", "sun": "light", "bright": "light",
         "with": "with", "together": "with", "union": "with",
@@ -812,6 +813,7 @@
         "gravity": "gravity", "mass": "gravity", "pull": "gravity", "antigravity": "gravity",
         "beginning": "before", "created": "do", "in": "in",
         "was": "is", "been": "is", "be": "is", "were": "is",
+        "one": "1", "two": "2", // Remapped semantic one/two to Row 0 number keys to remove layout redundancy!
         "un": "FLIP" // Direct mapping for "un" prefix itself
       };
 
