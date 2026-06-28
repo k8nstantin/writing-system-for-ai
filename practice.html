@@ -1089,15 +1089,15 @@
       let clone = null;
       let flipType = 'above';
 
-      // Parse output SVGs cleanly without strict XML namespace DOMParser blocks on mobile Safari
+      // Resolve the SVG template for our direction macros typed from the D-Pad Compass Key
       if (pressedId === 'above') {
-        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,12 12,8 16,12" stroke-width="2" /><line x1="12" y1="8" x2="12" y2="16" stroke-width="2" /><polygon points="6,-4 12,-1 18,-4 16,1 21,2.5 15.5,4 12,8 8.5,4 3,2.5 8,1" fill="#e2e8f0" stroke="none" /></svg>`;
+        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,12 12,8 16,12" stroke-width="2" /><line x1="12" y1="8" x2="12" y2="16" stroke-width="2" /><polygon points="2,-14 12,-10 22,-14 18,-8 24,-6 15.5,-4 12,-1 8.5,-4 0,-6 6,-8" fill="#e2e8f0" stroke="none" /></svg>`;
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = svgTemplate;
         clone = tempDiv.querySelector('svg');
         flipType = 'below';
       } else if (pressedId === 'below') {
-        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,12 12,8 16,12" stroke-width="2" /><line x1="12" y1="8" x2="12" y2="16" stroke-width="2" /><polygon points="5,-1 12,1.5 19,-1 17,2.5 21,4 15.5,5 12,8 8.5,5 3,4 7,2.5" fill="#e2e8f0" stroke="none" /></svg>`;
+        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,12 12,8 16,12" stroke-width="2" /><line x1="12" y1="8" x2="12" y2="16" stroke-width="2" /><polygon points="2,25 12,29 22,25 18,32 24,34 15.5,36 12,41 8.5,36 0,34 6,32" fill="#e2e8f0" stroke="none" /></svg>`;
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = svgTemplate;
         clone = tempDiv.querySelector('svg');
@@ -1117,7 +1117,7 @@
         isFlipped = true; // For left, we force-flip it so the star sits to its left!
         flipType = 'left';
       } else if (pressedId === 'in') {
-        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><rect x="4" y="6" width="16" height="16" /><polygon points="6,-4 12,-1 18,-4 16,1 21,2.5 15.5,4 12,8 8.5,4 3,2.5 8,1" fill="#e2e8f0" stroke="none" /></svg>`;
+        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><rect x="4" y="6" width="16" height="16" /><polygon points="2,-14 12,-10 22,-14 18,-8 24,-6 15.5,-4 12,-1 8.5,-4 0,-6 6,-8" fill="#e2e8f0" stroke="none" /></svg>`;
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = svgTemplate;
         clone = tempDiv.querySelector('svg');
@@ -1137,25 +1137,28 @@
           
           // Append the correct diacritical star vector based on layout direction!
           if (flipType === 'above') {
-            // Inverted 5-pointed Pentagram Star (Zone 2) - MASSIVE, WHITE, GORGEOUS (y=-4 to y=8, x=3 to 21)
+            // Inverted 5-pointed Pentagram Star (Zone 2) - FLOATING AIR-GAP CROWN (y=-14 to y=-1, x=0 to 24)
             const star = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
             star.setAttribute("fill", "#e2e8f0");
-            star.setAttribute("stroke", "none");
-            star.setAttribute("points", "6,-4 12,-1 18,-4 16,1 21,2.5 15.5,4 12,8 8.5,4 3,2.5 8,1");
+            star.setAttribute("stroke", "#e2e8f0");
+            star.setAttribute("stroke-width", "1.5");
+            star.setAttribute("points", "2,-14 12,-10 22,-14 18,-8 24,-6 15.5,-4 12,-1 8.5,-4 0,-6 6,-8");
             clone.appendChild(star);
           } else if (flipType === 'below') {
-            // Inverted 5-pointed Pentagram Star (Zone 1 Bottom) - MASSIVE, WHITE, GORGEOUS
+            // Inverted 5-pointed Pentagram Star (Zone 1 Bottom) - FLOATING AIR-GAP CROWN (y=25 to y=41, x=0 to 24)
             const star = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
             star.setAttribute("fill", "#e2e8f0");
-            star.setAttribute("stroke", "none");
-            star.setAttribute("points", "6,16 12,19 18,16 16,21 21,22.5 15.5,24 12,28 8.5,24 3,22.5 8,21");
+            star.setAttribute("stroke", "#e2e8f0");
+            star.setAttribute("stroke-width", "1.5");
+            star.setAttribute("points", "2,25 12,29 22,25 18,32 24,34 15.5,36 12,41 8.5,36 0,34 6,32");
             clone.appendChild(star);
           } else if (flipType === 'left') {
-            // Sharp 4-pointed Compass Star (Zone 1 Left) - ENHANCED VISIBILITY
+            // Sharp 4-pointed Compass Star (Zone 1 Left) - ENHANCED VISIBILITY AND 4-UNIT GAP
             const star = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
             star.setAttribute("fill", "#e2e8f0");
-            star.setAttribute("stroke", "none");
-            star.setAttribute("points", "3,6 5,10 8,12 5,14 3,18 2,14 0,12 2,10");
+            star.setAttribute("stroke", "#e2e8f0");
+            star.setAttribute("stroke-width", "1.5");
+            star.setAttribute("points", "-1,6 1,10 4,12 1,14 -1,18 -2,14 -4,12 -2,10");
             clone.appendChild(star);
           }
         }
