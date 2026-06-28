@@ -16,7 +16,7 @@
     justify-content: flex-start;
     min-height: 100vh;
     margin: 0;
-    padding: 20px;
+    padding: 20px 20px 60px 20px; /* Enhanced bottom padding to prevent legend cutoff */
     box-sizing: border-box;
     overflow-y: auto;
   }
@@ -518,7 +518,8 @@
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="14,8 9,12 14,16" /></svg>
         </div>
         <div class="key space" data-handle="in" data-flip="above" style="width:36px; height:36px;" title="Inside">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="3" fill="#e2e8f0" /></svg>
+          <!-- Compass star in the center not a dot -->
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,6 13.5,11 18,12 13.5,13 12,18 10.5,13 6,12 10.5,11" fill="#e2e8f0" stroke="none" /></svg>
         </div>
         <div class="key space" data-handle="right" data-flip="left" style="width:36px; height:36px;" title="Right">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="10,8 15,12 10,16" /></svg>
@@ -598,7 +599,8 @@
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="14,8 9,12 14,16" /></svg>
         </div>
         <div class="key space" data-handle="in" data-flip="above" style="width:36px; height:36px;" title="Inside">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="3" fill="#e2e8f0" /></svg>
+          <!-- Compass star in the center not a dot -->
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,6 13.5,11 18,12 13.5,13 12,18 10.5,13 6,12 10.5,11" fill="#e2e8f0" stroke="none" /></svg>
         </div>
         <div class="key space" data-handle="right" data-flip="left" style="width:36px; height:36px;" title="Right">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="10,8 15,12 10,16" /></svg>
@@ -626,7 +628,7 @@
   <div class="legend-item"><div class="dot" style="background: #48b5c4;"></div> Time</div>
   <div class="legend-item"><div class="dot" style="background: #ff8a6b;"></div> Actions (Events)</div>
   <div class="legend-item"><div class="dot" style="background: #f67280;"></div> Descriptors</div>
-  <div class="legend-item"><div class="dot" style="background: #8aa6d4;"></div> Space</div>
+  <div class="legend-item"><div class="dot" style="background: #8aa6d4;"></div> Space &amp; Compass</div> <!-- Updated legend title -->
 </div>
 
 <script>
