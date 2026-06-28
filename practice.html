@@ -517,8 +517,8 @@
     <!-- Row 3: Descriptors -->
     <div class="row" style="padding-right: 10px;">
       <div class="key desc" data-handle="gud" data-flip="Y"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polyline points="8,14 12,9 16,14" /></svg><span class="handle">good</span></div>
-      <div class="key desc" data-handle="big"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="2" width="20" height="20" stroke-width="4" /></svg><span class="handle">big</span></div>
-      <div class="key desc" data-handle="sml"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="10" y="10" width="4" height="4" fill="#e2e8f0" /></svg><span class="handle">small</span></div>
+      <div class="key desc" data-handle="big" data-flip="Y"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polygon points="8,16 16,16 18,7 6,7" fill="#e2e8f0" /></svg><span class="handle">big</span></div>
+      <div class="key desc" data-handle="les" data-flip="X"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="15,5 9,12 15,19" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="handle">less</span></div>
       <div class="key desc" data-handle="tru"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" fill="#e2e8f0" /></svg><span class="handle">true</span></div>
       <div class="key desc" data-handle="lik"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polyline points="8,13 12,8 16,13" /><polyline points="8,18 12,13 16,18" /></svg><span class="handle">like</span></div>
       <div class="key desc" data-handle="part"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="12" height="12" /><rect x="8" y="8" width="12" height="12" /></svg><span class="handle">part</span></div>
@@ -677,7 +677,9 @@
           "think": "think", "know": "know", "want": "want", "feel": "feel",
           "see": "see", "hear": "hear", "do": "do", "move": "mov", "live": "liv",
           "die": "die", "say": "sai", "now": "now", "before": "before", "after": "after",
-          "because": "bik", "place": "place", "here": "place", "not": "not", "dont": "not"
+          "because": "bik", "place": "place", "here": "place", "not": "not", "dont": "not",
+          "small": "small", "smaller": "small", "tiny": "small", "little": "small",
+          "less": "les", "fewer": "les", "greater": "greater", "larger": "greater"
         };
         handle = standardMap[w];
       }
@@ -686,7 +688,7 @@
         handle = "something";
       }
       
-      if (["is", "bik", "if", "eql"].includes(handle) || w === "set" || w === "update") {
+      if (["is", "bik", "if", "eql", "les", "greater"].includes(handle) || w === "set" || w === "update") {
         if (currentLineKeys.length > 0) {
           lineBuilders.push({ indent: currentIndent, keys: [...currentLineKeys] });
           currentLineKeys = [];
@@ -697,6 +699,12 @@
       if (handle === "die") {
         currentLineKeys.push("FLIP");
         currentLineKeys.push("liv");
+      } else if (handle === "small") {
+        currentLineKeys.push("FLIP");
+        currentLineKeys.push("big");
+      } else if (handle === "greater") {
+        currentLineKeys.push("FLIP");
+        currentLineKeys.push("les");
       } else {
         if (currentLineKeys.length > 0 && !["FLIP", "INDENT", "OUTDENT", "DOWN"].includes(handle)) {
           currentLineKeys.push("SPACE");

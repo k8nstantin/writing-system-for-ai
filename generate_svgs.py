@@ -145,8 +145,7 @@ categories = [
         "glyphs": [
             {"handle": "gud", "desc": "good", "svg": '<rect x="4" y="4" width="16" height="16" /><polyline points="8,14 12,9 16,14" />'},
             {"handle": "bad", "desc": "bad", "svg": '<rect x="4" y="4" width="16" height="16" /><polyline points="8,10 12,15 16,10" />'},
-            {"handle": "big", "desc": "big", "svg": '<rect x="2" y="2" width="20" height="20" stroke-width="4" />'},
-            {"handle": "sml", "desc": "small", "svg": '<rect x="10" y="10" width="4" height="4" fill="#e2e8f0" />'},
+            {"handle": "big", "desc": "big / small (flipped Y)", "svg": '<rect x="4" y="4" width="16" height="16" /><polygon points="8,16 16,16 18,7 6,7" fill="#e2e8f0" />'},
             {"handle": "tru", "desc": "true / yes", "svg": '<rect x="4" y="4" width="16" height="16" fill="#e2e8f0" />'},
             {"handle": "lik", "desc": "like / as", "svg": '<rect x="4" y="4" width="12" height="12" /><rect x="8" y="8" width="12" height="12" />'},
         ]
@@ -227,6 +226,7 @@ categories = [
             {"handle": "part", "desc": "part", "svg": '<path d="M 12 12 L 12 2 A 10 10 0 0 1 21.5 15 Z" fill="#e2e8f0" />'},
             {"handle": "dei", "desc": "this", "svg": '<line x1="12" y1="4" x2="12" y2="20" /><polyline points="6,14 12,20 18,14" />'},
             {"handle": "bik", "desc": "because", "svg": '<path d="M 12 4 V 12 L 6 20 M 12 12 L 18 20" />'},
+            {"handle": "les", "desc": "less than / greater than (flipped X)", "svg": '<polyline points="15,5 9,12 15,19" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />'},
             {"handle": "and", "desc": "and", "svg": '<polyline points="6,18 12,6 18,18" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />'},
             {"handle": "or", "desc": "or", "svg": '<polyline points="6,6 12,18 18,6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />'},
             {"handle": "andor", "desc": "and/or", "svg": '<polyline points="6,18 12,6 18,18" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /><polyline points="6,6 12,18 18,6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />'},
