@@ -1164,26 +1164,79 @@ Hierarchy Dependency Map:
             brackets.setAttribute("fill", "none");
             brackets.setAttribute("d", "M 2,5 L 2,2 L 5,2 M 19,2 L 22,2 L 22,5 M 22,19 L 22,22 L 19,22 M 5,22 L 2,22 L 2,19");
             lastSvg.appendChild(brackets);
-          } else {
-            // Dynamic placement of the 4-pointed compass star
-            const star = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-            star.setAttribute("fill", "#e2e8f0");
-            star.setAttribute("stroke", "#e2e8f0");
-            star.setAttribute("stroke-width", "1.5");
             
-            if (pressedId === 'above') {
-              star.setAttribute("points", "12,-14 14,-9 19,-7 14,-5 12,0 10,-5 5,-7 10,-9");
-            } else if (pressedId === 'below') {
-              star.setAttribute("points", "12,24 14,29 19,31 14,33 12,38 10,33 5,31 10,29");
-            } else if (pressedId === 'left') {
-              // High-resolution floating left star with clean 4-unit horizontal air gap
-              star.setAttribute("points", "-9,5 -7,10 -2,12 -7,14 -9,19 -11,14 -16,12 -11,10");
-            } else if (pressedId === 'right') {
-              // High-resolution floating right star with clean 4-unit horizontal air gap
-              star.setAttribute("points", "31,5 33,10 38,12 33,14 31,19 29,14 26,12 29,10");
+            // If flipped, stack the 5-pointed crown star at the top canopy too!
+            if (isFlipped) {
+              const star = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+              star.setAttribute("fill", "#e2e8f0");
+              star.setAttribute("stroke", "#e2e8f0");
+              star.setAttribute("stroke-width", "1.5");
+              star.setAttribute("points", "2,-14 12,-10 22,-14 18,-8 24,-6 15.5,-4 12,-1 8.5,-4 0,-6 6,-8");
+              lastSvg.appendChild(star);
             }
-            lastSvg.appendChild(star);
+          } else {
+            // If isFlipped is active, we vertically or horizontally STACK the 5-pointed negation crown (★)
+            // and the 4-pointed compass star (✦) to represent "opposite of direction"!
+            if (isFlipped) {
+              // 1. First, append the 5-pointed negation crown star closest to the symbol
+              const crown = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+              crown.setAttribute("fill", "#e2e8f0");
+              crown.setAttribute("stroke", "#e2e8f0");
+              crown.setAttribute("stroke-width", "1.5");
+              
+              // 2. Second, append the 4-pointed compass star shifted further outwards
+              const star = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+              star.setAttribute("fill", "#e2e8f0");
+              star.setAttribute("stroke", "#e2e8f0");
+              star.setAttribute("stroke-width", "1.5");
+              
+              if (pressedId === 'above') {
+                // Crown closest at Zone 2
+                crown.setAttribute("points", "2,-14 12,-10 22,-14 18,-8 24,-6 15.5,-4 12,-1 8.5,-4 0,-6 6,-8");
+                // Compass star stacked even further up!
+                star.setAttribute("points", "12,-27 14,-22 19,-20 14,-18 12,-13 10,-18 5,-20 10,-22");
+              } else if (pressedId === 'below') {
+                // Crown closest at Zone 1 Bottom
+                crown.setAttribute("points", "2,25 12,29 22,25 18,32 24,34 15.5,36 12,41 8.5,36 0,34 6,32");
+                // Compass star stacked even further down!
+                star.setAttribute("points", "12,42 14,47 19,49 14,51 12,56 10,51 5,49 10,47");
+              } else if (pressedId === 'left') {
+                // Crown closest on the Left
+                crown.setAttribute("points", "-14,2 -10,12 -14,22 -8,18 -6,24 -4,15.5 -1,12 -4,8.5 -6,3 -8,7");
+                // Compass star stacked even further left!
+                star.setAttribute("points", "-22,5 -20,10 -15,12 -20,14 -22,19 -24,14 -29,12 -24,10");
+              } else if (pressedId === 'right') {
+                // Crown closest on the Right
+                crown.setAttribute("points", "25,2 29,12 25,22 31,18 33,24 35,15.5 38,12 35,8.5 33,3 31,7");
+                // Compass star stacked even further right!
+                star.setAttribute("points", "44,5 46,10 51,12 46,14 44,19 42,14 37,12 42,10");
+              }
+              lastSvg.appendChild(crown);
+              lastSvg.appendChild(star);
+            } else {
+              // Standard pristine non-negated 4-pointed compass star
+              const star = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+              star.setAttribute("fill", "#e2e8f0");
+              star.setAttribute("stroke", "#e2e8f0");
+              star.setAttribute("stroke-width", "1.5");
+              
+              if (pressedId === 'above') {
+                star.setAttribute("points", "12,-14 14,-9 19,-7 14,-5 12,0 10,-5 5,-7 10,-9");
+              } else if (pressedId === 'below') {
+                star.setAttribute("points", "12,24 14,29 19,31 14,33 12,38 10,33 5,31 10,29");
+              } else if (pressedId === 'left') {
+                star.setAttribute("points", "-9,5 -7,10 -2,12 -7,14 -9,19 -11,14 -16,12 -11,10");
+              } else if (pressedId === 'right') {
+                star.setAttribute("points", "31,5 33,10 38,12 33,14 31,19 29,14 26,12 29,10");
+              }
+              lastSvg.appendChild(star);
+            }
           }
+          
+          // Auto reset flip after typing
+          isFlipped = false;
+          document.querySelectorAll('.split-keyboard').forEach(el => el.classList.remove('flipped'));
+          document.querySelectorAll('.key[data-action="FLIP"]').forEach(el => el.classList.remove('active'));
           
           highlightNextKey();
           updateChecklist();
@@ -1203,22 +1256,58 @@ Hierarchy Dependency Map:
             brackets.setAttribute("fill", "none");
             brackets.setAttribute("d", "M 2,5 L 2,2 L 5,2 M 19,2 L 22,2 L 22,5 M 22,19 L 22,22 L 19,22 M 5,22 L 2,22 L 2,19");
             clone.appendChild(brackets);
-          } else {
-            const star = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-            star.setAttribute("fill", "#e2e8f0");
-            star.setAttribute("stroke", "#e2e8f0");
-            star.setAttribute("stroke-width", "1.5");
-            
-            if (pressedId === 'above') {
-              star.setAttribute("points", "12,-14 14,-9 19,-7 14,-5 12,0 10,-5 5,-7 10,-9");
-            } else if (pressedId === 'below') {
-              star.setAttribute("points", "12,24 14,29 19,31 14,33 12,38 10,33 5,31 10,29");
-            } else if (pressedId === 'left') {
-              star.setAttribute("points", "-9,5 -7,10 -2,12 -7,14 -9,19 -11,14 -16,12 -11,10");
-            } else if (pressedId === 'right') {
-              star.setAttribute("points", "31,5 33,10 38,12 33,14 31,19 29,14 26,12 29,10");
+            if (isFlipped) {
+              const star = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+              star.setAttribute("fill", "#e2e8f0");
+              star.setAttribute("stroke", "#e2e8f0");
+              star.setAttribute("stroke-width", "1.5");
+              star.setAttribute("points", "2,-14 12,-10 22,-14 18,-8 24,-6 15.5,-4 12,-1 8.5,-4 0,-6 6,-8");
+              clone.appendChild(star);
             }
-            clone.appendChild(star);
+          } else {
+            if (isFlipped) {
+              const crown = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+              crown.setAttribute("fill", "#e2e8f0");
+              crown.setAttribute("stroke", "#e2e8f0");
+              crown.setAttribute("stroke-width", "1.5");
+              
+              const star = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+              star.setAttribute("fill", "#e2e8f0");
+              star.setAttribute("stroke", "#e2e8f0");
+              star.setAttribute("stroke-width", "1.5");
+              
+              if (pressedId === 'above') {
+                crown.setAttribute("points", "2,-14 12,-10 22,-14 18,-8 24,-6 15.5,-4 12,-1 8.5,-4 0,-6 6,-8");
+                star.setAttribute("points", "12,-27 14,-22 19,-20 14,-18 12,-13 10,-18 5,-20 10,-22");
+              } else if (pressedId === 'below') {
+                crown.setAttribute("points", "2,25 12,29 22,25 18,32 24,34 15.5,36 12,41 8.5,36 0,34 6,32");
+                star.setAttribute("points", "12,42 14,47 19,49 14,51 12,56 10,51 5,49 10,47");
+              } else if (pressedId === 'left') {
+                crown.setAttribute("points", "-14,2 -10,12 -14,22 -8,18 -6,24 -4,15.5 -1,12 -4,8.5 -6,3 -8,7");
+                star.setAttribute("points", "-22,5 -20,10 -15,12 -20,14 -22,19 -24,14 -29,12 -24,10");
+              } else if (pressedId === 'right') {
+                crown.setAttribute("points", "25,2 29,12 25,22 31,18 33,24 35,15.5 38,12 35,8.5 33,3 31,7");
+                star.setAttribute("points", "44,5 46,10 51,12 46,14 44,19 42,14 37,12 42,10");
+              }
+              clone.appendChild(crown);
+              clone.appendChild(star);
+            } else {
+              const star = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+              star.setAttribute("fill", "#e2e8f0");
+              star.setAttribute("stroke", "#e2e8f0");
+              star.setAttribute("stroke-width", "1.5");
+              
+              if (pressedId === 'above') {
+                star.setAttribute("points", "12,-14 14,-9 19,-7 14,-5 12,0 10,-5 5,-7 10,-9");
+              } else if (pressedId === 'below') {
+                star.setAttribute("points", "12,24 14,29 19,31 14,33 12,38 10,33 5,31 10,29");
+              } else if (pressedId === 'left') {
+                star.setAttribute("points", "-9,5 -7,10 -2,12 -7,14 -9,19 -11,14 -16,12 -11,10");
+              } else if (pressedId === 'right') {
+                star.setAttribute("points", "31,5 33,10 38,12 33,14 31,19 29,14 26,12 29,10");
+              }
+              clone.appendChild(star);
+            }
           }
         }
       } else {
