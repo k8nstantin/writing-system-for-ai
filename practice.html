@@ -762,6 +762,12 @@
       const w = words[i];
       if (!w) continue;
       
+      // Ignore common grammatical noise words to produce clean, tight semantic trees
+      const noiseWords = ["the", "a", "an", "of", "my", "your", "his", "her", "their", "our"];
+      if (noiseWords.includes(w) && !map[w]) {
+        continue;
+      }
+      
       if (/^\d+$/.test(w)) {
         const digits = w.split('');
         if (currentLineKeys.length > 0) {
@@ -784,15 +790,16 @@
           "small": "small", "smaller": "small", "tiny": "small", "little": "small",
           "less": "les", "fewer": "les", "greater": "greater", "larger": "greater",
           "false": "tru", "no": "not", "incorrect": "not",
-          "left": "right", "below": "above", "outside": "in", "out": "in",
           "water": "water", "ocean": "water", "sea": "water",
-          "spirit": "spirit", "soul": "spirit", "ghost": "spirit",
+          "spirit": "spirit", "soul": "spirit", "ghost": "spirit", "god": "spirit", "lord": "spirit",
           "light": "light", "day": "light", "sun": "light", "bright": "light",
           "with": "with", "together": "with", "union": "with",
           "earth": "earth", "ground": "earth", "land": "earth", "world": "earth",
-          "sky": "sky", "air": "sky", "heaven": "sky", "wind": "sky",
+          "sky": "sky", "air": "sky", "heaven": "sky", "heavens": "sky", "wind": "sky",
           "protect": "protect", "guard": "protect", "shield": "protect", "save": "protect", "shepherd": "protect",
-          "stone": "stone", "rock": "stone", "solid": "stone", "hard": "stone"
+          "stone": "stone", "rock": "stone", "solid": "stone", "hard": "stone",
+          "beginning": "before", "created": "do", "in": "in",
+          "was": "is", "been": "is", "be": "is", "were": "is"
         };
         handle = standardMap[w];
       }
@@ -833,6 +840,12 @@
       } else if (w === "after") {
         currentLineKeys.push("FLIP");
         currentLineKeys.push("before");
+      } else if (w === "lack") {
+        currentLineKeys.push("FLIP");
+        currentLineKeys.push("want");
+      } else if (w === "nothing") {
+        currentLineKeys.push("FLIP");
+        currentLineKeys.push("something");
       } else {
         if (currentLineKeys.length > 0 && !["FLIP", "INDENT", "OUTDENT", "DOWN"].includes(handle)) {
           currentLineKeys.push("SPACE");
@@ -1114,8 +1127,8 @@
             clone.appendChild(star);
           }
         }
-        if (targetHandle) {
-          clone.setAttribute('data-handle', targetHandle);
+        if (handle) {
+          clone.setAttribute('data-handle', handle);
         }
         
         activeLine.insertBefore(clone, cursor);
