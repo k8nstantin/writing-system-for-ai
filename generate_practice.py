@@ -54,7 +54,7 @@ html_start = r"""<!DOCTYPE html>
     border-color: #7fcf9f;
   }
 
-  /* Symmetrical Dual-Box Rows */
+  /* Two Identical Large Boxes styled exactly like Output Display */
   .box-container {
     display: flex;
     flex-direction: column;
@@ -100,7 +100,7 @@ html_start = r"""<!DOCTYPE html>
     line-height: 1.6;
   }
 
-  /* Standalone Translate Button in Pure Alan (using sai / say communication symbol) */
+  /* Redesigned Translate Button in Pure Alan (using sai / say communication symbol) */
   .translate-btn {
     background: #48b5c4;
     color: #0b0e13;
@@ -348,7 +348,7 @@ html_start = r"""<!DOCTYPE html>
     100% { transform: scale(1.05); background: #22384a; }
   }
 
-  /* Symmetrical Top Bar Negation Modifier */
+  /* Symmetrical Top, Bottom, and Left Bar Negation Modifier */
   .anti-bar {
     display: none;
     opacity: 0;
@@ -402,7 +402,7 @@ html_start = r"""<!DOCTYPE html>
   <!-- Row 1: English Input Display + Standalone Translate Button -->
   <div class="row-layout">
     <div class="english-box">
-      <textarea id="spellcheckInput" placeholder="Type or paste your English sentence here... (e.g., 'update customer 756 set balance to 5000')"></textarea>
+      <textarea id="spellcheckInput" placeholder="Type or paste your English sentence here... (e.g., 'update customer 867 set balance to 500')"></textarea>
     </div>
     
     <!-- Standalone Translate Button in Pure Alan (using sai / say communication symbol) -->
@@ -490,13 +490,28 @@ html_start = r"""<!DOCTYPE html>
     <div class="row" style="padding-left: 30px;">
       <div class="key time" data-handle="time"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><line x1="12" y1="8" x2="12" y2="16" /></svg><span class="handle">time</span></div>
       <div class="key time" data-handle="now"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><line x1="12" y1="6" x2="12" y2="18" stroke-width="4" /></svg><span class="handle">now</span></div>
-      <div class="key time" data-handle="before" data-flip="Y"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><line x1="12" y1="8" x2="12" y2="16" /><polyline points="10,12 6,12" /><polyline points="8,10 6,12 8,14" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">before</span></div>
+      <div class="key time" data-handle="before" data-flip="left"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="8" y1="12" x2="24" y2="12" /><line x1="14" y1="8" x2="14" y2="16" /><polyline points="12,12 8,12" /><polyline points="10,10 8,12 10,14" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">before</span></div>
       <div class="key time" data-handle="long"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="4" y1="12" x2="20" y2="12" /><polyline points="6,9 2,12 6,15" /><polyline points="18,9 22,12 18,15" /></svg><span class="handle">long</span></div>
       <div class="key time" data-handle="moment"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="6" x2="12" y2="18" stroke-width="4" /></svg><span class="handle">moment</span></div>
     </div>
     <!-- Left Thumb Cluster -->
     <div class="thumb-cluster left">
       <div class="key wide modifier" data-action="FLIP" style="color: #ffd166; font-size: 16px; font-weight: bold;" title="Hold/Toggle to flip symbols to opposites">⇿ ANTI</div>
+      
+      <!-- Symmetrical 5-way D-Pad Compass Key -->
+      <div class="key action" data-action="COMPASS" style="border-top: 2px solid #8aa6d4;" title="Compass D-Pad: Click Top (above), Bottom (below), Left (left), Right (right), Center (inside)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#48b5c4" stroke-width="2">
+          <!-- Compass Outer Carets -->
+          <polygon points="12,1 14,4 10,4" fill="#5d626c" stroke="none" />
+          <polygon points="12,23 14,20 10,20" fill="#5d626c" stroke="none" />
+          <polygon points="1,12 4,14 4,10" fill="#5d626c" stroke="none" />
+          <polygon points="23,12 20,14 20,10" fill="#5d626c" stroke="none" />
+          <!-- Sharp Compass Star Center -->
+          <polygon points="12,6 13.5,11 18,12 13.5,13 12,18 10.5,13 6,12 10.5,11" fill="#48b5c4" stroke="none" />
+        </svg>
+        <span class="handle">compass</span>
+      </div>
+
       <div class="key tall space" data-action="SPACE" title="Space (Horizontal Word Gap)"><svg viewBox="0 0 24 24" fill="none" stroke="#8aa6d4" stroke-width="2"><path d="M 4 8 V 16 H 20 V 8" stroke-width="3" /></svg><span class="handle">space</span></div>
       <div class="key tall action" data-action="INDENT" title="Step Right (Indent)"><svg viewBox="0 0 24 24" fill="none" stroke="#7fcf9f" stroke-width="2"><line x1="4" y1="12" x2="20" y2="12" stroke-width="3" /><polyline points="14,6 20,12 14,18" stroke-width="3" /></svg><span class="handle">indent</span></div>
     </div>
@@ -529,29 +544,41 @@ html_start = r"""<!DOCTYPE html>
     <div class="row" style="padding-right: 20px;">
       <div class="key action" data-handle="do"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 2,20 22,20" /></svg><span class="handle">do</span></div>
       <div class="key action" data-handle="mov"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="4" y1="12" x2="20" y2="12" /><polyline points="10,6 4,12 10,18" /><polyline points="14,6 20,12 14,18" /></svg><span class="handle">move</span></div>
-      <div class="key action" data-handle="liv" data-flip="Y"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 2,20 22,20" /><circle cx="12" cy="14" r="2" fill="#e2e8f0"/></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">live</span></div>
+      <div class="key action" data-handle="liv" data-flip="above"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,6 2,22 22,22" /><circle cx="12" cy="16" r="2" fill="#e2e8f0"/></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">live</span></div>
       <div class="key action" data-handle="sai"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="8,4 8,20 20,12" /></svg><span class="handle">say</span></div>
       <div class="key action" data-handle="wrd"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" /><line x1="8" y1="9" x2="16" y2="9" /><line x1="8" y1="12" x2="16" y2="12" /><line x1="8" y1="15" x2="12" y2="15" /></svg><span class="handle">words</span></div>
     </div>
     <!-- Row 3: Descriptors -->
     <div class="row" style="padding-right: 10px;">
-      <div class="key desc" data-handle="gud" data-flip="Y"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polyline points="8,14 12,9 16,14" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">good</span></div>
-      <div class="key desc" data-handle="big" data-flip="Y"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polygon points="8,16 16,16 18,7 6,7" fill="#e2e8f0" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">big</span></div>
-      <div class="key desc" data-handle="les" data-flip="Y"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="15,5 9,12 15,19" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">less</span></div>
-      <div class="key desc" data-handle="tru" data-flip="Y"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" fill="#e2e8f0" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">true</span></div>
+      <div class="key desc" data-handle="gud" data-flip="above"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="6" width="16" height="16" /><polyline points="8,16 12,11 16,16" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">good</span></div>
+      <div class="key desc" data-handle="big" data-flip="above"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="6" width="16" height="16" /><polygon points="8,18 16,18 18,9 6,9" fill="#e2e8f0" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">big</span></div>
+      <div class="key desc" data-handle="les" data-flip="left"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="15,5 9,12 15,19" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">less</span></div>
+      <div class="key desc" data-handle="tru" data-flip="above"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="6" width="16" height="16" fill="#e2e8f0" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">true</span></div>
       <div class="key desc" data-handle="lik"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polyline points="8,13 12,8 16,13" /><polyline points="8,18 12,13 16,18" /></svg><span class="handle">like</span></div>
       <div class="key desc" data-handle="part"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="12" height="12" /><rect x="8" y="8" width="12" height="12" /></svg><span class="handle">part</span></div>
     </div>
     <!-- Row 4: Space -->
     <div class="row" style="padding-right: 30px;">
       <div class="key space" data-handle="place"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="20" x2="22" y2="20" /><line x1="12" y1="20" x2="12" y2="2" /><circle cx="12" cy="12" r="3" fill="#e2e8f0" /></svg><span class="handle">place</span></div>
-      <div class="key space" data-handle="above" data-flip="Y"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,10 12,4 16,10" /><line x1="12" y1="4" x2="12" y2="14" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">above</span></div>
-      <div class="key space" data-handle="left" data-flip="Y"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="2" x2="12" y2="22" /><rect x="4" y="8" width="6" height="8" fill="#e2e8f0" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">left</span></div>
-      <div class="key space" data-handle="in" data-flip="Y"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><rect x="9" y="9" width="6" height="6" fill="#e2e8f0" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">in</span></div>
-      <div class="key space" data-handle="out"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="8" width="14" height="14" /><rect x="16" y="2" width="6" height="6" fill="#e2e8f0" /></svg><span class="handle">out</span></div>
+      <div class="key space" data-handle="water"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 3,8 Q 7.5,5 12,8 T 21,8 M 3,14 Q 7.5,11 12,14 T 21,14 M 3,20 Q 7.5,17 12,20 T 21,20" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" /></svg><span class="handle">water</span></div>
     </div>
     <!-- Right Thumb Cluster -->
     <div class="thumb-cluster right">
+      <!-- Symmetrical 5-way D-Pad Compass Key (Right Half) -->
+      <div class="key action" data-action="COMPASS" style="border-top: 2px solid #8aa6d4;" title="Compass D-Pad: Click Top (above), Bottom (below), Left (left), Right (right), Center (inside)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#48b5c4" stroke-width="2">
+          <!-- Compass Outer Carets -->
+          <polygon points="12,1 14,4 10,4" fill="#5d626c" stroke="none" />
+          <polygon points="12,23 14,20 10,20" fill="#5d626c" stroke="none" />
+          <polygon points="1,12 4,14 4,10" fill="#5d626c" stroke="none" />
+          <polygon points="23,12 20,14 20,10" fill="#5d626c" stroke="none" />
+          <!-- Sharp Compass Star Center -->
+          <polygon points="12,6 13.5,11 18,12 13.5,13 12,18 10.5,13 6,12 10.5,11" fill="#48b5c4" stroke="none" />
+        </svg>
+        <span class="handle">compass</span>
+      </div>
+
+      <div class="key wide modifier" data-action="FLIP" style="color: #ffd166; font-size: 16px; font-weight: bold;" title="Hold/Toggle to flip symbols to opposites">⇿ ANTI</div>
       <div class="key tall action" data-action="OUTDENT" title="Step Left (Outdent)"><svg viewBox="0 0 24 24" fill="none" stroke="#7fcf9f" stroke-width="2"><line x1="20" y1="12" x2="4" y2="12" stroke-width="3" /><polyline points="10,6 4,12 10,18" stroke-width="3" /></svg><span class="handle">outdent</span></div>
       <div class="key tall action" data-action="DOWN" title="Step Down (Newline / Sibling)"><svg viewBox="0 0 24 24" fill="none" stroke="#ff8a6b" stroke-width="2"><path d="M 20 6 V 14 H 6 M 12 8 L 6 14 L 12 20" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="handle">down</span></div>
       <div class="key wide action" data-action="BACK" style="color: #f67280; font-size: 16px; font-weight: bold;" title="Backspace">⌫ BACK</div>
@@ -597,9 +624,8 @@ html_start = r"""<!DOCTYPE html>
     
     currentStep = 0;
     isFlipped = false;
-    document.querySelector('.split-keyboard').classList.remove('flipped');
-    const flipKey = document.querySelector('.key[data-action="FLIP"]');
-    if (flipKey) flipKey.classList.remove('active');
+    document.querySelectorAll('.split-keyboard').forEach(el => el.classList.remove('flipped'));
+    document.querySelectorAll('.key[data-action="FLIP"]').forEach(el => el.classList.remove('active'));
     
     successBanner.style.display = 'none';
     highlightNextKey();
@@ -614,8 +640,14 @@ html_start = r"""<!DOCTYPE html>
     if (!sandboxConfig || currentStep >= sandboxConfig.targetKeys.length) return;
     
     const target = sandboxConfig.targetKeys[currentStep];
-    let keyEl = document.querySelector(`.key[data-action="${target}"]`) || 
-                document.querySelector(`.key[data-handle="${target}"]`);
+    // If the step is any direction, highlight the COMPASS key!
+    let keyEl;
+    if (['above', 'below', 'left', 'right', 'in'].includes(target)) {
+      keyEl = document.querySelector('.key[data-action="COMPASS"]');
+    } else {
+      keyEl = document.querySelector(`.key[data-action="${target}"]`) || 
+              document.querySelector(`.key[data-handle="${target}"]`);
+    }
                 
     if (keyEl) {
       keyEl.classList.add('highlight');
@@ -709,7 +741,9 @@ html_start = r"""<!DOCTYPE html>
           "because": "bik", "place": "place", "here": "place", "not": "not", "dont": "not",
           "small": "small", "smaller": "small", "tiny": "small", "little": "small",
           "less": "les", "fewer": "les", "greater": "greater", "larger": "greater",
-          "false": "not", "no": "not", "incorrect": "not"
+          "false": "tru", "no": "not", "incorrect": "not",
+          "left": "right", "below": "above", "outside": "in", "out": "in",
+          "water": "water", "ocean": "water", "sea": "water"
         };
         handle = standardMap[w];
       }
@@ -718,7 +752,7 @@ html_start = r"""<!DOCTYPE html>
         handle = "something";
       }
       
-      if (["is", "bik", "if", "eql", "les", "greater"].includes(handle) || w === "set" || w === "update") {
+      if (["is", "bik", "if", "eql", "les", "greater", "above", "below", "left", "right", "in", "out"].includes(handle) || w === "set" || w === "update") {
         if (currentLineKeys.length > 0) {
           lineBuilders.push({ indent: currentIndent, keys: [...currentLineKeys] });
           currentLineKeys = [];
@@ -738,6 +772,18 @@ html_start = r"""<!DOCTYPE html>
       } else if (handle === "false") {
         currentLineKeys.push("FLIP");
         currentLineKeys.push("tru");
+      } else if (w === "left") {
+        currentLineKeys.push("FLIP");
+        currentLineKeys.push("right");
+      } else if (w === "below") {
+        currentLineKeys.push("FLIP");
+        currentLineKeys.push("above");
+      } else if (w === "outside" || w === "out") {
+        currentLineKeys.push("FLIP");
+        currentLineKeys.push("in");
+      } else if (w === "after") {
+        currentLineKeys.push("FLIP");
+        currentLineKeys.push("before");
       } else {
         if (currentLineKeys.length > 0 && !["FLIP", "INDENT", "OUTDENT", "DOWN"].includes(handle)) {
           currentLineKeys.push("SPACE");
@@ -816,7 +862,6 @@ html_start = r"""<!DOCTYPE html>
   // Spellcheck & Sandbox Custom Phrase Parser
   const spellInput = document.getElementById('spellcheckInput');
   const spellBtn = document.getElementById('spellcheckBtn');
-  const spellFeedback = document.getElementById('spellcheckFeedback');
 
   function handleSpellcheck() {
     const text = spellInput.value.trim().toLowerCase();
@@ -833,13 +878,7 @@ html_start = r"""<!DOCTYPE html>
       
       // Display guidance panel
       guidancePanel.style.display = 'block';
-      
-      spellFeedback.style.color = '#7fcf9f';
-      spellFeedback.textContent = "✓ Phrase translated successfully! Sibling guides loaded below.";
       resetWorkspace();
-    } else {
-      spellFeedback.style.color = '#f67280';
-      spellFeedback.textContent = "Could not parse phrase. Try something like 'I want you', 'update customer 756 set balance to 5000', or 'I know now'.";
     }
   }
 
@@ -852,15 +891,39 @@ html_start = r"""<!DOCTYPE html>
   const keys = document.querySelectorAll('.key');
 
   keys.forEach(key => {
-    key.addEventListener('click', () => {
+    key.addEventListener('click', (e) => {
       const action = key.getAttribute('data-action');
       const handle = key.getAttribute('data-handle');
       
       const l = sandboxConfig;
       const target = l ? l.targetKeys[currentStep] : null;
 
-      const pressedId = action || handle;
+      let pressedId = action || handle;
       
+      // EXQUISITE 5-WAY COMPASS STAR D-PAD CLICK DETECTION!
+      if (action === 'COMPASS') {
+        const rect = key.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const clickY = e.clientY - rect.top;
+        const normX = clickX / rect.width;
+        const normY = clickY / rect.height;
+        
+        const distFromCenter = Math.sqrt(Math.pow(normX - 0.5, 2) + Math.pow(normY - 0.5, 2));
+        if (distFromCenter < 0.22) {
+          pressedId = 'in';
+        } else {
+          if (normY < normX && normY < 1 - normX) {
+            pressedId = 'above';
+          } else if (normY > normX && normY > 1 - normX) {
+            pressedId = 'below';
+          } else if (normY > normX && normY < 1 - normX) {
+            pressedId = 'left';
+          } else {
+            pressedId = 'right';
+          }
+        }
+      }
+
       // IF IN GUIDED MODE, ENFORCE STRICT CHARACTER-BY-CHARACTER MATCHING!
       if (l) {
         if (pressedId === target) {
@@ -876,8 +939,8 @@ html_start = r"""<!DOCTYPE html>
 
       if (action === 'FLIP') {
         isFlipped = !isFlipped;
-        document.querySelector('.split-keyboard').classList.toggle('flipped', isFlipped);
-        key.classList.toggle('active', isFlipped);
+        document.querySelectorAll('.split-keyboard').forEach(el => el.classList.toggle('flipped', isFlipped));
+        document.querySelectorAll('.key[data-action="FLIP"]').forEach(el => el.classList.toggle('active', isFlipped));
         highlightNextKey();
         updateChecklist();
         return;
@@ -953,39 +1016,79 @@ html_start = r"""<!DOCTYPE html>
       }
 
       // Default: typing a symbol
-      const svg = key.querySelector('svg');
-      if (svg) {
-        const clone = svg.cloneNode(true);
-        const flipType = key.getAttribute('data-flip');
+      let svgTemplate;
+      let targetHandle = pressedId;
+      let flipType = 'above';
+
+      // Resolve the SVG template for our direction macros typed from the D-Pad Compass Key
+      if (pressedId === 'above') {
+        svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,12 12,8 16,12" stroke-width="2" /><line x1="12" y1="8" x2="12" y2="16" stroke-width="2" /><polygon points="12,1 13,3 15,4 13,5 12,7 11,5 9,4 11,3" fill="#e2e8f0" stroke="none" /></svg>`;
+        flipType = 'below';
+      } else if (pressedId === 'below') {
+        svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,12 12,8 16,12" stroke-width="2" /><line x1="12" y1="8" x2="12" y2="16" stroke-width="2" /><polygon points="12,1 13,3 15,4 13,5 12,7 11,5 9,4 11,3" fill="#e2e8f0" stroke="none" /></svg>`;
+        isFlipped = true; // For below, we force-flip it so the star sits underneath!
+        flipType = 'below';
+      } else if (pressedId === 'right') {
+        svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="4" y1="2" x2="4" y2="22" stroke-width="2" /><polyline points="12,8 16,12 12,16" stroke-width="2" /><line x1="8" y1="12" x2="16" y2="12" stroke-width="2" /><polygon points="20,9 21,11 23,12 21,13 20,15 19,13 17,12 19,11" fill="#e2e8f0" stroke="none" /></svg>`;
+        flipType = 'left';
+      } else if (pressedId === 'left') {
+        svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="4" y1="2" x2="4" y2="22" stroke-width="2" /><polyline points="12,8 16,12 12,16" stroke-width="2" /><line x1="8" y1="12" x2="16" y2="12" stroke-width="2" /><polygon points="20,9 21,11 23,12 21,13 20,15 19,13 17,12 19,11" fill="#e2e8f0" stroke="none" /></svg>`;
+        isFlipped = true; // For left, we force-flip it so the star sits to its left!
+        flipType = 'left';
+      } else if (pressedId === 'in') {
+        svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><rect x="4" y="6" width="16" height="16" /><polygon points="12,11 13,13 15,14 13,15 12,17 11,15 9,14 11,13" fill="#e2e8f0" stroke="none" /></svg>`;
+        flipType = 'above';
+      } else {
+        const svg = key.querySelector('svg');
+        if (svg) {
+          svgTemplate = svg.outerHTML;
+          flipType = key.getAttribute('data-flip') || 'above';
+        }
+      }
+
+      if (svgTemplate) {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(svgTemplate, 'image/svg+xml');
+        const clone = doc.documentElement;
         
-        // Dynamically add the glowing orange-red anti-bar inside the SVG itself when flipped!
+        // Dynamically add the glowing diacritical star above, below, or to the left of the typed symbol when flipped!
         if (isFlipped && flipType) {
           clone.setAttribute('data-flipped', 'true');
           
-          // Append the diacritical top-bar directly to the SVG!
-          const bar = document.createElementNS("http://www.w3.org/2000/svg", "line");
-          bar.setAttribute("x1", "4");
-          bar.setAttribute("y1", "2");
-          bar.setAttribute("x2", "20");
-          bar.setAttribute("y2", "2");
-          bar.setAttribute("stroke", "#ff8a6b"); // warm orange-red glow
-          bar.setAttribute("stroke-width", "3");
-          bar.setAttribute("stroke-linecap", "round");
-          clone.appendChild(bar);
+          // Append the correct diacritical star vector based on layout direction!
+          if (flipType === 'above') {
+            // Inverted 5-pointed Pentagram Star (Zone 2)
+            const star = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+            star.setAttribute("fill", "currentColor");
+            star.setAttribute("stroke", "none");
+            star.setAttribute("points", "9,1 12,2.2 15,1 13.8,2.4 16,3.2 13.5,3.8 12,5.5 10.5,3.8 8,3.2 10.2,2.4");
+            clone.appendChild(star);
+          } else if (flipType === 'below') {
+            // Inverted 5-pointed Pentagram Star (Zone 1 Bottom)
+            const star = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+            star.setAttribute("fill", "currentColor");
+            star.setAttribute("stroke", "none");
+            star.setAttribute("points", "9,18.5 12,19.7 15,18.5 13.8,19.9 16,20.7 13.5,21.3 12,23.0 10.5,21.3 8,20.7 10.2,19.9");
+            clone.appendChild(star);
+          } else if (flipType === 'left') {
+            // Sharp 4-pointed Compass Star (Zone 1 Left)
+            const star = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+            star.setAttribute("fill", "currentColor");
+            star.setAttribute("stroke", "none");
+            star.setAttribute("points", "4,8 5,11 8,12 5,13 4,16 3,13 0,12 3,11");
+            clone.appendChild(star);
+          }
         }
-        if (handle) {
-          clone.setAttribute('data-handle', handle);
+        if (targetHandle) {
+          clone.setAttribute('data-handle', targetHandle);
         }
         
         activeLine.insertBefore(clone, cursor);
         
-        // Auto reset flip after typing if it was a flippable key
-        if (isFlipped && flipType) {
-          isFlipped = false;
-          document.querySelector('.split-keyboard').classList.remove('flipped');
-          const flipKey = document.querySelector('.key[data-action="FLIP"]');
-          if (flipKey) flipKey.classList.remove('active');
-        }
+        // Auto reset flip after typing
+        isFlipped = false;
+        document.querySelectorAll('.split-keyboard').forEach(el => el.classList.remove('flipped'));
+        document.querySelectorAll('.key[data-action="FLIP"]').forEach(el => el.classList.remove('active'));
       }
       
       highlightNextKey();
@@ -1000,7 +1103,12 @@ html_start = r"""<!DOCTYPE html>
 </html>
 """
 
+# Save as python wrapper to generate_practice.py
+with open('/Users/calexander/writing-system-for-ai/generate_practice.py', 'w') as f:
+    f.write(f'import os\n\nhtml_start = r"""{html_start}"""\n\nwith open(\'/Users/calexander/writing-system-for-ai/practice.html\', \'w\') as f:\n    f.write(html_start)\n\nprint("Practice sandbox compiled successfully!")\n')
+
+# Also write to practice.html directly
 with open('/Users/calexander/writing-system-for-ai/practice.html', 'w') as f:
     f.write(html_start)
 
-print("Practice sandbox generated successfully!")
+print("Double-star keyboard and landing page written and compiled successfully!")
