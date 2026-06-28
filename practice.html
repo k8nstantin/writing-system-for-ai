@@ -334,6 +334,16 @@
   .thumb-cluster.left { justify-content: flex-end; padding-right: 10px; }
   .thumb-cluster.right { justify-content: flex-start; padding-left: 10px; }
 
+  /* Symmetrical 3x3 Compass D-Pad */
+  .compass-cross {
+    display: grid;
+    grid-template-columns: repeat(3, 36px);
+    grid-template-rows: repeat(3, 36px);
+    gap: 4px;
+    align-items: center;
+    justify-content: center;
+  }
+
   /* Highlighting Pulsing key */
   .key.highlight {
     animation: pulse-border 1.5s infinite alternate;
@@ -493,21 +503,32 @@
       <div class="key time" data-handle="moment"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="6" x2="12" y2="18" stroke-width="4" /></svg><span class="handle">moment</span></div>
     </div>
     <!-- Left Thumb Cluster -->
-    <div class="thumb-cluster left">
+    <div class="thumb-cluster left" style="align-items: center; gap: 15px;">
       <div class="key wide modifier" data-action="FLIP" style="color: #ffd166; font-size: 16px; font-weight: bold;" title="Hold/Toggle to flip symbols to opposites">⇿ ANTI</div>
       
-      <!-- Symmetrical 5-way D-Pad Compass Key -->
-      <div class="key action" data-action="COMPASS" style="border-top: 2px solid #8aa6d4;" title="Compass D-Pad: Click Top (above), Bottom (below), Left (left), Right (right), Center (inside)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#48b5c4" stroke-width="2">
-          <!-- Compass Outer Carets -->
-          <polygon points="12,2 14,4 10,4" fill="#5d626c" />
-          <polygon points="12,22 14,20 10,20" fill="#5d626c" />
-          <polygon points="2,12 4,14 4,10" fill="#5d626c" />
-          <polygon points="22,12 20,14 20,10" fill="#5d626c" />
-          <!-- Sharp Compass Star Center -->
-          <polygon points="12,6 13.5,11 18,12 13.5,13 12,18 10.5,13 6,12 10.5,11" fill="#48b5c4" stroke="none" />
-        </svg>
-        <span class="handle">compass</span>
+      <!-- Symmetrical Cross D-Pad (Left Half) -->
+      <div class="compass-cross">
+        <div></div>
+        <div class="key space" data-handle="above" data-flip="below" style="width:36px; height:36px;" title="Above">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="8,14 12,9 16,14" /></svg>
+        </div>
+        <div></div>
+        
+        <div class="key space" data-handle="left" data-flip="left" style="width:36px; height:36px;" title="Left">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="14,8 9,12 14,16" /></svg>
+        </div>
+        <div class="key space" data-handle="in" data-flip="above" style="width:36px; height:36px;" title="Inside">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="3" fill="#e2e8f0" /></svg>
+        </div>
+        <div class="key space" data-handle="right" data-flip="left" style="width:36px; height:36px;" title="Right">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="10,8 15,12 10,16" /></svg>
+        </div>
+        
+        <div></div>
+        <div class="key space" data-handle="below" data-flip="below" style="width:36px; height:36px;" title="Below">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="8,10 12,15 16,10" /></svg>
+        </div>
+        <div></div>
       </div>
 
       <div class="key tall space" data-action="SPACE" title="Space (Horizontal Word Gap)"><svg viewBox="0 0 24 24" fill="none" stroke="#8aa6d4" stroke-width="2"><path d="M 4 8 V 16 H 20 V 8" stroke-width="3" /></svg><span class="handle">space</span></div>
@@ -561,19 +582,30 @@
       <div class="key space" data-handle="water"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 3,8 Q 7.5,5 12,8 T 21,8 M 3,14 Q 7.5,11 12,14 T 21,14 M 3,20 Q 7.5,17 12,20 T 21,20" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" /></svg><span class="handle">water</span></div>
     </div>
     <!-- Right Thumb Cluster -->
-    <div class="thumb-cluster right">
-      <!-- Symmetrical 5-way D-Pad Compass Key (Right Half) -->
-      <div class="key action" data-action="COMPASS" style="border-top: 2px solid #8aa6d4;" title="Compass D-Pad: Click Top (above), Bottom (below), Left (left), Right (right), Center (inside)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#48b5c4" stroke-width="2">
-          <!-- Compass Outer Carets -->
-          <polygon points="12,1 14,4 10,4" fill="#5d626c" stroke="none" />
-          <polygon points="12,23 14,20 10,20" fill="#5d626c" stroke="none" />
-          <polygon points="1,12 4,14 4,10" fill="#5d626c" stroke="none" />
-          <polygon points="23,12 20,14 20,10" fill="#5d626c" stroke="none" />
-          <!-- Sharp Compass Star Center -->
-          <polygon points="12,6 13.5,11 18,12 13.5,13 12,18 10.5,13 6,12 10.5,11" fill="#48b5c4" stroke="none" />
-        </svg>
-        <span class="handle">compass</span>
+    <div class="thumb-cluster right" style="align-items: center; gap: 15px;">
+      <!-- Symmetrical Cross D-Pad (Right Half) -->
+      <div class="compass-cross">
+        <div></div>
+        <div class="key space" data-handle="above" data-flip="below" style="width:36px; height:36px;" title="Above">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="8,14 12,9 16,14" /></svg>
+        </div>
+        <div></div>
+        
+        <div class="key space" data-handle="left" data-flip="left" style="width:36px; height:36px;" title="Left">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="14,8 9,12 14,16" /></svg>
+        </div>
+        <div class="key space" data-handle="in" data-flip="above" style="width:36px; height:36px;" title="Inside">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="3" fill="#e2e8f0" /></svg>
+        </div>
+        <div class="key space" data-handle="right" data-flip="left" style="width:36px; height:36px;" title="Right">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="10,8 15,12 10,16" /></svg>
+        </div>
+        
+        <div></div>
+        <div class="key space" data-handle="below" data-flip="below" style="width:36px; height:36px;" title="Below">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="8,10 12,15 16,10" /></svg>
+        </div>
+        <div></div>
       </div>
 
       <div class="key wide modifier" data-action="FLIP" style="color: #ffd166; font-size: 16px; font-weight: bold;" title="Hold/Toggle to flip symbols to opposites">⇿ ANTI</div>
@@ -622,7 +654,7 @@
     
     currentStep = 0;
     isFlipped = false;
-    document.querySelectorAll('.split-keyboard').forEach(el => el.classList.remove('flipped'));
+    document.querySelector('.split-keyboard').classList.remove('flipped');
     document.querySelectorAll('.key[data-action="FLIP"]').forEach(el => el.classList.remove('active'));
     
     successBanner.style.display = 'none';
@@ -638,14 +670,8 @@
     if (!sandboxConfig || currentStep >= sandboxConfig.targetKeys.length) return;
     
     const target = sandboxConfig.targetKeys[currentStep];
-    // If the step is any direction, highlight the COMPASS key!
-    let keyEl;
-    if (['above', 'below', 'left', 'right', 'in'].includes(target)) {
-      keyEl = document.querySelector('.key[data-action="COMPASS"]');
-    } else {
-      keyEl = document.querySelector(`.key[data-action="${target}"]`) || 
-              document.querySelector(`.key[data-handle="${target}"]`);
-    }
+    const keyEl = document.querySelector(`.key[data-action="${target}"]`) || 
+                  document.querySelector(`.key[data-handle="${target}"]`);
                 
     if (keyEl) {
       keyEl.classList.add('highlight');
@@ -897,30 +923,6 @@
       const target = l ? l.targetKeys[currentStep] : null;
 
       let pressedId = action || handle;
-      
-      // EXQUISITE 5-WAY COMPASS STAR D-PAD CLICK DETECTION!
-      if (action === 'COMPASS') {
-        const rect = key.getBoundingClientRect();
-        const clickX = e.clientX - rect.left;
-        const clickY = e.clientY - rect.top;
-        const normX = clickX / rect.width;
-        const normY = clickY / rect.height;
-        
-        const distFromCenter = Math.sqrt(Math.pow(normX - 0.5, 2) + Math.pow(normY - 0.5, 2));
-        if (distFromCenter < 0.22) {
-          pressedId = 'in';
-        } else {
-          if (normY < normX && normY < 1 - normX) {
-            pressedId = 'above';
-          } else if (normY > normX && normY > 1 - normX) {
-            pressedId = 'below';
-          } else if (normY > normX && normY < 1 - normX) {
-            pressedId = 'left';
-          } else {
-            pressedId = 'right';
-          }
-        }
-      }
 
       // IF IN GUIDED MODE, ENFORCE STRICT CHARACTER-BY-CHARACTER MATCHING!
       if (l) {
