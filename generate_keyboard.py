@@ -18,20 +18,20 @@ html_start = """<!DOCTYPE html>
     justify-content: center;
     min-height: 100vh;
     margin: 0;
-    padding: 40px 40px 80px 40px;
+    padding: 30px;
     box-sizing: border-box;
     overflow: hidden;
   }
   
   .teaser-text {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 25px;
   }
   
   .teaser-text h1 {
     font-size: 24px;
     color: #fff;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
   }
   
   .teaser-text p {
@@ -44,7 +44,7 @@ html_start = """<!DOCTYPE html>
   .split-keyboard {
     display: flex;
     justify-content: center;
-    gap: 60px; /* The physical split */
+    gap: 40px; /* The physical split */
     align-items: flex-end;
   }
 
@@ -114,7 +114,7 @@ html_start = """<!DOCTYPE html>
   .key.time   { border-top: 2px solid #48b5c4; } /* Cyan */
   .key.num    { border-top: 2px solid #e2e8f0; } /* White/Silver */
 
-  .key.wide { width: 70px; }
+  .key.wide { width: 75px; }
   .key.tall { height: 108px; } /* For thumb clusters */
   
   .thumb-cluster {
@@ -129,8 +129,8 @@ html_start = """<!DOCTYPE html>
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
-    margin-top: 50px;
+    gap: 15px;
+    margin-top: 30px;
     font-size: 12px;
     max-width: 800px;
   }
@@ -146,37 +146,95 @@ html_start = """<!DOCTYPE html>
     scrollbar-width: none;  /* Firefox */
   }
 
+  /* Cascading WYSIWYG Editor style overrides */
   .output-display {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    min-height: 140px; /* larger display to fit multiple lines */
+    max-height: 250px;
+    overflow-y: auto;
     width: 100%;
-    max-width: 800px;
-    min-height: 80px;
-    background: #0f131a;
+    max-width: 850px;
+    padding: 15px;
+    box-shadow: inset 0 4px 15px rgba(0,0,0,0.6);
+    background: #090c11;
     border: 1px solid #2b3340;
     border-radius: 12px;
-    margin-bottom: 40px;
-    padding: 15px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    gap: 12px;
-    box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+    margin-bottom: 25px;
+    box-sizing: border-box;
   }
 
-  .output-display svg {
-    width: 32px;
+  .line {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 40px;
+    margin-top: 4px;
+    border-left: 2px solid transparent;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+  }
+  .line[data-indent="1"] { border-left-color: #2b3340; }
+  .line[data-indent="2"] { border-left-color: #3d4757; }
+  .line[data-indent="3"] { border-left-color: #4a5669; }
+  .line[data-indent="4"] { border-left-color: #5a6980; }
+
+  .line .spacer {
+    width: 16px;
     height: 32px;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .line .spacer::after {
+    content: '·';
+    color: #2b3340;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+  }
+
+  .line svg {
+    width: 28px;
+    height: 28px;
     stroke: #e2e8f0;
   }
 
   .cursor {
     width: 2px;
-    height: 32px;
-    background: #8aa6d4;
-    animation: blink 1s step-end infinite;
+    height: 28px;
+    background: #48b5c4;
+    animation: blink-anim 1s step-end infinite;
   }
   
-  @keyframes blink { 50% { opacity: 0; } }
+  @keyframes blink-anim { 50% { opacity: 0; } }
+
+  /* Flippable Modifier Styles */
+  .flipped .key[data-flip="Y"] svg {
+    transform: scaleY(-1);
+    stroke: #ff8a6b !important;
+  }
+  .flipped .key[data-flip="X"] svg {
+    transform: scaleX(-1);
+    stroke: #ff8a6b !important;
+  }
+  .key.modifier.active {
+    background: #2b384a;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);
+    border-top-color: #a388ed !important;
+  }
+
+  svg.flipped-Y {
+    transform: scaleY(-1);
+    stroke: #ff8a6b !important;
+  }
+  svg.flipped-X {
+    transform: scaleX(-1);
+    stroke: #ff8a6b !important;
+  }
 
   /* Responsive Design for smaller iframes/screens */
   @media (max-width: 1000px) {
@@ -214,7 +272,9 @@ html_start = """<!DOCTYPE html>
 </div>
 
 <div class="output-display" id="output">
-  <div class="cursor" id="cursor"></div>
+  <div class="line" data-indent="0">
+    <div class="cursor" id="cursor"></div>
+  </div>
 </div>
 
 <div class="split-keyboard">
@@ -265,16 +325,15 @@ html_start = """<!DOCTYPE html>
     <div class="row" style="padding-left: 30px;">
       <div class="key time"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><line x1="12" y1="8" x2="12" y2="16" /></svg></div>
       <div class="key time"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><line x1="12" y1="6" x2="12" y2="18" stroke-width="4" /></svg></div>
-      <div class="key time"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><line x1="12" y1="8" x2="12" y2="16" /><polyline points="10,12 6,12" /><polyline points="8,10 6,12 8,14" /></svg></div>
-      <div class="key time"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><line x1="12" y1="8" x2="12" y2="16" /><polyline points="14,12 18,12" /><polyline points="16,10 18,12 16,14" /></svg></div>
+      <div class="key time" data-flip="X"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12" /><line x1="12" y1="8" x2="12" y2="16" /><polyline points="10,12 6,12" /><polyline points="8,10 6,12 8,14" /></svg></div>
       <div class="key time"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="4" y1="12" x2="20" y2="12" /><polyline points="6,9 2,12 6,15" /><polyline points="18,9 22,12 18,15" /></svg></div>
       <div class="key time"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="6" x2="12" y2="18" stroke-width="4" /></svg></div>
     </div>
     <!-- Left Thumb Cluster -->
     <div class="thumb-cluster left">
-      <div class="key wide" style="color:#5d626c; font-size:24px; font-weight:bold;" data-action="FLIP">⇿</div>
-      <div class="key logic tall"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" fill="#e2e8f0" /></svg></div>
-      <div class="key macro tall"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 22,9 18,20 6,20 2,9" /><circle cx="12" cy="8" r="1.5" fill="#e2e8f0" /><circle cx="8" cy="14" r="1.5" fill="#e2e8f0" /><circle cx="16" cy="14" r="1.5" fill="#e2e8f0" /><polyline points="12,8 8,14 16,14 12,8" stroke-width="1.5" stroke="#e2e8f0" /></svg></div>
+      <div class="key wide modifier" data-action="FLIP" style="color: #ffd166; font-size: 16px; font-weight: bold;" title="Hold/Toggle to flip symbols to opposites">⇿ FLIP</div>
+      <div class="key tall space" data-action="SPACE" title="Space (Horizontal Word Gap)"><svg viewBox="0 0 24 24" fill="none" stroke="#8aa6d4" stroke-width="2"><path d="M 4 8 V 16 H 20 V 8" stroke-width="3" /></svg></div>
+      <div class="key tall action" data-action="INDENT" title="Step Right (Indent)"><svg viewBox="0 0 24 24" fill="none" stroke="#7fcf9f" stroke-width="2"><line x1="4" y1="12" x2="20" y2="12" stroke-width="3" /><polyline points="14,6 20,12 14,18" stroke-width="3" /></svg></div>
     </div>
   </div>
 
@@ -299,22 +358,19 @@ html_start = """<!DOCTYPE html>
       <div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="8" r="1.5" fill="#e2e8f0" /><circle cx="7" cy="15" r="1.5" fill="#e2e8f0" /><circle cx="17" cy="15" r="1.5" fill="#e2e8f0" /></svg></div>
       <div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" stroke-dasharray="4,4" /></svg></div>
       <div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="6" cy="6" r="1.5" fill="#e2e8f0" /><circle cx="12" cy="6" r="1.5" fill="#e2e8f0" /><circle cx="18" cy="6" r="1.5" fill="#e2e8f0" /><circle cx="6" cy="12" r="1.5" fill="#e2e8f0" /><circle cx="12" cy="12" r="1.5" fill="#e2e8f0" /><circle cx="18" cy="12" r="1.5" fill="#e2e8f0" /><circle cx="6" cy="18" r="1.5" fill="#e2e8f0" /><circle cx="12" cy="18" r="1.5" fill="#e2e8f0" /><circle cx="18" cy="18" r="1.5" fill="#e2e8f0" /></svg></div>
-      <div class="key wide" style="color:#5d626c; font-size:18px; font-weight:bold;" data-action="BACK">⌫</div>
+      <div class="key logic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" fill="#e2e8f0" /></svg></div>
     </div>
     <!-- Row 2: Actions & Comm -->
     <div class="row" style="padding-right: 20px;">
       <div class="key action"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 2,20 22,20" /></svg></div>
-      <div class="key action"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="2,4 22,4 12,22" /></svg></div>
       <div class="key action"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="4" y1="12" x2="20" y2="12" /><polyline points="10,6 4,12 10,18" /><polyline points="14,6 20,12 14,18" /></svg></div>
-      <div class="key action"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 2,20 22,20" /><circle cx="12" cy="14" r="2" fill="#e2e8f0"/></svg></div>
-      <div class="key action"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="2,4 22,4 12,22" /><circle cx="12" cy="10" r="2" fill="#e2e8f0"/></svg></div>
+      <div class="key action" data-flip="Y"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 2,20 22,20" /><circle cx="12" cy="14" r="2" fill="#e2e8f0"/></svg></div>
       <div class="key action"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="8,4 8,20 20,12" /></svg></div>
       <div class="key action"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" /><line x1="8" y1="9" x2="16" y2="9" /><line x1="8" y1="12" x2="16" y2="12" /><line x1="8" y1="15" x2="12" y2="15" /></svg></div>
     </div>
     <!-- Row 3: Descriptors -->
     <div class="row" style="padding-right: 10px;">
-      <div class="key desc"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polyline points="8,14 12,9 16,14" /></svg></div>
-      <div class="key desc"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polyline points="8,10 12,15 16,10" /></svg></div>
+      <div class="key desc" data-flip="Y"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><polyline points="8,14 12,9 16,14" /></svg></div>
       <div class="key desc"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="2" width="20" height="20" stroke-width="4" /></svg></div>
       <div class="key desc"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="10" y="10" width="4" height="4" fill="#e2e8f0" /></svg></div>
       <div class="key desc"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" fill="#e2e8f0" /></svg></div>
@@ -324,18 +380,16 @@ html_start = """<!DOCTYPE html>
     <!-- Row 4: Space -->
     <div class="row" style="padding-right: 30px;">
       <div class="key space"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="20" x2="22" y2="20" /><line x1="12" y1="20" x2="12" y2="2" /><circle cx="12" cy="12" r="3" fill="#e2e8f0" /></svg></div>
-      <div class="key space"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,10 12,4 16,10" /><line x1="12" y1="4" x2="12" y2="14" /></svg></div>
-      <div class="key space"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="6" x2="22" y2="6" /><polyline points="8,14 12,20 16,14" /><line x1="12" y1="20" x2="12" y2="10" /></svg></div>
-      <div class="key space"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="2" x2="12" y2="22" /><rect x="4" y="8" width="6" height="8" fill="#e2e8f0" /></svg></div>
-      <div class="key space"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="2" x2="12" y2="22" /><rect x="14" y="8" width="6" height="8" fill="#e2e8f0" /></svg></div>
+      <div class="key space" data-flip="Y"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,10 12,4 16,10" /><line x1="12" y1="4" x2="12" y2="14" /></svg></div>
+      <div class="key space" data-flip="X"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="2" x2="12" y2="22" /><rect x="4" y="8" width="6" height="8" fill="#e2e8f0" /></svg></div>
       <div class="key space"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><rect x="9" y="9" width="6" height="6" fill="#e2e8f0" /></svg></div>
       <div class="key space"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="8" width="14" height="14" /><rect x="16" y="2" width="6" height="6" fill="#e2e8f0" /></svg></div>
     </div>
     <!-- Right Thumb Cluster -->
     <div class="thumb-cluster right">
-      <div class="key macro tall"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" /></svg></div>
-      <div class="key macro tall"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" /><circle cx="12" cy="12" r="3" fill="#e2e8f0" /></svg></div>
-      <div class="key wide" style="color:#e2e8f0; font-size:26px; font-weight:bold; display:flex; align-items:center; justify-content:center;" data-action="COMPOSE">⊕</div>
+      <div class="key tall action" data-action="OUTDENT" title="Step Left (Outdent)"><svg viewBox="0 0 24 24" fill="none" stroke="#7fcf9f" stroke-width="2"><line x1="20" y1="12" x2="4" y2="12" stroke-width="3" /><polyline points="10,6 4,12 10,18" stroke-width="3" /></svg></div>
+      <div class="key tall action" data-action="DOWN" title="Step Down (Newline / Sibling)"><svg viewBox="0 0 24 24" fill="none" stroke="#ff8a6b" stroke-width="2"><path d="M 20 6 V 14 H 6 M 12 8 L 6 14 L 12 20" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+      <div class="key wide action" data-action="BACK" style="color: #f67280; font-size: 16px; font-weight: bold;" title="Backspace">⌫ BACK</div>
     </div>
   </div>
 
@@ -351,34 +405,91 @@ html_start = """<!DOCTYPE html>
   <div class="legend-item"><div class="dot" style="background: #ff8a6b;"></div> Actions (Events)</div>
   <div class="legend-item"><div class="dot" style="background: #f67280;"></div> Descriptors</div>
   <div class="legend-item"><div class="dot" style="background: #8aa6d4;"></div> Space</div>
-  <div class="legend-item"><div class="dot" style="background: #ffd166;"></div> Macro/Cosmic</div>
 </div>
 
 <script>
   const output = document.getElementById('output');
-  const cursor = document.getElementById('cursor');
+  let activeLine = output.querySelector('.line');
+  let cursor = document.getElementById('cursor');
+  let currentIndent = 0;
+  let isFlipped = false;
+
   const keys = document.querySelectorAll('.key');
 
   keys.forEach(key => {
     key.addEventListener('click', () => {
-      // Handle special keys
       const action = key.getAttribute('data-action');
+
+      if (action === 'FLIP') {
+        isFlipped = !isFlipped;
+        document.querySelector('.split-keyboard').classList.toggle('flipped', isFlipped);
+        key.classList.toggle('active', isFlipped);
+        return;
+      }
+
+      if (action === 'INDENT') {
+        currentIndent = Math.min(currentIndent + 1, 4);
+        activeLine.setAttribute('data-indent', currentIndent);
+        activeLine.style.paddingLeft = `${currentIndent * 40}px`;
+        return;
+      }
+
+      if (action === 'OUTDENT') {
+        currentIndent = Math.max(currentIndent - 1, 0);
+        activeLine.setAttribute('data-indent', currentIndent);
+        activeLine.style.paddingLeft = `${currentIndent * 40}px`;
+        return;
+      }
+
+      if (action === 'DOWN') {
+        const newLine = document.createElement('div');
+        newLine.className = 'line';
+        newLine.setAttribute('data-indent', currentIndent);
+        newLine.style.paddingLeft = `${currentIndent * 40}px`;
+        
+        cursor.remove();
+        newLine.appendChild(cursor);
+        
+        output.appendChild(newLine);
+        activeLine = newLine;
+        output.scrollTop = output.scrollHeight; // Auto-scroll down
+        return;
+      }
+
+      if (action === 'SPACE') {
+        const spacer = document.createElement('div');
+        spacer.className = 'spacer';
+        activeLine.insertBefore(spacer, cursor);
+        return;
+      }
+
       if (action === 'BACK') {
-        if (output.children.length > 1) { // 1 is the cursor
-          output.removeChild(output.children[output.children.length - 2]);
+        const prev = cursor.previousElementSibling;
+        if (prev) {
+          prev.remove();
+        } else {
+          const prevLine = activeLine.previousElementSibling;
+          if (prevLine) {
+            cursor.remove();
+            prevLine.appendChild(cursor);
+            activeLine.remove();
+            activeLine = prevLine;
+            currentIndent = parseInt(activeLine.getAttribute('data-indent') || '0', 10);
+            output.scrollTop = output.scrollHeight;
+          }
         }
         return;
       }
-      if (action) {
-        return; // Ignore other modifiers for now
-      }
 
-      // Clone the SVG from the key
+      // Default: typing a symbol
       const svg = key.querySelector('svg');
       if (svg) {
         const clone = svg.cloneNode(true);
-        // Insert before the cursor
-        output.insertBefore(clone, cursor);
+        const flipType = key.getAttribute('data-flip');
+        if (isFlipped && flipType) {
+          clone.classList.add(`flipped-${flipType}`);
+        }
+        activeLine.insertBefore(clone, cursor);
       }
     });
   });
