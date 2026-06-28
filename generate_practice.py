@@ -502,10 +502,10 @@ html_start = r"""<!DOCTYPE html>
       <div class="key action" data-action="COMPASS" style="border-top: 2px solid #8aa6d4;" title="Compass D-Pad: Click Top (above), Bottom (below), Left (left), Right (right), Center (inside)">
         <svg viewBox="0 0 24 24" fill="none" stroke="#48b5c4" stroke-width="2">
           <!-- Compass Outer Carets -->
-          <polygon points="12,1 14,4 10,4" fill="#5d626c" stroke="none" />
-          <polygon points="12,23 14,20 10,20" fill="#5d626c" stroke="none" />
-          <polygon points="1,12 4,14 4,10" fill="#5d626c" stroke="none" />
-          <polygon points="23,12 20,14 20,10" fill="#5d626c" stroke="none" />
+          <polygon points="12,2 14,4 10,4" fill="#5d626c" />
+          <polygon points="12,22 14,20 10,20" fill="#5d626c" />
+          <polygon points="2,12 4,14 4,10" fill="#5d626c" />
+          <polygon points="22,12 20,14 20,10" fill="#5d626c" />
           <!-- Sharp Compass Star Center -->
           <polygon points="12,6 13.5,11 18,12 13.5,13 12,18 10.5,13 6,12 10.5,11" fill="#48b5c4" stroke="none" />
         </svg>
@@ -550,7 +550,7 @@ html_start = r"""<!DOCTYPE html>
     </div>
     <!-- Row 3: Descriptors -->
     <div class="row" style="padding-right: 10px;">
-      <div class="key desc" data-handle="gud" data-flip="above"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="6" width="16" height="16" /><polyline points="8,16 12,11 16,16" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">good</span></div>
+      <div class="key desc" data-handle="gud" data-flip="above"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="6" width="16" height="16" /><polyline points="8,14 12,9 16,14" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">good</span></div>
       <div class="key desc" data-handle="big" data-flip="above"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="6" width="16" height="16" /><polygon points="8,18 16,18 18,9 6,9" fill="#e2e8f0" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">big</span></div>
       <div class="key desc" data-handle="les" data-flip="left"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="15,5 9,12 15,19" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">less</span></div>
       <div class="key desc" data-handle="tru" data-flip="above"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="6" width="16" height="16" fill="#e2e8f0" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">true</span></div>
@@ -624,7 +624,7 @@ html_start = r"""<!DOCTYPE html>
     
     currentStep = 0;
     isFlipped = false;
-    document.querySelectorAll('.split-keyboard').forEach(el => el.classList.remove('flipped'));
+    document.querySelector('.split-keyboard').classList.remove('flipped');
     document.querySelectorAll('.key[data-action="FLIP"]').forEach(el => el.classList.remove('active'));
     
     successBanner.style.display = 'none';
@@ -1049,7 +1049,8 @@ html_start = r"""<!DOCTYPE html>
       if (svgTemplate) {
         const parser = new DOMParser();
         const doc = parser.parseFromString(svgTemplate, 'image/svg+xml');
-        const clone = doc.documentElement;
+        // VITAL FIX: Import parsed XML node into the main HTML document context to prevent context mismatch exceptions!
+        const clone = document.importNode(doc.documentElement, true);
         
         // Dynamically add the glowing diacritical star above, below, or to the left of the typed symbol when flipped!
         if (isFlipped && flipType) {
@@ -1103,7 +1104,12 @@ html_start = r"""<!DOCTYPE html>
 </html>
 """
 
+# Save as python wrapper to generate_practice.py
+with open('/Users/calexander/writing-system-for-ai/generate_practice.py', 'w') as f:
+    f.write(f'import os\n\nhtml_start = r"""{html_start}"""\n\nwith open(\'/Users/calexander/writing-system-for-ai/practice.html\', \'w\') as f:\n    f.write(html_start)\n\nprint("Practice sandbox compiled successfully!")\n')
+
+# Also write to practice.html directly
 with open('/Users/calexander/writing-system-for-ai/practice.html', 'w') as f:
     f.write(html_start)
 
-print("Practice sandbox compiled successfully!")
+print("Double-star keyboard and landing page written and compiled successfully!")
