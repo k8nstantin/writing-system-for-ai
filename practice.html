@@ -235,12 +235,12 @@
     font-weight: bold;
   }
 
-  /* Output Display SVG styles with glowing golden-yellow inherit color for stars */
+  /* Output Display SVG styles - clean monochome white, no colordependency! */
   .line svg {
     width: 28px;
     height: 28px;
     stroke: #e2e8f0;
-    color: #ffd166; /* Large, glowing amber-yellow fill for diacritical stars */
+    color: #e2e8f0; /* Perfect monochromatic standard base color for all star fills */
   }
 
   .cursor {
@@ -467,9 +467,8 @@
       <div class="key num" data-handle="add"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19" stroke-width="3" /><line x1="5" y1="12" x2="19" y2="12" stroke-width="3" /></svg><span class="handle">add</span></div>
       <div class="key num" data-handle="sub"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12" stroke-width="3" /></svg><span class="handle">sub</span></div>
     </div>
-    <!-- Row 1: Logic -->
+    <!-- Row 1: Logic (Negative NOT key removed to enforce positive-only ANTI negation notation!) -->
     <div class="row" style="padding-left: 0px;">
-      <div class="key logic" data-handle="not"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" /><line x1="4" y1="4" x2="20" y2="20" /></svg><span class="handle">not</span></div>
       <div class="key logic" data-handle="if"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 12 20 V 12 L 6 4 M 12 12 L 18 4" /></svg><span class="handle">if</span></div>
       <div class="key logic" data-handle="can"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 12 4 A 6 6 0 0 1 18 10 V 20 M 12 4 A 6 6 0 0 0 6 10 V 12 M 6 16 V 20" /></svg><span class="handle">can</span></div>
       <div class="key logic" data-handle="may"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 6 12 Q 9 6 12 12 T 18 12" /></svg><span class="handle">may</span></div>
@@ -743,7 +742,7 @@
     }
   }
 
-  // Universal Heuristic English NLP Parser
+  // Universal Heuristic English NLP Parser - Decoupled negative logic, noise-filtered, prefix-aware!
   function translateEnglishToAlan(sentence) {
     const raw = sentence.trim();
     const text = raw.toLowerCase().replace(/[.,\\/#!$%\\^&\\*;:{}=\\-_`~()?]/g,"");
@@ -789,10 +788,10 @@
         "think": "think", "know": "know", "want": "want", "feel": "feel",
         "see": "see", "hear": "hear", "do": "do", "move": "mov", "live": "liv",
         "die": "die", "say": "sai", "now": "now", "before": "before", "after": "after",
-        "because": "bik", "place": "place", "here": "place", "not": "not", "dont": "not",
-        "small": "small", "smaller": "small", "tiny": "small", "little": "small",
+        "because": "bik", "place": "place", "here": "place", "dont": "tru", "not": "is", "no": "is",
+        "incorrect": "tru", "small": "small", "smaller": "small", "tiny": "small", "little": "small",
         "less": "les", "fewer": "les", "greater": "greater", "larger": "greater",
-        "false": "tru", "no": "not", "incorrect": "not",
+        "false": "tru",
         "water": "water", "ocean": "water", "sea": "water",
         "spirit": "spirit", "soul": "spirit", "ghost": "spirit", "god": "spirit", "lord": "spirit", "creator": "spirit",
         "light": "light", "day": "light", "sun": "light", "bright": "light",
@@ -873,6 +872,10 @@
       } else if (wordToMap === "nothing") {
         currentLineKeys.push("FLIP");
         currentLineKeys.push("something");
+      } else if (wordToMap === "not" || wordToMap === "no" || wordToMap === "dont") {
+        // ENFORCE POSITIVE NOTATION: "not" -> ANTI + BE / IS
+        currentLineKeys.push("FLIP");
+        currentLineKeys.push("is");
       } else {
         if (currentLineKeys.length > 0 && !["FLIP", "INDENT", "OUTDENT", "DOWN"].includes(handle)) {
           currentLineKeys.push("SPACE");
@@ -1086,13 +1089,13 @@
 
       // Resolve the SVG template for our direction macros typed from the D-Pad Compass Key
       if (pressedId === 'above') {
-        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,12 12,8 16,12" stroke-width="2" /><line x1="12" y1="8" x2="12" y2="16" stroke-width="2" /><polygon points="7,0.5 12,2.2 17,0.5 15.5,3 19,4.5 14.5,5.5 12,8 9.5,5.5 5,4.5 8.5,3" fill="#ffd166" stroke="none" /></svg>`;
+        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,12 12,8 16,12" stroke-width="2" /><line x1="12" y1="8" x2="12" y2="16" stroke-width="2" /><polygon points="5,-1 12,1.5 19,-1 17,2.5 21,4 15.5,5 12,8 8.5,5 3,4 7,2.5" fill="#e2e8f0" stroke="none" /></svg>`;
         const parser = new DOMParser();
         const doc = parser.parseFromString(svgTemplate, 'image/svg+xml');
         clone = document.importNode(doc.documentElement, true);
         flipType = 'below';
       } else if (pressedId === 'below') {
-        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,12 12,8 16,12" stroke-width="2" /><line x1="12" y1="8" x2="12" y2="16" stroke-width="2" /><polygon points="7,0.5 12,2.2 17,0.5 15.5,3 19,4.5 14.5,5.5 12,8 9.5,5.5 5,4.5 8.5,3" fill="#ffd166" stroke="none" /></svg>`;
+        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><line x1="2" y1="18" x2="22" y2="18" /><polyline points="8,12 12,8 16,12" stroke-width="2" /><line x1="12" y1="8" x2="12" y2="16" stroke-width="2" /><polygon points="5,-1 12,1.5 19,-1 17,2.5 21,4 15.5,5 12,8 8.5,5 3,4 7,2.5" fill="#e2e8f0" stroke="none" /></svg>`;
         const parser = new DOMParser();
         const doc = parser.parseFromString(svgTemplate, 'image/svg+xml');
         clone = document.importNode(doc.documentElement, true);
@@ -1112,9 +1115,9 @@
         isFlipped = true; // For left, we force-flip it so the star sits to its left!
         flipType = 'left';
       } else if (pressedId === 'in') {
-        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><rect x="4" y="6" width="16" height="16" /><polygon points="7,0.5 12,2.2 17,0.5 15.5,3 19,4.5 14.5,5.5 12,8 9.5,5.5 5,4.5 8.5,3" fill="#ffd166" stroke="none" /></svg>`;
+        const svgTemplate = `<svg viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2"><rect x="4" y="6" width="16" height="16" /><polygon points="5,-1 12,1.5 19,-1 17,2.5 21,4 15.5,5 12,8 8.5,5 3,4 7,2.5" fill="#e2e8f0" stroke="none" /></svg>`;
         const parser = new DOMParser();
-        const doc = parser.parseFromString(svgTemplate, 'image/svg+xml');
+        const doc = parser.parseFromString(svgTemplate, 'image/xml');
         clone = document.importNode(doc.documentElement, true);
         flipType = 'above';
       } else {
@@ -1132,23 +1135,23 @@
           
           // Append the correct diacritical star vector based on layout direction!
           if (flipType === 'above') {
-            // Inverted 5-pointed Pentagram Star (Zone 2) - EXTREMELY VISIBLE & BOLD
+            // Inverted 5-pointed Pentagram Star (Zone 2) - MASSIVE, WHITE, GORGEOUS (y=-1 to y=8, x=3 to 21)
             const star = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-            star.setAttribute("fill", "currentColor");
+            star.setAttribute("fill", "#e2e8f0");
             star.setAttribute("stroke", "none");
-            star.setAttribute("points", "7,0.5 12,2.2 17,0.5 15.5,3 19,4.5 14.5,5.5 12,8 9.5,5.5 5,4.5 8.5,3");
+            star.setAttribute("points", "5,-1 12,1.5 19,-1 17,2.5 21,4 15.5,5 12,8 8.5,5 3,4 7,2.5");
             clone.appendChild(star);
           } else if (flipType === 'below') {
-            // Inverted 5-pointed Pentagram Star (Zone 1 Bottom) - EXTREMELY VISIBLE & BOLD
+            // Inverted 5-pointed Pentagram Star (Zone 1 Bottom) - MASSIVE, WHITE, GORGEOUS
             const star = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-            star.setAttribute("fill", "currentColor");
+            star.setAttribute("fill", "#e2e8f0");
             star.setAttribute("stroke", "none");
-            star.setAttribute("points", "7,16 12,17.7 17,16 15.5,18.5 19,20 14.5,21 12,23.5 9.5,21 5,20 8.5,18.5");
+            star.setAttribute("points", "5,15 12,17.5 19,15 17,18.5 21,20 15.5,21 12,24 8.5,21 3,20 7,18.5");
             clone.appendChild(star);
           } else if (flipType === 'left') {
             // Sharp 4-pointed Compass Star (Zone 1 Left) - ENHANCED VISIBILITY
             const star = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-            star.setAttribute("fill", "currentColor");
+            star.setAttribute("fill", "#e2e8f0");
             star.setAttribute("stroke", "none");
             star.setAttribute("points", "3,6 5,10 8,12 5,14 3,18 2,14 0,12 2,10");
             clone.appendChild(star);
