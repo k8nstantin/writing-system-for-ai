@@ -426,12 +426,17 @@
     </button>
   </div>
 
-  <!-- Row 2: Alan Output Display (Symmetrically aligned via blank spacer) -->
-  <div class="row-layout">
-    <div class="output-display" id="output">
-      <div class="line" data-indent="0">
-        <div class="cursor" id="cursor"></div>
+  <!-- Row 2: Alan Output Display -->
+  <div class="row-layout" style="align-items: stretch;">
+    <div style="display:flex; flex-direction:column; flex-grow:1;">
+      <div class="output-display" id="output">
+        <div class="line" data-indent="0">
+          <div class="cursor" id="cursor"></div>
+        </div>
       </div>
+      
+      <!-- REAL-TIME INTERACTIVE COMPOUND TRANSLATION DIAGNOSTICS PANEL -->
+      <div id="diagnosticsPanel" style="margin-top: 8px; font-size: 11px; color: #7fcf9f; background: rgba(127,207,159,0.06); border: 1px dashed rgba(127,207,159,0.2); border-radius: 8px; padding: 10px; line-height: 1.4; display: none;"></div>
     </div>
     
     <!-- Invisible spacer of identical size as Translate Button for perfect sub-pixel width symmetry -->
@@ -495,6 +500,10 @@
       <div class="key mental" data-handle="feel"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 22,12 12,22 2,12" /><path d="M 8 12 Q 10 8 12 12 T 16 12" /></svg><span class="handle">feel</span></div>
       <div class="key mental" data-handle="see"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 22,12 12,22 2,12" /><path d="M 7 12 Q 12 7 17 12 Q 12 17 7 12" /></svg><span class="handle">see</span></div>
       <div class="key mental" data-handle="hear"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 22,12 12,22 2,12" /><path d="M 12 8 A 4 4 0 0 1 12 16 M 9 10 A 2 2 0 0 1 9 14" /></svg><span class="handle">hear</span></div>
+      <!-- NEW LOVE KEY (Moved to Mental Row for supreme category alignment!) -->
+      <div class="key mental" data-handle="love"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 12,8 C 12,4 6,2 6,8 C 6,14 12,20 12,20 C 12,20 18,14 18,8 C 18,2 12,4 12,8 Z" fill="#e2e8f0" /></svg><span class="handle">love</span></div>
+      <!-- NEW FAMILY KEY: unified nesting circles -->
+      <div class="key mental" data-handle="family"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="8" r="4" /><circle cx="7" cy="18" r="3.5" /><circle cx="17" cy="18" r="3.5" /></svg><span class="handle">family</span></div>
     </div>
     <!-- Row 3: Entities -->
     <div class="row" style="padding-left: 10px;">
@@ -506,6 +515,10 @@
       <div class="key entity" data-handle="body"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" /><line x1="12" y1="2" x2="12" y2="22" /></svg><span class="handle">body</span></div>
       <!-- ADDED SPIRIT KEY: "spirit" (Metaphysical Life Circle with Compass Star inside) -->
       <div class="key entity" data-handle="spirit"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" /><polygon points="12,8 13.5,11 16,12 13.5,13 12,16 10.5,13 8,12 10.5,11" fill="#e2e8f0" stroke="none" /></svg><span class="handle">spirit</span></div>
+      <!-- NEW ANIMAL KEY: Horned Symmetrical Head (Moved to Entities!) -->
+      <div class="key entity" data-handle="animal"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 5,5 L 8,12 H 16 L 19,5 M 12,12 V 22" /></svg><span class="handle">animal</span></div>
+      <!-- NEW TREE KEY: Symmetrical Pine Frame -->
+      <div class="key entity" data-handle="tree"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 5,12 9,12 4,18 20,18 15,12 19,12" /><rect x="11" y="18" width="2" height="4" fill="#e2e8f0" /></svg><span class="handle">tree</span></div>
     </div>
     <!-- Row 4: Time & Nature -->
     <div class="row" style="padding-right: 20px;">
@@ -518,6 +531,10 @@
       <div class="key time" data-handle="light"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="4.5" fill="#e2e8f0" /><line x1="12" y1="2" x2="12" y2="5" /><line x1="12" y1="19" x2="12" y2="22" /><line x1="2" y1="12" x2="5" y2="12" /><line x1="19" y1="12" x2="22" y2="12" /><line x1="5" y1="5" x2="7" y2="7" /><line x1="17" y1="7" x2="19" y2="5" /><line x1="5" y1="19" x2="7" y2="17" /><line x1="17" y1="17" x2="19" y2="19" /></svg><span class="handle">light</span></div>
       <!-- ADDED GRAVITY KEY: "gravity" (Parabolic gravity well line dipping down around a core mass dot) -->
       <div class="key space" data-handle="gravity"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 3,8 Q 12,18 21,8" stroke-linecap="round" /><circle cx="12" cy="13" r="3" fill="#e2e8f0" /></svg><span class="handle">gravity</span></div>
+      <!-- NEW MOON KEY: Symmetrical Moon Crescent -->
+      <div class="key time" data-handle="moon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 12,3 A 9,9 0 0 0 21,12 A 7,7 0 1,1 12,3 Z" fill="#e2e8f0" /></svg><span class="handle">moon</span></div>
+      <!-- NEW SKY KEY: Symmetrical Clouds -->
+      <div class="key time" data-handle="sky"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 6,16 A 3.5,3.5 0 0,1 9.5,12.5 A 4,4 0 0,1 17,14 A 3,3 0 0,1 16.5,20 H 7 A 3,3 0 0,1 6,16 Z" /></svg><span class="handle">sky</span></div>
     </div>
     <!-- Left Thumb Cluster -->
     <div class="thumb-cluster left" style="align-items: center; gap: 15px;">
@@ -582,8 +599,10 @@
       <div class="key logic" data-handle="store"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,2 2,10 5,10 5,22 19,22 19,10 22,10" /></svg><span class="handle">store</span></div>
       <!-- NEW MACHINE KEY: Perfect mechanical gear -->
       <div class="key logic" data-handle="machine"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="5" /><line x1="12" y1="2" x2="12" y2="5" /><line x1="12" y1="19" x2="12" y2="22" /><line x1="2" y1="12" x2="5" y2="12" /><line x1="19" y1="12" x2="22" y2="12" /><line x1="5" y1="5" x2="7.5" y2="7.5" /><line x1="16.5" y1="16.5" x2="19" y2="19" /><line x1="5" y1="19" x2="7.5" y2="16.5" /><line x1="16.5" y1="7.5" x2="19" y2="5" /></svg><span class="handle">machine</span></div>
-      <!-- NEW LOVE KEY: Majestic symmetrical heart -->
-      <div class="key logic" data-handle="love"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 12,8 C 12,4 6,2 6,8 C 6,14 12,20 12,20 C 12,20 18,14 18,8 C 18,2 12,4 12,8 Z" fill="#e2e8f0" /></svg><span class="handle">love</span></div>
+      <!-- NEW ENERGY KEY: Lightning Bolt -->
+      <div class="key logic" data-handle="energy"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="13,2 5,12 11,12 11,22 19,12 13,12" fill="#e2e8f0" /></svg><span class="handle">energy</span></div>
+      <!-- NEW WATER DROPLET KEY: Droplet -->
+      <div class="key logic" data-handle="water-droplet"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 12,3 Q 6,12 6,16 A 6,6 0 0 0 18,16 Q 18,12 12,3 Z" fill="#e2e8f0" /></svg><span class="handle">liquid</span></div>
     </div>
     <!-- Row 2: Actions & Comm -->
     <div class="row" style="padding-right: 20px;">
@@ -599,8 +618,12 @@
       <div class="key action" data-handle="harvest"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 4,8 Q 12,4 20,8 V 16 Q 12,22 4,16 Z M 12,8 V 16" /></svg><span class="handle">harvest</span></div>
       <!-- NEW BUILD KEY: Brick blocks stack -->
       <div class="key action" data-handle="build"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="14" width="8" height="6" /><rect x="13" y="14" width="8" height="6" /><rect x="8" y="6" width="8" height="6" /></svg><span class="handle">build</span></div>
+      <!-- NEW FIRE KEY: Flame -->
+      <div class="key action" data-handle="fire"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 12,2 Q 17,9 12,14 T 12,22 Q 3,18 12,2 Z" fill="#e2e8f0" /></svg><span class="handle">fire</span></div>
+      <!-- NEW ATTACK KEY: Crossed Swords -->
+      <div class="key action" data-handle="attack"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="4" y1="20" x2="20" y2="4" stroke-width="2" /><line x1="20" y1="20" x2="4" y2="4" stroke-width="2" /><line x1="12" y1="12" x2="12" y2="20" stroke-width="3" /></svg><span class="handle">attack</span></div>
     </div>
-    <!-- Row 3: Descriptors -->
+    <!-- Row 3: Descriptors & Core Concepts -->
     <div class="row" style="padding-right: 10px;">
       <div class="key desc" data-handle="gud" data-flip="above"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="6" width="16" height="16" /><polyline points="8,14 12,9 16,14" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">good</span></div>
       <div class="key desc" data-handle="big" data-flip="above"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="6" width="16" height="16" /><polygon points="8,18 16,18 18,9 6,9" fill="#e2e8f0" /></svg><span class="anti-bar" x1="4" y1="2" x2="20" y2="2" stroke="#ff8a6b" stroke-width="3" stroke-linecap="round"></span><span class="handle">big</span></div>
@@ -617,8 +640,8 @@
       <div class="key space" data-handle="earth"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="7" y1="9" x2="17" y2="9" stroke-linecap="round" /><line x1="7" y1="12" x2="17" y2="12" stroke-linecap="round" /><line x1="7" y1="15" x2="17" y2="15" stroke-linecap="round" /></svg><span class="handle">element</span></div>
       <!-- ADDED ROAD KEY: Perspective lines converging to center -->
       <div class="key space" data-handle="road"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="5" y1="22" x2="10" y2="2" /><line x1="19" y1="22" x2="14" y2="2" /><line x1="8" y1="12" x2="16" y2="12" stroke-dasharray="2,2" /></svg><span class="handle">road</span></div>
-      <!-- ADDED ANIMAL KEY: Horned symmetrical head -->
-      <div class="key space" data-handle="animal"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M 5,5 L 8,12 H 16 L 19,5 M 12,12 V 22" /></svg><span class="handle">animal</span></div>
+      <!-- NEW CITY KEY: shelter structure with doorway -->
+      <div class="key space" data-handle="city"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12,3 2,12 4,12 4,21 20,21 20,12 22,12" /><rect x="10" y="14" width="4" height="7" /></svg><span class="handle">shelter</span></div>
     </div>
     <!-- Right Thumb Cluster -->
     <div class="thumb-cluster right" style="align-items: center; gap: 15px;">
@@ -681,6 +704,7 @@
   const successBanner = document.getElementById('successBanner');
   const btnReset = document.getElementById('btnReset');
   const guidancePanel = document.getElementById('guidancePanel');
+  const diagnosticsPanel = document.getElementById('diagnosticsPanel');
 
   const lessonInstructionsEl = document.getElementById('lessonInstructions');
   const lessonHintEl = document.getElementById('lessonHint');
@@ -689,6 +713,188 @@
 
   let currentStep = 0;
   let sandboxConfig = null;
+
+  // Comprehensive Interactive Modifiers Look-up Dictionary
+  const modifierLexicon = {
+    "love": {
+      base: "Love / Care / Affection / Devotion",
+      anti: "Hate / Dislike / Enmity (un-love)",
+      above: "Thermal Infatuation / Passionate / Hot Romantic Obsession",
+      below: "Deep Devotion / Empathy / Nurturing Parental Bond",
+      left: "Excitement / Fleet-footed Crush / Butterfly Fluttering",
+      right: "Eternal Loyalty / Solid Marriage Covenant"
+    },
+    "think": {
+      base: "Think / Logic / Reason / Mind",
+      anti: "Forget / Ignore / Disregard / Mindlessness (un-think)",
+      above: "Sudden Spark / Eureka Moment / Genius Innovation",
+      below: "Subconscious processing / Dreaming / Deep Meditative Sleep",
+      left: "Wandering thoughts / Daydreaming / Spontaneous association",
+      right: "Rigid dogma / Fixed mindset / Unyielding stubborn reasoning"
+    },
+    "feel": {
+      base: "Feel / Emotion / Heart / Sentiment",
+      anti: "Numbness / Apathy / Callousness (un-feel)",
+      above: "Cold anger / Burning rage / Intense emotional surge",
+      below: "Deep quiet empathy / Shared sorrow / Grief",
+      left: "Anxious fluttering / High sensitivity / Moody changes",
+      right: "Stoic stability / Resilient peace / Unshakable emotional strength"
+    },
+    "know": {
+      base: "Know / Fact / Memory / Certainty",
+      anti: "Doubt / Uncertainty / Unknown / Mystery (un-know)",
+      above: "Genius / Complete enlightenment / Absolute cosmic gnosis",
+      below: "Intuition / Gut feeling / Unconscious memory",
+      left: "Skepticism / Continuous questioning / Scientific inquiry",
+      right: "Indisputable dogma / Locked doctrine / Unyielding conviction"
+    },
+    "grow": {
+      base: "Grow / Crop / Sprout / Natural Life",
+      anti: "Rot / Decay / Wither / Atrophy (un-grow)",
+      above: "Summer rapid blooming / Burst of flora / Super-growth",
+      below: "Deep roots expansion / Germination under heavy soil",
+      left: "Spreading spores / Pollination floating on the breeze",
+      right: "Petrification / Solidification / Hardening wood / Bark"
+    },
+    "harvest": {
+      base: "Harvest / Gather / Collect / Reaping Crop",
+      anti: "Scatter / Squander / Lose / Disperse (un-harvest)",
+      above: "Frenetic community harvest festival / High seasonal bounty",
+      below: "Sifting grains / Selective extraction / Winnowing",
+      left: "Fast-skimming mechanical gathering / Windfall collections",
+      right: "Granary piling / Solid storing / Consolidation of winter reserves"
+    },
+    "build": {
+      "base": "build / construct / join",
+      "anti": "demolish / destroy / undo",
+      "above": "high rise / skyscraper / vertical escalation",
+      "below": "foundation / basement / deep architectural underpinning"
+    },
+    "money": {
+      "base": "value / cost / money / currency balance",
+      "anti": "worthless / debt / deficit / bankruptcy",
+      "above": "inflation / soaring pricing / speculative value",
+      "below": "stable deflation / reserve fund / deep collateral"
+    },
+    "store": {
+      "base": "store / barn / silo / warehouse",
+      "anti": "release / export / dump",
+      "above": "overflowing silo / maximum capacity storage",
+      "below": "underground bunker / hidden reserves / deep preservation"
+    },
+    "machine": {
+      "base": "machine / engine / tractor / tool",
+      "anti": "rust / manual labor / hand tools",
+      "above": "engine ignition / roaring horsepower / high efficiency",
+      "below": "automated processing / silent motor / hydraulic power"
+    },
+    "animal": {
+      "base": "animal / beast / livestock",
+      "ANTI": "extinction / artificial creation",
+      "above": "wild predator / fierce beast",
+      "below": "nurturing herd / grazing cattle",
+      "left": "fast-running pack / swarm",
+      "right": "beast of burden / draft animal / domesticated horse"
+    },
+    "earth": {
+      "base": "neutral chemical element / strata",
+      "above": "Fire (Active / High Thermal state)",
+      "below": "Water (Deep / Fluid / Passive state)",
+      "left": "Air / Wind (Kinetic / Dynamic state)",
+      "right": "Earth / Metal (Tectonic / Solid state)"
+    }
+  };
+
+  function updateDiagnosticsPanel(handle, flipped, arch) {
+    if (!handle) {
+      diagnosticsPanel.style.display = 'none';
+      return;
+    }
+    
+    // Check if we have specific descriptions for this handle
+    const defaultMeanings = {
+      "me": "Me / Myself / I (first-person singular subject)",
+      "you": "You (second-person singular subject)",
+      "someone": "Someone / Person / Human being",
+      "something": "Something / Object / Abstract entity",
+      "people": "People / Society / Human group",
+      "body": "Body / Material / Physical form",
+      "spirit": "Spirit / Metaphysical life / Soul / Divine source",
+      "time": "Time / Temporal dimension",
+      "now": "Now / Present moment",
+      "before": "Before / History / Past / Genesis",
+      "long": "Long duration / Far / Extent",
+      "moment": "Moment / Sudden event / Point in time",
+      "light": "Light / Sun / Day / Clarity",
+      "gravity": "Gravity / Mass pull / Heavy attractive well",
+      "moon": "Moon / Night / Periodical lunar cycle",
+      "sky": "Sky / Heaven / Cloud / Atmosphere",
+      "tree": "Tree / Forest / Timber / Natural flora",
+      "do": "Do / Act / Execute / Active event",
+      "mov": "Move / Shift / Displace",
+      "liv": "Live / Exist / Breath",
+      "sai": "Say / Communicate / Speech / Output",
+      "wrd": "Words / Language / Written record / Database",
+      "protect": "Protect / Shield / Shepherd / Save / Defend",
+      "fire": "Fire / Flame / Thermal energy / Combustion",
+      "attack": "Attack / Fight / War / Strike / Aggression",
+      "gud": "Good / Positive / Right / Desirable",
+      "big": "Big / Large / Heavy / Broad",
+      "les": "Less / Fewer / Minor scale",
+      "tru": "True / Correct / Veritable / Real",
+      "lik": "Like / Symmetrical resemblance / Similarity",
+      "part": "Part / Segment / Slice / Sub-component",
+      "stone": "Stone / Rock / Heavy stable platform / Inert solid",
+      "place": "Place / Ground coordinate / Location",
+      "road": "Road / Path / Method / Connection highway",
+      "city": "City / House / Human shelter / Address",
+      "family": "Family / Kin / Nest / Symmetrical core group",
+      "water-droplet": "Liquid / Water drop / Fluid resource",
+      "energy": "Energy / Force / Electricity / Lightning power"
+    };
+
+    let baseText = defaultMeanings[handle] || handle;
+    let antiText = "Negative/opposite state of " + handle;
+    let detail = modifierLexicon[handle];
+
+    if (detail) {
+      baseText = detail.base || baseText;
+      if (detail.anti) antiText = detail.anti;
+    }
+
+    let activeStateName = baseText;
+    let explanation = "Standard literal baseline concept.";
+
+    if (flipped) {
+      activeStateName = antiText;
+      explanation = "Formed by prefixing the base concept with the 5-pointed crown star (ANTI), enforcing positive-only keyboard notation.";
+    }
+
+    if (arch) {
+      let archExplanation = "";
+      if (detail) {
+        if (detail[arch]) {
+          archExplanation = detail[arch];
+        }
+      }
+      
+      if (!archExplanation) {
+        // Fallback generic descriptors
+        if (arch === 'above') archExplanation = "Modified to represent its Active, Thermal, or Highly Energized (Fire) aspect.";
+        if (arch === 'below') archExplanation = "Modified to represent its Passive, Deep, Fluid, or Subconscious (Water) aspect.";
+        if (arch === 'left') archExplanation = "Modified to represent its Kinetic, Fleet, or Air-like (Wind) aspect.";
+        if (arch === 'right') archExplanation = "Modified to represent its Static, Resilient, or Grounded (Earth) aspect.";
+      }
+      
+      explanation += " <br/>➔ <strong>Arch Rotation (" + arch.toUpperCase() + "):</strong> " + archExplanation;
+    }
+
+    diagnosticsPanel.innerHTML = `
+      <strong>Particle Semiotics:</strong> <span style="color: #fff; font-size:12px;">"${activeStateName.toUpperCase()}"</span><br/>
+      <span style="color: #a7ddec; font-size:10px;">${explanation}</span>
+    `;
+    diagnosticsPanel.style.display = 'block';
+  }
 
   function resetWorkspace() {
     output.innerHTML = '<div class="line" data-indent="0"><div class="cursor" id="cursor"></div></div>';
@@ -702,6 +908,7 @@
     document.querySelectorAll('.key[data-action="FLIP"]').forEach(el => el.classList.remove('active'));
     
     successBanner.style.display = 'none';
+    diagnosticsPanel.style.display = 'none';
     highlightNextKey();
     updateChecklist();
   }
@@ -1125,7 +1332,9 @@ Hierarchy Dependency Map:
         if (svgs.length > 0) {
           const lastSvg = svgs[svgs.length - 1];
           const isSymbolFlipped = lastSvg.getAttribute('data-flipped') === 'true';
+          const symbolHandle = lastSvg.getAttribute('data-handle');
           let existingArch = lastSvg.querySelector('path[data-role="arch"]');
+          let currentDir = "";
           
           if (!existingArch) {
             // Step 1: Append Top Arch (Fire - above)
@@ -1139,6 +1348,7 @@ Hierarchy Dependency Map:
             existingArch.setAttribute("data-dir", "above");
             lastSvg.appendChild(existingArch);
             lastSvg.setAttribute("data-arch", "above");
+            currentDir = "above";
             
             // Baseline shift down for Top Arch to prevent clipping & align beautifully!
             if (!isSymbolFlipped) {
@@ -1147,13 +1357,14 @@ Hierarchy Dependency Map:
               lastSvg.style.marginBottom = "-18px";
             }
           } else {
-            const currentDir = existingArch.getAttribute("data-dir");
-            if (currentDir === "above") {
+            const lastDir = existingArch.getAttribute("data-dir");
+            if (lastDir === "above") {
               // Step 2: Cycle to Right Arch (Earth - right)
               // OUTWARD FLARING DESIGN: Bulges left, ends flare RIGHTWARD/OUTWARD!
               existingArch.setAttribute("d", "M 22,5 Q 18,12 22,19");
               existingArch.setAttribute("data-dir", "right");
               lastSvg.setAttribute("data-arch", "right");
+              currentDir = "right";
               
               // Reset baseline shift since Right Arch fits perfectly on standard baseline!
               if (!isSymbolFlipped) {
@@ -1161,12 +1372,13 @@ Hierarchy Dependency Map:
                 lastSvg.style.marginTop = "";
                 lastSvg.style.marginBottom = "";
               }
-            } else if (currentDir === "right") {
+            } else if (lastDir === "right") {
               // Step 3: Cycle to Bottom Arch (Water - below)
               // OUTWARD FLARING DESIGN: Bulges up towards symbol, ends flare DOWNWARD/OUTWARD!
               existingArch.setAttribute("d", "M 5,22 Q 12,18 19,22");
               existingArch.setAttribute("data-dir", "below");
               lastSvg.setAttribute("data-arch", "below");
+              currentDir = "below";
               
               // Baseline shift UP for Bottom Arch to maintain balance!
               if (!isSymbolFlipped) {
@@ -1174,23 +1386,27 @@ Hierarchy Dependency Map:
                 lastSvg.style.marginTop = "-18px";
                 lastSvg.style.marginBottom = "6px";
               }
-            } else if (currentDir === "below") {
+            } else if (lastDir === "below") {
               // Step 4: Cycle to Left Arch (Wind/Air - left)
               // OUTWARD FLARING DESIGN: Bulges right, ends flare LEFTWARD/OUTWARD!
               existingArch.setAttribute("d", "M 2,5 Q 6,12 2,19");
               existingArch.setAttribute("data-dir", "left");
               lastSvg.setAttribute("data-arch", "left");
+              currentDir = "left";
               
+              // Reset baseline shift
               if (!isSymbolFlipped) {
                 lastSvg.style.transform = "";
                 lastSvg.style.marginTop = "";
                 lastSvg.style.marginBottom = "";
               }
-            } else if (currentDir === "left") {
+            } else if (lastDir === "left") {
               // Step 5: Cycle back to Plain Base (No Arch)
               existingArch.remove();
               lastSvg.removeAttribute("data-arch");
+              currentDir = "";
               
+              // Reset baseline shift
               if (!isSymbolFlipped) {
                 lastSvg.style.transform = "";
                 lastSvg.style.marginTop = "";
@@ -1199,6 +1415,9 @@ Hierarchy Dependency Map:
             }
           }
           
+          // Trigger Real-Time Modifiers Diagnostics Update on Rotation!
+          updateDiagnosticsPanel(symbolHandle, isSymbolFlipped, currentDir);
+
           // Auto reset flip after rotation
           isFlipped = false;
           document.querySelectorAll('.split-keyboard').forEach(el => el.classList.remove('flipped'));
@@ -1515,6 +1734,9 @@ Hierarchy Dependency Map:
         
         activeLine.insertBefore(clone, cursor);
         
+        // Trigger Real-Time Modifiers Diagnostics Update on Type!
+        updateDiagnosticsPanel(handle, isFlipped, "");
+
         // Auto reset flip after typing
         isFlipped = false;
         document.querySelectorAll('.split-keyboard').forEach(el => el.classList.remove('flipped'));
