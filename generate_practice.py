@@ -1103,12 +1103,7 @@ html_start = r"""<!DOCTYPE html>
 </html>
 """
 
-# Save as python wrapper to generate_practice.py
-with open('/Users/calexander/writing-system-for-ai/generate_practice.py', 'w') as f:
-    f.write(f'import os\n\nhtml_start = r"""{html_start}"""\n\nwith open(\'/Users/calexander/writing-system-for-ai/practice.html\', \'w\') as f:\n    f.write(html_start)\n\nprint("Practice sandbox compiled successfully!")\n')
-
-# Also write to practice.html directly
 with open('/Users/calexander/writing-system-for-ai/practice.html', 'w') as f:
     f.write(html_start)
 
-print("Double-star keyboard and landing page written and compiled successfully!")
+print("Practice sandbox compiled successfully!")
