@@ -20,6 +20,20 @@ def prune_and_map_nouns():
         
         # Clean any extra characters
         word = ''.join(c for c in word if c.isalnum() or c in " -_")
+        
+        # GRAMMATICAL PLURAL-TO-SINGULAR LEMMATIZATION ENGINE
+        # Safeguard native singular terms that end with s
+        safeguards = {"species", "series", "business", "address", "process", "congress", "class", "basis", "crisis", "analysis", "mass", "pass", "glass", "press", "dismiss", "loss", "compass"}
+        if word not in safeguards:
+            if word.endswith('ies'):
+                word = word[:-3] + 'y'
+            elif word.endswith('ves'):
+                word = word[:-3] + 'f'
+            elif word.endswith('es') and not word.endswith('ces') and not word.endswith('ses') and not word.endswith('tes') and not word.endswith('nes') and not word.endswith('kes') and not word.endswith('ges') and not word.endswith('des') and not word.endswith('les'):
+                word = word[:-2]
+            elif word.endswith('s') and not word.endswith('ss') and not word.endswith('us') and word != 'is' and word != 'us':
+                word = word[:-1]
+
         if word:
             raw_words.append(word)
 

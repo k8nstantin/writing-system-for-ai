@@ -2,7 +2,7 @@ import json
 import os
 
 def generate_interactive_taxonomy():
-    # 1. Load the pruned core nouns
+    # 1. Load the pruned core nouns (1,550 core positive nouns)
     with open('top_2000_nouns_pruned.txt', 'r') as f:
         pruned_lines = f.readlines()
         
@@ -41,97 +41,124 @@ def generate_interactive_taxonomy():
         "ellipse": '<ellipse cx="12" cy="12" rx="10" ry="6" />'
     }
 
-    # 3. Categorizer Rules (Shorthand Keywords mapping)
-    time_keywords = {"time", "year", "years", "day", "week", "month", "night", "morning", "afternoon", "evening", "hour", "minute", "second", "century", "decade", "autumn", "summer", "winter", "spring", "moment", "schedule", "period", "calendar", "date", "age", "now", "tomorrow", "yesterday"}
+    # 3. Categorizer Rules (Granular taxonomic groupings)
+    geopolitical_keywords = {"canada", "mexico", "london", "paris", "france", "japan", "china", "country", "city", "continent", "region", "border", "state", "states", "nation", "county", "district", "territory", "land", "republic", "kingdom"}
     
-    quantity_keywords = {"number", "level", "range", "unit", "rate", "scale", "degree", "measure", "proportion", "total", "sum", "average", "amount", "lot", "majority", "minority", "percentage", "half", "quarter", "billion", "million", "thousand", "hundred", "size", "limit", "count", "metric", "budget"}
+    mammal_keywords = {"tiger", "sheep", "cow", "horse", "mammal", "human", "dog", "cat", "lion", "bear", "deer", "pig", "monkey", "ape", "wolf", "elephant", "mouse", "rat", "rabbit", "beast", "animal", "person", "man", "woman", "child", "boy", "girl", "guy", "kid", "parent", "mother", "father", "friend", "baby", "infant", "director", "manager", "president", "minister", "leader", "colleague", "teacher", "doctor", "patient", "police", "staff", "crew", "audience", "player", "candidate", "executive", "aide"}
     
-    finance_keywords = {"money", "cost", "price", "tax", "value", "revenue", "income", "debt", "payment", "profit", "stock", "share", "cash", "budget", "investment", "credit", "bill", "charge", "fee", "wage", "salary", "gold", "silver", "diamond", "trade", "transaction", "buy", "sell", "sale"}
+    plant_keywords = {"plant", "tree", "crop", "grain", "wheat", "oak", "pine", "grass", "leaf", "flower", "fruit", "seed", "forest", "wood", "garden", "apple", "corn", "agriculture", "vegetable", "timber", "soil", "sprout", "bloom"}
     
-    ecosystem_keywords = {"people", "group", "team", "member", "class", "staff", "party", "crowd", "audience", "society", "community", "public", "nation", "republic", "kingdom", "business", "company", "industry", "bank", "shop", "hotel", "hospital", "school", "university", "theatre", "family", "parent", "mother", "father", "child", "friend", "kid", "girl", "boy", "guy", "sister", "brother", "husband", "wife", "partner", "colleague", "committee", "director", "manager", "president", "minister", "leader", "client", "customer"}
+    fungi_keywords = {"mushroom", "mold", "yeast", "spore", "mycelium", "fungus", "fungi", "truffle", "lichen"}
     
-    structure_keywords = {"system", "program", "programme", "software", "computer", "data", "information", "book", "word", "letter", "document", "file", "registry", "database", "logic", "true", "false", "rule", "law", "policy", "principle", "standard", "code", "contract", "agreement", "paper", "theory", "science", "research", "lesson", "study", "fact", "truth", "reason", "idea", "question", "problem", "concept", "analysis", "evidence", "plan", "management", "decision", "technique", "method", "procedure", "test"}
+    insect_keywords = {"bee", "ant", "fly", "insect", "bug", "butterfly", "beetle", "spider", "worm", "mosquito", "parasite", "pest"}
     
-    organism_keywords = {"plant", "animal", "beast", "cow", "sheep", "dog", "cat", "bird", "fish", "horse", "tree", "forest", "wood", "crop", "food", "milk", "fruit", "meat", "bread", "biological", "body", "head", "hand", "eye", "face", "arm", "foot", "leg", "neck", "blood", "brain", "hair", "skin", "feel", "perception", "sense", "mind", "heart", "love", "hope", "fear", "pain", "dream", "touch", "breath", "flesh"}
+    digital_keywords = {"server", "network", "database", "internet", "software", "code", "computer", "email", "chat", "site", "website", "ip", "address", "online", "signal", "screen", "data", "file", "program", "programme", "tech", "technology", "interface", "link", "matrix", "grid", "spreadsheet"}
     
-    cosmic_keywords = {"world", "nature", "country", "land", "ground", "air", "water", "sea", "ocean", "river", "lake", "mountain", "hill", "valley", "soil", "earth", "space", "sky", "atmosphere", "cloud", "wind", "rain", "snow", "ice", "weather", "god", "spirit", "soul", "church", "faith", "religion", "death", "war", "peace", "universe", "fire", "heat", "coal", "gas", "sun", "moon", "star", "climate", "dust", "smoke"}
+    finance_keywords = {"money", "cost", "price", "tax", "value", "revenue", "income", "debt", "payment", "profit", "stock", "share", "cash", "budget", "investment", "credit", "bill", "charge", "fee", "wage", "salary", "gold", "silver", "dollar", "transaction", "buy", "sell", "sale", "bank", "finance", "expense", "fund"}
     
-    container_keywords = {"room", "bed", "box", "container", "store", "silo", "warehouse", "building", "office", "house", "home", "door", "window", "wall", "station", "shop", "library", "museum", "prison", "castle", "palace", "bag", "pocket", "sleeve", "cabinet", "apartment", "hotel"}
+    anatomy_keywords = {"hand", "eye", "face", "arm", "leg", "heart", "brain", "feel", "breath", "flesh", "bone", "blood", "skin", "neck", "shoulder", "chest", "foot", "finger", "ear", "nose", "throat", "tooth", "muscle", "body", "liver", "lung", "skeleton", "spine", "joint"}
     
-    intersection_keywords = {"union", "partnership", "meeting", "junction", "bridge", "road", "path", "street", "highway", "route", "branch", "cross", "connection", "link", "association", "network"}
+    family_keywords = {"father", "mother", "child", "friend", "sister", "brother", "daughter", "son", "husband", "wife", "partner", "parent", "baby", "uncle", "aunt", "relative", "family", "nephew", "niece", "cousin", "grandfather", "grandmother"}
     
-    aesthetic_keywords = {"art", "music", "literature", "beauty", "philosophy", "poetry", "culture", "style", "fashion", "design", "scene", "image", "view", "picture", "pattern", "display", "theater", "show", "exhibition"}
+    logic_keywords = {"truth", "law", "definition", "logic", "fact", "thought", "think", "know", "reason", "question", "idea", "concept", "standard", "code", "contract", "agreement", "paper", "theory", "science", "research", "lesson", "study", "decision", "technique", "method", "procedure", "test", "evidence", "proof", "logic", "philosophy", "analysis", "system", "category", "axiom"}
     
-    process_keywords = {"action", "work", "job", "service", "practice", "task", "career", "movement", "progress", "process", "flow", "run", "drive", "flight", "trip", "journey", "operation", "performance", "exhibition", "attempt", "move", "transition", "shift", "step"}
+    time_keywords = {"time", "year", "years", "day", "week", "month", "night", "morning", "afternoon", "evening", "hour", "minute", "second", "century", "decade", "autumn", "summer", "winter", "spring", "moment", "schedule", "period", "calendar", "date", "age", "now", "tomorrow", "yesterday", "timeline", "duration"}
+    
+    ecosystem_keywords = {"people", "group", "team", "member", "class", "staff", "party", "crowd", "audience", "society", "community", "public", "business", "company", "industry", "bank", "shop", "hotel", "hospital", "school", "university", "theatre", "government", "parliament", "council", "office", "department", "institution", "association", "club"}
+    
+    container_keywords = {"room", "bed", "box", "container", "store", "silo", "warehouse", "building", "office", "house", "home", "door", "window", "wall", "station", "shop", "library", "museum", "prison", "castle", "palace", "bag", "pocket", "sleeve", "cabinet", "apartment"}
+    
+    process_keywords = {"action", "work", "job", "service", "practice", "task", "career", "movement", "progress", "process", "flow", "run", "drive", "flight", "trip", "journey", "operation", "performance", "exhibition", "attempt", "move", "transition", "shift", "step", "event", "happening", "activity"}
+    
+    quantity_keywords = {"number", "level", "range", "unit", "rate", "scale", "degree", "measure", "proportion", "total", "sum", "average", "amount", "lot", "majority", "minority", "percentage", "half", "quarter", "billion", "million", "thousand", "hundred", "size", "limit", "count", "metric", "quantity", "ratio"}
+    
+    aesthetic_keywords = {"art", "music", "literature", "beauty", "philosophy", "poetry", "culture", "style", "fashion", "design", "scene", "image", "view", "picture", "pattern", "display", "theater", "show", "exhibition", "song", "painting", "sculpture", "novel", "drama"}
 
-    # 4. Categorize all 1,975 nouns (core pruned + derivations)
-    all_nouns_to_categorize = pruned_nouns + list(derivations.keys())
-    # Sort alphabetically to keep it incredibly neat
-    all_nouns_to_categorize = sorted(list(set(all_nouns_to_categorize)))
-
+    # 4. Process all nouns alphabetically
+    all_nouns_to_categorize = sorted(list(set(pruned_nouns + list(derivations.keys()))))
     categorized_data = []
 
     for idx, noun in enumerate(all_nouns_to_categorize, 1):
-        # Default Base and category
-        shape = "square"
-        domain = "Structure & Logic"
-        sub_desc = "Standard structural logic node"
+        # Default Base
+        shape = "circle"
+        domain = "Singularities & Agents"
+        sub_desc = "Individual abstract point"
         inner_lines_svg = ""
 
-        # Determine category based on semantic keywords
-        if any(kw in noun for kw in time_keywords):
-            shape = "heptagon"
-            domain = "Time & Cycles"
-            sub_desc = "Temporal cycle coordinate"
-        elif any(kw in noun for kw in quantity_keywords):
-            shape = "octagon"
-            domain = "Quantity & Measurement"
-            sub_desc = "Proportion / Metric boundary"
+        # Map to our highly refined granular taxonomic kingdoms
+        if any(kw in noun for kw in fungi_keywords):
+            shape = "pentagon"
+            domain = "Fungi Mycology"
+            sub_desc = "Fungi / Spore / Mycelium"
+        elif any(kw in noun for kw in insect_keywords):
+            shape = "pentagon"
+            domain = "Insects & Bugs"
+            sub_desc = "Invertebrate / Hexapod / Bug"
+        elif any(kw in noun for kw in plant_keywords):
+            shape = "pentagon"
+            domain = "Plants & Agriculture"
+            sub_desc = "Flora / Crop / Plant Life"
+        elif any(kw in noun for kw in mammal_keywords):
+            shape = "pentagon"
+            domain = "Mammals & Humans"
+            sub_desc = "Mammalian sentient life"
+        elif any(kw in noun for kw in geopolitical_keywords):
+            shape = "circle"
+            domain = "Geopolitics & Places"
+            sub_desc = "Geopolitical territory coordinate"
+        elif any(kw in noun for kw in digital_keywords):
+            shape = "hexagon"
+            domain = "Digital & Networks"
+            sub_desc = "Systemic node / Data network"
         elif any(kw in noun for kw in finance_keywords):
             shape = "diamond"
             domain = "Finance & Value"
             sub_desc = "Currency and value exchange"
+        elif any(kw in noun for kw in anatomy_keywords):
+            shape = "pentagon"
+            domain = "Anatomy & Senses"
+            sub_desc = "Physical organic body state"
+        elif any(kw in noun for kw in family_keywords):
+            shape = "hexagon"
+            domain = "Family & Relations"
+            sub_desc = "Symmetrical kinship node"
+        elif any(kw in noun for kw in logic_keywords):
+            shape = "square"
+            domain = "Logic & Philosophy"
+            sub_desc = "Rational logical parameters"
+        elif any(kw in noun for kw in time_keywords):
+            shape = "heptagon"
+            domain = "Time & Cycles"
+            sub_desc = "Temporal cycle coordinate"
         elif any(kw in noun for kw in ecosystem_keywords):
             shape = "hexagon"
-            domain = "Ecosystem & Community"
-            sub_desc = "Social network node"
-        elif any(kw in noun for kw in structure_keywords):
-            shape = "square"
-            domain = "Structure & Logic"
-            sub_desc = "Artificial logical parameters"
-        elif any(kw in noun for kw in organism_keywords):
-            shape = "pentagon"
-            domain = "Organism & Life"
-            sub_desc = "Biological entity state"
-        elif any(kw in noun for kw in cosmic_keywords):
-            shape = "hexagram" if "god" in noun or "spirit" in noun or "soul" in noun or "universe" in noun else "circle"
-            domain = "Cosmic & Elements"
-            sub_desc = "Absolute environmental vector"
+            domain = "Ecosystem & Society"
+            sub_desc = "Complex social community network"
         elif any(kw in noun for kw in container_keywords):
             shape = "ellipse"
             domain = "Containment & Storage"
             sub_desc = "Material physical compartment"
-        elif any(kw in noun for kw in intersection_keywords):
-            shape = "block_cross"
-            domain = "Intersections & Connections"
-            sub_desc = "Intertwined logical paths"
-        elif any(kw in noun for kw in aesthetic_keywords):
-            shape = "nonagon"
-            domain = "Value & Aesthetics"
-            sub_desc = "Subjective cultural perception"
         elif any(kw in noun for kw in process_keywords):
             shape = "triangle"
             domain = "Processes & Actions"
             sub_desc = "Kinetic change / Delta transition"
+        elif any(kw in noun for kw in quantity_keywords):
+            shape = "octagon"
+            domain = "Quantity & Measurement"
+            sub_desc = "Proportion / Metric boundary"
+        elif any(kw in noun for kw in aesthetic_keywords):
+            shape = "nonagon"
+            domain = "Value & Aesthetics"
+            sub_desc = "Subjective cultural perception"
         else:
-            # Fallback based on abstract vs concrete noun hints
+            # Fallback
             if len(noun) % 2 == 0:
                 shape = "circle"
                 domain = "Singularities & Agents"
                 sub_desc = "Individual abstract point"
             else:
                 shape = "square"
-                domain = "Structure & Logic"
+                domain = "Logic & Philosophy"
                 sub_desc = "Logical base"
 
         # Apply specific internal wiring SVG lines for recognized core nouns to look super high-tech!
@@ -220,7 +247,7 @@ def generate_interactive_taxonomy():
   /* Advanced Search & Filtering Controls */
   .controls {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 15px;
     margin-bottom: 30px;
     background: #090c11;
@@ -229,8 +256,8 @@ def generate_interactive_taxonomy():
     border: 1px solid #2b3340;
   }
   .search-input {
-    flex-grow: 1;
-    min-width: 250px;
+    width: 100%;
+    box-sizing: border-box;
     background: #161b24;
     border: 1px solid #3d4757;
     border-radius: 8px;
@@ -252,15 +279,14 @@ def generate_interactive_taxonomy():
     flex-wrap: wrap;
     gap: 8px;
     width: 100%;
-    margin-top: 10px;
   }
   .tab {
     background: #1e2430;
     border: 1px solid #2b3340;
     color: #8aa6d4;
     border-radius: 6px;
-    padding: 8px 14px;
-    font-size: 12px;
+    padding: 8px 12px;
+    font-size: 11px;
     cursor: pointer;
     font-family: 'JetBrains Mono', monospace;
     transition: all 0.2s ease;
@@ -311,7 +337,7 @@ def generate_interactive_taxonomy():
     text-align: center;
   }
   .domain-tag {
-    font-size: 9px;
+    font-size: 8px;
     text-transform: uppercase;
     color: #48b5c4;
     background: rgba(72,181,196,0.1);
@@ -319,6 +345,10 @@ def generate_interactive_taxonomy():
     border-radius: 4px;
     margin-top: 6px;
     font-family: 'JetBrains Mono', monospace;
+    text-align: center;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .meaning {
     font-size: 10px;
@@ -355,22 +385,26 @@ def generate_interactive_taxonomy():
 
   <!-- Search & Tab Filters -->
   <div class="controls">
-    <input type="text" id="searchInput" class="search-input" placeholder="Type to search any of the 1,975 nouns (e.g. 'tiger', 'database', 'money')...">
+    <input type="text" id="searchInput" class="search-input" placeholder="Type to search any of the 1,975 nouns (e.g. 'tiger', 'database', 'canada', 'mushroom')...">
     
     <div class="tabs">
       <div class="tab active" onclick="filterCategory('All')">ALL (1975)</div>
-      <div class="tab" onclick="filterCategory('Singularities & Agents')">SINGULARITY (•)</div>
-      <div class="tab" onclick="filterCategory('Time & Cycles')">TIME (Heptagon)</div>
-      <div class="tab" onclick="filterCategory('Processes & Actions')">PROCESS (△)</div>
-      <div class="tab" onclick="filterCategory('Structure & Logic')">STRUCTURE (□)</div>
-      <div class="tab" onclick="filterCategory('Organism & Life')">ORGANISM (⬠)</div>
-      <div class="tab" onclick="filterCategory('Ecosystem & Community')">ECOSYSTEM (⬡)</div>
-      <div class="tab" onclick="filterCategory('Cosmic & Elements')">COSMIC (Hexagram/○)</div>
-      <div class="tab" onclick="filterCategory('Containment & Storage')">CONTAINMENT (⬭)</div>
-      <div class="tab" onclick="filterCategory('Intersections & Connections')">CONNECTIONS (✙)</div>
-      <div class="tab" onclick="filterCategory('Quantity & Measurement')">QUANTITY (Octagon)</div>
-      <div class="tab" onclick="filterCategory('Finance & Value')">FINANCE (◇)</div>
-      <div class="tab" onclick="filterCategory('Value & Aesthetics')">AESTHETICS (Nonagon)</div>
+      <div class="tab" onclick="filterCategory('Geopolitics & Places')">GEOPOLITICS</div>
+      <div class="tab" onclick="filterCategory('Mammals & Humans')">MAMMALS</div>
+      <div class="tab" onclick="filterCategory('Plants & Agriculture')">PLANTS</div>
+      <div class="tab" onclick="filterCategory('Fungi Mycology')">FUNGI</div>
+      <div class="tab" onclick="filterCategory('Insects & Bugs')">INSECTS</div>
+      <div class="tab" onclick="filterCategory('Digital & Networks')">DIGITAL</div>
+      <div class="tab" onclick="filterCategory('Finance & Value')">FINANCE</div>
+      <div class="tab" onclick="filterCategory('Anatomy & Senses')">ANATOMY</div>
+      <div class="tab" onclick="filterCategory('Family & Relations')">FAMILY</div>
+      <div class="tab" onclick="filterCategory('Logic & Philosophy')">LOGIC</div>
+      <div class="tab" onclick="filterCategory('Time & Cycles')">TIME</div>
+      <div class="tab" onclick="filterCategory('Ecosystem & Society')">SOCIETY</div>
+      <div class="tab" onclick="filterCategory('Containment & Storage')">CONTAINMENT</div>
+      <div class="tab" onclick="filterCategory('Processes & Actions')">PROCESS</div>
+      <div class="tab" onclick="filterCategory('Quantity & Measurement')">QUANTITY</div>
+      <div class="tab" onclick="filterCategory('Value & Aesthetics')">AESTHETICS</div>
     </div>
   </div>
 
@@ -410,7 +444,7 @@ def generate_interactive_taxonomy():
         card.innerHTML = `
           ${r.svg}
           <div class="label">${r.noun}</div>
-          <div class="domain-tag">${r.domain.split(' & ')[0]}</div>
+          <div class="domain-tag">${r.domain}</div>
           <div class="meaning">${r.desc}</div>
           ${derivedBadge}
         `;
@@ -425,14 +459,15 @@ def generate_interactive_taxonomy():
   function filterCategory(cat) {
     activeCategory = cat;
     document.querySelectorAll('.tab').forEach(tab => {
-      tab.classList.toggle('active', tab.textContent.includes(cat.split(' & ')[0].toUpperCase()));
+      tab.classList.toggle('active', tab.textContent.includes(cat.split(' & ')[0].split(' ')[0].toUpperCase()));
     });
     // Double safeguard active class toggle
     const tabs = Array.from(document.querySelectorAll('.tab'));
     tabs.forEach(t => {
-      if (cat === 'All' && t.textContent.includes('ALL')) t.classList.add('active');
-      else if (t.textContent.includes(cat.split(' ')[0].toUpperCase())) t.classList.add('active');
-      else t.classList.remove('active');
+      const label = t.textContent.toUpperCase();
+      const matchLabel = cat === 'All' && label.includes('ALL') || 
+                         label.includes(cat.split(' ')[0].toUpperCase());
+      t.classList.toggle('active', matchLabel);
     });
     renderGrid();
   }
