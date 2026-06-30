@@ -2,7 +2,7 @@ import json
 import os
 
 def generate_interactive_taxonomy():
-    # 1. Load the pruned core nouns
+    # 1. Load the pruned core nouns (1,550 core positive nouns)
     with open('top_2000_nouns_pruned.txt', 'r') as f:
         pruned_lines = f.readlines()
         
@@ -23,11 +23,158 @@ def generate_interactive_taxonomy():
     with open('noun_derivations.json', 'r') as f:
         derivations = json.load(f)
 
-    # 2. Define the procedural taxonomic SVG generator
-    # This generates fully distinct, category-consistent hollow, filled, nested, or partitioned polygons!
-    def get_procedural_svg(noun, shape, domain):
+    # 2. Define our 14 Core Hollow Geometries and their SVG definitions
+    shapes_svg = {
+        "circle": '<circle cx="12" cy="12" r="10" />',
+        "line": '<line x1="2" y1="12" x2="22" y2="12" />',
+        "triangle": '<polygon points="12,2 2,22 22,22" />',
+        "square": '<rect x="3" y="3" width="18" height="18" />',
+        "pentagon": '<polygon points="12,2 22,9 18,21 6,21 2,9" />',
+        "hexagon": '<polygon points="12,2 21,7 21,17 12,22 3,17 3,7" />',
+        "heptagon": '<polygon points="12,2 20.1,5.6 22,14.2 16.5,21.1 7.5,21.1 2,14.2 3.9,5.6" />',
+        "octagon": '<polygon points="8.5,2 15.5,2 22,9 22,15 15.5,22 8.5,22 2,15 2,9" />',
+        "nonagon": '<polygon points="12,2 18.5,4.3 22,10.2 20.3,17 15.1,21.5 8.9,21.5 3.7,17 2,10.2 5.5,4.3" />',
+        "decagon": '<polygon points="12,2 17.9,3.9 21.6,8.9 21.6,15.1 17.9,20.1 12,22 6.1,20.1 2.4,15.1 2.4,8.9 6.1,3.9" />',
+        "diamond": '<polygon points="12,2 22,12 12,22 2,12" />',
+        "block_cross": '<path d="M 9,3 H 15 V 9 H 21 V 15 H 15 V 21 H 9 V 15 H 3 V 9 H 9 Z" />',
+        "crescent": '<path d="M 12,3 A 9,9 0 0 0 21,12 A 7,7 0 1,1 12,3 Z" />',
+        "ellipse": '<ellipse cx="12" cy="12" rx="10" ry="6" />'
+    }
+
+    # 3. EXPLICIT TAXONOMIC NOUNS SETS (Strict, exact word matches ONLY!)
+    geopolitical_set = {
+        "canada", "mexico", "london", "paris", "france", "japan", "china", "country", "city", 
+        "continent", "region", "border", "state", "states", "nation", "county", "district", 
+        "territory", "land", "republic", "kingdom", "england", "germany", "ireland", "island", 
+        "place", "site", "spot", "location", "ground", "earth", "world", "universe", "zone", 
+        "address", "area", "scene", "lake", "river", "mountain", "sea", "ocean", "valley", 
+        "coast", "beach", "field", "hill", "forest"
+    }
+
+    mammal_set = {
+        "tiger", "sheep", "cow", "horse", "mammal", "human", "dog", "cat", "lion", "bear", 
+        "deer", "pig", "monkey", "ape", "wolf", "elephant", "mouse", "rat", "rabbit", 
+        "beast", "animal", "cattle"
+    }
+
+    family_set = {
+        "father", "mother", "child", "children", "friend", "sister", "brother", "daughter", 
+        "son", "husband", "wife", "partner", "parent", "baby", "infant", "relative", 
+        "family", "nephew", "niece", "cousin", "grandfather", "grandmother", "kid", 
+        "girl", "boy", "guy", "youth", "generation", "parents"
+    }
+
+    profession_set = {
+        "director", "manager", "president", "minister", "leader", "teacher", "doctor", 
+        "patient", "police", "staff", "crew", "audience", "player", "candidate", "executive", 
+        "aide", "spokesman", "officer", "secretary", "artist", "writer", "professor", "judge", 
+        "captain", "driver", "editor", "worker", "specialist", "chancellor", "chairman", 
+        "pope", "bishop", "lord", "king", "queen", "prince", "gentleman", "student"
+    }
+
+    plant_set = {
+        "plant", "tree", "crop", "grain", "wheat", "oak", "pine", "grass", "leaf", "flower", 
+        "fruit", "seed", "wood", "garden", "apple", "corn", "agriculture", "vegetable", 
+        "timber", "soil", "sprout", "bloom", "bush", "root", "branch", "stem", "hay"
+    }
+
+    fungi_set = {
+        "mushroom", "mold", "yeast", "spore", "mycelium", "fungus", "fungi", "truffle", "lichen"
+    }
+
+    insect_set = {
+        "bee", "ant", "fly", "insect", "bug", "butterfly", "beetle", "spider", "worm", 
+        "mosquito", "parasite", "pest"
+    }
+
+    digital_set = {
+        "server", "network", "database", "internet", "software", "code", "computer", "email", 
+        "chat", "website", "ip", "online", "signal", "screen", "data", "file", "program", 
+        "programme", "tech", "technology", "interface", "link", "matrix", "grid", "spreadsheet"
+    }
+
+    business_set = {
+        "company", "corporation", "firm", "business", "industry", "bank", "shop", "hotel", 
+        "hospital", "school", "university", "theatre", "government", "parliament", "council", 
+        "office", "department", "institution", "association", "club", "organization", 
+        "organisation", "estate", "agency", "enterprise", "pub", "restaurant", "committee", 
+        "administration", "assembly", "ministry"
+    }
+
+    structure_set = {
+        "house", "building", "room", "wall", "door", "window", "cabinet", "apartment", 
+        "castle", "palace", "station", "museum", "prison", "library", "home", "household", 
+        "frame", "plate", "board", "chair", "table", "desk", "floor", "roof", "gate"
+    }
+
+    container_set = {
+        "box", "container", "store", "silo", "warehouse", "bag", "pocket", "sleeve", 
+        "package", "bottle", "cup", "basket"
+    }
+
+    finance_set = {
+        "money", "cost", "price", "tax", "value", "revenue", "income", "debt", "payment", 
+        "profit", "stock", "share", "cash", "budget", "investment", "credit", "bill", 
+        "charge", "fee", "wage", "salary", "gold", "silver", "dollar", "transaction", 
+        "expense", "fund", "equity", "wealth"
+    }
+
+    time_set = {
+        "time", "year", "years", "day", "week", "month", "night", "morning", "afternoon", 
+        "evening", "hour", "minute", "second", "century", "decade", "autumn", "summer", 
+        "winter", "spring", "moment", "schedule", "period", "calendar", "date", "age", 
+        "now", "tomorrow", "yesterday", "timeline", "duration", "weekend", "session", "delay"
+    }
+
+    quantity_set = {
+        "number", "level", "range", "unit", "rate", "scale", "degree", "measure", "proportion", 
+        "total", "sum", "average", "amount", "lot", "majority", "minority", "percentage", 
+        "half", "quarter", "billion", "million", "thousand", "hundred", "size", "limit", 
+        "count", "metric", "quantity", "ratio", "volume", "index", "stats"
+    }
+
+    process_set = {
+        "action", "work", "job", "service", "practice", "task", "career", "movement", 
+        "progress", "process", "flow", "run", "drive", "flight", "trip", "journey", 
+        "operation", "performance", "exhibition", "attempt", "move", "transition", "shift", 
+        "step", "event", "happening", "activity", "do", "act"
+    }
+
+    aesthetic_set = {
+        "art", "music", "literature", "beauty", "philosophy", "poetry", "culture", "style", 
+        "fashion", "design", "scene", "image", "view", "picture", "pattern", "display", 
+        "theater", "show", "exhibition", "song", "painting", "sculpture", "novel", "drama"
+    }
+
+    anatomy_set = {
+        "hand", "eye", "face", "arm", "leg", "heart", "brain", "feel", "breath", "flesh", 
+        "bone", "blood", "skin", "neck", "shoulder", "chest", "foot", "finger", "ear", 
+        "nose", "throat", "tooth", "muscle", "body", "liver", "lung", "skeleton", "spine", "joint"
+    }
+
+    ecosystem_set = {
+        "people", "group", "team", "member", "class", "staff", "party", "crowd", "audience", 
+        "society", "community", "public", "business", "company", "industry", "bank", "shop", 
+        "hotel", "hospital", "school", "university", "theatre", "government", "parliament", 
+        "council", "office", "department", "institution", "association", "club"
+    }
+
+    logic_set = {
+        "truth", "law", "definition", "logic", "fact", "thought", "think", "know", "reason", 
+        "question", "idea", "concept", "standard", "code", "contract", "agreement", "paper", 
+        "theory", "science", "research", "lesson", "study", "decision", "technique", "method", 
+        "procedure", "test", "evidence", "proof", "category", "axiom", "argument", "disagreement", 
+        "dispute", "division", "separation", "chaos", "disorder", "confusion", "lie", "falsehood", 
+        "incorrect", "danger", "risk", "threat", "failure", "defeat", "absence", "lack", 
+        "unemployment", "difficulty", "weakness", "bad", "evil", "wrong", "decay", "rot", 
+        "destruction", "demolition", "silence", "error", "mistake", "noise", "recession", 
+        "attention", "success", "performance", "cooperation", "co-operation", "consideration", 
+        "declaration", "explanation", "claim", "reputation", "initiative", "option"
+    }
+
+    # 4. Define the procedural taxonomic SVG generator
+    def get_procedural_svg(noun, shape):
         stroke_color = "currentColor"
-        fill_color = "none"
         
         # Symmetrical variations based on noun characteristics
         is_nested = False
@@ -37,16 +184,16 @@ def generate_interactive_taxonomy():
         is_dotted = False
         enclosed_shape = "none"
 
-        # A. SPECIFIC INTUITIVE GEOMETRIES (Our Aligned Masterpieces)
+        # Specific intuitive geometries for our masterpieces
         if noun == "canada":
             enclosed_shape = "triangle_up"
         elif noun == "mexico":
             enclosed_shape = "triangle_down"
-        elif noun in ["city", "center", "centre", "bank", "human", "intellect", "secure", "fortress", "vault"]:
+        elif noun in ["city", "center", "centre", "bank", "human", "intellect", "secure", "fortress", "vault", "castle"]:
             is_nested = True
         elif noun in ["man", "male", "price", "cost", "state", "life", "sun", "fire"]:
             is_filled = True
-        elif noun in ["woman", "female", "border", "server", "line", "half", "part"]:
+        elif noun in ["woman", "female", "border", "server", "line", "half", "part", "division"]:
             is_split_v = True
         elif noun in ["child", "baby", "kid", "seed"]:
             enclosed_shape = "circle"
@@ -55,7 +202,7 @@ def generate_interactive_taxonomy():
         elif noun in ["website", "address", "ip", "url", "point"]:
             is_dotted = True
         else:
-            # Procedural hashing based on word length to guarantee unique, distinct distributions within the same category!
+            # Symmetrical procedural mapping
             val = len(noun) % 6
             if val == 1:
                 is_nested = True
@@ -68,7 +215,6 @@ def generate_interactive_taxonomy():
             elif val == 5:
                 is_dotted = True
 
-        # Render the custom SVG based on the computed variant
         svg_body = ""
         
         if shape == "circle":
@@ -104,9 +250,6 @@ def generate_interactive_taxonomy():
                     svg_body += '<circle cx="12" cy="12" r="2.5" fill="currentColor" />'
                 if enclosed_shape == "grid":
                     svg_body += '<line x1="12" y1="3" x2="12" y2="21" /><line x1="3" y1="12" x2="21" y2="12" />'
-                elif noun == "vault" or noun == "fortress":
-                    svg_svg = '<line x1="3" y1="3" x2="21" y2="21" /><line x1="21" y1="3" x2="3" y2="21" />'
-            svg_body += svg_body if 'svg_body' in locals() else ""
 
         elif shape == "triangle":
             if is_filled:
@@ -224,40 +367,7 @@ def generate_interactive_taxonomy():
 
         return f'<svg viewBox="0 0 24 24" fill="none" stroke="{stroke_color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{svg_body}</svg>'
 
-    # 3. Categorizer Rules (Granular taxonomic groupings)
-    geopolitical_keywords = {"canada", "mexico", "london", "paris", "france", "japan", "china", "country", "city", "continent", "region", "border", "state", "states", "nation", "county", "district", "territory", "land", "republic", "kingdom"}
-    
-    mammal_keywords = {"tiger", "sheep", "cow", "horse", "mammal", "human", "dog", "cat", "lion", "bear", "deer", "pig", "monkey", "ape", "wolf", "elephant", "mouse", "rat", "rabbit", "beast", "animal", "person", "man", "woman", "child", "boy", "girl", "guy", "kid", "parent", "mother", "father", "friend", "baby", "infant", "director", "manager", "president", "minister", "leader", "colleague", "teacher", "doctor", "patient", "police", "staff", "crew", "audience", "player", "candidate", "executive", "aide"}
-    
-    plant_keywords = {"plant", "tree", "crop", "grain", "wheat", "oak", "pine", "grass", "leaf", "flower", "fruit", "seed", "forest", "wood", "garden", "apple", "corn", "agriculture", "vegetable", "timber", "soil", "sprout", "bloom"}
-    
-    fungi_keywords = {"mushroom", "mold", "yeast", "spore", "mycelium", "fungus", "fungi", "truffle", "lichen"}
-    
-    insect_keywords = {"bee", "ant", "fly", "insect", "bug", "butterfly", "beetle", "spider", "worm", "mosquito", "parasite", "pest"}
-    
-    digital_keywords = {"server", "network", "database", "internet", "software", "code", "computer", "email", "chat", "site", "website", "ip", "address", "online", "signal", "screen", "data", "file", "program", "programme", "tech", "technology", "interface", "link", "matrix", "grid", "spreadsheet"}
-    
-    finance_keywords = {"money", "cost", "price", "tax", "value", "revenue", "income", "debt", "payment", "profit", "stock", "share", "cash", "budget", "investment", "credit", "bill", "charge", "fee", "wage", "salary", "gold", "silver", "dollar", "transaction", "buy", "sell", "sale", "bank", "finance", "expense", "fund"}
-    
-    anatomy_keywords = {"hand", "eye", "face", "arm", "leg", "heart", "brain", "feel", "breath", "flesh", "bone", "blood", "skin", "neck", "shoulder", "chest", "foot", "finger", "ear", "nose", "throat", "tooth", "muscle", "body", "liver", "lung", "skeleton", "spine", "joint"}
-    
-    family_keywords = {"father", "mother", "child", "friend", "sister", "brother", "daughter", "son", "husband", "wife", "partner", "parent", "baby", "uncle", "aunt", "relative", "family", "nephew", "niece", "cousin", "grandfather", "grandmother"}
-    
-    logic_keywords = {"truth", "law", "definition", "logic", "fact", "thought", "think", "know", "reason", "question", "idea", "concept", "standard", "code", "contract", "agreement", "paper", "theory", "science", "research", "lesson", "study", "decision", "technique", "method", "procedure", "test", "evidence", "proof", "logic", "philosophy", "analysis", "system", "category", "axiom"}
-    
-    time_keywords = {"time", "year", "years", "day", "week", "month", "night", "morning", "afternoon", "evening", "hour", "minute", "second", "century", "decade", "autumn", "summer", "winter", "spring", "moment", "schedule", "period", "calendar", "date", "age", "now", "tomorrow", "yesterday", "timeline", "duration"}
-    
-    ecosystem_keywords = {"people", "group", "team", "member", "class", "staff", "party", "crowd", "audience", "society", "community", "public", "business", "company", "industry", "bank", "shop", "hotel", "hospital", "school", "university", "theatre", "government", "parliament", "council", "office", "department", "institution", "association", "club"}
-    
-    container_keywords = {"room", "bed", "box", "container", "store", "silo", "warehouse", "building", "office", "house", "home", "door", "window", "wall", "station", "shop", "library", "museum", "prison", "castle", "palace", "bag", "pocket", "sleeve", "cabinet", "apartment"}
-    
-    process_keywords = {"action", "work", "job", "service", "practice", "task", "career", "movement", "progress", "process", "flow", "run", "drive", "flight", "trip", "journey", "operation", "performance", "exhibition", "attempt", "move", "transition", "shift", "step", "event", "happening", "activity"}
-    
-    quantity_keywords = {"number", "level", "range", "unit", "rate", "scale", "degree", "measure", "proportion", "total", "sum", "average", "amount", "lot", "majority", "minority", "percentage", "half", "quarter", "billion", "million", "thousand", "hundred", "size", "limit", "count", "metric", "quantity", "ratio"}
-    
-    aesthetic_keywords = {"art", "music", "literature", "beauty", "philosophy", "poetry", "culture", "style", "fashion", "design", "scene", "image", "view", "picture", "pattern", "display", "theater", "show", "exhibition", "song", "painting", "sculpture", "novel", "drama"}
-
-    # 4. Process all nouns alphabetically
+    # 4. Process all nouns alphabetically into their strict categories
     all_nouns_to_categorize = sorted(list(set(pruned_nouns + list(derivations.keys()))))
     categorized_data = []
 
@@ -267,71 +377,83 @@ def generate_interactive_taxonomy():
         domain = "Singularities & Agents"
         sub_desc = "Individual abstract point"
 
-        # Map to our highly refined granular taxonomic kingdoms
-        if any(kw in noun for kw in fungi_keywords):
+        # STRICT ONTO-TAXONOMIC CLASSIFICATION (100% Consistent & Explicit)
+        if noun in fungi_set:
             shape = "pentagon"
             domain = "Fungi Mycology"
             sub_desc = "Fungi / Spore / Mycelium"
-        elif any(kw in noun for kw in insect_keywords):
+        elif noun in insect_set:
             shape = "pentagon"
             domain = "Insects & Bugs"
             sub_desc = "Invertebrate / Hexapod / Bug"
-        elif any(kw in noun for kw in plant_keywords):
+        elif noun in plant_set:
             shape = "pentagon"
             domain = "Plants & Agriculture"
             sub_desc = "Flora / Crop / Plant Life"
-        elif any(kw in noun for kw in mammal_keywords):
+        elif noun in mammal_set:
             shape = "pentagon"
             domain = "Mammals & Humans"
             sub_desc = "Mammalian sentient life"
-        elif any(kw in noun for kw in geopolitical_keywords):
-            shape = "circle"
-            domain = "Geopolitics & Places"
-            sub_desc = "Geopolitical territory coordinate"
-        elif any(kw in noun for kw in digital_keywords):
-            shape = "hexagon"
-            domain = "Digital & Networks"
-            sub_desc = "Systemic node / Data network"
-        elif any(kw in noun for kw in finance_keywords):
-            shape = "diamond"
-            domain = "Finance & Value"
-            sub_desc = "Currency and value exchange"
-        elif any(kw in noun for kw in anatomy_keywords):
-            shape = "pentagon"
-            domain = "Anatomy & Senses"
-            sub_desc = "Physical organic body state"
-        elif any(kw in noun for kw in family_keywords):
+        elif noun in family_set:
             shape = "hexagon"
             domain = "Family & Relations"
             sub_desc = "Symmetrical kinship node"
-        elif any(kw in noun for kw in logic_keywords):
-            shape = "square"
-            domain = "Logic & Philosophy"
-            sub_desc = "Rational logical parameters"
-        elif any(kw in noun for kw in time_keywords):
+        elif noun in profession_set:
+            shape = "circle"
+            domain = "Professions & Occupations"
+            sub_desc = "Professional active role"
+        elif noun in geopolitical_set:
+            shape = "circle"
+            domain = "Geopolitics & Places"
+            sub_desc = "Geopolitical territory coordinate"
+        elif noun in digital_set:
+            shape = "hexagon"
+            domain = "Digital & Networks"
+            sub_desc = "Systemic node / Data network"
+        elif noun in business_set:
+            shape = "hexagon"
+            domain = "Business & Organizations"
+            sub_desc = "Corporate system infrastructure"
+        elif noun in finance_set:
+            shape = "diamond"
+            domain = "Finance & Value"
+            sub_desc = "Currency and value exchange"
+        elif noun in anatomy_set:
+            shape = "pentagon"
+            domain = "Anatomy & Senses"
+            sub_desc = "Physical organic body state"
+        elif noun in time_set:
             shape = "heptagon"
             domain = "Time & Cycles"
             sub_desc = "Temporal cycle coordinate"
-        elif any(kw in noun for kw in ecosystem_keywords):
+        elif noun in ecosystem_set:
             shape = "hexagon"
             domain = "Ecosystem & Society"
             sub_desc = "Complex social community network"
-        elif any(kw in noun for kw in container_keywords):
+        elif noun in container_set:
             shape = "ellipse"
             domain = "Containment & Storage"
             sub_desc = "Material physical compartment"
-        elif any(kw in noun for kw in process_keywords):
+        elif noun in structure_set:
+            shape = "square"
+            domain = "Structures & Hardware"
+            sub_desc = "Architectural square construct"
+        elif noun in process_set:
             shape = "triangle"
             domain = "Processes & Actions"
             sub_desc = "Kinetic change / Delta transition"
-        elif any(kw in noun for kw in quantity_keywords):
+        elif noun in quantity_set:
             shape = "octagon"
             domain = "Quantity & Measurement"
             sub_desc = "Proportion / Metric boundary"
-        elif any(kw in noun for kw in aesthetic_keywords):
+        elif noun in aesthetic_set:
             shape = "nonagon"
             domain = "Value & Aesthetics"
             sub_desc = "Subjective cultural perception"
+        elif noun in logic_set:
+            shape = "square"
+            domain = "Logic & Philosophy"
+            sub_desc = "Rational logical parameters"
         else:
             # Fallback
             if len(noun) % 2 == 0:
@@ -343,7 +465,7 @@ def generate_interactive_taxonomy():
                 domain = "Logic & Philosophy"
                 sub_desc = "Logical base"
 
-        full_svg = get_procedural_svg(noun, shape, domain)
+        full_svg = get_procedural_svg(noun, shape)
 
         # Mark if derived via ANTI or Compass
         derivation_notes = ""
@@ -561,10 +683,13 @@ def generate_interactive_taxonomy():
       <div class="tab" onclick="filterCategory('Finance & Value')">FINANCE</div>
       <div class="tab" onclick="filterCategory('Anatomy & Senses')">ANATOMY</div>
       <div class="tab" onclick="filterCategory('Family & Relations')">FAMILY</div>
+      <div class="tab" onclick="filterCategory('Professions & Occupations')">PROFESSIONS</div>
+      <div class="tab" onclick="filterCategory('Business & Organizations')">BUSINESS</div>
+      <div class="tab" onclick="filterCategory('Structures & Hardware')">STRUCTURES</div>
+      <div class="tab" onclick="filterCategory('Containment & Storage')">CONTAINMENT</div>
       <div class="tab" onclick="filterCategory('Logic & Philosophy')">LOGIC</div>
       <div class="tab" onclick="filterCategory('Time & Cycles')">TIME</div>
       <div class="tab" onclick="filterCategory('Ecosystem & Society')">SOCIETY</div>
-      <div class="tab" onclick="filterCategory('Containment & Storage')">CONTAINMENT</div>
       <div class="tab" onclick="filterCategory('Processes & Actions')">PROCESS</div>
       <div class="tab" onclick="filterCategory('Quantity & Measurement')">QUANTITY</div>
       <div class="tab" onclick="filterCategory('Value & Aesthetics')">AESTHETICS</div>

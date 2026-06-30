@@ -132,7 +132,8 @@ def prune_and_map_nouns():
         "recession": "ANTI + production",
         "error": "ANTI + truth",
         "mistake": "ANTI + truth",
-        "noise": "ANTI + music"
+        "noise": "ANTI + music",
+        "female": "ANTI + male"  # Formally added female as the exact opposite of male!
     }
 
     # Combine all derivations
@@ -168,4 +169,5 @@ def prune_and_map_nouns():
     print(f"Compression ratio: {len(removed_nouns) / len(nouns_list) * 100:.1f}%")
 
 if __name__ == "__main__":
+    print("Re-evaluating antonym engine on active branch...")
     prune_and_map_nouns()
